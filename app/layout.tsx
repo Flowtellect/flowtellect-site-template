@@ -82,9 +82,28 @@ const fontVars = [
   dmSans, notoSerifDisplay,
 ].map((f) => f.variable).join(" ");
 
+// Dynamiczny tytul z flowtellect.config.json lub homepage meta
+function getSiteTitle(): string {
+  try {
+    const fs = require("fs");
+    const path = require("path");
+    const configPath = path.join(process.cwd(), "flowtellect.config.json");
+    if (fs.existsSync(configPath)) {
+      const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+      if (config.siteName) return config.siteName;
+    }
+    const homePath = path.join(process.cwd(), "content", "homepage.json");
+    if (fs.existsSync(homePath)) {
+      const home = JSON.parse(fs.readFileSync(homePath, "utf-8"));
+      if (home.meta?.title && home.meta.title !== "Strona główna") return home.meta.title;
+    }
+  } catch { /* fallback */ }
+  return "Strona";
+}
+
 export const metadata: Metadata = {
-  title: "Flowtellect Site",
-  description: "Strona wygenerowana przez Flowtellect CMS",
+  title: getSiteTitle(),
+  description: "",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
