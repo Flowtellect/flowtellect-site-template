@@ -22,7 +22,14 @@ interface NavbarProps {
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
 function getLinks(content: Record<string, unknown>) {
-  return arr(content.links).map((l) => ({
+  // Support links, links_left + links_right, and quick_links
+  const all = [
+    ...arr(content.links),
+    ...arr(content.links_left),
+    ...arr(content.links_right),
+    ...arr(content.quick_links),
+  ];
+  return all.map((l) => ({
     label: str(l.label),
     href: str(l.href) || "#",
   }));
