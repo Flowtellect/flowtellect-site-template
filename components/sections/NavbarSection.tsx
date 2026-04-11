@@ -287,27 +287,25 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
   // ── vn 5: Transparent ─────────────────────────────────────────────────
 
   if (vn === 5) {
+    // Transparent navbar - uses theme colors with subtle backdrop blur.
+    // Previous version used white text which was invisible on light themes.
     return (
       <>
         <header
           className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
             scrolled
               ? "bg-bg/95 backdrop-blur-xl shadow-lg"
-              : "bg-transparent"
+              : "bg-bg/30 backdrop-blur-sm"
           }`}
         >
           <div className="px-6 md:px-12 lg:px-24 max-w-7xl mx-auto flex items-center justify-between h-18 md:h-20">
-            <Logo content={content} className={scrolled ? "" : "brightness-0 invert"} />
+            <Logo content={content} />
             <nav className="hidden md:flex items-center gap-8">
               {links.map((link, i) => (
                 <a
                   key={i}
                   href={link.href}
-                  className={`text-sm font-body transition-colors duration-300 ${
-                    scrolled
-                      ? "text-muted hover:text-primary"
-                      : "text-white/80 hover:text-white"
-                  }`}
+                  className="text-sm font-body text-primary/80 hover:text-primary transition-colors duration-300"
                 >
                   {link.label}
                 </a>
@@ -316,25 +314,13 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
             <div className="flex items-center gap-4">
               {cta && (
                 <div className="hidden md:block">
-                  {scrolled ? (
-                    <CtaButton cta={cta} />
-                  ) : (
-                    <a
-                      href={str(cta.href) || "#"}
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-white/40 text-white font-body font-semibold text-sm hover:bg-white hover:text-black transition-all duration-300"
-                    >
-                      {str(cta.label)}
-                    </a>
-                  )}
+                  <CtaButton cta={cta} />
                 </div>
               )}
-              <div className={scrolled ? "" : "text-white"}>
-                <HamburgerButton onClick={() => setMenuOpen(true)} />
-              </div>
+              <HamburgerButton onClick={() => setMenuOpen(true)} />
             </div>
           </div>
         </header>
-        {/* Spacer not needed - transparent nav is position: fixed/absolute */}
         <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} links={links} cta={cta} />
       </>
     );
