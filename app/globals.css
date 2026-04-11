@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+/* Prose for richtext content */
+.prose { max-width: none; }
+.prose p { margin-bottom: 0.75em; }
+.prose strong { color: inherit; font-weight: 600; }
+.prose a { color: rgb(var(--color-accent)); text-decoration: underline; }

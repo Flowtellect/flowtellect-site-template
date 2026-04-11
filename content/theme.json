@@ -1,0 +1,27 @@
+{
+  "id": "nordic_minimal",
+  "name": "Nordic Minimal",
+  "tokens": {
+    "color-bg": "250 251 252",
+    "color-bg-alt": "243 244 246",
+    "color-surface": "255 255 255",
+    "color-surface-deep": "229 231 235",
+    "color-text-primary": "17 24 39",
+    "color-text-muted": "107 114 128",
+    "color-text-dim": "156 163 175",
+    "color-accent": "79 70 229",
+    "color-accent-light": "129 140 248",
+    "color-accent-dark": "67 56 202",
+    "color-on-accent": "255 255 255",
+    "color-border": "229 231 235",
+    "color-border-soft": "243 244 246"
+  },
+  "fonts": {
+    "display": { "family": "Inter", "googleId": "Inter" },
+    "body": { "family": "Inter", "googleId": "Inter" },
+    "accent": { "family": "Inter", "googleId": "Inter" }
+  },
+  "geometry": {
+    "radius-base": "12px"
+  }
+}
