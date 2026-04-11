@@ -10,6 +10,7 @@ import {
   arr,
   resolveImage,
   Section,
+  BrandLogo,
 } from "./shared";
 
 interface FooterProps {
@@ -119,9 +120,9 @@ export default function FooterSection({ content, vn }: FooterProps) {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-16">
               {/* Logo + tagline */}
               <div className="md:col-span-4">
-                {logo && (
-                  <img src={logo} alt="" className="h-9 w-auto mb-4" loading="lazy" />
-                )}
+                <div className="mb-4">
+                  <BrandLogo content={content} size="sm" />
+                </div>
                 {tagline && (
                   <p className="font-body text-sm text-muted leading-relaxed max-w-xs">
                     {tagline}
@@ -183,9 +184,9 @@ export default function FooterSection({ content, vn }: FooterProps) {
         <div className="px-6 md:px-12 lg:px-24 max-w-7xl mx-auto py-16 md:py-20">
           <ScrollReveal>
             <div className="text-center">
-              {logo && (
-                <img src={logo} alt="" className="h-9 w-auto mx-auto mb-4" loading="lazy" />
-              )}
+              <div className="flex justify-center mb-4">
+                <BrandLogo content={content} size="sm" />
+              </div>
               {tagline && (
                 <p className="font-body text-sm text-muted leading-relaxed max-w-md mx-auto mb-8">
                   {tagline}
@@ -250,9 +251,9 @@ export default function FooterSection({ content, vn }: FooterProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
             {/* Left - logo, tagline, social, contact */}
             <div className="lg:col-span-5">
-              {logo && (
-                <img src={logo} alt="" className="h-9 w-auto mb-4" loading="lazy" />
-              )}
+              <div className="mb-4">
+                <BrandLogo content={content} size="sm" />
+              </div>
               {tagline && (
                 <p className="font-body text-sm text-muted leading-relaxed max-w-sm mb-6">
                   {tagline}

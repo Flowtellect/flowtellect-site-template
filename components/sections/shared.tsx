@@ -202,6 +202,75 @@ export function ImageBlock({ src, alt, className, gradient }: { src: string | nu
   );
 }
 
+// ── Brand Logo (SVG fallback when no logo image provided) ────────────────────
+
+export function BrandLogo({
+  content,
+  className = "",
+  size = "md",
+}: {
+  content: Record<string, unknown>;
+  className?: string;
+  size?: "sm" | "md" | "lg";
+}) {
+  const logo = resolveImage(content.logo);
+  const brandName = str(content.brand_name) || str(content.company_name) || str(content.name) || "Brand";
+
+  // If real logo image exists, use it
+  if (logo && !logo.includes("unsplash.com")) {
+    const heights = { sm: "h-7", md: "h-9", lg: "h-12" };
+    return <img src={logo} alt={brandName} className={`${heights[size]} w-auto ${className}`} />;
+  }
+
+  // Generate SVG logo from brand name
+  const initials = brandName
+    .split(/[\s-]+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase() || "")
+    .join("");
+
+  const sizes = {
+    sm: { icon: 28, text: "text-sm", gap: "gap-2" },
+    md: { icon: 36, text: "text-lg", gap: "gap-2.5" },
+    lg: { icon: 44, text: "text-xl", gap: "gap-3" },
+  };
+  const s = sizes[size];
+
+  return (
+    <div className={`flex items-center ${s.gap} ${className}`}>
+      <svg
+        width={s.icon}
+        height={s.icon}
+        viewBox="0 0 44 44"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="flex-shrink-0"
+      >
+        <rect width="44" height="44" rx="12" className="fill-accent" />
+        <text
+          x="22"
+          y="23"
+          textAnchor="middle"
+          dominantBaseline="central"
+          className="fill-on-accent"
+          style={{
+            fontSize: initials.length > 1 ? "16px" : "20px",
+            fontWeight: 700,
+            fontFamily: "var(--font-display), sans-serif",
+            letterSpacing: "0.02em",
+          }}
+        >
+          {initials}
+        </text>
+      </svg>
+      <span className={`font-display ${s.text} font-semibold text-primary tracking-tight`}>
+        {brandName}
+      </span>
+    </div>
+  );
+}
+
 // ── Section wrapper with scroll reveal ───────────────────────────────────────
 
 export function Section({

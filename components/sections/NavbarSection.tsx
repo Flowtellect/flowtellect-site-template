@@ -12,7 +12,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useState, useEffect, useCallback } from "react";
-import { str, arr, resolveImage, CtaButton } from "./shared";
+import { str, arr, resolveImage, CtaButton, BrandLogo } from "./shared";
 
 interface NavbarProps {
   content: Record<string, unknown>;
@@ -42,16 +42,7 @@ function getCta(content: Record<string, unknown>): Record<string, unknown> | nul
 }
 
 function Logo({ content, className = "" }: { content: Record<string, unknown>; className?: string }) {
-  const logo = resolveImage(content.logo);
-  const brandName = str(content.brand_name);
-
-  if (logo) {
-    return <img src={logo} alt={brandName || "Logo"} className={`h-9 w-auto ${className}`} />;
-  }
-  if (brandName) {
-    return <span className={`font-display text-xl text-primary ${className}`}>{brandName}</span>;
-  }
-  return null;
+  return <BrandLogo content={content} className={className} size="md" />;
 }
 
 function NavLinks({
