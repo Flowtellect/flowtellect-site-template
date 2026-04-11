@@ -1,0 +1,321 @@
+"use client";
+
+// ─── Shared section utilities ────────────────────────────────────────────────
+// ScrollReveal, icon map, image handling, common UI pieces
+
+import { useEffect, useRef, useState } from "react";
+
+// ── ScrollReveal ─────────────────────────────────────────────────────────────
+// Wraps children in a fade-in-up animation triggered by IntersectionObserver.
+// This single component makes the biggest visual difference.
+
+export function ScrollReveal({
+  children,
+  className = "",
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(24px)",
+        transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+// ── CountUp ──────────────────────────────────────────────────────────────────
+// Animated number counter triggered on scroll
+
+export function CountUp({
+  value,
+  suffix = "",
+  duration = 2000,
+  className = "",
+}: {
+  value: number;
+  suffix?: string;
+  duration?: number;
+  className?: string;
+}) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [display, setDisplay] = useState("0");
+  const started = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started.current) {
+          started.current = true;
+          const start = Date.now();
+          const tick = () => {
+            const elapsed = Date.now() - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(eased * value);
+            setDisplay(current.toLocaleString("pl-PL"));
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [value, duration]);
+
+  return (
+    <span ref={ref} className={className}>
+      {display}{suffix}
+    </span>
+  );
+}
+
+// ── Icon mapping ─────────────────────────────────────────────────────────────
+
+const ICON_MAP: Record<string, string> = {
+  leaf: '🍃', tree: '🌳', flower: '🌸', sun: '☀️', moon: '🌙', star: '⭐',
+  sparkles: '✨', sparkle: '✨', fire: '🔥', flame: '🔥', water: '💧',
+  droplets: '💧', droplet: '💧', drop: '💧',
+  palette: '🎨', pencil: '✏️', brush: '🖌️', scissors: '✂️', pen: '🖊️',
+  heart: '❤️', hearts: '💕', diamond: '💎', gem: '💎', crown: '👑',
+  trophy: '🏆', medal: '🥇', award: '🏅', ribbon: '🎀',
+  clock: '🕐', time: '⏰', calendar: '📅', hourglass: '⏳',
+  mail: '✉️', email: '📧', envelope: '✉️',
+  phone: '📱', call: '📞', mobile: '📱',
+  camera: '📷', photo: '📸', film: '🎬', video: '🎥',
+  music: '🎵', headphones: '🎧',
+  book: '📖', books: '📚', library: '📚',
+  check: '✅', checkmark: '✅', verified: '✓', tick: '✓',
+  shield: '🛡️', security: '🔒', lock: '🔒', key: '🔑',
+  rocket: '🚀', launch: '🚀', speed: '⚡',
+  target: '🎯', bullseye: '🎯',
+  lightning: '⚡', bolt: '⚡', zap: '⚡', energy: '⚡', power: '⚡',
+  gift: '🎁', present: '🎁',
+  chart: '📊', graph: '📊', analytics: '📊', stats: '📊',
+  trending: '📈', growth: '📈',
+  globe: '🌍', world: '🌎', earth: '🌍', international: '🌐',
+  link: '🔗', chain: '🔗', connect: '🔗',
+  code: '💻', laptop: '💻', computer: '💻', tech: '💻',
+  settings: '⚙️', gear: '⚙️', cog: '⚙️', tool: '🔧', tools: '🛠️', wrench: '🔧',
+  building: '🏢', office: '🏢',
+  store: '🏪', shop: '🛍️', retail: '🛍️',
+  cart: '🛒', shopping: '🛒', bag: '👜',
+  money: '💰', dollar: '💵', coins: '🪙', cash: '💵', payment: '💳', card: '💳', wallet: '👛',
+  handshake: '🤝', deal: '🤝', partner: '🤝', partnership: '🤝',
+  team: '👥', users: '👥', people: '👥', group: '👥', community: '👥',
+  user: '👤', person: '👤', profile: '👤',
+  repeat: '🔄', refresh: '🔄', cycle: '🔄', sync: '🔄', subscription: '🔄',
+  recycle: '♻️', eco: '🌱', green: '🌿', nature: '🌿', organic: '🌿', natural: '🌿',
+  pin: '📍', location: '📍', map: '🗺️', navigate: '🧭', compass: '🧭',
+  home: '🏠', house: '🏡',
+  car: '🚗', transport: '🚚',
+  plane: '✈️', travel: '✈️',
+  package: '📦', box: '📦', delivery: '🚚', shipping: '📦',
+  coffee: '☕', tea: '🍵',
+  food: '🍽️', restaurant: '🍴', dining: '🍽️', cooking: '🍳',
+  wine: '🍷', cocktail: '🍸',
+  cake: '🎂', dessert: '🍰', sweet: '🍬',
+  magic: '🪄', wand: '🪄',
+  puzzle: '🧩', solution: '🧩',
+  bulb: '💡', idea: '💡', light: '💡', lamp: '💡', innovation: '💡',
+  mountain: '⛰️', peak: '🏔️',
+  wave: '🌊', ocean: '🌊', sea: '🌊', beach: '🏖️',
+  wind: '💨', air: '💨',
+  snowflake: '❄️', snow: '❄️',
+  eye: '👁️', vision: '👁️', view: '👀', watch: '👀',
+  search: '🔍', find: '🔎', discover: '🔍',
+  thumb: '👍', thumbsup: '👍', like: '👍',
+  chat: '💬', message: '💬', comment: '💬', talk: '💬',
+  alert: '🔔', bell: '🔔', notification: '🔔',
+  download: '⬇️', upload: '⬆️', share: '📤', send: '📤',
+  play: '▶️', start: '▶️',
+  edit: '✍️', write: '✍️',
+  info: 'ℹ️', help: '❓', question: '❓', support: '🆘',
+  candle: '🕯️', aroma: '🌺', scent: '🌺', fragrance: '🌺', perfume: '🌺', wax: '🕯️',
+  soap: '🧼', clean: '✨', spa: '💆', relax: '🧘', yoga: '🧘',
+  fitness: '💪', gym: '🏋️', health: '💚', medical: '🏥',
+  paint: '🎨', art: '🖼️', design: '🎨', creative: '🎨',
+  fashion: '👗', style: '✨',
+  hair: '💇', haircut: '✂️', salon: '💇', barber: '💈', beauty: '💄', makeup: '💄',
+  pet: '🐾', paw: '🐾',
+  smile: '😊', happy: '😊',
+  love: '💕',
+  family: '👨‍👩‍👧',
+  graduate: '🎓', education: '📚', school: '🏫', learn: '📖', training: '🎓',
+  certificate: '📜', diploma: '📜',
+  quality: '⭐', premium: '💎', luxury: '✨', exclusive: '🌟',
+  fast: '⚡', quick: '🏃', express: '🚀',
+  safe: '🛡️', trust: '🤝', reliable: '✅', guarantee: '🛡️',
+  custom: '🎨', unique: '🌟', handmade: '🤲', handcraft: '🤲', craft: '🤲',
+  percent: '💯', discount: '🏷️', sale: '🏷️', offer: '🎫', promo: '🎉',
+  wifi: '📶', cloud: '☁️', data: '💾',
+  construction: '🏗️', hammer: '🔨', build: '🏗️', repair: '🔧',
+  garden: '🌻', plant: '🪴', seed: '🌱', grow: '🌱',
+  insurance: '🛡️', protect: '🛡️', umbrella: '☂️',
+  legal: '⚖️', law: '⚖️',
+  flag: '🚩', milestone: '🏁',
+  infinity: '♾️', eternal: '♾️',
+  // Social media
+  facebook: '📘', instagram: '📸', twitter: '🐦', x: '✖️',
+  linkedin: '💼', youtube: '▶️', tiktok: '🎵', pinterest: '📌',
+  whatsapp: '💬', telegram: '✈️', snapchat: '👻',
+};
+
+export function resolveIcon(icon: unknown): string {
+  const raw = str(icon).toLowerCase().trim();
+  if (!raw) return '✦';
+  if (raw.charCodeAt(0) > 127) return raw;
+  if (ICON_MAP[raw]) return ICON_MAP[raw];
+  for (const key of Object.keys(ICON_MAP)) {
+    if (raw.includes(key)) return ICON_MAP[key];
+  }
+  return '✦';
+}
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+
+export function str(v: unknown): string {
+  return typeof v === "string" ? v : "";
+}
+export function num(v: unknown): number {
+  return typeof v === "number" ? v : 0;
+}
+export function arr(v: unknown): Record<string, unknown>[] {
+  return Array.isArray(v) ? (v.filter((x) => x && typeof x === "object") as Record<string, unknown>[]) : [];
+}
+export function strArr(v: unknown): string[] {
+  return Array.isArray(v) ? (v.filter((x) => typeof x === "string") as string[]) : [];
+}
+export function variantNum(variant: string): number {
+  const m = variant.match(/_(\d+)$/);
+  return m ? parseInt(m[1], 10) : 1;
+}
+
+export function resolveImage(path: unknown): string | null {
+  const s = str(path);
+  if (!s || s === "AUTO") return null;
+  return s;
+}
+
+// ── Common UI pieces ─────────────────────────────────────────────────────────
+
+export function Eyebrow({ text, center }: { text: string; center?: boolean }) {
+  if (!text) return null;
+  return (
+    <div className={`flex items-center gap-3 mb-6 ${center ? "justify-center" : ""}`}>
+      <div className="w-8 h-px bg-accent" />
+      <span className="text-xs uppercase tracking-[0.3em] text-accent font-accent">{text}</span>
+      {center && <div className="w-8 h-px bg-accent" />}
+    </div>
+  );
+}
+
+export function Headline({ text, center, size = "lg" }: { text: string; center?: boolean; size?: "sm" | "md" | "lg" | "xl" }) {
+  if (!text) return null;
+  const sizes = {
+    sm: "text-2xl md:text-3xl",
+    md: "text-3xl md:text-4xl",
+    lg: "text-3xl md:text-4xl lg:text-5xl",
+    xl: "text-4xl md:text-5xl lg:text-6xl",
+  };
+  return (
+    <h2 className={`font-display ${sizes[size]} leading-tight text-primary mb-4 ${center ? "text-center" : ""}`}>
+      {text}
+    </h2>
+  );
+}
+
+export function Body({ text, center }: { text: string; center?: boolean }) {
+  if (!text) return null;
+  if (text.includes("<")) {
+    return <div className={`font-body text-sm md:text-base text-muted leading-relaxed mb-6 prose prose-sm ${center ? "text-center mx-auto" : ""}`} dangerouslySetInnerHTML={{ __html: text }} />;
+  }
+  return <p className={`font-body text-sm md:text-base text-muted leading-relaxed mb-6 max-w-2xl ${center ? "text-center mx-auto" : ""}`}>{text}</p>;
+}
+
+export function CtaButton({ cta, inverted, outline }: { cta: Record<string, unknown> | null; inverted?: boolean; outline?: boolean }) {
+  if (!cta) return null;
+  const label = str(cta.label);
+  const href = str(cta.href) || "#";
+  if (!label) return null;
+  const cls = outline
+    ? "inline-flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-accent text-accent font-body font-semibold text-sm hover:bg-accent hover:text-on-accent transition-all duration-300"
+    : inverted
+    ? "inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-bg text-primary font-body font-semibold text-sm hover:shadow-lg transition-all duration-300"
+    : "inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-accent text-on-accent font-body font-semibold text-sm hover:shadow-lg hover:brightness-110 transition-all duration-300";
+  return <a href={href} className={cls}>{label}</a>;
+}
+
+export function ImageBlock({ src, alt, className, gradient }: { src: string | null; alt?: string; className?: string; gradient?: boolean }) {
+  if (!src) {
+    // Decorative gradient placeholder instead of grey box
+    return (
+      <div className={`rounded-2xl overflow-hidden ${className ?? ""}`}>
+        <div className="w-full h-full bg-gradient-to-br from-accent/10 via-surface to-accent/5 min-h-[200px]" />
+      </div>
+    );
+  }
+  return (
+    <div className={`rounded-2xl overflow-hidden ${className ?? ""}`}>
+      {gradient && <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10 rounded-2xl" />}
+      <img src={src} alt={alt ?? ""} className="w-full h-full object-cover" loading="lazy" />
+    </div>
+  );
+}
+
+// ── Section wrapper with scroll reveal ───────────────────────────────────────
+
+export function Section({
+  children,
+  bg = "bg-bg",
+  className = "",
+  id,
+  noPadding,
+}: {
+  children: React.ReactNode;
+  bg?: string;
+  className?: string;
+  id?: string;
+  noPadding?: boolean;
+}) {
+  return (
+    <section id={id} className={`${noPadding ? "" : "py-20 md:py-28"} ${bg} ${className}`}>
+      <ScrollReveal>
+        <div className="px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">{children}</div>
+      </ScrollReveal>
+    </section>
+  );
+}
