@@ -164,6 +164,11 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
     .nb-cta-glass:hover { background: rgb(255 255 255 / 0.25); border-color: rgb(255 255 255 / 0.5); }
     .nb-icon-btn { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; color: rgb(var(--color-text-muted)); transition: all 0.2s; text-decoration: none; position: relative; }
     .nb-icon-btn:hover { color: rgb(var(--color-text-primary)); background: rgb(var(--color-surface-deep) / 0.5); }
+    .nb-bar { max-width: 1280px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    @media (min-width: 768px) { .nb-bar { padding: 0 24px; height: 64px; } }
+    @media (min-width: 1024px) { .nb-bar { padding: 0 48px; height: 72px; } }
+    .nb-bar-sm { max-width: 1280px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; height: 40px; }
+    @media (min-width: 768px) { .nb-bar-sm { padding: 0 24px; } }
   `;
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -181,7 +186,7 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
           borderBottom: `1px solid rgb(var(--color-border) / ${scrolled ? "0.5" : "0.3"})`,
           transition: "all 0.3s ease",
         }}>
-          <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
+          <div className="nb-bar">
             <LogoEl />
             <nav className="hidden md:flex items-center" style={{ gap: 32 }}>
               {links.map((l, i) => <a key={i} href={l.href} className="nb-link nb-link-default">{l.label}</a>)}
@@ -211,7 +216,7 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
             maxHeight: scrolled ? 0 : 40, overflow: "hidden",
             transition: "max-height 0.4s cubic-bezier(0.16,1,0.3,1)",
           }}>
-            <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 40 }}>
+            <div className="nb-bar-sm">
               <div className="flex items-center gap-6">
                 {phone && (
                   <a href={`tel:${phone}`} className="flex items-center gap-1.5 text-xs hover:opacity-100 transition-opacity" style={{ color: "rgb(var(--color-bg) / 0.75)", textDecoration: "none" }}>
@@ -247,7 +252,7 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
             borderBottom: "1px solid rgb(var(--color-border) / 0.5)",
             transition: "all 0.3s ease",
           }}>
-            <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 68 }}>
+            <div className="nb-bar">
               <LogoEl />
               <nav className="hidden md:flex items-center" style={{ gap: 32 }}>
                 {links.map((l, i) => <a key={i} href={l.href} className="nb-link nb-link-default">{l.label}</a>)}
@@ -282,7 +287,7 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
           boxShadow: solid ? "0 4px 30px rgb(0 0 0 / 0.06)" : "none",
           transition: "all 0.5s cubic-bezier(0.16,1,0.3,1)",
         }}>
-          <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", height: solid ? 64 : 76, transition: "height 0.4s ease" }}>
+          <div className="nb-bar" style={{ transition: "height 0.4s ease" }}>
             {/* Logo */}
             {hasRealLogo ? (
               <img src={logo!} alt={brandName} style={{ height: 36, width: "auto", filter: solid ? "none" : "brightness(0) invert(1)", transition: "filter 0.4s ease" }} />
@@ -426,7 +431,7 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
           borderBottom: "1px solid rgb(var(--color-border) / 0.5)",
           transition: "all 0.3s ease",
         }}>
-          <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px", display: "grid", gridTemplateColumns: "1fr auto 1fr", alignItems: "center", height: 72 }}>
+          <div className="nb-bar" style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr" }}>
             <div><LogoEl /></div>
             <nav className="hidden md:flex items-center" style={{ gap: 4 }}>
               {links.map((l, i) => <a key={i} href={l.href} className="nb-link-pill">{l.label}</a>)}
@@ -499,7 +504,7 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
         borderBottom: "1px solid rgb(var(--color-border) / 0.5)",
         transition: "all 0.3s ease",
       }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between", height: 72 }}>
+        <div className="nb-bar">
           <LogoEl />
           <nav className="hidden md:flex items-center" style={{ gap: 32 }}>
             {links.map((l, i) => <a key={i} href={l.href} className="nb-link nb-link-default">{l.label}</a>)}
