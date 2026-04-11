@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import {
   Inter, Sora, Outfit, Jost, Lora, Manrope, Poppins, Nunito, Quicksand,
   Montserrat, Oswald, Work_Sans, Caveat, Fraunces, Marcellus,
-  Space_Grotesk, JetBrains_Mono, Playfair_Display, Bebas_Neue,
+  Space_Grotesk, JetBrains_Mono, Playfair_Display, Bebas_Neue, DM_Serif_Display,
   IBM_Plex_Sans, Cardo, Roboto_Slab, Italiana, Bodoni_Moda, Cinzel,
   Cormorant_Garamond, Abril_Fatface, Raleway, Crimson_Pro, Archivo_Black,
   Josefin_Sans, Source_Serif_4, Bitter, Tenor_Sans, Vollkorn, Rubik,
@@ -35,6 +35,7 @@ const spaceGrotesk = Space_Grotesk({ subsets: ["latin", "latin-ext"], variable: 
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin", "latin-ext"], variable: "--font-jetbrains", display: "swap" });
 const playfairDisplay = Playfair_Display({ subsets: ["latin", "latin-ext"], variable: "--font-playfair", display: "swap" });
 const bebasNeue = Bebas_Neue({ subsets: ["latin", "latin-ext"], weight: "400", variable: "--font-bebas", display: "swap" });
+const dmSerifDisplay = DM_Serif_Display({ subsets: ["latin", "latin-ext"], weight: "400", variable: "--font-dm-serif", display: "swap" });
 const ibmPlexSans = IBM_Plex_Sans({ subsets: ["latin", "latin-ext"], weight: ["300", "400", "500", "600", "700"], variable: "--font-ibm-plex", display: "swap" });
 const cardo = Cardo({ subsets: ["latin", "latin-ext"], weight: ["400", "700"], variable: "--font-cardo", display: "swap" });
 const robotoSlab = Roboto_Slab({ subsets: ["latin", "latin-ext"], variable: "--font-roboto-slab", display: "swap" });
@@ -73,7 +74,7 @@ const notoSerifDisplay = Noto_Serif_Display({ subsets: ["latin", "latin-ext"], v
 const fontVars = [
   inter, sora, outfit, jost, lora, manrope, poppins, nunito, quicksand,
   montserrat, oswald, workSans, caveat, fraunces, marcellus, spaceGrotesk,
-  jetbrainsMono, playfairDisplay, bebasNeue, ibmPlexSans, cardo, robotoSlab,
+  jetbrainsMono, playfairDisplay, bebasNeue, dmSerifDisplay, ibmPlexSans, cardo, robotoSlab,
   italiana, bodoniModa, cinzel, cormorantGaramond, abrilFatface, raleway,
   crimsonPro, archivoBlack, josefinSans, sourceSerif4, bitter, tenorSans,
   vollkorn, rubik, spectral, libreFranklin, merriweather, barlow,
