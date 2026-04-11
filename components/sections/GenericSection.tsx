@@ -1,3 +1,5 @@
+"use client";
+
 // ─── GenericSection Router ───────────────────────────────────────────────────
 // Routes variant_id to dedicated section components.
 // Each category has its own file with variant-specific layouts.
