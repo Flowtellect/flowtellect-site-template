@@ -79,69 +79,76 @@ interface PreviewNavigatedMessage {
   pathname: string;                      // nowa ścieżka po kliknięciu w link wewnątrz iframe
 }
 
-// Mapowanie googleId fontu (jakim panel CMS wysyła) na CSS variable next/font
-// w tym repo. Identyczne z FONT_GOOGLE_ID_TO_CSS_VAR w lib/applyTheme.ts —
-// duplikacja jest świadoma, bo tu trzymamy tylko mapowanie potrzebne do
-// runtime postMessage, a applyTheme.ts trzyma to dla build-time renderingu.
-const FONT_GOOGLE_ID_TO_CSS_VAR: Record<string, string> = {
-  "Cormorant_Garamond": "--font-cormorant",
-  "Inter":              "--font-inter",
-  "Jost":               "--font-jost",
-  "Sora":               "--font-sora",
-  "DM_Serif_Display":   "--font-dm-serif",
-  "Lora":               "--font-lora",
-  "Space_Grotesk":      "--font-space-grotesk",
-  "Outfit":             "--font-outfit",
-  "JetBrains_Mono":     "--font-jetbrains",
-  "Playfair_Display":   "--font-playfair",
-  "Caveat":             "--font-caveat",
-  "Fraunces":           "--font-fraunces",
-  "Manrope":            "--font-manrope",
-  "Bebas_Neue":         "--font-bebas",
-  "Montserrat":         "--font-montserrat",
-  "IBM_Plex_Sans":      "--font-ibm-plex",
-  "Cardo":              "--font-cardo",
-  "Oswald":             "--font-oswald",
-  "Work_Sans":          "--font-work-sans",
-  "Quicksand":          "--font-quicksand",
-  "Poppins":            "--font-poppins",
-  "Nunito":             "--font-nunito",
-  "Marcellus":          "--font-marcellus",
-  "Roboto_Slab":        "--font-roboto-slab",
-  "Italiana":           "--font-italiana",
-  "Bodoni_Moda":        "--font-bodoni",
-  "Libre_Bodoni":       "--font-bodoni",
-  "Cinzel":             "--font-cinzel",
-  // ── Batch 2: dodane dla roznorodnosci motywow premium ──
-  "Abril_Fatface":      "--font-abril",
-  "Raleway":            "--font-raleway",
-  "Crimson_Pro":        "--font-crimson",
-  "Archivo_Black":      "--font-archivo-black",
-  "Josefin_Sans":       "--font-josefin",
-  "Source_Serif_4":     "--font-source-serif",
-  "Bitter":             "--font-bitter",
-  "Tenor_Sans":         "--font-tenor",
-  "Vollkorn":           "--font-vollkorn",
-  "Rubik":              "--font-rubik",
-  "Spectral":           "--font-spectral",
-  "Libre_Franklin":     "--font-libre-franklin",
-  // ── Batch 3: 50 nowych motywow premium ──
-  "Merriweather":       "--font-merriweather",
-  "Barlow":             "--font-barlow",
-  "Barlow_Condensed":   "--font-barlow-condensed",
-  "Righteous":          "--font-righteous",
-  "Comfortaa":          "--font-comfortaa",
-  "Sacramento":         "--font-sacramento",
-  "Archivo":            "--font-archivo",
-  "Exo_2":              "--font-exo2",
-  "Urbanist":           "--font-urbanist",
-  "Figtree":            "--font-figtree",
-  "Plus_Jakarta_Sans":  "--font-jakarta",
-  "Red_Hat_Display":    "--font-red-hat",
-  "Instrument_Serif":   "--font-instrument",
-  "DM_Sans":            "--font-dm-sans",
-  "Noto_Serif_Display": "--font-noto-serif",
+// Google Font ID -> CSS font-family value (loaded via CDN at runtime)
+const FONT_ID_TO_FAMILY: Record<string, string> = {
+  "Cormorant_Garamond": "'Cormorant Garamond', serif",
+  "Inter": "'Inter', sans-serif",
+  "Jost": "'Jost', sans-serif",
+  "Sora": "'Sora', sans-serif",
+  "DM_Serif_Display": "'DM Serif Display', serif",
+  "Lora": "'Lora', serif",
+  "Space_Grotesk": "'Space Grotesk', sans-serif",
+  "Outfit": "'Outfit', sans-serif",
+  "JetBrains_Mono": "'JetBrains Mono', monospace",
+  "Playfair_Display": "'Playfair Display', serif",
+  "Caveat": "'Caveat', cursive",
+  "Fraunces": "'Fraunces', serif",
+  "Manrope": "'Manrope', sans-serif",
+  "Bebas_Neue": "'Bebas Neue', sans-serif",
+  "Montserrat": "'Montserrat', sans-serif",
+  "IBM_Plex_Sans": "'IBM Plex Sans', sans-serif",
+  "Cardo": "'Cardo', serif",
+  "Oswald": "'Oswald', sans-serif",
+  "Work_Sans": "'Work Sans', sans-serif",
+  "Quicksand": "'Quicksand', sans-serif",
+  "Poppins": "'Poppins', sans-serif",
+  "Nunito": "'Nunito', sans-serif",
+  "Marcellus": "'Marcellus', serif",
+  "Roboto_Slab": "'Roboto Slab', serif",
+  "Italiana": "'Italiana', serif",
+  "Bodoni_Moda": "'Bodoni Moda', serif",
+  "Libre_Bodoni": "'Bodoni Moda', serif",
+  "Cinzel": "'Cinzel', serif",
+  "Abril_Fatface": "'Abril Fatface', serif",
+  "Raleway": "'Raleway', sans-serif",
+  "Crimson_Pro": "'Crimson Pro', serif",
+  "Archivo_Black": "'Archivo Black', sans-serif",
+  "Josefin_Sans": "'Josefin Sans', sans-serif",
+  "Source_Serif_4": "'Source Serif 4', serif",
+  "Bitter": "'Bitter', serif",
+  "Tenor_Sans": "'Tenor Sans', sans-serif",
+  "Vollkorn": "'Vollkorn', serif",
+  "Rubik": "'Rubik', sans-serif",
+  "Spectral": "'Spectral', serif",
+  "Libre_Franklin": "'Libre Franklin', sans-serif",
+  "Merriweather": "'Merriweather', serif",
+  "Barlow": "'Barlow', sans-serif",
+  "Barlow_Condensed": "'Barlow Condensed', sans-serif",
+  "Righteous": "'Righteous', sans-serif",
+  "Comfortaa": "'Comfortaa', sans-serif",
+  "Sacramento": "'Sacramento', cursive",
+  "Archivo": "'Archivo', sans-serif",
+  "Exo_2": "'Exo 2', sans-serif",
+  "Urbanist": "'Urbanist', sans-serif",
+  "Figtree": "'Figtree', sans-serif",
+  "Plus_Jakarta_Sans": "'Plus Jakarta Sans', sans-serif",
+  "Red_Hat_Display": "'Red Hat Display', sans-serif",
+  "Instrument_Serif": "'Instrument Serif', serif",
+  "DM_Sans": "'DM Sans', sans-serif",
+  "Noto_Serif_Display": "'Noto Serif Display', serif",
 };
+
+// Load a Google Font at runtime by injecting a <link> tag
+const loadedFonts = new Set<string>();
+function loadGoogleFont(googleId: string) {
+  if (loadedFonts.has(googleId)) return;
+  loadedFonts.add(googleId);
+  const family = googleId.replace(/_/g, '+');
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = `https://fonts.googleapis.com/css2?family=${family}:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap`;
+  document.head.appendChild(link);
+}
 
 export default function PreviewListener() {
   // Aktualny pathname Next.js — pozwala wysyłać "preview-navigated" gdy
@@ -188,15 +195,16 @@ export default function PreviewListener() {
         }
       }
 
-      // Mapowanie fontów googleId → CSS variable
+      // Load fonts from Google CDN and set font-family directly
       if (data.fonts) {
         const roles = ["display", "body", "accent"] as const;
         for (const role of roles) {
           const googleId = data.fonts[role];
           if (!googleId) continue;
-          const cssVar = FONT_GOOGLE_ID_TO_CSS_VAR[googleId];
-          if (cssVar) {
-            root.style.setProperty(`--font-${role}`, `var(${cssVar})`);
+          const family = FONT_ID_TO_FAMILY[googleId];
+          if (family) {
+            loadGoogleFont(googleId);
+            root.style.setProperty(`--font-${role}`, family);
           } else {
             devLog(`Unknown font googleId "${googleId}" for role ${role}`);
           }
