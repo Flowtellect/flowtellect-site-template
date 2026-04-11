@@ -114,7 +114,7 @@ const ICON_MAP: Record<string, string> = {
   fast: '⚡', quick: '🏃', express: '🚀',
   safe: '🛡️', trust: '🤝', reliable: '✅', guarantee: '🛡️',
   custom: '🎨', personalize: '✨', unique: '🌟', bespoke: '✨', handmade: '🤲', handcraft: '🤲', craft: '🤲',
-  percent: '💯', discount: '🏷️', sale: '🏷️', offer: '🎫', deal: '🤝', promo: '🎉',
+  percent: '💯', discount: '🏷️', sale: '🏷️', offer: '🎫', promo: '🎉',
   new: '🆕', hot: '🔥', trending_up: '📈',
   wifi: '📶', signal: '📡', network: '🌐', cloud: '☁️', data: '💾', database: '🗄️',
   print: '🖨️', document: '📄', file: '📁', folder: '📂', report: '📊',
@@ -1171,7 +1171,7 @@ function GenericPricing({ content }: { content: Record<string, unknown> }) {
         <div className="grid md:grid-cols-3 gap-6 mt-12">
           {tiers.map((tier, i) => (
             <div key={i} className={`rounded-2xl border p-8 text-left ${tier.highlighted ? 'border-accent bg-accent/5 shadow-lg relative' : 'border-border bg-surface'}`}>
-              {tier.highlighted && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-on-accent text-xs font-bold px-4 py-1 rounded-full">Popularne</div>}
+              {tier.highlighted ? <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-on-accent text-xs font-bold px-4 py-1 rounded-full">Popularne</div> : null}
               <h3 className="font-display text-lg text-primary font-semibold mb-1">{str(tier.name)}</h3>
               <div className="font-display text-3xl text-accent font-bold mb-1">{str(tier.price)}</div>
               {str(tier.period) && <div className="font-body text-xs text-muted mb-6">{str(tier.period)}</div>}

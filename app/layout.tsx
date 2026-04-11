@@ -39,7 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     if (family) fontFamilies.add(family);
   }
   const googleFontsUrl = fontFamilies.size > 0
-    ? `https://fonts.googleapis.com/css2?${[...fontFamilies]
+    ? `https://fonts.googleapis.com/css2?${Array.from(fontFamilies)
         .map((f) => `family=${f.replace(/ /g, "+")}:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700`)
         .join("&")}&display=swap`
     : null;
