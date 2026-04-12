@@ -2,7 +2,8 @@ import { readPage } from "@/lib/content";
 import SectionRenderer from "@/components/SectionRenderer";
 
 export default function HomePage() {
-  const page = readPage("homepage");
+  // CMS publishes to "index.json", generator creates "homepage.json"
+  const page = readPage("index") || readPage("homepage");
   if (!page) {
     return (
       <main className="min-h-screen flex items-center justify-center">
