@@ -103,7 +103,6 @@ function Hamburger({ onClick, className = "" }: { onClick: () => void; className
 export default function NavbarSection({ content, vn }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [heroHeight, setHeroHeight] = useState(600);
 
   const handleScroll = useCallback(() => {
     setScrolled(window.scrollY > 20);
@@ -112,9 +111,6 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-    // Measure hero for navbar_5 transition point
-    const hero = document.querySelector("section");
-    if (hero) setHeroHeight(hero.offsetHeight);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
@@ -321,18 +317,19 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
   // VN 5: Transparent -> Solid
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 5) {
-    const pastHero = typeof window !== "undefined" ? window.scrollY > heroHeight - 100 : false;
-    const solid = scrolled && pastHero;
+    // Solid after scrolling 80px - simple, reliable
+    const solid = scrolled;
 
     return (
       <>
         <style>{styles}</style>
         <header style={{
           position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
-          background: solid ? "rgb(var(--color-bg) / 0.92)" : "transparent",
+          background: solid ? "rgb(var(--color-bg) / 0.95)" : "transparent",
           backdropFilter: solid ? "blur(24px)" : "none",
           WebkitBackdropFilter: solid ? "blur(24px)" : "none",
-          boxShadow: solid ? "0 4px 30px rgb(0 0 0 / 0.06)" : "none",
+          boxShadow: solid ? "0 4px 30px rgb(0 0 0 / 0.08)" : "none",
+          borderBottom: solid ? "1px solid rgb(var(--color-border) / 0.3)" : "none",
           transition: "all 0.5s cubic-bezier(0.16,1,0.3,1)",
         }}>
           <div className="nb-bar" style={{ transition: "height 0.4s ease" }}>
