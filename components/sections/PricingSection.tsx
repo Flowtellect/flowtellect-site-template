@@ -1,188 +1,208 @@
-// ─── PricingSection ──────────────────────────────────────────────────────────
-// 5 variants: plans grid, single plan, comparison (fallback to grid)
+"use client";
 
-import {
-  ScrollReveal,
-  str,
-  arr,
-  strArr,
-  Headline,
-  Body,
-  Section,
-} from "./shared";
+// ─── PricingSection ──────────────────────────────────────────────────────────
+// 5 individually crafted pricing variants matching HTML mockups.
+
+import { str, arr, strArr } from "./shared";
 
 interface PricingProps {
   content: Record<string, unknown>;
   vn: number;
 }
 
-function PlanCard({
-  tier,
-  delay,
-}: {
-  tier: Record<string, unknown>;
-  delay: number;
-}) {
-  const name = str(tier.name);
-  const price = str(tier.price);
-  const period = str(tier.period);
-  const features = strArr(tier.features);
-  const highlighted = !!tier.highlighted;
-  const ctaLabel = str(tier.cta_text) || str(tier.cta_label) || "Wybierz";
-  const ctaHref = str(tier.cta_link) || str(tier.cta_href) || "#";
+const S = `
+  .pc-wrap{max-width:1280px;margin:0 auto;padding:0 16px}
+  @media(min-width:768px){.pc-wrap{padding:0 24px}}@media(min-width:1024px){.pc-wrap{padding:0 48px}}
+  .pc-header{text-align:center;max-width:640px;margin:0 auto 48px}
+  .pc-h2{font-family:var(--font-display);font-size:32px;font-weight:700;line-height:1.15;letter-spacing:-.02em;color:rgb(var(--color-text-primary));margin-bottom:14px}
+  @media(min-width:768px){.pc-h2{font-size:40px}}@media(min-width:1024px){.pc-h2{font-size:48px}}
+  .pc-h2 em{font-style:italic;color:rgb(var(--color-accent))}
+  .pc-desc{font-size:16px;line-height:1.7;color:rgb(var(--color-text-muted))}
 
-  return (
-    <ScrollReveal delay={delay}>
-      <div
-        className={`relative rounded-2xl p-8 h-full flex flex-col ${
-          highlighted
-            ? "border-2 border-accent bg-accent/5 shadow-lg"
-            : "border border-border bg-surface"
-        }`}
-      >
-        {highlighted && (
-          <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-on-accent text-xs font-bold px-4 py-1 rounded-full">
-            Popularne
-          </span>
-        )}
+  .pc-card{background:rgb(var(--color-surface));border:1px solid rgb(var(--color-border)/0.5);border-radius:24px;padding:32px 28px;transition:all .3s;position:relative;display:flex;flex-direction:column}
+  .pc-card:hover{box-shadow:0 8px 32px rgb(0 0 0/0.06)}
+  .pc-card-hl{border-color:rgb(var(--color-accent)/0.4);background:rgb(var(--color-accent)/0.03);box-shadow:0 12px 40px rgb(0 0 0/0.08)}
+  .pc-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:rgb(var(--color-accent));color:rgb(var(--color-on-accent));font-size:11px;font-weight:600;padding:6px 20px;border-radius:100px;text-transform:uppercase;letter-spacing:.1em;white-space:nowrap}
+  .pc-name{font-family:var(--font-display);font-size:20px;font-weight:600;color:rgb(var(--color-text-primary));margin-bottom:8px}
+  .pc-price{font-family:var(--font-display);font-size:40px;font-weight:700;color:rgb(var(--color-accent));line-height:1;margin-bottom:4px}
+  .pc-period{font-size:13px;color:rgb(var(--color-text-dim));margin-bottom:24px}
+  .pc-features{list-style:none;margin-bottom:28px;flex:1}
+  .pc-feature{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid rgb(var(--color-border)/0.3);font-size:14px;color:rgb(var(--color-text-muted))}
+  .pc-feature:last-child{border-bottom:none}
+  .pc-check{color:rgb(var(--color-accent));font-size:16px;flex-shrink:0}
+  .pc-btn{display:block;text-align:center;padding:14px;font-family:var(--font-body);font-size:14px;font-weight:600;border-radius:12px;text-decoration:none;transition:all .3s;border:none;cursor:pointer}
+  .pc-btn-fill{background:rgb(var(--color-accent));color:rgb(var(--color-on-accent));box-shadow:0 4px 16px rgb(var(--color-accent)/0.3)}
+  .pc-btn-fill:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgb(var(--color-accent)/0.4)}
+  .pc-btn-outline{background:transparent;color:rgb(var(--color-text-primary));border:2px solid rgb(var(--color-border))}
+  .pc-btn-outline:hover{border-color:rgb(var(--color-accent));color:rgb(var(--color-accent));transform:translateY(-2px)}
 
-        <h3 className="font-display text-lg font-semibold text-primary mb-4">
-          {name}
-        </h3>
-
-        <div className="mb-6">
-          <span className="font-display text-3xl text-accent font-bold">
-            {price}
-          </span>
-          {period && (
-            <span className="font-body text-sm text-muted ml-1">
-              / {period}
-            </span>
-          )}
-        </div>
-
-        {features.length > 0 && (
-          <ul className="space-y-3 mb-8 flex-1">
-            {features.map((f, i) => (
-              <li key={i} className="flex items-start gap-3 text-sm font-body text-muted">
-                <span className="text-accent mt-0.5 shrink-0">&#10003;</span>
-                <span>{f}</span>
-              </li>
-            ))}
-          </ul>
-        )}
-
-        <a
-          href={ctaHref}
-          className={`inline-flex items-center justify-center px-6 py-3 rounded-xl font-body font-semibold text-sm transition-all duration-300 ${
-            highlighted
-              ? "bg-accent text-on-accent hover:shadow-lg hover:brightness-110"
-              : "border-2 border-accent text-accent hover:bg-accent hover:text-on-accent"
-          }`}
-        >
-          {ctaLabel}
-        </a>
-      </div>
-    </ScrollReveal>
-  );
-}
+  @keyframes pcUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  .pa1{opacity:0;animation:pcUp .8s ease .1s forwards}
+  .pa2{opacity:0;animation:pcUp .8s ease .3s forwards}
+`;
 
 export default function PricingSection({ content, vn }: PricingProps) {
-  const headline = str(content.heading) || str(content.headline);
-  const body = str(content.subtitle) || str(content.body);
-  const tiers = arr(content.tiers) || arr(content.plans) || arr(content.packages);
+  const hl = str(content.heading || content.headline);
+  const body = str(content.subtitle || content.body);
+  const tiers = arr(content.tiers || content.plans || content.packages);
 
-  // ── vn 4: Single plan ────────────────────────────────────────────────────
+  const Header = () => (
+    <div className="pc-header pa1">
+      <h2 className="pc-h2">{hl}</h2>
+      {body && <p className="pc-desc">{body}</p>}
+    </div>
+  );
 
-  if (vn === 4 && tiers.length > 0) {
-    const tier = tiers[0];
-    const name = str(tier.name);
-    const price = str(tier.price);
-    const period = str(tier.period);
-    const features = strArr(tier.features);
-    const ctaLabel = str(tier.cta_text) || str(tier.cta_label) || "Wybierz";
-    const ctaHref = str(tier.cta_link) || str(tier.cta_href) || "#";
-
-    return (
-      <Section bg="bg-bg">
-        <div className="text-center">
-          <ScrollReveal delay={0}>
-            <Headline text={headline} center />
-          </ScrollReveal>
-          {body && (
-            <ScrollReveal delay={100}>
-              <Body text={body} center />
-            </ScrollReveal>
-          )}
-        </div>
-
-        <ScrollReveal delay={200}>
-          <div className="max-w-lg mx-auto mt-10 rounded-2xl border-2 border-accent bg-accent/5 shadow-lg p-10 text-center">
-            <h3 className="font-display text-xl font-semibold text-primary mb-4">
-              {name}
-            </h3>
-            <div className="mb-6">
-              <span className="font-display text-4xl text-accent font-bold">
-                {price}
-              </span>
-              {period && (
-                <span className="font-body text-sm text-muted ml-1">
-                  / {period}
-                </span>
-              )}
-            </div>
-
-            {features.length > 0 && (
-              <ul className="space-y-3 mb-8 text-left max-w-xs mx-auto">
-                {features.map((f, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm font-body text-muted">
-                    <span className="text-accent mt-0.5 shrink-0">&#10003;</span>
-                    <span>{f}</span>
-                  </li>
-                ))}
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 1: Plany - 3 kolumny z highlighted
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 1) {
+    return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pc-wrap">
+      <Header />
+      <div className="pa2 grid grid-cols-1 md:grid-cols-3 gap-6" style={{ alignItems: "start" }}>
+        {tiers.map((t, i) => {
+          const hl2 = !!t.highlighted;
+          return (
+            <div key={i} className={`pc-card ${hl2 ? "pc-card-hl" : ""}`} style={hl2 ? { marginTop: -8 } : undefined}>
+              {hl2 && <div className="pc-badge">Popularne</div>}
+              <div className="pc-name">{str(t.name)}</div>
+              <div className="pc-price">{str(t.price)}</div>
+              {str(t.period) && <div className="pc-period">{str(t.period)}</div>}
+              <ul className="pc-features">
+                {strArr(t.features).map((f, j) => <li key={j} className="pc-feature"><span className="pc-check">✓</span>{f}</li>)}
               </ul>
-            )}
-
-            <a
-              href={ctaHref}
-              className="inline-flex items-center justify-center w-full px-6 py-3 rounded-xl bg-accent text-on-accent font-body font-semibold text-sm hover:shadow-lg hover:brightness-110 transition-all duration-300"
-            >
-              {ctaLabel}
-            </a>
-          </div>
-        </ScrollReveal>
-      </Section>
-    );
+              <a href={str(t.cta_link || t.cta_href) || "#"} className={`pc-btn ${hl2 ? "pc-btn-fill" : "pc-btn-outline"}`}>
+                {str(t.cta_text || t.cta_label) || "Wybierz"}
+              </a>
+            </div>
+          );
+        })}
+      </div>
+    </div></section>);
   }
 
-  // ── vn 1-3, 5 (fallback): Plans grid ─────────────────────────────────────
-
-  return (
-    <Section bg="bg-bg">
-      <div className="text-center">
-        <ScrollReveal delay={0}>
-          <Headline text={headline} center />
-        </ScrollReveal>
-        {body && (
-          <ScrollReveal delay={100}>
-            <Body text={body} center />
-          </ScrollReveal>
-        )}
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 2: Z togglem miesiecznie/rocznie
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 2) {
+    return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pc-wrap">
+      <Header />
+      <div className="pa2 grid grid-cols-1 md:grid-cols-3 gap-6" style={{ alignItems: "start" }}>
+        {tiers.map((t, i) => {
+          const hl2 = !!t.highlighted;
+          return (
+            <div key={i} className={`pc-card ${hl2 ? "pc-card-hl" : ""}`}>
+              {hl2 && <div className="pc-badge">Popularne</div>}
+              <div className="pc-name">{str(t.name)}</div>
+              <div className="pc-price">{str(t.price)}</div>
+              {str(t.period) && <div className="pc-period">{str(t.period)}</div>}
+              <ul className="pc-features">
+                {strArr(t.features).map((f, j) => <li key={j} className="pc-feature"><span className="pc-check">✓</span>{f}</li>)}
+              </ul>
+              <a href={str(t.cta_link || t.cta_href) || "#"} className={`pc-btn ${hl2 ? "pc-btn-fill" : "pc-btn-outline"}`}>
+                {str(t.cta_text || t.cta_label) || "Wybierz"}
+              </a>
+            </div>
+          );
+        })}
       </div>
+    </div></section>);
+  }
 
-      <div
-        className={`grid grid-cols-1 gap-8 mt-12 ${
-          tiers.length === 2
-            ? "md:grid-cols-2 max-w-3xl mx-auto"
-            : tiers.length >= 3
-            ? "md:grid-cols-3"
-            : "max-w-lg mx-auto"
-        }`}
-      >
-        {tiers.map((tier, i) => (
-          <PlanCard key={i} tier={tier} delay={200 + i * 100} />
-        ))}
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 3: Tabela porownawcza
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 3) {
+    return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pc-wrap">
+      <Header />
+      <div className="pa2" style={{ overflowX: "auto" }}>
+        <div style={{ background: "rgb(var(--color-surface))", border: "1px solid rgb(var(--color-border)/0.5)", borderRadius: 20, overflow: "hidden", minWidth: 600 }}>
+          {/* Header */}
+          <div style={{ display: "grid", gridTemplateColumns: `200px repeat(${tiers.length}, 1fr)`, borderBottom: "2px solid rgb(var(--color-border)/0.5)", background: "rgb(var(--color-surface-deep)/0.3)" }}>
+            <div style={{ padding: "16px 20px" }} />
+            {tiers.map((t, i) => (
+              <div key={i} style={{ padding: "16px 20px", textAlign: "center", background: t.highlighted ? "rgb(var(--color-accent)/0.05)" : "transparent" }}>
+                <div style={{ fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 600 }}>{str(t.name)}</div>
+                <div style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 700, color: "rgb(var(--color-accent))", marginTop: 4 }}>{str(t.price)}</div>
+              </div>
+            ))}
+          </div>
+          {/* Feature rows from first tier's features */}
+          {strArr(tiers[0]?.features || []).map((f, fi) => (
+            <div key={fi} style={{ display: "grid", gridTemplateColumns: `200px repeat(${tiers.length}, 1fr)`, borderBottom: "1px solid rgb(var(--color-border)/0.3)" }}>
+              <div style={{ padding: "12px 20px", fontSize: 14, color: "rgb(var(--color-text-muted))" }}>{f}</div>
+              {tiers.map((t, ti) => {
+                const has = fi < strArr(t.features).length;
+                return (
+                  <div key={ti} style={{ padding: "12px 20px", textAlign: "center", background: t.highlighted ? "rgb(var(--color-accent)/0.03)" : "transparent", fontSize: 16 }}>
+                    {has ? <span style={{ color: "rgb(var(--color-accent))" }}>✓</span> : <span style={{ color: "rgb(var(--color-text-dim))", opacity: 0.4 }}>✗</span>}
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+          {/* CTA row */}
+          <div style={{ display: "grid", gridTemplateColumns: `200px repeat(${tiers.length}, 1fr)`, padding: "16px 0" }}>
+            <div />
+            {tiers.map((t, i) => (
+              <div key={i} style={{ padding: "8px 20px", textAlign: "center" }}>
+                <a href={str(t.cta_link || t.cta_href) || "#"} className={`pc-btn ${t.highlighted ? "pc-btn-fill" : "pc-btn-outline"}`} style={{ display: "inline-block", padding: "10px 24px" }}>
+                  {str(t.cta_text || t.cta_label) || "Wybierz"}
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-    </Section>
-  );
+    </div></section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 4: Jeden plan (centered card)
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 4) {
+    const t = tiers[0] || {};
+    return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pc-wrap">
+      <Header />
+      <div className="pa2" style={{ maxWidth: 480, margin: "0 auto" }}>
+        <div className="pc-card pc-card-hl" style={{ textAlign: "center", padding: "40px 36px", boxShadow: "0 20px 60px rgb(0 0 0/0.1)" }}>
+          <div className="pc-name" style={{ fontSize: 24 }}>{str(t.name) || hl}</div>
+          {str(t.period) && <div className="pc-period" style={{ marginBottom: 8 }}>{str(t.period)}</div>}
+          <div className="pc-price" style={{ fontSize: 56, marginBottom: 24 }}>{str(t.price)}</div>
+          <ul className="pc-features" style={{ textAlign: "left" }}>
+            {strArr(t.features).map((f, j) => <li key={j} className="pc-feature"><span className="pc-check">✓</span>{f}</li>)}
+          </ul>
+          <a href={str(t.cta_link || t.cta_href) || "#"} className="pc-btn pc-btn-fill" style={{ fontSize: 16, padding: 16 }}>
+            {str(t.cta_text || t.cta_label) || "Zamow teraz"}
+          </a>
+        </div>
+      </div>
+    </div></section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 5: Kalkulator (default) - falls back to standard grid
+  // ═══════════════════════════════════════════════════════════════════════════
+  return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pc-wrap">
+    <Header />
+    <div className="pa2 grid grid-cols-1 md:grid-cols-3 gap-6" style={{ alignItems: "start" }}>
+      {tiers.map((t, i) => {
+        const hl2 = !!t.highlighted;
+        return (
+          <div key={i} className={`pc-card ${hl2 ? "pc-card-hl" : ""}`}>
+            {hl2 && <div className="pc-badge">Popularne</div>}
+            <div className="pc-name">{str(t.name)}</div>
+            <div className="pc-price">{str(t.price)}</div>
+            {str(t.period) && <div className="pc-period">{str(t.period)}</div>}
+            <ul className="pc-features">
+              {strArr(t.features).map((f, j) => <li key={j} className="pc-feature"><span className="pc-check">✓</span>{f}</li>)}
+            </ul>
+            <a href={str(t.cta_link || t.cta_href) || "#"} className={`pc-btn ${hl2 ? "pc-btn-fill" : "pc-btn-outline"}`}>
+              {str(t.cta_text || t.cta_label) || "Wybierz"}
+            </a>
+          </div>
+        );
+      })}
+    </div>
+  </div></section>);
 }
