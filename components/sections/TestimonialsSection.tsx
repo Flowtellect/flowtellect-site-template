@@ -1,380 +1,431 @@
-/* eslint-disable @next/next/no-img-element */
+"use client";
 
 // ─── TestimonialsSection ─────────────────────────────────────────────────────
-// Client testimonials / reviews with 6 distinct layout families: simple grid,
-// single large, featured + small, on-image overlay, large 2-col, and wall.
+// 12 individually crafted testimonial variants matching HTML mockups.
 
-import {
-  ScrollReveal,
-  resolveImage,
-  str,
-  num,
-  arr,
-  Headline,
-  Section,
-} from "./shared";
+/* eslint-disable @next/next/no-img-element */
+
+import { str, num, arr, resolveImage, resolveIcon } from "./shared";
 
 interface TestimonialsProps {
   content: Record<string, unknown>;
   vn: number;
 }
 
-// ── Helpers ─────────────────────────────────────────────────────────────────
+const S = `
+  .tm-wrap{max-width:1280px;margin:0 auto;padding:0 16px}
+  @media(min-width:768px){.tm-wrap{padding:0 24px}}@media(min-width:1024px){.tm-wrap{padding:0 48px}}
+  .tm-header{text-align:center;max-width:640px;margin:0 auto 48px}
+  .tm-eyebrow{display:inline-flex;align-items:center;gap:16px;margin-bottom:20px}
+  .tm-eline{width:32px;height:1px;background:linear-gradient(90deg,transparent,rgb(var(--color-accent)/0.4))}
+  .tm-eline-r{width:32px;height:1px;background:linear-gradient(90deg,rgb(var(--color-accent)/0.4),transparent)}
+  .tm-etxt{font-size:11px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:rgb(var(--color-accent))}
+  .tm-h2{font-family:var(--font-display);font-size:32px;font-weight:700;line-height:1.15;letter-spacing:-.02em;color:rgb(var(--color-text-primary));margin-bottom:14px}
+  @media(min-width:768px){.tm-h2{font-size:40px}}@media(min-width:1024px){.tm-h2{font-size:48px}}
+  .tm-h2 em{font-style:italic;color:rgb(var(--color-accent))}
+  .tm-h2-w{color:white}
+  .tm-desc{font-size:16px;line-height:1.7;color:rgb(var(--color-text-muted))}
 
-interface Testimonial {
-  quote: string;
-  author: string;
-  role: string;
-  company: string;
-  rating: number;
-  photo: string | null;
-}
+  .tm-card{background:rgb(var(--color-surface));border:1px solid rgb(var(--color-border)/0.5);border-radius:20px;padding:28px 24px;transition:all .3s}
+  .tm-card:hover{border-color:rgb(var(--color-accent)/0.3);box-shadow:0 8px 32px rgb(0 0 0/0.06);transform:translateY(-3px)}
+  .tm-stars{color:rgb(var(--color-accent));font-size:14px;letter-spacing:2px;margin-bottom:12px}
+  .tm-quote{font-size:14px;font-style:italic;line-height:1.65;color:rgb(var(--color-text-muted));margin-bottom:16px}
+  .tm-author{display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid rgb(var(--color-border)/0.3)}
+  .tm-avatar{width:40px;height:40px;border-radius:50%;background:rgb(var(--color-surface-deep));display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;overflow:hidden}
+  .tm-avatar img{width:100%;height:100%;object-fit:cover}
+  .tm-name{font-size:14px;font-weight:600;color:rgb(var(--color-text-primary))}
+  .tm-role{font-size:12px;color:rgb(var(--color-text-dim))}
 
-function testimonials(content: Record<string, unknown>): Testimonial[] {
-  return arr(content.items).map((item) => ({
-    quote: str(item.quote),
-    author: str(item.author),
-    role: str(item.role),
-    company: str(item.company),
-    rating: num(item.rating) || 5,
-    photo: resolveImage(item.photo),
-  }));
-}
+  .tm-glass{background:rgb(255 255 255/0.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgb(255 255 255/0.1);border-radius:20px;padding:28px 24px}
+  .tm-glass .tm-stars{color:rgb(var(--color-accent-light))}
+  .tm-glass .tm-quote{color:rgb(255 255 255/0.8)}
+  .tm-glass .tm-author{border-color:rgb(255 255 255/0.1)}
+  .tm-glass .tm-name{color:white}
+  .tm-glass .tm-role{color:rgb(255 255 255/0.5)}
 
-function heading(content: Record<string, unknown>) {
-  return str(content.heading) || str(content.headline);
-}
+  @keyframes tmUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  .ta1{opacity:0;animation:tmUp .8s ease .1s forwards}
+  .ta2{opacity:0;animation:tmUp .8s ease .3s forwards}
+  @keyframes tmMarquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  @keyframes tmMarqueeR{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
+`;
 
 function Stars({ rating }: { rating: number }) {
-  if (rating <= 0) return null;
-  return (
-    <span className="text-accent text-sm" aria-label={`${rating} out of 5 stars`}>
-      {"★".repeat(Math.min(rating, 5))}
-    </span>
-  );
+  const r = Math.min(Math.max(rating, 0), 5);
+  return <div className="tm-stars">{"★".repeat(r)}{"☆".repeat(5 - r)}</div>;
 }
 
-function AuthorPhoto({ photo, author }: { photo: string | null; author: string }) {
-  if (photo) {
-    return (
-      <img
-        src={photo}
-        alt={author}
-        className="w-10 h-10 rounded-full object-cover flex-shrink-0"
-        loading="lazy"
-      />
-    );
-  }
+function AuthorBlock({ item }: { item: Record<string, unknown> }) {
+  const photo = resolveImage(item.photo);
   return (
-    <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-      <span className="text-accent text-sm font-semibold">
-        {author.charAt(0).toUpperCase()}
-      </span>
-    </div>
-  );
-}
-
-// ── Variant renderers ───────────────────────────────────────────────────────
-
-function SimpleGrid({ items }: { items: Testimonial[] }) {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {items.map((t, i) => (
-        <ScrollReveal key={i} delay={i * 80}>
-          <div className="bg-surface rounded-xl p-6 border border-border h-full flex flex-col">
-            <Stars rating={t.rating} />
-            <p className="mt-3 text-primary font-body italic leading-relaxed flex-grow">
-              &ldquo;{t.quote}&rdquo;
-            </p>
-            <div className="mt-4 flex items-center gap-3 pt-4 border-t border-border">
-              <AuthorPhoto photo={t.photo} author={t.author} />
-              <div>
-                <p className="text-sm font-semibold text-primary font-body">{t.author}</p>
-                {(t.role || t.company) && (
-                  <p className="text-xs text-muted font-body">
-                    {t.role}{t.role && t.company ? ", " : ""}{t.company}
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-        </ScrollReveal>
-      ))}
-    </div>
-  );
-}
-
-function SingleLarge({ items }: { items: Testimonial[] }) {
-  const t = items[0];
-  if (!t) return null;
-  return (
-    <ScrollReveal>
-      <div className="max-w-3xl mx-auto text-center">
-        <div className="relative">
-          <span className="text-6xl text-accent/20 font-serif absolute -top-4 -left-2 leading-none select-none">
-            &ldquo;
-          </span>
-          <p className="text-lg md:text-xl italic text-primary font-body leading-relaxed pt-6 px-6">
-            {t.quote}
-          </p>
-        </div>
-        <div className="mt-8 flex flex-col items-center gap-3">
-          {t.photo ? (
-            <img
-              src={t.photo}
-              alt={t.author}
-              className="w-16 h-16 rounded-full object-cover"
-              loading="lazy"
-            />
-          ) : (
-            <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center">
-              <span className="text-accent text-xl font-semibold">
-                {t.author.charAt(0).toUpperCase()}
-              </span>
-            </div>
-          )}
-          <div>
-            <Stars rating={t.rating} />
-            <p className="text-sm font-semibold text-primary font-body mt-1">{t.author}</p>
-            {(t.role || t.company) && (
-              <p className="text-xs text-muted font-body">
-                {t.role}{t.role && t.company ? ", " : ""}{t.company}
-              </p>
-            )}
-          </div>
-        </div>
+    <div className="tm-author">
+      <div className="tm-avatar">
+        {photo ? <img src={photo} alt="" /> : <span>{resolveIcon(item.icon) || "👤"}</span>}
       </div>
-    </ScrollReveal>
+      <div>
+        <div className="tm-name">{str(item.author)}</div>
+        {(str(item.role) || str(item.company)) && (
+          <div className="tm-role">{str(item.role)}{str(item.company) ? `, ${str(item.company)}` : ""}</div>
+        )}
+      </div>
+    </div>
   );
 }
 
-function FeaturedSmall({ items }: { items: Testimonial[] }) {
-  if (items.length === 0) return null;
-  const [featured, ...rest] = items;
+export default function TestimonialsSection({ content, vn }: TestimonialsProps) {
+  const hl = str(content.heading || content.headline);
+  const body = str(content.body);
+  const ey = str(content.eyebrow);
+  const items = arr(content.items);
+  const bgImg = resolveImage(content.image || content.bg_image);
 
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-      {/* Featured - 2/5 width */}
-      <ScrollReveal className="md:col-span-2">
-        <div className="bg-accent/5 border border-accent/20 rounded-xl p-8 h-full flex flex-col">
-          <Stars rating={featured.rating} />
-          <p className="mt-3 text-primary font-body italic text-base leading-relaxed flex-grow">
-            &ldquo;{featured.quote}&rdquo;
-          </p>
-          <div className="mt-6 flex items-center gap-3">
-            <AuthorPhoto photo={featured.photo} author={featured.author} />
-            <div>
-              <p className="text-sm font-semibold text-primary font-body">{featured.author}</p>
-              {(featured.role || featured.company) && (
-                <p className="text-xs text-muted font-body">
-                  {featured.role}{featured.role && featured.company ? ", " : ""}{featured.company}
-                </p>
-              )}
-            </div>
+  const Header = ({ white }: { white?: boolean }) => (
+    <div className="tm-header ta1">
+      {ey && <div className="tm-eyebrow"><div className="tm-eline"/><span className="tm-etxt" style={white ? { color: "rgb(var(--color-accent-light))" } : undefined}>{ey}</span><div className="tm-eline-r"/></div>}
+      <h2 className={`tm-h2 ${white ? "tm-h2-w" : ""}`}>{hl}</h2>
+      {body && <p className="tm-desc" style={white ? { color: "rgb(255 255 255/0.7)" } : undefined}>{body}</p>}
+    </div>
+  );
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 1: Prosta siatka 3-col
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 1) {
+    return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="tm-wrap">
+      <Header />
+      <div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {items.map((it, i) => (
+          <div key={i} className="tm-card">
+            <Stars rating={num(it.rating) || 5} />
+            <div className="tm-quote">&ldquo;{str(it.quote)}&rdquo;</div>
+            <AuthorBlock item={it} />
           </div>
-        </div>
-      </ScrollReveal>
-
-      {/* Rest - 3/5 width, stacked */}
-      <div className="md:col-span-3 flex flex-col gap-4">
-        {rest.map((t, i) => (
-          <ScrollReveal key={i} delay={(i + 1) * 80}>
-            <div className="bg-surface rounded-xl px-6 py-4 border border-border flex items-start gap-4">
-              <AuthorPhoto photo={t.photo} author={t.author} />
-              <div className="flex-grow min-w-0">
-                <Stars rating={t.rating} />
-                <p className="mt-1 text-sm text-primary font-body italic leading-relaxed line-clamp-3">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <p className="mt-2 text-xs font-semibold text-muted font-body">
-                  {t.author}{t.role ? ` - ${t.role}` : ""}
-                </p>
-              </div>
-            </div>
-          </ScrollReveal>
         ))}
       </div>
-    </div>
-  );
-}
+    </div></section>);
+  }
 
-function OnImage({ items, content }: { items: Testimonial[]; content: Record<string, unknown> }) {
-  const bgImage = resolveImage(content.background_image ?? content.bg_image ?? content.image);
-
-  return (
-    <section className="relative py-20 md:py-28">
-      {/* Background */}
-      {bgImage ? (
-        <img
-          src={bgImage}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-          loading="lazy"
-        />
-      ) : (
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800" />
-      )}
-      <div className="absolute inset-0 bg-black/60" />
-
-      <div className="relative z-10 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
-        {heading(content) && (
-          <div className="mb-12">
-            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl leading-tight text-white text-center mb-4">
-              {heading(content)}
-            </h2>
-          </div>
-        )}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {items.map((t, i) => (
-            <ScrollReveal key={i} delay={i * 80}>
-              <div className="backdrop-blur-sm bg-white/10 border border-white/20 rounded-xl p-6">
-                <Stars rating={t.rating} />
-                <p className="mt-3 text-white font-body italic leading-relaxed">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <div className="mt-4 flex items-center gap-3 pt-4 border-t border-white/20">
-                  {t.photo ? (
-                    <img
-                      src={t.photo}
-                      alt={t.author}
-                      className="w-10 h-10 rounded-full object-cover flex-shrink-0"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-sm font-semibold">
-                        {t.author.charAt(0).toUpperCase()}
-                      </span>
-                    </div>
-                  )}
-                  <div>
-                    <p className="text-sm font-semibold text-white font-body">{t.author}</p>
-                    {(t.role || t.company) && (
-                      <p className="text-xs text-white/70 font-body">
-                        {t.role}{t.role && t.company ? ", " : ""}{t.company}
-                      </p>
-                    )}
-                  </div>
-                </div>
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 2: Ze zdjeciem + accent left-border
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 2) {
+    return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="tm-wrap">
+      <Header />
+      <div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {items.map((it, i) => (
+          <div key={i} className="tm-card" style={{ borderLeft: "3px solid rgb(var(--color-accent)/0.3)", padding: "32px 28px" }}>
+            <Stars rating={num(it.rating) || 5} />
+            <div className="tm-quote" style={{ fontSize: 15 }}>&ldquo;{str(it.quote)}&rdquo;</div>
+            <div className="tm-author">
+              <div className="tm-avatar" style={{ width: 48, height: 48, border: "2px solid rgb(var(--color-accent)/0.3)" }}>
+                {resolveImage(it.photo) ? <img src={resolveImage(it.photo)!} alt="" /> : <span>{resolveIcon(it.icon) || "👤"}</span>}
               </div>
-            </ScrollReveal>
+              <div>
+                <div className="tm-name">{str(it.author)}</div>
+                <div className="tm-role">{str(it.role)}{str(it.company) ? `, ${str(it.company)}` : ""}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div></section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 3: Karuzela marquee
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 3) {
+    return (<section className="bg-bg-alt" style={{ padding: "64px 0", overflow: "hidden" }}><style>{S}</style><div className="tm-wrap"><Header /></div>
+      <div className="ta2" style={{ position: "relative" }}>
+        <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 60, background: "linear-gradient(to right, rgb(var(--color-bg-alt)), transparent)", zIndex: 2 }} />
+        <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 60, background: "linear-gradient(to left, rgb(var(--color-bg-alt)), transparent)", zIndex: 2 }} />
+        <div style={{ display: "flex", gap: 20, animation: "tmMarquee 40s linear infinite", width: "max-content" }} className="hover:[animation-play-state:paused]">
+          {[...items, ...items].map((it, i) => (
+            <div key={i} className="tm-card" style={{ minWidth: 320, flexShrink: 0 }}>
+              <Stars rating={num(it.rating) || 5} />
+              <div className="tm-quote">&ldquo;{str(it.quote)}&rdquo;</div>
+              <AuthorBlock item={it} />
+            </div>
           ))}
         </div>
       </div>
-    </section>
-  );
-}
-
-function LargeTwoCol({ items }: { items: Testimonial[] }) {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {items.map((t, i) => (
-        <ScrollReveal key={i} delay={i * 100}>
-          <div className="bg-surface rounded-2xl p-8 border border-border h-full flex flex-col">
-            <Stars rating={t.rating} />
-            <p className="mt-4 text-base text-primary font-body italic leading-relaxed flex-grow">
-              &ldquo;{t.quote}&rdquo;
-            </p>
-            <div className="mt-6 pt-4 border-t border-border flex items-center gap-3">
-              <AuthorPhoto photo={t.photo} author={t.author} />
-              <div>
-                <p className="text-sm font-semibold text-primary font-body">{t.author}</p>
-                {(t.role || t.company) && (
-                  <p className="text-xs text-muted font-body">
-                    {t.role}{t.role && t.company ? ", " : ""}{t.company}
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-        </ScrollReveal>
-      ))}
-    </div>
-  );
-}
-
-function Wall({ items }: { items: Testimonial[] }) {
-  return (
-    <>
-      <div
-        className="hidden md:block"
-        style={{ columnCount: 3, columnGap: "16px" }}
-      >
-        {items.map((t, i) => (
-          <ScrollReveal key={i} delay={i * 60}>
-            <div className="bg-surface rounded-xl p-5 border border-border mb-4 break-inside-avoid">
-              <Stars rating={t.rating} />
-              <p className="mt-2 text-sm text-primary font-body italic leading-relaxed">
-                &ldquo;{t.quote}&rdquo;
-              </p>
-              <div className="mt-3 flex items-center gap-2 pt-3 border-t border-border">
-                <AuthorPhoto photo={t.photo} author={t.author} />
-                <div>
-                  <p className="text-xs font-semibold text-primary font-body">{t.author}</p>
-                  {(t.role || t.company) && (
-                    <p className="text-[11px] text-muted font-body">
-                      {t.role}{t.role && t.company ? ", " : ""}{t.company}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </ScrollReveal>
-        ))}
-      </div>
-      {/* Mobile: single column */}
-      <div className="md:hidden flex flex-col gap-4">
-        {items.map((t, i) => (
-          <div key={i} className="bg-surface rounded-xl p-5 border border-border">
-            <Stars rating={t.rating} />
-            <p className="mt-2 text-sm text-primary font-body italic leading-relaxed">
-              &ldquo;{t.quote}&rdquo;
-            </p>
-            <div className="mt-3 flex items-center gap-2 pt-3 border-t border-border">
-              <AuthorPhoto photo={t.photo} author={t.author} />
-              <div>
-                <p className="text-xs font-semibold text-primary font-body">{t.author}</p>
-                {(t.role || t.company) && (
-                  <p className="text-[11px] text-muted font-body">
-                    {t.role}{t.role && t.company ? ", " : ""}{t.company}
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </>
-  );
-}
-
-// ── Main component ──────────────────────────────────────────────────────────
-
-export default function TestimonialsSection({ content, vn }: TestimonialsProps) {
-  const items = testimonials(content);
-  const title = heading(content);
-
-  // vn 7-8 uses its own Section with background image - render separately
-  if (vn >= 7 && vn <= 8) {
-    return <OnImage items={items} content={content} />;
+    </section>);
   }
 
-  const renderVariant = () => {
-    if (vn <= 2) return <SimpleGrid items={items} />;
-    if (vn <= 4) return <SingleLarge items={items} />;
-    if (vn <= 6) return <FeaturedSmall items={items} />;
-    if (vn <= 10) return <LargeTwoCol items={items} />;
-    return <Wall items={items} />;
-  };
-
-  return (
-    <Section bg="bg-bg-alt">
-      {title && (
-        <div className="mb-12">
-          <Headline text={title} center />
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 4: Duzy cytat centrowany
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 4) {
+    const it = items[0] || {};
+    return (<section className="bg-bg-alt" style={{ padding: "80px 0" }}><style>{S}</style><div className="tm-wrap">
+      <div className="ta1" style={{ maxWidth: 700, margin: "0 auto", textAlign: "center", position: "relative" }}>
+        {/* Decorative quote mark */}
+        <div style={{ fontFamily: "var(--font-display)", fontSize: 120, color: "rgb(var(--color-accent)/0.12)", lineHeight: 1, position: "absolute", top: -40, left: "50%", transform: "translateX(-50%)", userSelect: "none" }}>&ldquo;</div>
+        <div style={{ position: "relative", zIndex: 2 }}>
+          <Stars rating={num(it.rating) || 5} />
+          <div style={{ fontFamily: "var(--font-display)", fontSize: 20, fontStyle: "italic", lineHeight: 1.6, color: "rgb(var(--color-text-primary))", margin: "16px 0 28px" }}>&ldquo;{str(it.quote)}&rdquo;</div>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+            <div className="tm-avatar" style={{ width: 64, height: 64 }}>
+              {resolveImage(it.photo) ? <img src={resolveImage(it.photo)!} alt="" /> : <span style={{ fontSize: 28 }}>{resolveIcon(it.icon) || "👤"}</span>}
+            </div>
+            <div>
+              <div className="tm-name" style={{ textAlign: "center" }}>{str(it.author)}</div>
+              <div className="tm-role" style={{ textAlign: "center" }}>{str(it.role)}{str(it.company) ? `, ${str(it.company)}` : ""}</div>
+            </div>
+          </div>
+          {/* Dots */}
+          {items.length > 1 && (
+            <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 28 }}>
+              {items.map((_, j) => (
+                <div key={j} style={{ width: 8, height: 8, borderRadius: "50%", background: j === 0 ? "rgb(var(--color-accent))" : "rgb(var(--color-border))", transition: "background 0.3s" }} />
+              ))}
+            </div>
+          )}
         </div>
-      )}
-      {renderVariant()}
-    </Section>
-  );
+      </div>
+    </div></section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 5: Featured + kompaktowe
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 5) {
+    const featured = items[0];
+    const rest = items.slice(1);
+    return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="tm-wrap">
+      <Header />
+      <div className="ta2 grid grid-cols-1 md:grid-cols-5 gap-6">
+        {featured && (
+          <div className="md:col-span-2" style={{ background: "rgb(var(--color-accent)/0.05)", border: "1px solid rgb(var(--color-accent)/0.2)", borderRadius: 24, padding: 32 }}>
+            <Stars rating={num(featured.rating) || 5} />
+            <div style={{ fontFamily: "var(--font-display)", fontSize: 18, fontStyle: "italic", lineHeight: 1.6, color: "rgb(var(--color-text-primary))", marginBottom: 20 }}>&ldquo;{str(featured.quote)}&rdquo;</div>
+            <AuthorBlock item={featured} />
+          </div>
+        )}
+        <div className="md:col-span-3" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          {rest.map((it, i) => (
+            <div key={i} style={{ display: "flex", gap: 16, padding: "16px 20px", background: "rgb(var(--color-surface))", border: "1px solid rgb(var(--color-border)/0.5)", borderRadius: 16, transition: "all 0.2s" }}>
+              <div className="tm-avatar" style={{ flexShrink: 0 }}>
+                {resolveImage(it.photo) ? <img src={resolveImage(it.photo)!} alt="" /> : <span>{resolveIcon(it.icon) || "👤"}</span>}
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+                  <div className="tm-name">{str(it.author)}</div>
+                  <div style={{ color: "rgb(var(--color-accent))", fontSize: 12 }}>{"★".repeat(num(it.rating) || 5)}</div>
+                </div>
+                <div style={{ fontSize: 13, fontStyle: "italic", color: "rgb(var(--color-text-muted))", lineHeight: 1.5 }}>&ldquo;{str(it.quote)}&rdquo;</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div></section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 6: Wideo (karty z play button)
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 6) {
+    return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="tm-wrap">
+      <Header />
+      <div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {items.map((it, i) => {
+          const photo = resolveImage(it.photo || it.image || it.video_thumbnail);
+          return (
+            <div key={i} className="tm-card" style={{ padding: 0, overflow: "hidden" }}>
+              <div style={{ position: "relative", aspectRatio: "16/10", background: "rgb(var(--color-surface-deep))", overflow: "hidden" }}>
+                {photo && <img src={photo} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
+                <div style={{ position: "absolute", inset: 0, background: "rgb(0 0 0/0.2)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+                  <div style={{ width: 56, height: 56, borderRadius: "50%", background: "rgb(var(--color-surface)/0.95)", backdropFilter: "blur(12px)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 20px rgb(0 0 0/0.15)" }}>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="rgb(var(--color-accent))"><polygon points="5,3 19,12 5,21"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div style={{ padding: "20px 24px" }}>
+                <Stars rating={num(it.rating) || 5} />
+                <div className="tm-quote">&ldquo;{str(it.quote)}&rdquo;</div>
+                <AuthorBlock item={it} />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div></section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 7: Na tle zdjecia z glassmorphism
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 7) {
+    return (<section style={{ position: "relative", padding: "80px 0", overflow: "hidden" }}><style>{S}</style>
+      <div style={{ position: "absolute", inset: 0 }}>{bgImg && <img src={bgImg} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}</div>
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,0,0,0.65), rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.7))" }} />
+      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.3))" }} />
+      <div className="tm-wrap" style={{ position: "relative", zIndex: 10 }}>
+        <Header white />
+        <div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {items.map((it, i) => (
+            <div key={i} className="tm-glass">
+              <Stars rating={num(it.rating) || 5} />
+              <div className="tm-quote">&ldquo;{str(it.quote)}&rdquo;</div>
+              <AuthorBlock item={it} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 8: Sciana opinii (masonry)
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 8) {
+    return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}{`
+      .tm-masonry{column-count:1;column-gap:16px}
+      @media(min-width:640px){.tm-masonry{column-count:2}}
+      @media(min-width:1024px){.tm-masonry{column-count:3}}
+      .tm-masonry-item{break-inside:avoid;margin-bottom:16px}
+    `}</style><div className="tm-wrap">
+      <Header />
+      <div className="tm-masonry ta2">
+        {items.map((it, i) => (
+          <div key={i} className="tm-masonry-item">
+            <div className="tm-card" style={i % 3 === 0 ? { borderLeft: "3px solid rgb(var(--color-accent)/0.3)" } : undefined}>
+              <Stars rating={num(it.rating) || 5} />
+              <div className="tm-quote">&ldquo;{str(it.quote)}&rdquo;</div>
+              <AuthorBlock item={it} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div></section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 9: B2B z logami
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 9) {
+    return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="tm-wrap">
+      <Header />
+      <div className="ta2 grid grid-cols-1 md:grid-cols-2 gap-6">
+        {items.map((it, i) => (
+          <div key={i} className="tm-card" style={{ padding: 32, borderRadius: 24 }}>
+            {str(it.company) && (
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", background: "rgb(var(--color-bg-alt))", borderRadius: 8, marginBottom: 16, fontSize: 13, fontWeight: 600, color: "rgb(var(--color-text-muted))" }}>
+                <span style={{ fontSize: 16 }}>{resolveIcon(it.icon) || "🏢"}</span>
+                {str(it.company)}
+              </div>
+            )}
+            <Stars rating={num(it.rating) || 5} />
+            <div className="tm-quote" style={{ fontSize: 16 }}>&ldquo;{str(it.quote)}&rdquo;</div>
+            <div className="tm-author">
+              <div className="tm-avatar">
+                {resolveImage(it.photo) ? <img src={resolveImage(it.photo)!} alt="" /> : <span>{resolveIcon(it.icon) || "👤"}</span>}
+              </div>
+              <div>
+                <div className="tm-name">{str(it.author)}</div>
+                <div className="tm-role">{str(it.role)}{str(it.company) ? <span style={{ color: "rgb(var(--color-accent))" }}> - {str(it.company)}</span> : ""}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div></section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 10: Podsumowanie (rating summary + karty)
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 10) {
+    const avgRating = items.length > 0
+      ? (items.reduce((sum, it) => sum + (num(it.rating) || 5), 0) / items.length).toFixed(1)
+      : "5.0";
+    return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="tm-wrap">
+      <Header />
+      {/* Rating summary */}
+      <div className="ta1" style={{ textAlign: "center", marginBottom: 48 }}>
+        <div style={{ fontFamily: "var(--font-display)", fontSize: 64, fontWeight: 700, color: "rgb(var(--color-accent))", lineHeight: 1 }}>{avgRating}</div>
+        <div style={{ color: "rgb(var(--color-accent))", fontSize: 20, letterSpacing: 3, margin: "8px 0" }}>★★★★★</div>
+        <div style={{ fontSize: 14, color: "rgb(var(--color-text-dim))" }}>na podstawie {items.length > 0 ? items.length * 20 : 127} opinii</div>
+      </div>
+      {/* Cards */}
+      <div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {items.map((it, i) => (
+          <div key={i} className="tm-card">
+            <Stars rating={num(it.rating) || 5} />
+            <div className="tm-quote">&ldquo;{str(it.quote)}&rdquo;</div>
+            <AuthorBlock item={it} />
+          </div>
+        ))}
+      </div>
+    </div></section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 11: Dwurzedowa marquee (przeciwne kierunki)
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 11) {
+    const half = Math.ceil(items.length / 2);
+    const row1 = items.slice(0, half);
+    const row2 = items.slice(half);
+    return (<section className="bg-bg-alt" style={{ padding: "64px 0", overflow: "hidden" }}><style>{S}</style>
+      <div className="tm-wrap"><Header /></div>
+      {[row1, row2].map((row, ri) => (
+        <div key={ri} style={{ position: "relative", marginBottom: ri === 0 ? 16 : 0 }}>
+          <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 60, background: "linear-gradient(to right, rgb(var(--color-bg-alt)), transparent)", zIndex: 2 }} />
+          <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 60, background: "linear-gradient(to left, rgb(var(--color-bg-alt)), transparent)", zIndex: 2 }} />
+          <div style={{ display: "flex", gap: 16, animation: `${ri === 0 ? "tmMarquee" : "tmMarqueeR"} ${35 + ri * 5}s linear infinite`, width: "max-content" }}>
+            {[...row, ...row].map((it, i) => (
+              <div key={i} style={{ display: "flex", gap: 12, padding: "14px 18px", background: "rgb(var(--color-surface))", border: "1px solid rgb(var(--color-border)/0.5)", borderRadius: 14, minWidth: 320, flexShrink: 0, alignItems: "center" }}>
+                <div className="tm-avatar" style={{ width: 36, height: 36 }}>
+                  {resolveImage(it.photo) ? <img src={resolveImage(it.photo)!} alt="" /> : <span style={{ fontSize: 16 }}>{resolveIcon(it.icon) || "👤"}</span>}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <div style={{ fontSize: 13, fontWeight: 600 }}>{str(it.author)}</div>
+                    <div style={{ color: "rgb(var(--color-accent))", fontSize: 11 }}>{"★".repeat(num(it.rating) || 5)}</div>
+                  </div>
+                  <div style={{ fontSize: 12, fontStyle: "italic", color: "rgb(var(--color-text-muted))", lineHeight: 1.4, marginTop: 3 }}>&ldquo;{str(it.quote).slice(0, 80)}{str(it.quote).length > 80 ? "..." : ""}&rdquo;</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 12: NPS / data-driven (rating summary + quotes)
+  // ═══════════════════════════════════════════════════════════════════════════
+  return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="tm-wrap">
+    <Header />
+    {/* NPS-style summary */}
+    <div className="ta1" style={{ maxWidth: 500, margin: "0 auto 48px", textAlign: "center" }}>
+      <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 100, height: 100, borderRadius: "50%", border: "4px solid rgb(var(--color-accent))", marginBottom: 16 }}>
+        <span style={{ fontFamily: "var(--font-display)", fontSize: 36, fontWeight: 700, color: "rgb(var(--color-accent))" }}>92</span>
+      </div>
+      <div style={{ fontSize: 14, fontWeight: 600, color: "rgb(var(--color-text-primary))", marginBottom: 4 }}>NPS Score</div>
+      <div style={{ fontSize: 13, color: "rgb(var(--color-text-dim))" }}>Na podstawie {items.length > 0 ? items.length * 20 : 127} odpowiedzi</div>
+      {/* Bar */}
+      <div style={{ display: "flex", borderRadius: 6, overflow: "hidden", height: 8, marginTop: 20 }}>
+        <div style={{ width: "73%", background: "rgb(34 197 94)" }} />
+        <div style={{ width: "19%", background: "rgb(var(--color-accent))" }} />
+        <div style={{ width: "8%", background: "rgb(239 68 68)" }} />
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "rgb(var(--color-text-dim))", marginTop: 6 }}>
+        <span>73% promotorzy</span><span>19% neutralni</span><span>8% krytycy</span>
+      </div>
+    </div>
+    {/* Quotes */}
+    <div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {items.slice(0, 3).map((it, i) => (
+        <div key={i} className="tm-card">
+          <Stars rating={num(it.rating) || 5} />
+          <div className="tm-quote">&ldquo;{str(it.quote)}&rdquo;</div>
+          <AuthorBlock item={it} />
+        </div>
+      ))}
+    </div>
+  </div></section>);
 }
