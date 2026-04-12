@@ -32,6 +32,14 @@ function buildOverrideStyle(overrides: ThemeOverrides | null | undefined): React
   return hasAny ? (style as React.CSSProperties) : undefined;
 }
 
+// Map variant category to section anchor ID for smooth scroll
+function getSectionAnchorId(variant: string): string | undefined {
+  const category = variant.replace(/_\d+$/, "");
+  // Navbar and footer don't need anchors
+  if (category === "navbar" || category === "footer") return undefined;
+  return category;
+}
+
 export default function SectionRenderer({
   section,
 }: {
@@ -46,9 +54,13 @@ export default function SectionRenderer({
   if (!section.visible) return null;
 
   const overrideStyle = buildOverrideStyle(section.theme_overrides);
+  const anchorId = getSectionAnchorId(section.variant);
   const rendered = <GenericSection variant={section.variant} content={section.content} />;
 
-  if (!overrideStyle) return rendered;
+  // Wrap in div with anchor ID for smooth scroll navigation
+  if (overrideStyle || anchorId) {
+    return <div id={anchorId} style={overrideStyle}>{rendered}</div>;
+  }
 
-  return <div style={overrideStyle}>{rendered}</div>;
+  return rendered;
 }

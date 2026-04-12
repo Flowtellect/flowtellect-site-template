@@ -2,10 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 html, body {
   margin: 0;
   padding: 0;
-  scroll-behavior: smooth;
+}
+
+/* Offset for fixed navbar when scrolling to anchor */
+[id] {
+  scroll-margin-top: 80px;
 }
 
 /* Prose for richtext content */
