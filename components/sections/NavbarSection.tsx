@@ -132,7 +132,9 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
 
   // Logo renderer
   const LogoEl = ({ className = "" }: { className?: string }) => (
-    <BrandLogo content={content} className={className} size="md" />
+    <a href="#" style={{ textDecoration: "none", color: "inherit" }} onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+      <BrandLogo content={content} className={className} size="md" />
+    </a>
   );
 
   // ── STYLES (inline to match HTML mockups exactly) ─────────────────────────
@@ -333,7 +335,8 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
           transition: "all 0.5s cubic-bezier(0.16,1,0.3,1)",
         }}>
           <div className="nb-bar" style={{ transition: "height 0.4s ease" }}>
-            {/* Logo */}
+            {/* Logo - click scrolls to top */}
+            <a href="#" style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center", gap: 10 }} onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
             {hasRealLogo ? (
               <img src={logo!} alt={brandName} style={{ height: 36, width: "auto", filter: solid ? "none" : "brightness(0) invert(1)", transition: "filter 0.4s ease" }} />
             ) : (
@@ -355,6 +358,7 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
                 </span>
               </div>
             )}
+            </a>
             <nav className="hidden md:flex items-center" style={{ gap: 32 }}>
               {links.map((l, i) => (
                 <a key={i} href={l.href} className={`nb-link ${solid ? "nb-link-default" : "nb-link-white"}`}>{l.label}</a>
