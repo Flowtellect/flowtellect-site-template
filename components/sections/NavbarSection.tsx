@@ -172,9 +172,9 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
   `;
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // VN 1-3: Classic
+  // VN 1: Classic (logo lewo, linki prawo, CTA)
   // ═══════════════════════════════════════════════════════════════════════════
-  if (vn >= 1 && vn <= 3) {
+  if (vn === 1 || vn === 3) {
     return (
       <>
         <style>{styles}</style>
@@ -195,6 +195,54 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
               {ctaLabel && <a href={ctaHref} className="nb-cta hidden md:inline-flex">{ctaLabel}</a>}
               <Hamburger onClick={() => setMenuOpen(true)} className="text-muted hover:text-primary" />
             </div>
+          </div>
+        </header>
+        <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} links={links} cta={cta} />
+      </>
+    );
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 2: Centrowane logo (logo gora, linki + CTA ponizej)
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 2) {
+    return (
+      <>
+        <style>{styles}{`
+          .nb2-inner{max-width:1280px;margin:0 auto;padding:16px 16px 12px;display:flex;flex-direction:column;align-items:center;gap:12px}
+          @media(min-width:768px){.nb2-inner{padding:16px 24px 12px}}
+          @media(min-width:1024px){.nb2-inner{padding:16px 48px 12px}}
+          .nb2-links{display:none;align-items:center;gap:8px}
+          @media(min-width:768px){.nb2-links{display:flex}}
+          .nb2-divider{width:1px;height:16px;background:rgb(var(--color-border));margin:0 4px}
+          .nb2-link{font-size:13px;font-weight:500;color:rgb(var(--color-text-muted));text-decoration:none;padding:6px 16px;border-radius:8px;transition:all .2s;letter-spacing:.02em}
+          .nb2-link:hover{color:rgb(var(--color-text-primary));background:rgb(var(--color-surface-deep)/0.6)}
+        `}</style>
+        <header style={{
+          position: "sticky", top: 0, zIndex: 50,
+          background: scrolled ? "rgb(var(--color-bg) / 0.85)" : "rgb(var(--color-bg))",
+          backdropFilter: scrolled ? "blur(20px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
+          borderBottom: `1px solid rgb(var(--color-border) / ${scrolled ? "0.5" : "0.3"})`,
+          transition: "all 0.3s ease",
+        }}>
+          <div className="nb2-inner">
+            <LogoEl />
+            <div className="nb2-links">
+              {links.map((l, i) => (
+                <span key={i} style={{ display: "flex", alignItems: "center", gap: 0 }}>
+                  {i > 0 && <div className="nb2-divider" />}
+                  <a href={l.href} className="nb2-link">{l.label}</a>
+                </span>
+              ))}
+              {ctaLabel && (
+                <>
+                  <div className="nb2-divider" style={{ marginLeft: 8 }} />
+                  <a href={ctaHref} className="nb-cta nb-cta-sm" style={{ marginLeft: 4 }}>{ctaLabel}</a>
+                </>
+              )}
+            </div>
+            <div className="md:hidden"><Hamburger onClick={() => setMenuOpen(true)} className="text-muted hover:text-primary" /></div>
           </div>
         </header>
         <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} links={links} cta={cta} />
