@@ -1,529 +1,541 @@
 "use client";
 
 // ─── HeroSection ────────────────────────────────────────────────────────────
-// 15 polished hero variants matching HTML mockup quality.
-// Each variant has unique layout, animations, and visual effects.
+// 15 individually crafted hero variants. Each vn is a separate block.
 
 /* eslint-disable @next/next/no-img-element */
 
-import { useState, useEffect, useCallback, useRef } from "react";
-import { str, arr, resolveImage, BrandLogo } from "./shared";
+import { useState, useEffect } from "react";
+import { str, arr, resolveImage } from "./shared";
 
 interface HeroProps {
   content: Record<string, unknown>;
   vn: number;
 }
 
-// ── Helpers ─────────────────────────────────────────────────────────────────
+// ── Helpers ──────────────────────────────────────────────────────────────────
 
-function getHeadlines(content: Record<string, unknown>): string[] {
-  const raw = content.headline;
-  if (Array.isArray(raw)) return raw.map((x) => String(x));
+function getHeadlines(c: Record<string, unknown>): string[] {
+  const raw = c.headline;
+  if (Array.isArray(raw)) return raw.map(String);
   if (typeof raw === "string") return raw.split("\n").filter(Boolean);
   return [""];
 }
-
-function getCta(content: Record<string, unknown>, key: string) {
-  const c = content[key];
-  if (!c || typeof c !== "object") return null;
-  const obj = c as Record<string, unknown>;
-  return { label: str(obj.label), href: str(obj.href) || "#" };
+function cta(c: Record<string, unknown>, key: string) {
+  const v = c[key];
+  if (!v || typeof v !== "object") return null;
+  const o = v as Record<string, unknown>;
+  return { label: str(o.label), href: str(o.href) || "#" };
 }
-
-// ── Styles ──────────────────────────────────────────────────────────────────
-
-const STYLES = `
-  .hero-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-  .hero-eyebrow-line { width: 32px; height: 1px; background: rgb(var(--color-accent)); }
-  .hero-eyebrow-line-gradient { width: 40px; height: 1px; background: linear-gradient(90deg, transparent, rgb(var(--color-accent) / 0.4)); }
-  .hero-eyebrow-line-gradient-r { width: 40px; height: 1px; background: linear-gradient(90deg, rgb(var(--color-accent) / 0.4), transparent); }
-  .hero-eyebrow-text { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(var(--color-accent)); }
-  .hero-eyebrow-text-light { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgb(var(--color-accent-light)); }
-
-  .hero-h1 { font-family: var(--font-display); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 18px; }
-  .hero-h1 em { font-style: italic; color: rgb(var(--color-accent)); }
-  .hero-h1-dark { color: rgb(var(--color-text-primary)); }
-  .hero-h1-white { color: white; }
-  .hero-h1-white em { color: rgb(var(--color-accent-light)); }
-  .hero-h1-sm { font-size: 36px; }
-  .hero-h1-lg { font-size: 40px; }
-  @media (min-width: 768px) { .hero-h1-sm { font-size: 44px; } .hero-h1-lg { font-size: 60px; } }
-  @media (min-width: 1024px) { .hero-h1-sm { font-size: 56px; } .hero-h1-lg { font-size: 76px; } }
-
-  .hero-sub { font-family: var(--font-body); font-size: 15px; line-height: 1.7; max-width: 480px; margin-bottom: 28px; }
-  .hero-sub-dark { color: rgb(var(--color-text-muted)); }
-  .hero-sub-white { color: rgb(255 255 255 / 0.7); }
-  @media (min-width: 1024px) { .hero-sub { font-size: 17px; } }
-
-  .hero-cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
-  .hero-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; font-family: var(--font-body); font-size: 14px; font-weight: 600; border-radius: 12px; text-decoration: none; transition: all 0.3s ease; border: none; cursor: pointer; }
-  .hero-btn-accent { background: rgb(var(--color-accent)); color: rgb(var(--color-on-accent)); box-shadow: 0 4px 16px rgb(var(--color-accent) / 0.3); }
-  .hero-btn-accent:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgb(var(--color-accent) / 0.4); }
-  .hero-btn-outline { background: transparent; color: rgb(var(--color-accent)); border: 2px solid rgb(var(--color-accent) / 0.3); }
-  .hero-btn-outline:hover { border-color: rgb(var(--color-accent)); background: rgb(var(--color-accent) / 0.05); transform: translateY(-2px); }
-  .hero-btn-white { background: white; color: rgb(var(--color-text-primary)); box-shadow: 0 4px 20px rgb(0 0 0 / 0.15); }
-  .hero-btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgb(0 0 0 / 0.2); }
-  .hero-btn-glass { background: transparent; color: white; border: 2px solid rgb(255 255 255 / 0.3); }
-  .hero-btn-glass:hover { border-color: rgb(255 255 255 / 0.6); background: rgb(255 255 255 / 0.1); transform: translateY(-2px); }
-
-  .hero-img { width: 100%; object-fit: cover; display: block; }
-  .hero-img-rounded { border-radius: 24px; box-shadow: 0 20px 60px rgb(0 0 0 / 0.1), 0 8px 24px rgb(0 0 0 / 0.06); }
-  .hero-img-zoom { transition: transform 6s ease; }
-  .hero-img-zoom:hover { transform: scale(1.04); }
-
-  .hero-badge { position: absolute; background: rgb(var(--color-surface) / 0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 14px; padding: 12px 16px; display: flex; align-items: center; gap: 10px; box-shadow: 0 4px 16px rgb(0 0 0 / 0.1); }
-  .hero-badge-icon { width: 36px; height: 36px; border-radius: 10px; background: rgb(var(--color-accent) / 0.12); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-  .hero-badge-value { font-size: 15px; font-weight: 700; color: rgb(var(--color-text-primary)); }
-  .hero-badge-label { font-size: 11px; color: rgb(var(--color-text-muted)); }
-
-  .hero-pill { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: rgb(var(--color-surface)); border: 1px solid rgb(var(--color-border) / 0.5); border-radius: 100px; font-size: 12px; font-weight: 500; color: rgb(var(--color-text-muted)); }
-  .hero-pill-icon { font-size: 14px; }
-
-  .hero-overlay { position: absolute; inset: 0; }
-  .hero-fade { position: absolute; bottom: 0; left: 0; right: 0; height: 100px; background: linear-gradient(to bottom, transparent, rgb(var(--color-bg))); z-index: 5; }
-
-  @keyframes heroFadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes heroSlideLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
-  @keyframes heroSlideRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
-  .hero-anim-1 { opacity: 0; animation: heroFadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s forwards; }
-  .hero-anim-2 { opacity: 0; animation: heroFadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.3s forwards; }
-  .hero-anim-3 { opacity: 0; animation: heroFadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.5s forwards; }
-  .hero-anim-4 { opacity: 0; animation: heroFadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.7s forwards; }
-  .hero-anim-5 { opacity: 0; animation: heroFadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.9s forwards; }
-  .hero-anim-sl { opacity: 0; animation: heroSlideLeft 0.9s cubic-bezier(0.16,1,0.3,1) 0.1s forwards; }
-  .hero-anim-sr { opacity: 0; animation: heroSlideRight 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s forwards; }
-
-  .hero-deco { display: none; }
-  @media (min-width: 768px) { .hero-deco { display: block; position: absolute; } }
-
-  .hero-scroll { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-  .hero-scroll-text { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: rgb(255 255 255 / 0.5); }
-  .hero-scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgb(255 255 255 / 0.4), transparent); animation: scrollPulse 2s ease-in-out infinite; }
-  @keyframes scrollPulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
-`;
-
-// ── Arrow icon ──────────────────────────────────────────────────────────────
 function Arrow() {
   return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>;
 }
 
-// ── Headline renderer ───────────────────────────────────────────────────────
-function H1({ lines, className }: { lines: string[]; className: string }) {
+// ── Shared styles ────────────────────────────────────────────────────────────
+
+const S = `
+  .he-eyebrow { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+  .he-eline { width:32px; height:1px; background:rgb(var(--color-accent)); }
+  .he-eline-g { width:40px; height:1px; background:linear-gradient(90deg,transparent,rgb(var(--color-accent)/0.4)); }
+  .he-eline-gr { width:40px; height:1px; background:linear-gradient(90deg,rgb(var(--color-accent)/0.4),transparent); }
+  .he-etxt { font-size:11px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:rgb(var(--color-accent)); }
+  .he-etxt-w { font-size:11px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:rgb(var(--color-accent-light)); }
+
+  .he-h1 { font-family:var(--font-display); font-weight:700; line-height:1.1; letter-spacing:-0.02em; margin-bottom:18px; }
+  .he-h1 em { font-style:italic; }
+  .he-h1-d { color:rgb(var(--color-text-primary)); }
+  .he-h1-d em { color:rgb(var(--color-accent)); }
+  .he-h1-w { color:white; }
+  .he-h1-w em { color:rgb(var(--color-accent-light)); }
+  .he-h1-s { font-size:36px; } .he-h1-m { font-size:36px; } .he-h1-l { font-size:40px; }
+  @media(min-width:768px){ .he-h1-s{font-size:44px} .he-h1-m{font-size:48px} .he-h1-l{font-size:60px} }
+  @media(min-width:1024px){ .he-h1-s{font-size:56px} .he-h1-m{font-size:58px} .he-h1-l{font-size:76px} }
+  .he-h1-xl { font-size:40px; }
+  @media(min-width:768px){ .he-h1-xl{font-size:64px} }
+  @media(min-width:1024px){ .he-h1-xl{font-size:80px} }
+  @media(min-width:1280px){ .he-h1-xl{font-size:92px} }
+
+  .he-sub { font-family:var(--font-body); font-size:15px; line-height:1.7; max-width:480px; margin-bottom:28px; }
+  .he-sub-d { color:rgb(var(--color-text-muted)); }
+  .he-sub-w { color:rgb(255 255 255/0.7); }
+  @media(min-width:1024px){ .he-sub{font-size:17px} }
+
+  .he-ctas { display:flex; flex-wrap:wrap; gap:12px; }
+  .he-btn { display:inline-flex; align-items:center; gap:8px; padding:14px 28px; font-family:var(--font-body); font-size:14px; font-weight:600; border-radius:12px; text-decoration:none; transition:all 0.3s ease; border:none; cursor:pointer; }
+  .he-btn-a { background:rgb(var(--color-accent)); color:rgb(var(--color-on-accent)); box-shadow:0 4px 16px rgb(var(--color-accent)/0.3); }
+  .he-btn-a:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgb(var(--color-accent)/0.4); }
+  .he-btn-o { background:transparent; color:rgb(var(--color-accent)); border:2px solid rgb(var(--color-accent)/0.3); }
+  .he-btn-o:hover { border-color:rgb(var(--color-accent)); background:rgb(var(--color-accent)/0.05); transform:translateY(-2px); }
+  .he-btn-w { background:white; color:rgb(var(--color-text-primary)); box-shadow:0 4px 20px rgb(0 0 0/0.15); }
+  .he-btn-w:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgb(0 0 0/0.2); }
+  .he-btn-g { background:transparent; color:white; border:2px solid rgb(255 255 255/0.3); }
+  .he-btn-g:hover { border-color:rgb(255 255 255/0.6); background:rgb(255 255 255/0.1); transform:translateY(-2px); }
+
+  .he-badge { position:absolute; background:rgb(var(--color-surface)/0.92); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-radius:14px; padding:12px 16px; display:flex; align-items:center; gap:10px; box-shadow:0 4px 16px rgb(0 0 0/0.1); }
+  .he-badge-icon { width:36px; height:36px; border-radius:10px; background:rgb(var(--color-accent)/0.12); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+  .he-badge-val { font-size:15px; font-weight:700; color:rgb(var(--color-text-primary)); }
+  .he-badge-lbl { font-size:11px; color:rgb(var(--color-text-muted)); }
+
+  .he-pill { display:inline-flex; align-items:center; gap:6px; padding:8px 14px; background:rgb(var(--color-surface)); border:1px solid rgb(var(--color-border)/0.5); border-radius:100px; font-size:12px; font-weight:500; color:rgb(var(--color-text-muted)); }
+
+  .he-overlay { position:absolute; inset:0; }
+  .he-fade { position:absolute; bottom:0; left:0; right:0; height:100px; background:linear-gradient(to bottom,transparent,rgb(var(--color-bg))); z-index:5; }
+
+  @keyframes hfu { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes hsl { from{opacity:0;transform:translateX(-30px)} to{opacity:1;transform:translateX(0)} }
+  @keyframes hsr { from{opacity:0;transform:translateX(40px)} to{opacity:1;transform:translateX(0)} }
+  .ha1{opacity:0;animation:hfu .8s cubic-bezier(.16,1,.3,1) .1s forwards}
+  .ha2{opacity:0;animation:hfu .8s cubic-bezier(.16,1,.3,1) .3s forwards}
+  .ha3{opacity:0;animation:hfu .8s cubic-bezier(.16,1,.3,1) .5s forwards}
+  .ha4{opacity:0;animation:hfu .8s cubic-bezier(.16,1,.3,1) .7s forwards}
+  .ha5{opacity:0;animation:hfu .8s cubic-bezier(.16,1,.3,1) .9s forwards}
+  .hasl{opacity:0;animation:hsl .9s cubic-bezier(.16,1,.3,1) .1s forwards}
+  .hasr{opacity:0;animation:hsr .9s cubic-bezier(.16,1,.3,1) .3s forwards}
+
+  .he-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:8px}
+  .he-scroll-t{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:rgb(255 255 255/0.5)}
+  .he-scroll-l{width:1px;height:40px;background:linear-gradient(to bottom,rgb(255 255 255/0.4),transparent);animation:sp 2s ease-in-out infinite}
+  @keyframes sp{0%,100%{opacity:.4}50%{opacity:1}}
+
+  .he-wrap{max-width:1280px;margin:0 auto;padding:0 16px}
+  @media(min-width:768px){.he-wrap{padding:0 24px}}
+  @media(min-width:1024px){.he-wrap{padding:0 48px}}
+  .he-grid{display:grid;grid-template-columns:1fr;gap:40px;align-items:center}
+  @media(min-width:768px){.he-grid{grid-template-columns:1fr 1fr;gap:48px}}
+  @media(min-width:1024px){.he-grid{gap:64px}}
+`;
+
+// ── Headline component ───────────────────────────────────────────────────────
+function H({ lines, cls }: { lines: string[]; cls: string }) {
   return (
-    <h1 className={className}>
-      {lines.map((line, i) => {
-        // Wrap words in * with <em>
-        const parts = line.split(/(\*[^*]+\*)/g);
-        return (
-          <span key={i}>
-            {parts.map((p, j) =>
-              p.startsWith("*") && p.endsWith("*")
-                ? <em key={j}>{p.slice(1, -1)}</em>
-                : p
-            )}
-            {i < lines.length - 1 && <br />}
-          </span>
-        );
-      })}
+    <h1 className={cls}>
+      {lines.map((l, i) => <span key={i}>{l}{i < lines.length - 1 && <br />}</span>)}
     </h1>
   );
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-// MAIN COMPONENT
-// ═════════════════════════════════════════════════════════════════════════════
 
 export default function HeroSection({ content, vn }: HeroProps) {
-  const headlines = getHeadlines(content);
-  const eyebrow = str(content.eyebrow);
-  const subheadline = str(content.subheadline);
-  const image = resolveImage(content.hero_image);
-  const ctaPrimary = getCta(content, "cta_primary");
-  const ctaSecondary = getCta(content, "cta_secondary");
+  const hl = getHeadlines(content);
+  const ey = str(content.eyebrow);
+  const sub = str(content.subheadline);
+  const img = resolveImage(content.hero_image);
+  const c1 = cta(content, "cta_primary");
+  const c2 = cta(content, "cta_secondary");
   const items = arr(content.items || content.highlights || content.features);
-  const stats = arr(content.stats);
+  const sts = arr(content.stats);
 
-  // Slider state (hero_8)
-  const [slideIdx, setSlideIdx] = useState(0);
-  const slideTimer = useRef<NodeJS.Timeout | null>(null);
-
-  // Countdown state (hero_9)
-  const [countdown, setCountdown] = useState({ d: 12, h: 6, m: 34, s: 52 });
-
-  // Parallax state (hero_10)
-  const [parallaxY, setParallaxY] = useState(0);
-
-  // Rotating word state (hero_11)
-  // CSS-only animation, no state needed
+  // Countdown for vn 9
+  const [cd, setCd] = useState({ d: 12, h: 6, m: 34, s: 52 });
+  // Parallax for vn 10-12
+  const [pY, setPY] = useState(0);
 
   useEffect(() => {
-    // Slider auto-advance for hero_8
-    if (vn === 8) {
-      slideTimer.current = setInterval(() => setSlideIdx(p => (p + 1) % 3), 5000);
-      return () => { if (slideTimer.current) clearInterval(slideTimer.current); };
-    }
-    // Countdown for hero_9
     if (vn === 9) {
-      const target = Date.now() + 12 * 86400000;
-      const tick = () => {
-        const diff = Math.max(0, target - Date.now());
-        setCountdown({
-          d: Math.floor(diff / 86400000),
-          h: Math.floor((diff % 86400000) / 3600000),
-          m: Math.floor((diff % 3600000) / 60000),
-          s: Math.floor((diff % 60000) / 1000),
-        });
-      };
-      tick();
-      const iv = setInterval(tick, 1000);
-      return () => clearInterval(iv);
+      const t = Date.now() + 12 * 86400000;
+      const tick = () => { const d = Math.max(0, t - Date.now()); setCd({ d: Math.floor(d / 86400000), h: Math.floor((d % 86400000) / 3600000), m: Math.floor((d % 3600000) / 60000), s: Math.floor((d % 60000) / 1000) }); };
+      tick(); const iv = setInterval(tick, 1000); return () => clearInterval(iv);
     }
-    // Parallax for hero_10
-    if (vn === 10) {
-      const onScroll = () => setParallaxY(window.scrollY * 0.4);
-      window.addEventListener("scroll", onScroll, { passive: true });
-      return () => window.removeEventListener("scroll", onScroll);
+    if (vn >= 10 && vn <= 12) {
+      const f = () => setPY(window.scrollY * 0.4);
+      window.addEventListener("scroll", f, { passive: true }); return () => window.removeEventListener("scroll", f);
     }
   }, [vn]);
 
+  const ImgOrGrad = ({ aspect = "4/3", cls = "" }: { aspect?: string; cls?: string }) =>
+    img ? <img src={img} alt="" style={{ width: "100%", aspectRatio: aspect, objectFit: "cover", display: "block", transition: "transform 6s ease" }} className={cls} />
+    : <div style={{ width: "100%", aspectRatio: aspect, background: "linear-gradient(135deg, rgb(var(--color-accent)/0.1), rgb(var(--color-surface)))" }} />;
+
   // ═══════════════════════════════════════════════════════════════════════════
-  // VN 1-3: Classic split (text left, image right)
+  // VN 1: Klasyczny - tekst lewo, obraz prawo
   // ═══════════════════════════════════════════════════════════════════════════
-  if (vn >= 1 && vn <= 3) {
-    return (
-      <section className="bg-bg overflow-hidden" style={{ padding: "48px 16px 64px" }}>
-        <style>{STYLES}</style>
-        <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr", gap: 40, alignItems: "center" }} className="md:!grid-cols-2 md:!gap-12 lg:!gap-16">
-          <div className="hero-anim-1">
-            {eyebrow && <div className="hero-eyebrow"><div className="hero-eyebrow-line" /><span className="hero-eyebrow-text">{eyebrow}</span></div>}
-            <H1 lines={headlines} className="hero-h1 hero-h1-dark hero-h1-sm" />
-            {subheadline && <p className="hero-sub hero-sub-dark">{subheadline}</p>}
-            <div className="hero-cta-row">
-              {ctaPrimary && <a href={ctaPrimary.href} className="hero-btn hero-btn-accent">{ctaPrimary.label} <Arrow /></a>}
-              {ctaSecondary && <a href={ctaSecondary.href} className="hero-btn hero-btn-outline">{ctaSecondary.label}</a>}
-            </div>
-          </div>
-          <div className="hero-anim-2" style={{ position: "relative", marginTop: 16 }}>
-            {image ? (
-              <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 20px 60px rgb(0 0 0 / 0.1)" }}>
-                <img src={image} alt="" className="hero-img hero-img-zoom" style={{ aspectRatio: "4/3" }} />
-              </div>
-            ) : (
-              <div style={{ aspectRatio: "4/3", borderRadius: 24, background: "linear-gradient(135deg, rgb(var(--color-accent) / 0.1), rgb(var(--color-surface)))" }} />
-            )}
-          </div>
-        </div>
-      </section>
-    );
+  if (vn === 1) {
+    return (<section className="bg-bg overflow-hidden" style={{ padding: "48px 0 64px" }}><style>{S}</style><div className="he-wrap"><div className="he-grid">
+      <div className="ha1">
+        {ey && <div className="he-eyebrow"><div className="he-eline"/><span className="he-etxt">{ey}</span></div>}
+        <H lines={hl} cls="he-h1 he-h1-d he-h1-s" />
+        {sub && <p className="he-sub he-sub-d">{sub}</p>}
+        <div className="he-ctas">{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div>
+      </div>
+      <div className="ha2" style={{ position: "relative" }}>
+        <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 20px 60px rgb(0 0 0/0.1)" }}><ImgOrGrad aspect="4/3" /></div>
+      </div>
+    </div></div></section>);
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // VN 4-6: Reversed split (image left, text right)
+  // VN 2: Pelnoekranowy - zdjecie w tle, tekst centrowany
   // ═══════════════════════════════════════════════════════════════════════════
-  if (vn >= 4 && vn <= 6) {
-    return (
-      <section className="bg-bg overflow-hidden" style={{ padding: "48px 16px 64px" }}>
-        <style>{STYLES}</style>
-        <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr", gap: 40, alignItems: "center" }} className="md:!grid-cols-2 md:!gap-12 lg:!gap-16">
-          {/* Image LEFT (shows second on mobile) */}
-          <div className="hero-anim-sl order-1 md:!order-none" style={{ position: "relative" }}>
-            {image ? (
-              <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 24px 64px rgb(0 0 0 / 0.12)" }}>
-                <img src={image} alt="" className="hero-img hero-img-zoom" style={{ aspectRatio: "3/4" }} />
-                {/* Floating badge */}
-                <div className="hero-badge hero-anim-5" style={{ bottom: 16, left: 16 }}>
-                  <div className="hero-badge-icon">🕯️</div>
-                  <div><div className="hero-badge-value">30+ zapachow</div><div className="hero-badge-label">w naszej kolekcji</div></div>
-                </div>
-              </div>
-            ) : (
-              <div style={{ aspectRatio: "3/4", borderRadius: 24, background: "linear-gradient(135deg, rgb(var(--color-accent) / 0.1), rgb(var(--color-surface)))" }} />
-            )}
-          </div>
-          {/* Text RIGHT */}
-          <div className="hero-anim-2 order-0 md:!order-none">
-            {eyebrow && <div className="hero-eyebrow"><div className="hero-eyebrow-line" /><span className="hero-eyebrow-text">{eyebrow}</span></div>}
-            <H1 lines={headlines} className="hero-h1 hero-h1-dark hero-h1-sm" />
-            {subheadline && <p className="hero-sub hero-sub-dark">{subheadline}</p>}
-            <div className="hero-cta-row" style={{ marginBottom: 24 }}>
-              {ctaPrimary && <a href={ctaPrimary.href} className="hero-btn hero-btn-accent">{ctaPrimary.label} <Arrow /></a>}
-              {ctaSecondary && <a href={ctaSecondary.href} className="hero-btn hero-btn-outline">{ctaSecondary.label}</a>}
-            </div>
-            {items.length > 0 && (
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                {items.slice(0, 4).map((it, i) => (
-                  <span key={i} className="hero-pill"><span className="hero-pill-icon">{str(it.icon) || "✦"}</span> {str(it.name || it.title || it.label)}</span>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-    );
+  if (vn === 2) {
+    return (<section style={{ position: "relative", minHeight: "90vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}><style>{S}</style>
+      <div style={{ position: "absolute", inset: 0 }}>{img && <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }}/>}</div>
+      <div className="he-overlay" style={{ background: "linear-gradient(to bottom,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.25) 40%,rgba(0,0,0,0.6) 100%)", zIndex: 1 }}/>
+      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,0.3) 100%)", zIndex: 2 }}/>
+      <div style={{ position: "relative", zIndex: 10, textAlign: "center", padding: "24px 16px", maxWidth: 800 }}>
+        {ey && <div className="ha2" style={{ display: "inline-flex", alignItems: "center", gap: 12, marginBottom: 24 }}><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/><span className="he-etxt-w">{ey}</span><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/></div>}
+        <H lines={hl} cls="he-h1 he-h1-w he-h1-l ha2" />
+        {sub && <p className="he-sub he-sub-w ha3" style={{ margin: "0 auto 36px", maxWidth: 560 }}>{sub}</p>}
+        <div className="he-ctas ha4" style={{ justifyContent: "center" }}>{c1 && <a href={c1.href} className="he-btn he-btn-w">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-g">{c2.label}</a>}</div>
+      </div>
+      <div className="he-scroll ha5"><span className="he-scroll-t">Przewin</span><div className="he-scroll-l"/></div>
+      <div className="he-fade"/>
+    </section>);
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // VN 7-9: Fullscreen overlay / form / slider / countdown
+  // VN 3: Minimalistyczny - bez zdjecia, czysta typografia
   // ═══════════════════════════════════════════════════════════════════════════
-  if (vn >= 7 && vn <= 9) {
-    // VN 8: Slider - use first 3 headlines for rotation
-    // VN 9: Countdown
-
-    return (
-      <section style={{ position: "relative", minHeight: "85vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-        <style>{STYLES}{`
-          .hero-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.3) 100%); z-index: 2; }
-          ${vn === 9 ? `
-          .cd-block { width: 64px; height: 72px; background: rgb(255 255 255 / 0.08); backdrop-filter: blur(12px); border: 1px solid rgb(255 255 255 / 0.12); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 28px; font-weight: 700; color: white; }
-          @media (min-width: 768px) { .cd-block { width: 80px; height: 88px; font-size: 36px; border-radius: 20px; } }
-          .cd-label { font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgb(255 255 255 / 0.4); margin-top: 8px; }
-          .cd-sep { display: flex; align-items: center; padding-bottom: 24px; font-size: 24px; color: rgb(255 255 255 / 0.2); }
-          ` : ""}
-        `}</style>
-        {/* BG */}
-        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-          {image && <img src={image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
-        </div>
-        <div className="hero-overlay" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.6) 100%)", zIndex: 1 }} />
-        <div className="hero-vignette" />
-
-        <div style={{ position: "relative", zIndex: 10, textAlign: "center", padding: "24px 16px", maxWidth: 800 }} className="hero-anim-1">
-          {eyebrow && (
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 12, marginBottom: 24 }} className="hero-anim-2">
-              <div className="hero-eyebrow-line" style={{ background: "rgb(var(--color-accent-light))" }} />
-              <span className="hero-eyebrow-text-light">{eyebrow}</span>
-              <div className="hero-eyebrow-line" style={{ background: "rgb(var(--color-accent-light))" }} />
-            </div>
-          )}
-          <H1 lines={headlines} className="hero-h1 hero-h1-white hero-h1-lg hero-anim-2" />
-          {subheadline && <p className="hero-sub hero-sub-white hero-anim-3" style={{ margin: "0 auto 36px", maxWidth: 560 }}>{subheadline}</p>}
-
-          {/* Countdown for vn 9 */}
-          {vn === 9 && (
-            <div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 40 }} className="hero-anim-3">
-              <div style={{ textAlign: "center" }}><div className="cd-block">{String(countdown.d).padStart(2, "0")}</div><div className="cd-label">Dni</div></div>
-              <div className="cd-sep">:</div>
-              <div style={{ textAlign: "center" }}><div className="cd-block">{String(countdown.h).padStart(2, "0")}</div><div className="cd-label">Godzin</div></div>
-              <div className="cd-sep">:</div>
-              <div style={{ textAlign: "center" }}><div className="cd-block">{String(countdown.m).padStart(2, "0")}</div><div className="cd-label">Minut</div></div>
-              <div className="cd-sep">:</div>
-              <div style={{ textAlign: "center" }}><div className="cd-block">{String(countdown.s).padStart(2, "0")}</div><div className="cd-label">Sekund</div></div>
-            </div>
-          )}
-
-          <div className="hero-cta-row hero-anim-4" style={{ justifyContent: "center" }}>
-            {ctaPrimary && <a href={ctaPrimary.href} className="hero-btn hero-btn-white">{ctaPrimary.label} <Arrow /></a>}
-            {ctaSecondary && <a href={ctaSecondary.href} className="hero-btn hero-btn-glass">{ctaSecondary.label}</a>}
-          </div>
-        </div>
-
-        <div className="hero-scroll hero-anim-5">
-          <span className="hero-scroll-text">Przewin</span>
-          <div className="hero-scroll-line" />
-        </div>
-        <div className="hero-fade" />
-      </section>
-    );
+  if (vn === 3) {
+    return (<section className="bg-bg" style={{ padding: "80px 16px 64px", textAlign: "center", position: "relative", overflow: "hidden" }}><style>{S}{`
+      .he3-em::after{content:'';position:absolute;bottom:4px;left:0;right:0;height:3px;background:rgb(var(--color-accent)/0.25);border-radius:2px}
+      @media(min-width:768px){.he3-em::after{height:4px;bottom:6px}}
+      .he3-bl{width:1px;height:48px;background:linear-gradient(to bottom,rgb(var(--color-accent)/0.3),transparent);margin:0 auto}
+      .he3-dot{width:6px;height:6px;border-radius:50%;background:rgb(var(--color-accent)/0.3);margin:-1px auto 0}
+    `}</style>
+      <div style={{ position: "absolute", width: 600, height: 600, borderRadius: "50%", border: "1px solid rgb(var(--color-accent)/0.06)", top: -200, right: -200, pointerEvents: "none" }}/>
+      <div style={{ position: "relative", zIndex: 10, maxWidth: 800, margin: "0 auto" }}>
+        {ey && <div className="ha1" style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 32 }}><div className="he-eline-g"/><span className="he-etxt">{ey}</span><div className="he-eline-gr"/></div>}
+        <H lines={hl} cls="he-h1 he-h1-d he-h1-l ha2" />
+        {sub && <p className="he-sub he-sub-d ha3" style={{ margin: "0 auto 40px", textAlign: "center", maxWidth: 520, fontSize: 18 }}>{sub}</p>}
+        <div className="he-ctas ha3" style={{ justifyContent: "center" }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div>
+        <div className="ha4" style={{ marginTop: 48, display: "flex", flexDirection: "column", alignItems: "center" }}><div className="he3-bl"/><div className="he3-dot"/></div>
+      </div>
+    </section>);
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // VN 10-12: Fullscreen bottom-aligned (cinematic / parallax)
+  // VN 4: Split odwrocony - obraz lewo, tekst prawo, floating badge
   // ═══════════════════════════════════════════════════════════════════════════
-  if (vn >= 10 && vn <= 12) {
-    return (
-      <section style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
-        <style>{STYLES}</style>
-        {/* Parallax BG */}
-        <div style={{ position: "absolute", inset: "-20%", width: "140%", height: "140%", transform: `translateY(${parallaxY}px)`, willChange: "transform" }}>
-          {image && <img src={image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
+  if (vn === 4) {
+    return (<section className="bg-bg overflow-hidden" style={{ padding: "48px 0 64px" }}><style>{S}</style><div className="he-wrap"><div className="he-grid">
+      <div className="hasl order-1 md:!order-none" style={{ position: "relative" }}>
+        <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 24px 64px rgb(0 0 0/0.12)", position: "relative" }}>
+          <ImgOrGrad aspect="3/4" />
+          <div className="he-badge ha5" style={{ bottom: 16, left: 16 }}><div className="he-badge-icon">🕯️</div><div><div className="he-badge-val">30+ zapachow</div><div className="he-badge-lbl">w kolekcji</div></div></div>
         </div>
-        <div className="hero-overlay" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 35%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0.25) 100%)", zIndex: 1 }} />
-
-        {/* Bottom-aligned content */}
-        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 10, padding: "0 16px 48px" }} className="md:!px-12 lg:!px-20">
-          <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-            {eyebrow && <div className="hero-eyebrow hero-anim-1"><div className="hero-eyebrow-line" style={{ background: "rgb(var(--color-accent-light))" }} /><span className="hero-eyebrow-text-light">{eyebrow}</span></div>}
-            <h1 className="hero-h1 hero-h1-white hero-anim-2" style={{ fontSize: 40, maxWidth: 800 }}>
-              {headlines.map((l, i) => <span key={i}>{l}{i < headlines.length - 1 && <br />}</span>)}
-            </h1>
-            {subheadline && <p className="hero-sub hero-sub-white hero-anim-3">{subheadline}</p>}
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 24 }} className="hero-anim-4">
-              {ctaPrimary && <a href={ctaPrimary.href} className="hero-btn hero-btn-white">{ctaPrimary.label} <Arrow /></a>}
-              {stats.length > 0 && (
-                <>
-                  <div style={{ width: 1, height: 40, background: "rgb(255 255 255 / 0.15)" }} className="hidden md:block" />
-                  <div style={{ display: "flex", gap: 24 }}>
-                    {stats.slice(0, 3).map((s, i) => (
-                      <div key={i}>
-                        <div style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 700, color: "white", lineHeight: 1 }}>{str(s.value)}{str(s.suffix)}</div>
-                        <div style={{ fontSize: 11, color: "rgb(255 255 255 / 0.4)", marginTop: 4 }}>{str(s.label)}</div>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-    );
+      </div>
+      <div className="ha2 order-0 md:!order-none">
+        {ey && <div className="he-eyebrow"><div className="he-eline"/><span className="he-etxt">{ey}</span></div>}
+        <H lines={hl} cls="he-h1 he-h1-d he-h1-s" />
+        {sub && <p className="he-sub he-sub-d">{sub}</p>}
+        <div className="he-ctas" style={{ marginBottom: 24 }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div>
+        {items.length > 0 && <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>{items.slice(0,4).map((it,i) => <span key={i} className="he-pill"><span style={{ fontSize: 14 }}>{str(it.icon)||"✦"}</span> {str(it.name||it.title||it.label)}</span>)}</div>}
+      </div>
+    </div></div></section>);
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // VN 13: Centered text + feature cards
+  // VN 5: Gradient - animowany gradient w tle z blobami
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 5) {
+    return (<section style={{ position: "relative", minHeight: "90vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}><style>{S}{`
+      .he5-gr{position:absolute;inset:-50%;width:200%;height:200%;background:linear-gradient(135deg,rgb(var(--color-accent-dark)),rgb(var(--color-accent)),rgb(var(--color-accent-light)),rgb(var(--color-accent)));background-size:200% 200%;animation:he5gs 8s ease infinite;z-index:0}
+      @keyframes he5gs{0%{transform:translate(0,0)}25%{transform:translate(-5%,-5%)}50%{transform:translate(0,-3%)}75%{transform:translate(5%,-2%)}100%{transform:translate(0,0)}}
+      .he5-blob{position:absolute;border-radius:50%;background:rgba(255,255,255,0.06);z-index:2}
+      .he5-b1{width:400px;height:400px;top:-100px;right:-100px;animation:he5bf 12s ease-in-out infinite}
+      .he5-b2{width:300px;height:300px;bottom:-80px;left:-60px;animation:he5bf 10s ease-in-out infinite reverse}
+      @keyframes he5bf{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(20px,-30px) scale(1.05)}66%{transform:translate(-15px,15px) scale(0.95)}}
+      .he5-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.15);border-radius:100px;margin-bottom:28px}
+      .he5-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.6);animation:he5p 2s ease infinite}
+      @keyframes he5p{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+    `}</style>
+      <div className="he5-gr"/><div className="he5-blob he5-b1"/><div className="he5-blob he5-b2"/>
+      <div style={{ position: "relative", zIndex: 10, textAlign: "center", padding: "24px 16px", maxWidth: 780 }}>
+        {ey && <div className="he5-pill ha1"><div className="he5-dot"/><span style={{ fontSize: 12, fontWeight: 500, letterSpacing: "0.1em", color: "rgba(255,255,255,0.9)" }}>{ey}</span></div>}
+        <H lines={hl} cls="he-h1 he-h1-w he-h1-l ha2" />
+        {sub && <p className="he-sub he-sub-w ha3" style={{ margin: "0 auto 36px", maxWidth: 520 }}>{sub}</p>}
+        <div className="he-ctas ha4" style={{ justifyContent: "center" }}>{c1 && <a href={c1.href} className="he-btn he-btn-w">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-g">{c2.label}</a>}</div>
+        {sts.length > 0 && <div className="ha5" style={{ display: "flex", justifyContent: "center", gap: 32, marginTop: 48, paddingTop: 32, borderTop: "1px solid rgba(255,255,255,0.12)" }}>{sts.slice(0,3).map((s,i)=><div key={i}><div style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 700, color: "white" }}>{str(s.value)}{str(s.suffix)}</div><div style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", marginTop: 4 }}>{str(s.label)}</div></div>)}</div>}
+      </div>
+      <div className="he-fade"/>
+    </section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 6: Split 50/50 - obraz pelna polowa, tekst + karty wyroznikow
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 6) {
+    return (<section style={{ display: "grid", gridTemplateColumns: "1fr", minHeight: "auto" }} className="md:!grid-cols-2 md:!min-h-[85vh]"><style>{S}{`
+      .he6-edge{display:none}@media(min-width:768px){.he6-edge{display:block;position:absolute;top:0;right:0;width:80px;height:100%;background:linear-gradient(to right,transparent,rgb(var(--color-bg)));z-index:2}}
+      .he6-fc{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(min-width:1024px){.he6-fc{gap:12px}}
+      .he6-f{display:flex;align-items:center;gap:10px;padding:14px 16px;background:rgb(var(--color-surface));border:1px solid rgb(var(--color-border)/0.5);border-radius:14px;transition:all .2s}
+      .he6-f:hover{border-color:rgb(var(--color-accent)/0.3);box-shadow:0 2px 12px rgb(0 0 0/0.04)}
+      .he6-fi{width:36px;height:36px;border-radius:10px;background:rgb(var(--color-accent)/0.1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+      .he6-ft{font-size:13px;font-weight:600;color:rgb(var(--color-text-primary));line-height:1.3}
+      .he6-fs{font-size:11px;color:rgb(var(--color-text-dim));margin-top:1px}
+    `}</style>
+      <div className="ha1" style={{ position: "relative", overflow: "hidden", minHeight: 300 }}>
+        {img && <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 8s ease" }}/>}
+        <div className="he6-edge"/>
+      </div>
+      <div className="ha2 md:!p-12 lg:!p-16" style={{ display: "flex", alignItems: "center", padding: "48px 16px" }}>
+        <div style={{ maxWidth: 520 }}>
+          {ey && <div className="he-eyebrow"><div className="he-eline"/><span className="he-etxt">{ey}</span></div>}
+          <H lines={hl} cls="he-h1 he-h1-d he-h1-s" />
+          {sub && <p className="he-sub he-sub-d">{sub}</p>}
+          <div className="he-ctas" style={{ marginBottom: 28 }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div>
+          {items.length > 0 && <div className="he6-fc">{items.slice(0,4).map((it,i)=><div key={i} className="he6-f"><div className="he6-fi">{str(it.icon)||"✦"}</div><div><div className="he6-ft">{str(it.name||it.title||it.label)}</div><div className="he6-fs">{str(it.desc||it.description)}</div></div></div>)}</div>}
+        </div>
+      </div>
+    </section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 7: Z formularzem - zdjecie bg + formularz po prawej
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 7) {
+    return (<section style={{ position: "relative", minHeight: "85vh", display: "flex", alignItems: "center", overflow: "hidden" }}><style>{S}{`
+      .he7-form{background:rgb(var(--color-surface)/0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:24px;padding:32px 28px;box-shadow:0 24px 64px rgba(0,0,0,0.15),0 8px 24px rgba(0,0,0,0.08)}
+      .he7-inp{width:100%;padding:12px 16px;background:rgb(var(--color-bg));border:1px solid rgb(var(--color-border));border-radius:12px;font-family:var(--font-body);font-size:14px;color:rgb(var(--color-text-primary));outline:none;transition:all .2s}
+      .he7-inp:focus{border-color:rgb(var(--color-accent));box-shadow:0 0 0 3px rgb(var(--color-accent)/0.1)}
+      .he7-lbl{display:block;font-size:12px;font-weight:600;color:rgb(var(--color-text-muted));margin-bottom:6px;letter-spacing:.03em}
+      .he7-sub{width:100%;padding:14px;margin-top:8px;background:rgb(var(--color-accent));color:rgb(var(--color-on-accent));font-family:var(--font-body);font-size:14px;font-weight:600;border:none;border-radius:12px;cursor:pointer;transition:all .3s;box-shadow:0 4px 16px rgb(var(--color-accent)/0.3)}
+      .he7-sub:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgb(var(--color-accent)/0.4)}
+    `}</style>
+      <div style={{ position: "absolute", inset: 0 }}>{img && <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }}/>}</div>
+      <div className="he-overlay" style={{ background: "linear-gradient(135deg,rgba(0,0,0,0.7),rgba(0,0,0,0.5) 40%,rgba(0,0,0,0.65))", zIndex: 1 }}/>
+      <div style={{ position: "relative", zIndex: 10, maxWidth: 1280, margin: "0 auto", padding: "80px 16px", display: "grid", gridTemplateColumns: "1fr", gap: 40, alignItems: "center", width: "100%" }} className="md:!grid-cols-[1fr_420px] md:!px-6 lg:!px-12 lg:!gap-16">
+        <div className="ha1">
+          {ey && <div className="he-eyebrow"><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/><span className="he-etxt-w">{ey}</span></div>}
+          <H lines={hl} cls="he-h1 he-h1-w he-h1-m" />
+          {sub && <p className="he-sub he-sub-w">{sub}</p>}
+        </div>
+        <div className="he7-form ha2">
+          <div style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 600, color: "rgb(var(--color-text-primary))", marginBottom: 4 }}>Skontaktuj sie</div>
+          <div style={{ fontSize: 13, color: "rgb(var(--color-text-muted))", marginBottom: 24 }}>Wypelnij formularz - odezwiemy sie w 24h</div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 14 }}>
+            <div><label className="he7-lbl">Imie</label><input className="he7-inp" placeholder="Anna"/></div>
+            <div><label className="he7-lbl">Telefon</label><input className="he7-inp" placeholder="+48 500..."/></div>
+          </div>
+          <div style={{ marginBottom: 14 }}><label className="he7-lbl">Email</label><input className="he7-inp" placeholder="anna@example.com"/></div>
+          <div style={{ marginBottom: 8 }}><label className="he7-lbl">Wiadomosc</label><textarea className="he7-inp" placeholder="Czym mozemy pomoc?" style={{ resize: "vertical", minHeight: 80 }}/></div>
+          <button className="he7-sub">Wyslij zapytanie</button>
+        </div>
+      </div>
+      <div className="he-fade"/>
+    </section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 8: Slider - karuzela ze zmiana zdjec i naglowkow
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 8) {
+    return (<section style={{ position: "relative", minHeight: "92vh", overflow: "hidden" }}><style>{S}{`
+      .he8-prog{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,0.1);z-index:20}
+      .he8-bar{height:100%;background:rgb(var(--color-accent-light));animation:he8pf 5s linear infinite}
+      @keyframes he8pf{from{width:0}to{width:100%}}
+    `}</style>
+      <div style={{ position: "absolute", inset: 0 }}>{img && <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 8s ease", transform: "scale(1.08)" }}/>}</div>
+      <div className="he-overlay" style={{ background: "linear-gradient(to bottom,rgba(0,0,0,0.4),rgba(0,0,0,0.2) 40%,rgba(0,0,0,0.65))", zIndex: 1 }}/>
+      <div style={{ position: "relative", zIndex: 10, minHeight: "92vh", display: "flex", alignItems: "flex-end", padding: "0 16px 80px" }} className="md:!px-12 lg:!px-20">
+        <div style={{ maxWidth: 700 }}>
+          {ey && <div className="he-eyebrow ha1"><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/><span className="he-etxt-w">{ey}</span></div>}
+          <H lines={hl} cls="he-h1 he-h1-w he-h1-xl ha2" />
+          {sub && <p className="he-sub he-sub-w ha3">{sub}</p>}
+          <div className="he-ctas ha4">{c1 && <a href={c1.href} className="he-btn he-btn-w">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-g">{c2.label}</a>}</div>
+        </div>
+      </div>
+      <div className="he8-prog"><div className="he8-bar"/></div>
+      <div className="he-fade"/>
+    </section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 9: Countdown - odliczanie z glassmorphism boxami
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 9) {
+    return (<section style={{ position: "relative", minHeight: "90vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}><style>{S}{`
+      .he9-cd{width:64px;height:72px;background:rgb(255 255 255/0.08);backdrop-filter:blur(12px);border:1px solid rgb(255 255 255/0.12);border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:28px;font-weight:700;color:white;position:relative;overflow:hidden}
+      @media(min-width:768px){.he9-cd{width:80px;height:88px;font-size:36px;border-radius:20px}}
+      .he9-cd::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.05),transparent);animation:he9sh 3s ease infinite}
+      @keyframes he9sh{0%{left:-100%}50%,100%{left:100%}}
+      .he9-lb{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:rgb(255 255 255/0.4);margin-top:8px}
+      .he9-sep{display:flex;align-items:center;padding-bottom:24px;font-size:24px;color:rgb(255 255 255/0.2)}
+      .he9-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;background:rgb(var(--color-accent)/0.2);border:1px solid rgb(var(--color-accent)/0.3);border-radius:100px;margin-bottom:28px}
+      .he9-dot{width:8px;height:8px;border-radius:50%;background:rgb(var(--color-accent-light));animation:he9bl 1.5s ease infinite}
+      @keyframes he9bl{0%,100%{opacity:1}50%{opacity:.3}}
+    `}</style>
+      <div style={{ position: "absolute", inset: 0 }}>{img && <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }}/>}</div>
+      <div className="he-overlay" style={{ background: "linear-gradient(160deg,rgba(0,0,0,0.75),rgba(0,0,0,0.5) 50%,rgba(0,0,0,0.7))", zIndex: 1 }}/>
+      <div style={{ position: "relative", zIndex: 10, textAlign: "center", padding: "24px 16px", maxWidth: 800 }}>
+        {ey && <div className="he9-badge ha1"><div className="he9-dot"/><span style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgb(var(--color-accent-light))" }}>{ey}</span></div>}
+        <H lines={hl} cls="he-h1 he-h1-w he-h1-l ha2" />
+        {sub && <p className="he-sub he-sub-w ha3" style={{ margin: "0 auto 40px", maxWidth: 500 }}>{sub}</p>}
+        <div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 40 }} className="ha3">
+          <div style={{ textAlign: "center" }}><div className="he9-cd">{String(cd.d).padStart(2,"0")}</div><div className="he9-lb">Dni</div></div>
+          <div className="he9-sep">:</div>
+          <div style={{ textAlign: "center" }}><div className="he9-cd">{String(cd.h).padStart(2,"0")}</div><div className="he9-lb">Godzin</div></div>
+          <div className="he9-sep">:</div>
+          <div style={{ textAlign: "center" }}><div className="he9-cd">{String(cd.m).padStart(2,"0")}</div><div className="he9-lb">Minut</div></div>
+          <div className="he9-sep">:</div>
+          <div style={{ textAlign: "center" }}><div className="he9-cd">{String(cd.s).padStart(2,"0")}</div><div className="he9-lb">Sekund</div></div>
+        </div>
+        <div className="he-ctas ha4" style={{ justifyContent: "center" }}>{c1 && <a href={c1.href} className="he-btn he-btn-a" style={{ padding: "16px 32px" }}>{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-g">{c2.label}</a>}</div>
+      </div>
+      <div className="he-fade"/>
+    </section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 10: Parallax - pelny viewport, tekst na dole, parallax bg
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 10) {
+    return (<section style={{ position: "relative", height: "100vh", overflow: "hidden" }}><style>{S}</style>
+      <div style={{ position: "absolute", inset: "-20%", width: "140%", height: "140%", transform: `translateY(${pY}px)`, willChange: "transform" }}>{img && <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }}/>}</div>
+      <div className="he-overlay" style={{ background: "linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.5) 35%,rgba(0,0,0,0.15) 60%,rgba(0,0,0,0.25) 100%)", zIndex: 1 }}/>
+      <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 10, padding: "0 16px 48px" }} className="md:!px-12 lg:!px-20">
+        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+          {ey && <div className="he-eyebrow ha1"><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/><span className="he-etxt-w">{ey}</span></div>}
+          <H lines={hl} cls="he-h1 he-h1-w he-h1-xl ha2" />
+          {sub && <p className="he-sub he-sub-w ha3">{sub}</p>}
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 24 }} className="ha4">
+            {c1 && <a href={c1.href} className="he-btn he-btn-w">{c1.label} <Arrow/></a>}
+            {sts.length > 0 && <><div style={{ width: 1, height: 40, background: "rgb(255 255 255/0.15)" }} className="hidden md:block"/><div style={{ display: "flex", gap: 24 }}>{sts.slice(0,3).map((s,i)=><div key={i}><div style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 700, color: "white", lineHeight: 1 }}>{str(s.value)}{str(s.suffix)}</div><div style={{ fontSize: 11, color: "rgb(255 255 255/0.4)", marginTop: 4 }}>{str(s.label)}</div></div>)}</div></>}
+          </div>
+        </div>
+      </div>
+    </section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 11: Animowany tekst - rotujace slowa CSS
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 11) {
+    return (<section className="bg-bg" style={{ padding: "80px 16px 64px", textAlign: "center", position: "relative", overflow: "hidden", minHeight: "80vh", display: "flex", alignItems: "center", justifyContent: "center" }}><style>{S}{`
+      .he11-rw{display:inline-block;position:relative;height:1.15em;overflow:hidden;vertical-align:bottom}
+      .he11-rws{display:flex;flex-direction:column;animation:he11r 9s cubic-bezier(.4,0,.2,1) infinite}
+      .he11-rwd{height:1.15em;display:flex;align-items:center;font-style:italic;color:rgb(var(--color-accent));position:relative}
+      .he11-rwd::after{content:'';position:absolute;bottom:4px;left:0;right:0;height:3px;background:rgb(var(--color-accent)/0.2);border-radius:2px}
+      @keyframes he11r{0%,28%{transform:translateY(0)}33%,61%{transform:translateY(-33.33%)}66%,94%{transform:translateY(-66.66%)}100%{transform:translateY(0)}}
+    `}</style>
+      <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle at 20% 50%,rgb(var(--color-accent)/0.04),transparent 50%),radial-gradient(circle at 80% 50%,rgb(var(--color-accent)/0.03),transparent 50%)", pointerEvents: "none" }}/>
+      <div style={{ position: "relative", zIndex: 10, maxWidth: 900, margin: "0 auto" }}>
+        {ey && <div className="ha1" style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 32 }}><div className="he-eline-g"/><span className="he-etxt">{ey}</span><div className="he-eline-gr"/></div>}
+        <h1 className="he-h1 he-h1-d he-h1-l ha2">{hl[0] || "Swiece, ktore"}<br/><span className="he11-rw"><span className="he11-rws"><span className="he11-rwd">{hl[1] || "rozswietlaja"}</span><span className="he11-rwd">{hl[2] || "zachwycaja"}</span><span className="he11-rwd">{hl[3] || hl[1] || "inspiruja"}</span></span></span></h1>
+        {sub && <p className="he-sub he-sub-d ha3" style={{ margin: "0 auto 40px", textAlign: "center", maxWidth: 540, fontSize: 18 }}>{sub}</p>}
+        <div className="he-ctas ha3" style={{ justifyContent: "center" }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div>
+      </div>
+    </section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 12: Social Proof - avatary + rating + testimonial inline
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 12) {
+    const testimonials = arr(content.testimonials || content.reviews);
+    return (<section className="bg-bg overflow-hidden" style={{ padding: "64px 0 48px" }}><style>{S}{`
+      .he12-av{width:36px;height:36px;border-radius:50%;border:3px solid rgb(var(--color-bg));margin-left:-10px;background:rgb(var(--color-surface-deep));display:flex;align-items:center;justify-content:center;font-size:16px;overflow:hidden}
+      .he12-av:first-child{margin-left:0}
+      .he12-avc{width:36px;height:36px;border-radius:50%;border:3px solid rgb(var(--color-bg));margin-left:-10px;background:rgb(var(--color-accent));color:rgb(var(--color-on-accent));font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+      .he12-tc{background:rgb(var(--color-surface));border:1px solid rgb(var(--color-border)/0.5);border-radius:16px;padding:18px 20px;display:flex;gap:14px;max-width:420px;margin-top:28px}
+      .he12-ti{width:40px;height:40px;border-radius:10px;background:rgb(var(--color-accent)/0.1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+    `}</style><div className="he-wrap"><div className="he-grid">
+      <div className="ha1">
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
+          <div style={{ display: "flex" }}><div className="he12-av">😊</div><div className="he12-av">🕯️</div><div className="he12-av">⭐</div><div className="he12-av">💛</div><div className="he12-avc">99+</div></div>
+          <div><div style={{ display: "flex", alignItems: "center", gap: 4 }}><span style={{ color: "rgb(var(--color-accent))", fontSize: 13 }}>★★★★★</span><span style={{ fontSize: 13, fontWeight: 700 }}>4.9</span></div><span style={{ fontSize: 12, color: "rgb(var(--color-text-dim))" }}>500+ klientow</span></div>
+        </div>
+        {ey && <div className="he-eyebrow"><div className="he-eline"/><span className="he-etxt">{ey}</span></div>}
+        <H lines={hl} cls="he-h1 he-h1-d he-h1-s" />
+        {sub && <p className="he-sub he-sub-d">{sub}</p>}
+        <div className="he-ctas">{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div>
+        {testimonials.length > 0 && <div className="he12-tc"><div className="he12-ti">🕯️</div><div><div style={{ color: "rgb(var(--color-accent))", fontSize: 11 }}>★★★★★</div><div style={{ fontSize: 13, color: "rgb(var(--color-text-muted))", fontStyle: "italic", lineHeight: 1.5 }}>&ldquo;{str(testimonials[0].quote)}&rdquo;</div><div style={{ fontSize: 12, fontWeight: 600, marginTop: 6 }}>{str(testimonials[0].author)}</div></div></div>}
+      </div>
+      <div className="ha2" style={{ position: "relative" }}>
+        <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 20px 60px rgb(0 0 0/0.1)" }}><ImgOrGrad aspect="1/1" /></div>
+        <div className="he-badge ha4" style={{ top: -16, right: -16 }}><div className="he-badge-icon">🌿</div><div><div className="he-badge-val">100%</div><div className="he-badge-lbl">Naturalne</div></div></div>
+        <div className="he-badge ha5" style={{ bottom: -16, left: -16 }}><div className="he-badge-icon">🤲</div><div><div className="he-badge-val">30+</div><div className="he-badge-lbl">Zapachow</div></div></div>
+      </div>
+    </div></div></section>);
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 13: Z kartami - centrowany tekst + 3 feature cards
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 13) {
-    return (
-      <section className="bg-bg" style={{ padding: "64px 16px 48px", position: "relative", overflow: "hidden" }}>
-        <style>{STYLES}{`
-          .hero13-card { background: rgb(var(--color-surface)); border: 1px solid rgb(var(--color-border) / 0.5); border-radius: 20px; padding: 28px 24px; transition: all 0.3s ease; position: relative; overflow: hidden; }
-          .hero13-card:hover { border-color: rgb(var(--color-accent) / 0.3); box-shadow: 0 8px 32px rgb(0 0 0 / 0.06); transform: translateY(-4px); }
-          .hero13-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, rgb(var(--color-accent) / 0.6), rgb(var(--color-accent-light) / 0.3)); opacity: 0; transition: opacity 0.3s; }
-          .hero13-card:hover::before { opacity: 1; }
-          .hero13-icon { width: 52px; height: 52px; border-radius: 14px; background: rgb(var(--color-accent) / 0.08); display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 18px; }
-          .hero13-title { font-family: var(--font-display); font-size: 18px; font-weight: 600; color: rgb(var(--color-text-primary)); margin-bottom: 8px; }
-          .hero13-desc { font-size: 14px; line-height: 1.6; color: rgb(var(--color-text-muted)); }
-        `}</style>
-        {/* Decorative bg circle */}
-        <div style={{ position: "absolute", width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle, rgb(var(--color-accent) / 0.05), transparent 70%)", top: -200, left: "50%", transform: "translateX(-50%)", pointerEvents: "none" }} />
-
-        <div style={{ position: "relative", zIndex: 10, maxWidth: 1280, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", maxWidth: 720, margin: "0 auto 48px" }}>
-            {eyebrow && <div className="hero-anim-1" style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 24 }}><div className="hero-eyebrow-line-gradient" /><span className="hero-eyebrow-text">{eyebrow}</span><div className="hero-eyebrow-line-gradient-r" /></div>}
-            <H1 lines={headlines} className="hero-h1 hero-h1-dark hero-h1-lg hero-anim-2" />
-            {subheadline && <p className="hero-sub hero-sub-dark hero-anim-3" style={{ margin: "0 auto 32px", textAlign: "center" }}>{subheadline}</p>}
-            <div className="hero-cta-row hero-anim-3" style={{ justifyContent: "center" }}>
-              {ctaPrimary && <a href={ctaPrimary.href} className="hero-btn hero-btn-accent">{ctaPrimary.label} <Arrow /></a>}
-              {ctaSecondary && <a href={ctaSecondary.href} className="hero-btn hero-btn-outline">{ctaSecondary.label}</a>}
-            </div>
-          </div>
-          {items.length > 0 && (
-            <div className="hero-anim-4" style={{ display: "grid", gridTemplateColumns: "1fr", gap: 16 }}>
-              {items.slice(0, 3).map((it, i) => (
-                <div key={i} className="hero13-card">
-                  <div className="hero13-icon">{str(it.icon) || "✦"}</div>
-                  <div className="hero13-title">{str(it.name || it.title || it.label)}</div>
-                  <div className="hero13-desc">{str(it.desc || it.description)}</div>
-                </div>
-              ))}
-            </div>
-          )}
+    return (<section className="bg-bg" style={{ padding: "64px 16px 48px", position: "relative", overflow: "hidden" }}><style>{S}{`
+      .he13-c{background:rgb(var(--color-surface));border:1px solid rgb(var(--color-border)/0.5);border-radius:20px;padding:28px 24px;transition:all .3s;position:relative;overflow:hidden}
+      .he13-c:hover{border-color:rgb(var(--color-accent)/0.3);box-shadow:0 8px 32px rgb(0 0 0/0.06);transform:translateY(-4px)}
+      .he13-c::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,rgb(var(--color-accent)/0.6),rgb(var(--color-accent-light)/0.3));opacity:0;transition:opacity .3s}
+      .he13-c:hover::before{opacity:1}
+      .he13-i{width:52px;height:52px;border-radius:14px;background:rgb(var(--color-accent)/0.08);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:18px}
+      .he13-t{font-family:var(--font-display);font-size:18px;font-weight:600;color:rgb(var(--color-text-primary));margin-bottom:8px}
+      .he13-d{font-size:14px;line-height:1.6;color:rgb(var(--color-text-muted))}
+      .he13-l{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:rgb(var(--color-accent));text-decoration:none;margin-top:14px;transition:gap .2s}
+      .he13-l:hover{gap:10px}
+    `}</style>
+      <div style={{ position: "absolute", width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle,rgb(var(--color-accent)/0.05),transparent 70%)", top: -200, left: "50%", transform: "translateX(-50%)", pointerEvents: "none" }}/>
+      <div style={{ position: "relative", zIndex: 10, maxWidth: 1280, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", maxWidth: 720, margin: "0 auto 48px" }}>
+          {ey && <div className="ha1" style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 24 }}><div className="he-eline-g"/><span className="he-etxt">{ey}</span><div className="he-eline-gr"/></div>}
+          <H lines={hl} cls="he-h1 he-h1-d he-h1-l ha2" />
+          {sub && <p className="he-sub he-sub-d ha3" style={{ margin: "0 auto 32px", textAlign: "center" }}>{sub}</p>}
+          <div className="he-ctas ha3" style={{ justifyContent: "center" }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div>
         </div>
-      </section>
-    );
+        {items.length > 0 && <div className="ha4 md:!grid-cols-3" style={{ display: "grid", gridTemplateColumns: "1fr", gap: 16 }}>{items.slice(0,3).map((it,i)=><div key={i} className="he13-c"><div className="he13-i">{str(it.icon)||"✦"}</div><div className="he13-t">{str(it.name||it.title||it.label)}</div><div className="he13-d">{str(it.desc||it.description)}</div></div>)}</div>}
+      </div>
+    </section>);
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // VN 14: Asymmetric (image overlaps, accent bg block)
+  // VN 14: Asymetryczny - accent bg block, obraz overlap
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 14) {
-    return (
-      <section className="bg-bg overflow-hidden" style={{ position: "relative", padding: "48px 16px 64px", minHeight: "80vh", display: "flex", alignItems: "center" }}>
-        <style>{STYLES}</style>
-        {/* Accent bg block */}
-        <div className="hero-deco" style={{ top: 0, right: 0, width: "45%", height: "100%", background: "rgb(var(--color-accent) / 0.06)", zIndex: 0 }} />
-        <div style={{ position: "relative", zIndex: 10, maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr", gap: 40, alignItems: "center", width: "100%" }} className="lg:!grid-cols-2 lg:!gap-0 lg:!px-12">
-          {/* Text */}
-          <div className="hero-anim-1" style={{ paddingRight: 0 }}>
-            {eyebrow && <div className="hero-eyebrow"><div className="hero-eyebrow-line" /><span className="hero-eyebrow-text">{eyebrow}</span></div>}
-            <H1 lines={headlines} className="hero-h1 hero-h1-dark hero-h1-sm" />
-            {subheadline && <p className="hero-sub hero-sub-dark">{subheadline}</p>}
-            <div className="hero-cta-row" style={{ marginBottom: 28 }}>
-              {ctaPrimary && <a href={ctaPrimary.href} className="hero-btn hero-btn-accent">{ctaPrimary.label} <Arrow /></a>}
-              {ctaSecondary && <a href={ctaSecondary.href} className="hero-btn hero-btn-outline">{ctaSecondary.label}</a>}
-            </div>
-            {stats.length > 0 && (
-              <div style={{ display: "flex", gap: 32, paddingTop: 24, borderTop: "1px solid rgb(var(--color-border) / 0.5)" }}>
-                {stats.slice(0, 3).map((s, i) => (
-                  <div key={i}>
-                    <div style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 700, color: "rgb(var(--color-accent))", lineHeight: 1 }}>{str(s.value)}{str(s.suffix)}</div>
-                    <div style={{ fontSize: 12, color: "rgb(var(--color-text-dim))", marginTop: 4 }}>{str(s.label)}</div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-          {/* Image */}
-          <div className="hero-anim-sr" style={{ position: "relative" }}>
-            {image ? (
-              <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 24px 64px rgb(0 0 0 / 0.12)" }}>
-                <img src={image} alt="" className="hero-img hero-img-zoom" style={{ aspectRatio: "4/5" }} />
-              </div>
-            ) : (
-              <div style={{ aspectRatio: "4/5", borderRadius: 24, background: "linear-gradient(135deg, rgb(var(--color-accent) / 0.1), rgb(var(--color-surface)))" }} />
-            )}
-          </div>
+    return (<section className="bg-bg overflow-hidden" style={{ position: "relative", padding: "48px 16px 64px", minHeight: "80vh", display: "flex", alignItems: "center" }}><style>{S}</style>
+      <div className="hidden lg:block" style={{ position: "absolute", top: 0, right: 0, width: "45%", height: "100%", background: "rgb(var(--color-accent)/0.06)", zIndex: 0 }}/>
+      <div style={{ position: "relative", zIndex: 10, maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr", gap: 40, alignItems: "center", width: "100%" }} className="lg:!grid-cols-2 lg:!gap-0 lg:!px-12">
+        <div className="ha1">
+          {ey && <div className="he-eyebrow"><div className="he-eline"/><span className="he-etxt">{ey}</span></div>}
+          <H lines={hl} cls="he-h1 he-h1-d he-h1-s" />
+          {sub && <p className="he-sub he-sub-d">{sub}</p>}
+          <div className="he-ctas" style={{ marginBottom: 28 }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div>
+          {sts.length > 0 && <div style={{ display: "flex", gap: 32, paddingTop: 24, borderTop: "1px solid rgb(var(--color-border)/0.5)" }}>{sts.slice(0,3).map((s,i)=><div key={i}><div style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 700, color: "rgb(var(--color-accent))", lineHeight: 1 }}>{str(s.value)}{str(s.suffix)}</div><div style={{ fontSize: 12, color: "rgb(var(--color-text-dim))", marginTop: 4 }}>{str(s.label)}</div></div>)}</div>}
         </div>
-      </section>
-    );
+        <div className="hasr" style={{ position: "relative" }}>
+          {img ? <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 24px 64px rgb(0 0 0/0.12)" }}><img src={img} alt="" style={{ width: "100%", aspectRatio: "4/5", objectFit: "cover", display: "block", transition: "transform 6s ease" }}/></div>
+          : <div style={{ aspectRatio: "4/5", borderRadius: 24, background: "linear-gradient(135deg, rgb(var(--color-accent)/0.1), rgb(var(--color-surface)))" }}/>}
+        </div>
+      </div>
+    </section>);
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // VN 15: Location (image bg + info card for local businesses)
+  // VN 15: Lokalizacja - zdjecie bg + glassmorphism info card
   // ═══════════════════════════════════════════════════════════════════════════
-  // Default / fallback
   const address = str(content.address);
   const phone = str(content.phone);
   const email = str(content.email);
   const hours = str(content.hours);
 
-  return (
-    <section style={{ position: "relative", minHeight: "85vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
-      <style>{STYLES}{`
-        .info-card { background: rgb(var(--color-surface) / 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 24px; padding: 28px 24px; box-shadow: 0 24px 64px rgba(0,0,0,0.15), 0 8px 24px rgba(0,0,0,0.08); }
-        @media (min-width: 768px) { .info-card { padding: 32px 28px; } }
-        .info-item { display: flex; gap: 14px; align-items: flex-start; text-decoration: none; padding: 10px 12px; margin: -10px -12px; border-radius: 14px; transition: background 0.2s; color: inherit; }
-        a.info-item:hover { background: rgb(var(--color-bg-alt) / 0.5); }
-        .info-icon { width: 42px; height: 42px; border-radius: 12px; background: rgb(var(--color-accent) / 0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: rgb(var(--color-accent)); }
-        .info-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(var(--color-text-dim)); margin-bottom: 3px; }
-        .info-value { font-size: 14px; font-weight: 500; color: rgb(var(--color-text-primary)); line-height: 1.4; }
-      `}</style>
-      <div style={{ position: "absolute", inset: 0 }}>
-        {image && <img src={image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
+  return (<section style={{ position: "relative", minHeight: "85vh", display: "flex", alignItems: "center", overflow: "hidden" }}><style>{S}{`
+    .he15-card{background:rgb(var(--color-surface)/0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:24px;padding:28px 24px;box-shadow:0 24px 64px rgba(0,0,0,0.15),0 8px 24px rgba(0,0,0,0.08)}
+    @media(min-width:768px){.he15-card{padding:32px 28px}}
+    .he15-item{display:flex;gap:14px;align-items:flex-start;text-decoration:none;padding:10px 12px;margin:-10px -12px;border-radius:14px;transition:background .2s;color:inherit}
+    a.he15-item:hover{background:rgb(var(--color-bg-alt)/0.5)}
+    .he15-icon{width:42px;height:42px;border-radius:12px;background:rgb(var(--color-accent)/0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:rgb(var(--color-accent))}
+    .he15-lbl{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgb(var(--color-text-dim));margin-bottom:3px}
+    .he15-val{font-size:14px;font-weight:500;color:rgb(var(--color-text-primary));line-height:1.4}
+  `}</style>
+    <div style={{ position: "absolute", inset: 0 }}>{img && <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }}/>}</div>
+    <div className="he-overlay" style={{ background: "linear-gradient(135deg,rgba(0,0,0,0.72),rgba(0,0,0,0.5) 40%,rgba(0,0,0,0.65))", zIndex: 1 }}/>
+    <div style={{ position: "relative", zIndex: 10, maxWidth: 1280, margin: "0 auto", padding: "80px 16px", display: "grid", gridTemplateColumns: "1fr", gap: 40, alignItems: "center", width: "100%" }} className="md:!grid-cols-[1fr_380px] md:!px-6 lg:!grid-cols-[1fr_420px] lg:!px-12 lg:!gap-16">
+      <div className="ha1">
+        {ey && <div className="he-eyebrow"><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/><span className="he-etxt-w">{ey}</span></div>}
+        <H lines={hl} cls="he-h1 he-h1-w he-h1-m" />
+        {sub && <p className="he-sub he-sub-w">{sub}</p>}
+        <div className="he-ctas">{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-g">{c2.label}</a>}</div>
       </div>
-      <div className="hero-overlay" style={{ background: "linear-gradient(135deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.65) 100%)", zIndex: 1 }} />
-
-      <div style={{ position: "relative", zIndex: 10, maxWidth: 1280, margin: "0 auto", padding: "80px 16px", display: "grid", gridTemplateColumns: "1fr", gap: 40, alignItems: "center", width: "100%" }} className="md:!grid-cols-[1fr_380px] md:!px-6 lg:!grid-cols-[1fr_420px] lg:!px-12 lg:!gap-16">
-        <div className="hero-anim-1">
-          {eyebrow && <div className="hero-eyebrow"><div className="hero-eyebrow-line" style={{ background: "rgb(var(--color-accent-light))" }} /><span className="hero-eyebrow-text-light">{eyebrow}</span></div>}
-          <H1 lines={headlines} className="hero-h1 hero-h1-white hero-h1-sm" />
-          {subheadline && <p className="hero-sub hero-sub-white">{subheadline}</p>}
-          <div className="hero-cta-row">
-            {ctaPrimary && <a href={ctaPrimary.href} className="hero-btn hero-btn-accent">{ctaPrimary.label} <Arrow /></a>}
-            {ctaSecondary && <a href={ctaSecondary.href} className="hero-btn hero-btn-glass">{ctaSecondary.label}</a>}
-          </div>
-        </div>
-        <div className="info-card hero-anim-2">
-          <div style={{ fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 600, color: "rgb(var(--color-text-primary))", marginBottom: 20, paddingBottom: 16, borderBottom: "1px solid rgb(var(--color-border) / 0.5)" }}>Odwiedz nas</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            {address && (
-              <div className="info-item">
-                <div className="info-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-                <div><div className="info-label">Adres</div><div className="info-value">{address}</div></div>
-              </div>
-            )}
-            {phone && (
-              <a href={`tel:${phone}`} className="info-item">
-                <div className="info-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
-                <div><div className="info-label">Telefon</div><div className="info-value">{phone}</div></div>
-              </a>
-            )}
-            {hours && (
-              <div className="info-item">
-                <div className="info-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></div>
-                <div><div className="info-label">Godziny</div><div className="info-value">{hours}</div></div>
-              </div>
-            )}
-            {email && (
-              <a href={`mailto:${email}`} className="info-item">
-                <div className="info-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg></div>
-                <div><div className="info-label">Email</div><div className="info-value">{email}</div></div>
-              </a>
-            )}
-          </div>
+      <div className="he15-card ha2">
+        <div style={{ fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 600, color: "rgb(var(--color-text-primary))", marginBottom: 20, paddingBottom: 16, borderBottom: "1px solid rgb(var(--color-border)/0.5)" }}>Odwiedz nas</div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          {address && <div className="he15-item"><div className="he15-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div className="he15-lbl">Adres</div><div className="he15-val">{address}</div></div></div>}
+          {phone && <a href={`tel:${phone}`} className="he15-item"><div className="he15-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div><div><div className="he15-lbl">Telefon</div><div className="he15-val">{phone}</div></div></a>}
+          {hours && <div className="he15-item"><div className="he15-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg></div><div><div className="he15-lbl">Godziny</div><div className="he15-val">{hours}</div></div></div>}
+          {email && <a href={`mailto:${email}`} className="he15-item"><div className="he15-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg></div><div><div className="he15-lbl">Email</div><div className="he15-val">{email}</div></div></a>}
         </div>
       </div>
-      <div className="hero-fade" />
-    </section>
-  );
+    </div>
+    <div className="he-fade"/>
+  </section>);
 }
