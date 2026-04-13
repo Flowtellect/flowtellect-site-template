@@ -8,6 +8,7 @@
 
 import { useState } from "react";
 import { str, arr, resolveImage } from "./shared";
+import { ScrollReveal, StaggerChildren } from './ClientComponents'
 
 interface GalleryProps {
   content: Record<string, unknown>;
@@ -82,11 +83,13 @@ export default function GallerySection({ content, vn }: GalleryProps) {
   const [thumbIdx, setThumbIdx] = useState(0);
 
   const Header = () => (
+    <ScrollReveal delay={0}>
     <div className="gl-header ga1">
       {ey && <div className="gl-eyebrow"><div className="gl-eline"/><span className="gl-etxt">{ey}</span><div className="gl-eline-r"/></div>}
       <h2 className="gl-h2">{hl}</h2>
       {body && <p className="gl-desc">{body}</p>}
     </div>
+    </ScrollReveal>
   );
 
   const Lightbox = () => lightbox ? (
@@ -105,9 +108,11 @@ export default function GallerySection({ content, vn }: GalleryProps) {
   if (vn === 1) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="gl-wrap">
       <Header />
+      <StaggerChildren staggerDelay={0.08}>
       <div className="ga2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-        {images.map((img, i) => <div key={i} onClick={() => setLightbox(getImgSrc(img))}><ImgCell src={getImgSrc(img)} alt={getCaption(img)} /></div>)}
+        {images.map((img, i) => <div key={i} className="img-zoom" onClick={() => setLightbox(getImgSrc(img))}><ImgCell src={getImgSrc(img)} alt={getCaption(img)} /></div>)}
       </div>
+      </StaggerChildren>
     </div><Lightbox /></section>);
   }
 
@@ -117,14 +122,16 @@ export default function GallerySection({ content, vn }: GalleryProps) {
   if (vn === 2) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="gl-wrap">
       <Header />
+      <StaggerChildren staggerDelay={0.08}>
       <div className="ga2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {images.map((img, i) => (
-          <div key={i}>
+          <div key={i} className="img-zoom">
             <ImgCell src={getImgSrc(img)} alt={getCaption(img)} aspect="4/3" className="rounded-2xl" />
             {getCaption(img) && <div className="gl-caption">{getCaption(img)}</div>}
           </div>
         ))}
       </div>
+      </StaggerChildren>
     </div></section>);
   }
 
@@ -149,13 +156,15 @@ export default function GallerySection({ content, vn }: GalleryProps) {
   if (vn === 4) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="gl-wrap">
       <Header />
+      <StaggerChildren staggerDelay={0.08}>
       <div className="gl-masonry ga2">
         {images.map((img, i) => (
-          <div key={i} className="gl-masonry-item">
+          <div key={i} className="gl-masonry-item img-zoom">
             <ImgCell src={getImgSrc(img)} alt={getCaption(img)} aspect={i % 3 === 0 ? "3/4" : "1/1"} />
           </div>
         ))}
       </div>
+      </StaggerChildren>
     </div></section>);
   }
 
@@ -165,13 +174,15 @@ export default function GallerySection({ content, vn }: GalleryProps) {
   if (vn === 5) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="gl-wrap">
       <Header />
+      <StaggerChildren staggerDelay={0.08}>
       <div className="ga2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
         {images.map((img, i) => (
-          <div key={i} onClick={() => setLightbox(getImgSrc(img))} style={{ cursor: "zoom-in" }}>
+          <div key={i} className="img-zoom" onClick={() => setLightbox(getImgSrc(img))} style={{ cursor: "zoom-in" }}>
             <ImgCell src={getImgSrc(img)} alt={getCaption(img)} caption="Kliknij aby powiekszyc" />
           </div>
         ))}
       </div>
+      </StaggerChildren>
     </div><Lightbox /></section>);
   }
 
@@ -205,13 +216,15 @@ export default function GallerySection({ content, vn }: GalleryProps) {
   if (vn === 7) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="gl-wrap">
       <Header />
+      <StaggerChildren staggerDelay={0.08}>
       <div className="ga2 grid grid-cols-2 md:grid-cols-3 gap-3">
         {images.map((img, i) => (
-          <div key={i} onClick={() => setLightbox(getImgSrc(img))}>
+          <div key={i} className="img-zoom" onClick={() => setLightbox(getImgSrc(img))}>
             <ImgCell src={getImgSrc(img)} alt={getCaption(img)} aspect="4/3" className="rounded-2xl" caption={getCaption(img)} />
           </div>
         ))}
       </div>
+      </StaggerChildren>
     </div><Lightbox /></section>);
   }
 
@@ -221,14 +234,16 @@ export default function GallerySection({ content, vn }: GalleryProps) {
   if (vn === 8) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="gl-wrap">
       <Header />
+      <StaggerChildren staggerDelay={0.08}>
       <div className="ga2 grid grid-cols-1 md:grid-cols-2 gap-6">
         {images.map((img, i) => (
-          <div key={i} style={{ borderRadius: 16, overflow: "hidden", border: "1px solid rgb(var(--color-border)/0.5)" }}>
+          <div key={i} className="img-zoom" style={{ borderRadius: 16, overflow: "hidden", border: "1px solid rgb(var(--color-border)/0.5)" }}>
             <ImgCell src={getImgSrc(img)} alt={getCaption(img)} aspect="16/9" />
             {getCaption(img) && <div style={{ padding: "12px 16px", fontSize: 13, color: "rgb(var(--color-text-muted))", textAlign: "center" }}>{getCaption(img)}</div>}
           </div>
         ))}
       </div>
+      </StaggerChildren>
     </div></section>);
   }
 
@@ -243,13 +258,15 @@ export default function GallerySection({ content, vn }: GalleryProps) {
       @media(min-width:768px){.gl-bento-lg{grid-column:span 2;grid-row:span 2}}
     `}</style><div className="gl-wrap">
       <Header />
+      <StaggerChildren staggerDelay={0.08}>
       <div className="gl-bento ga2">
         {images.map((img, i) => (
-          <div key={i} className={i === 0 ? "gl-bento-lg" : ""} onClick={() => setLightbox(getImgSrc(img))}>
+          <div key={i} className={`${i === 0 ? "gl-bento-lg" : ""} img-zoom`} onClick={() => setLightbox(getImgSrc(img))}>
             <ImgCell src={getImgSrc(img)} alt={getCaption(img)} aspect={i === 0 ? "auto" : "auto"} className="!rounded-2xl h-full" />
           </div>
         ))}
       </div>
+      </StaggerChildren>
     </div><Lightbox /></section>);
   }
 
@@ -259,11 +276,12 @@ export default function GallerySection({ content, vn }: GalleryProps) {
   if (vn === 10) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="gl-wrap">
       <Header />
+      <StaggerChildren staggerDelay={0.08}>
       <div className="ga2 grid grid-cols-2 md:grid-cols-3 gap-3">
         {images.map((img, i) => {
           const isVideo = i % 4 === 2;
           return (
-            <div key={i} style={{ position: "relative" }} onClick={() => setLightbox(getImgSrc(img))}>
+            <div key={i} className="img-zoom" style={{ position: "relative" }} onClick={() => setLightbox(getImgSrc(img))}>
               <ImgCell src={getImgSrc(img)} alt={getCaption(img)} aspect="4/3" className="rounded-2xl" />
               {isVideo && (
                 <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "rgb(0 0 0/0.15)" }}>
@@ -276,6 +294,7 @@ export default function GallerySection({ content, vn }: GalleryProps) {
           );
         })}
       </div>
+      </StaggerChildren>
     </div><Lightbox /></section>);
   }
 
@@ -285,16 +304,18 @@ export default function GallerySection({ content, vn }: GalleryProps) {
   if (vn === 11) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="gl-wrap">
       <Header />
+      <StaggerChildren staggerDelay={0.08}>
       <div className="ga2 grid grid-cols-2 md:grid-cols-3 gap-4">
         {images.map((img, i) => {
           const rot = ((i % 5) - 2) * 2;
           return (
-            <div key={i} style={{ transform: `rotate(${rot}deg)`, transition: "transform 0.3s" }} className="hover:!rotate-0 hover:scale-105 hover:z-10">
+            <div key={i} style={{ transform: `rotate(${rot}deg)`, transition: "transform 0.3s" }} className="img-zoom hover:!rotate-0 hover:scale-105 hover:z-10">
               <ImgCell src={getImgSrc(img)} alt={getCaption(img)} aspect={i % 3 === 0 ? "3/4" : "4/3"} className="rounded-2xl shadow-lg" />
             </div>
           );
         })}
       </div>
+      </StaggerChildren>
     </div></section>);
   }
 
@@ -309,13 +330,15 @@ export default function GallerySection({ content, vn }: GalleryProps) {
       .gl-hex:hover img{transform:scale(1.1)}
     `}</style><div className="gl-wrap">
       <Header />
+      <StaggerChildren staggerDelay={0.08}>
       <div className="ga2 grid grid-cols-2 md:grid-cols-3 gap-4" style={{ maxWidth: 800, margin: "0 auto" }}>
         {images.map((img, i) => (
-          <div key={i} className="gl-hex">
+          <div key={i} className="gl-hex img-zoom">
             {getImgSrc(img) ? <img src={getImgSrc(img)!} alt="" /> : <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, rgb(var(--color-accent)/0.1), rgb(var(--color-surface)))" }} />}
           </div>
         ))}
       </div>
+      </StaggerChildren>
     </div></section>);
   }
 
@@ -325,9 +348,11 @@ export default function GallerySection({ content, vn }: GalleryProps) {
   if (vn === 13) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="gl-wrap">
       <Header />
+      <StaggerChildren staggerDelay={0.08}>
       <div className="ga2 grid grid-cols-2 md:grid-cols-3 gap-3">
-        {images.map((img, i) => <div key={i}><ImgCell src={getImgSrc(img)} alt={getCaption(img)} aspect="4/3" className="rounded-2xl" /></div>)}
+        {images.map((img, i) => <div key={i} className="img-zoom"><ImgCell src={getImgSrc(img)} alt={getCaption(img)} aspect="4/3" className="rounded-2xl" /></div>)}
       </div>
+      </StaggerChildren>
     </div></section>);
   }
 
@@ -337,16 +362,18 @@ export default function GallerySection({ content, vn }: GalleryProps) {
   if (vn === 14) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="gl-wrap">
       <Header />
+      <StaggerChildren staggerDelay={0.08}>
       <div className="ga2" style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
         {images.map((img, i) => {
           const wide = i % 3 === 0;
           return (
-            <div key={i} style={{ height: 200, flex: wide ? "1.6 1 0" : "1 1 0", borderRadius: 12, overflow: "hidden", minWidth: 120 }} className="md:!h-[280px]">
+            <div key={i} style={{ height: 200, flex: wide ? "1.6 1 0" : "1 1 0", borderRadius: 12, overflow: "hidden", minWidth: 120 }} className="img-zoom md:!h-[280px]">
               {getImgSrc(img) ? <img src={getImgSrc(img)!} alt="" className="gl-img" style={{ borderRadius: 0 }} /> : <div style={{ width: "100%", height: "100%", background: "rgb(var(--color-surface-deep))" }} />}
             </div>
           );
         })}
       </div>
+      </StaggerChildren>
     </div></section>);
   }
 
@@ -356,17 +383,19 @@ export default function GallerySection({ content, vn }: GalleryProps) {
   if (vn === 15) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="gl-wrap">
       <Header />
+      <StaggerChildren staggerDelay={0.08}>
       <div className="ga2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {images.map((img, i) => {
           const rot = ((i % 5) - 2) * 2;
           return (
-            <div key={i} className="gl-polaroid" style={{ transform: `rotate(${rot}deg)` }}>
+            <div key={i} className="gl-polaroid img-zoom" style={{ transform: `rotate(${rot}deg)` }}>
               {getImgSrc(img) ? <img src={getImgSrc(img)!} alt="" /> : <div style={{ width: "100%", aspectRatio: "1", background: "rgb(var(--color-surface-deep))", borderRadius: 2 }} />}
               {getCaption(img) && <div className="gl-polaroid-caption">{getCaption(img)}</div>}
             </div>
           );
         })}
       </div>
+      </StaggerChildren>
     </div></section>);
   }
 
@@ -416,13 +445,15 @@ export default function GallerySection({ content, vn }: GalleryProps) {
   if (vn === 18) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="gl-wrap">
       <Header />
+      <StaggerChildren staggerDelay={0.08}>
       <div className="ga2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {images.map((img, i) => (
-          <div key={i} style={{ borderRadius: 16, overflow: "hidden", cursor: "zoom-in" }} onClick={() => setLightbox(getImgSrc(img))}>
+          <div key={i} className="img-zoom" style={{ borderRadius: 16, overflow: "hidden", cursor: "zoom-in" }} onClick={() => setLightbox(getImgSrc(img))}>
             <ImgCell src={getImgSrc(img)} alt={getCaption(img)} aspect="3/4" />
           </div>
         ))}
       </div>
+      </StaggerChildren>
     </div><Lightbox /></section>);
   }
 
@@ -460,12 +491,14 @@ export default function GallerySection({ content, vn }: GalleryProps) {
     .gl-tilt .gl-cell:hover{transform:rotateY(4deg) rotateX(-2deg);box-shadow:-8px 12px 40px rgb(0 0 0/0.12)}
   `}</style><div className="gl-wrap">
     <Header />
+    <StaggerChildren staggerDelay={0.08}>
     <div className="ga2 gl-tilt grid grid-cols-2 md:grid-cols-3 gap-4">
       {images.map((img, i) => (
-        <div key={i} onClick={() => setLightbox(getImgSrc(img))}>
+        <div key={i} className="img-zoom" onClick={() => setLightbox(getImgSrc(img))}>
           <ImgCell src={getImgSrc(img)} alt={getCaption(img)} aspect="4/3" className="rounded-2xl" caption={getCaption(img)} />
         </div>
       ))}
     </div>
+    </StaggerChildren>
   </div><Lightbox /></section>);
 }

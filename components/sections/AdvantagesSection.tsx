@@ -6,6 +6,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { str, arr, resolveImage, resolveIcon } from "./shared";
+import { ScrollReveal, StaggerChildren } from './ClientComponents'
 
 interface AdvantagesProps {
   content: Record<string, unknown>;
@@ -78,8 +79,8 @@ export default function AdvantagesSection({ content, vn }: AdvantagesProps) {
   const Header = () => (
     <div className="adv-header aa1">
       {ey && <div className="adv-eyebrow"><div className="adv-eline"/><span className="adv-etxt">{ey}</span><div className="adv-eline-r"/></div>}
-      <h2 className="adv-h2 adv-h2-m">{hl}</h2>
-      {body && <p className="adv-desc">{body}</p>}
+      <ScrollReveal delay={0}><h2 className="adv-h2 adv-h2-m">{hl}</h2></ScrollReveal>
+      {body && <ScrollReveal delay={0.1}><p className="adv-desc">{body}</p></ScrollReveal>}
     </div>
   );
 
@@ -89,15 +90,15 @@ export default function AdvantagesSection({ content, vn }: AdvantagesProps) {
   if (vn === 1) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="adv-wrap">
       <Header />
-      <div className="aa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="aa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="adv-card" style={{ textAlign: "center" }}>
+          <div key={i} className="adv-card card-hover" style={{ textAlign: "center" }}>
             <div className="adv-card-icon" style={{ margin: "0 auto 18px" }}>{resolveIcon(it.icon)}</div>
             <div className="adv-card-title">{str(it.name || it.title || it.label)}</div>
             <div className="adv-card-desc">{str(it.desc || it.description)}</div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 

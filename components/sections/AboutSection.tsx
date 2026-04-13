@@ -6,6 +6,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { str, arr, resolveImage, resolveIcon } from "./shared";
+import { ScrollReveal, StaggerChildren, FadeScale } from './ClientComponents'
 
 interface AboutProps {
   content: Record<string, unknown>;
@@ -92,20 +93,20 @@ export default function AboutSection({ content, vn }: AboutProps) {
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 1) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="ab-wrap"><div className="ab-grid">
-      <div className="aba1" style={{ position: "relative" }}>
+      <FadeScale delay={0.15}><div className="aba1" style={{ position: "relative" }}>
         {img ? <img src={img} alt="" className="ab-img" style={{ aspectRatio: "4/3" }} /> : <div style={{ aspectRatio: "4/3", borderRadius: 24, background: "linear-gradient(135deg, rgb(var(--color-accent)/0.1), rgb(var(--color-surface)))" }} />}
         <div className="hidden md:block" style={{ position: "absolute", width: "100%", height: "100%", border: "2px solid rgb(var(--color-accent)/0.15)", borderRadius: 24, top: 16, left: -16, zIndex: -1 }} />
-      </div>
+      </div></FadeScale>
       <div className="aba2">
-        {ey && <div className="ab-eyebrow"><div className="ab-eline"/><span className="ab-etxt">{ey}</span></div>}
-        <h2 className="ab-h2 ab-h2-s">{hl}</h2>
-        {body && <p className="ab-body">{body}</p>}
-        {highlights.length > 0 && <div style={{ display: "flex", flexDirection: "column", gap: 14, marginBottom: 28 }}>{highlights.map((h, i) => (
+        {ey && <ScrollReveal delay={0}><div className="ab-eyebrow"><div className="ab-eline"/><span className="ab-etxt">{ey}</span></div></ScrollReveal>}
+        <ScrollReveal delay={0.1}><h2 className="ab-h2 ab-h2-s">{hl}</h2></ScrollReveal>
+        {body && <ScrollReveal delay={0.2}><p className="ab-body">{body}</p></ScrollReveal>}
+        {highlights.length > 0 && <StaggerChildren staggerDelay={0.1} baseDelay={0.3}><div style={{ display: "flex", flexDirection: "column", gap: 14, marginBottom: 28 }}>{highlights.map((h, i) => (
           <div key={i} className="ab-hl"><div className="ab-hl-icon">{resolveIcon(h.icon)}</div><div><div className="ab-hl-title">{str(h.label || h.title)}</div><div className="ab-hl-desc">{str(h.desc)}</div></div></div>
-        ))}</div>}
-        {stats.length > 0 && <div style={{ display: "flex", gap: 32, paddingTop: 24, borderTop: "1px solid rgb(var(--color-border)/0.5)" }}>{stats.map((s, i) => (
+        ))}</div></StaggerChildren>}
+        {stats.length > 0 && <StaggerChildren staggerDelay={0.1} baseDelay={0.3}><div style={{ display: "flex", gap: 32, paddingTop: 24, borderTop: "1px solid rgb(var(--color-border)/0.5)" }}>{stats.map((s, i) => (
           <div key={i}><div className="ab-stat-val">{str(s.value)}{str(s.suffix)}</div><div className="ab-stat-lbl">{str(s.label)}</div></div>
-        ))}</div>}
+        ))}</div></StaggerChildren>}
       </div>
     </div></div></section>);
   }
@@ -116,11 +117,11 @@ export default function AboutSection({ content, vn }: AboutProps) {
   if (vn === 2) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="ab-wrap">
       <div className="aba1" style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 56px" }}>
-        {ey && <div style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 20 }}><div className="ab-eline-g"/><span className="ab-etxt">{ey}</span><div className="ab-eline-gr"/></div>}
-        <h2 className="ab-h2 ab-h2-m">{hl}</h2>
-        {body && <p style={{ fontSize: 16, lineHeight: 1.7, color: "rgb(var(--color-text-muted))" }}>{body}</p>}
+        {ey && <ScrollReveal delay={0}><div style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 20 }}><div className="ab-eline-g"/><span className="ab-etxt">{ey}</span><div className="ab-eline-gr"/></div></ScrollReveal>}
+        <ScrollReveal delay={0.1}><h2 className="ab-h2 ab-h2-m">{hl}</h2></ScrollReveal>
+        {body && <ScrollReveal delay={0.2}><p style={{ fontSize: 16, lineHeight: 1.7, color: "rgb(var(--color-text-muted))" }}>{body}</p></ScrollReveal>}
       </div>
-      <div className="aba2" style={{ position: "relative", maxWidth: 720, margin: "0 auto", paddingLeft: 32 }}>
+      <StaggerChildren staggerDelay={0.1} baseDelay={0.3}><div className="aba2" style={{ position: "relative", maxWidth: 720, margin: "0 auto", paddingLeft: 32 }}>
         <div className="ab-tl-line" />
         {items.map((it, i) => (
           <div key={i} style={{ position: "relative", paddingBottom: i < items.length - 1 ? 40 : 0 }}>
@@ -130,7 +131,7 @@ export default function AboutSection({ content, vn }: AboutProps) {
             <div style={{ fontSize: 14, lineHeight: 1.7, color: "rgb(var(--color-text-muted))", maxWidth: 520 }}>{str(it.desc || it.description || it.body)}</div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -140,11 +141,11 @@ export default function AboutSection({ content, vn }: AboutProps) {
   if (vn === 3) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="ab-wrap">
       <div className="aba1" style={{ textAlign: "center", maxWidth: 600, margin: "0 auto 56px" }}>
-        {ey && <div style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 20 }}><div className="ab-eline-g"/><span className="ab-etxt">{ey}</span><div className="ab-eline-gr"/></div>}
-        <h2 className="ab-h2 ab-h2-m">{hl}</h2>
-        {body && <p style={{ fontSize: 16, lineHeight: 1.7, color: "rgb(var(--color-text-muted))" }}>{body}</p>}
+        {ey && <ScrollReveal delay={0}><div style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 20 }}><div className="ab-eline-g"/><span className="ab-etxt">{ey}</span><div className="ab-eline-gr"/></div></ScrollReveal>}
+        <ScrollReveal delay={0.1}><h2 className="ab-h2 ab-h2-m">{hl}</h2></ScrollReveal>
+        {body && <ScrollReveal delay={0.2}><p style={{ fontSize: 16, lineHeight: 1.7, color: "rgb(var(--color-text-muted))" }}>{body}</p></ScrollReveal>}
       </div>
-      <div className="aba2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.1} baseDelay={0.3}><div className="aba2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {members.map((m, i) => {
           const mImg = resolveImage(m.image || m.photo);
           return (
@@ -160,7 +161,7 @@ export default function AboutSection({ content, vn }: AboutProps) {
             </div>
           );
         })}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -170,16 +171,16 @@ export default function AboutSection({ content, vn }: AboutProps) {
   if (vn === 4) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="ab-wrap"><div className="ab-grid">
       <div className="aba1">
-        {ey && <div className="ab-eyebrow"><div className="ab-eline"/><span className="ab-etxt">{ey}</span></div>}
-        <h2 className="ab-h2 ab-h2-s">{hl}</h2>
-        {body && <p className="ab-body">{body}</p>}
-        {pillars.length > 0 && <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">{pillars.map((p, i) => (
+        {ey && <ScrollReveal delay={0}><div className="ab-eyebrow"><div className="ab-eline"/><span className="ab-etxt">{ey}</span></div></ScrollReveal>}
+        <ScrollReveal delay={0.1}><h2 className="ab-h2 ab-h2-s">{hl}</h2></ScrollReveal>
+        {body && <ScrollReveal delay={0.2}><p className="ab-body">{body}</p></ScrollReveal>}
+        {pillars.length > 0 && <StaggerChildren staggerDelay={0.1} baseDelay={0.3}><div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">{pillars.map((p, i) => (
           <div key={i} className="ab-pillar"><div className="ab-pillar-icon">{resolveIcon(p.icon)}</div><div className="ab-pillar-title">{str(p.title)}</div><div className="ab-pillar-desc">{str(p.body || p.desc)}</div></div>
-        ))}</div>}
+        ))}</div></StaggerChildren>}
       </div>
-      <div className="aba2" style={{ position: "relative" }}>
+      <FadeScale delay={0.15}><div className="aba2" style={{ position: "relative" }}>
         {img ? <img src={img} alt="" className="ab-img" style={{ aspectRatio: "3/4" }} /> : <div style={{ aspectRatio: "3/4", borderRadius: 24, background: "linear-gradient(135deg, rgb(var(--color-accent)/0.1), rgb(var(--color-surface)))" }} />}
-      </div>
+      </div></FadeScale>
     </div></div></section>);
   }
 
@@ -188,21 +189,21 @@ export default function AboutSection({ content, vn }: AboutProps) {
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 5) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="ab-wrap">
-      <div className="aba1" style={{ position: "relative", borderRadius: 24, overflow: "hidden", marginBottom: 48, boxShadow: "0 16px 48px rgb(0 0 0/0.08)" }}>
+      <FadeScale delay={0.15}><div className="aba1" style={{ position: "relative", borderRadius: 24, overflow: "hidden", marginBottom: 48, boxShadow: "0 16px 48px rgb(0 0 0/0.08)" }}>
         {img ? <img src={img} alt="" style={{ width: "100%", aspectRatio: "16/9", objectFit: "cover", display: "block" }} /> : <div style={{ width: "100%", aspectRatio: "16/9", background: "linear-gradient(135deg, rgb(var(--color-accent)/0.15), rgb(var(--color-surface)))" }} />}
         <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "rgb(0 0 0/0.15)", cursor: "pointer" }}>
           <div style={{ width: 72, height: 72, borderRadius: "50%", background: "rgb(var(--color-surface)/0.95)", backdropFilter: "blur(12px)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 8px 32px rgb(0 0 0/0.15)" }}>
             <svg width="28" height="28" viewBox="0 0 24 24" fill="rgb(var(--color-accent))"><polygon points="5,3 19,12 5,21"/></svg>
           </div>
         </div>
-      </div>
+      </div></FadeScale>
       <div className="aba2" style={{ maxWidth: 800, margin: "0 auto", textAlign: "center" }}>
-        {ey && <div style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 20 }}><div className="ab-eline-g"/><span className="ab-etxt">{ey}</span><div className="ab-eline-gr"/></div>}
-        <h2 className="ab-h2 ab-h2-m">{hl}</h2>
-        {body && <p style={{ fontSize: 16, lineHeight: 1.75, color: "rgb(var(--color-text-muted))", maxWidth: 600, margin: "0 auto 36px" }}>{body}</p>}
-        {stats.length > 0 && <div style={{ display: "flex", justifyContent: "center", gap: 32, flexWrap: "wrap", paddingTop: 28, borderTop: "1px solid rgb(var(--color-border)/0.5)" }}>{stats.map((s, i) => (
+        {ey && <ScrollReveal delay={0}><div style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 20 }}><div className="ab-eline-g"/><span className="ab-etxt">{ey}</span><div className="ab-eline-gr"/></div></ScrollReveal>}
+        <ScrollReveal delay={0.1}><h2 className="ab-h2 ab-h2-m">{hl}</h2></ScrollReveal>
+        {body && <ScrollReveal delay={0.2}><p style={{ fontSize: 16, lineHeight: 1.75, color: "rgb(var(--color-text-muted))", maxWidth: 600, margin: "0 auto 36px" }}>{body}</p></ScrollReveal>}
+        {stats.length > 0 && <StaggerChildren staggerDelay={0.1} baseDelay={0.3}><div style={{ display: "flex", justifyContent: "center", gap: 32, flexWrap: "wrap", paddingTop: 28, borderTop: "1px solid rgb(var(--color-border)/0.5)" }}>{stats.map((s, i) => (
           <div key={i}><div style={{ fontFamily: "var(--font-display)", fontSize: 32, fontWeight: 700, color: "rgb(var(--color-accent))", lineHeight: 1 }}>{str(s.value)}{str(s.suffix)}</div><div style={{ fontSize: 13, color: "rgb(var(--color-text-dim))", marginTop: 6 }}>{str(s.label)}</div></div>
-        ))}</div>}
+        ))}</div></StaggerChildren>}
       </div>
     </div></section>);
   }
@@ -212,12 +213,12 @@ export default function AboutSection({ content, vn }: AboutProps) {
   // ═══════════════════════════════════════════════════════════════════════════
   return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="ab-wrap"><div className="ab-grid">
     <div className="aba1">
-      {ey && <div className="ab-eyebrow"><div className="ab-eline"/><span className="ab-etxt">{ey}</span></div>}
-      <h2 className="ab-h2 ab-h2-s">{hl}</h2>
-      {body && <p className="ab-body">{body}</p>}
-      <a href="#" className="ab-btn">Poznaj nas <Arrow/></a>
+      {ey && <ScrollReveal delay={0}><div className="ab-eyebrow"><div className="ab-eline"/><span className="ab-etxt">{ey}</span></div></ScrollReveal>}
+      <ScrollReveal delay={0.1}><h2 className="ab-h2 ab-h2-s">{hl}</h2></ScrollReveal>
+      {body && <ScrollReveal delay={0.2}><p className="ab-body">{body}</p></ScrollReveal>}
+      <ScrollReveal delay={0.2}><a href="#" className="ab-btn">Poznaj nas <Arrow/></a></ScrollReveal>
     </div>
-    <div className="aba2 grid grid-cols-2 gap-4">
+    <StaggerChildren staggerDelay={0.1} baseDelay={0.3}><div className="aba2 grid grid-cols-2 gap-4">
       {stats.map((s, i) => (
         <div key={i} className="ab-num-card">
           <div className="ab-num-icon">{resolveIcon(s.icon)}</div>
@@ -232,6 +233,6 @@ export default function AboutSection({ content, vn }: AboutProps) {
           <div className="ab-num-lbl">{str(h.desc)}</div>
         </div>
       ))}
-    </div>
+    </div></StaggerChildren>
   </div></div></section>);
 }

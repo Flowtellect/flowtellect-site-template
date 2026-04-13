@@ -6,6 +6,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { str, num, arr, resolveImage, resolveIcon } from "./shared";
+import { ScrollReveal, StaggerChildren } from './ClientComponents'
 
 interface TestimonialsProps {
   content: Record<string, unknown>;
@@ -92,16 +93,16 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 1) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="tm-wrap">
-      <Header />
-      <div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <ScrollReveal delay={0}><Header /></ScrollReveal>
+      <StaggerChildren staggerDelay={0.15}><div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="tm-card">
+          <div key={i} className="tm-card card-hover">
             <Stars rating={num(it.rating) || 5} />
             <div className="tm-quote">&ldquo;{str(it.quote)}&rdquo;</div>
             <AuthorBlock item={it} />
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -110,10 +111,10 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 2) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="tm-wrap">
-      <Header />
-      <div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <ScrollReveal delay={0}><Header /></ScrollReveal>
+      <StaggerChildren staggerDelay={0.15}><div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="tm-card" style={{ borderLeft: "3px solid rgb(var(--color-accent)/0.3)", padding: "32px 28px" }}>
+          <div key={i} className="tm-card card-hover" style={{ borderLeft: "3px solid rgb(var(--color-accent)/0.3)", padding: "32px 28px" }}>
             <Stars rating={num(it.rating) || 5} />
             <div className="tm-quote" style={{ fontSize: 15 }}>&ldquo;{str(it.quote)}&rdquo;</div>
             <div className="tm-author">
@@ -127,7 +128,7 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -135,7 +136,7 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
   // VN 3: Karuzela marquee
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 3) {
-    return (<section className="bg-bg-alt" style={{ padding: "64px 0", overflow: "hidden" }}><style>{S}</style><div className="tm-wrap"><Header /></div>
+    return (<section className="bg-bg-alt" style={{ padding: "64px 0", overflow: "hidden" }}><style>{S}</style><div className="tm-wrap"><ScrollReveal delay={0}><Header /></ScrollReveal></div>
       <div className="ta2" style={{ position: "relative" }}>
         <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 60, background: "linear-gradient(to right, rgb(var(--color-bg-alt)), transparent)", zIndex: 2 }} />
         <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 60, background: "linear-gradient(to left, rgb(var(--color-bg-alt)), transparent)", zIndex: 2 }} />
@@ -158,7 +159,7 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
   if (vn === 4) {
     const it = items[0] || {};
     return (<section className="bg-bg-alt" style={{ padding: "80px 0" }}><style>{S}</style><div className="tm-wrap">
-      <div className="ta1" style={{ maxWidth: 700, margin: "0 auto", textAlign: "center", position: "relative" }}>
+      <ScrollReveal delay={0}><div className="ta1" style={{ maxWidth: 700, margin: "0 auto", textAlign: "center", position: "relative" }}>
         {/* Decorative quote mark */}
         <div style={{ fontFamily: "var(--font-display)", fontSize: 120, color: "rgb(var(--color-accent)/0.12)", lineHeight: 1, position: "absolute", top: -40, left: "50%", transform: "translateX(-50%)", userSelect: "none" }}>&ldquo;</div>
         <div style={{ position: "relative", zIndex: 2 }}>
@@ -182,7 +183,7 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
             </div>
           )}
         </div>
-      </div>
+      </div></ScrollReveal>
     </div></section>);
   }
 
@@ -193,10 +194,10 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
     const featured = items[0];
     const rest = items.slice(1);
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="tm-wrap">
-      <Header />
-      <div className="ta2 grid grid-cols-1 md:grid-cols-5 gap-6">
+      <ScrollReveal delay={0}><Header /></ScrollReveal>
+      <StaggerChildren staggerDelay={0.15}><div className="ta2 grid grid-cols-1 md:grid-cols-5 gap-6">
         {featured && (
-          <div className="md:col-span-2" style={{ background: "rgb(var(--color-accent)/0.05)", border: "1px solid rgb(var(--color-accent)/0.2)", borderRadius: 24, padding: 32 }}>
+          <div className="md:col-span-2 card-hover" style={{ background: "rgb(var(--color-accent)/0.05)", border: "1px solid rgb(var(--color-accent)/0.2)", borderRadius: 24, padding: 32 }}>
             <Stars rating={num(featured.rating) || 5} />
             <div style={{ fontFamily: "var(--font-display)", fontSize: 18, fontStyle: "italic", lineHeight: 1.6, color: "rgb(var(--color-text-primary))", marginBottom: 20 }}>&ldquo;{str(featured.quote)}&rdquo;</div>
             <AuthorBlock item={featured} />
@@ -204,7 +205,7 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
         )}
         <div className="md:col-span-3" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {rest.map((it, i) => (
-            <div key={i} style={{ display: "flex", gap: 16, padding: "16px 20px", background: "rgb(var(--color-surface))", border: "1px solid rgb(var(--color-border)/0.5)", borderRadius: 16, transition: "all 0.2s" }}>
+            <div key={i} className="card-hover" style={{ display: "flex", gap: 16, padding: "16px 20px", background: "rgb(var(--color-surface))", border: "1px solid rgb(var(--color-border)/0.5)", borderRadius: 16, transition: "all 0.2s" }}>
               <div className="tm-avatar" style={{ flexShrink: 0 }}>
                 {resolveImage(it.photo) ? <img src={resolveImage(it.photo)!} alt="" /> : <span>{resolveIcon(it.icon) || "👤"}</span>}
               </div>
@@ -218,7 +219,7 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
             </div>
           ))}
         </div>
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -227,12 +228,12 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 6) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="tm-wrap">
-      <Header />
-      <div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <ScrollReveal delay={0}><Header /></ScrollReveal>
+      <StaggerChildren staggerDelay={0.15}><div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => {
           const photo = resolveImage(it.photo || it.image || it.video_thumbnail);
           return (
-            <div key={i} className="tm-card" style={{ padding: 0, overflow: "hidden" }}>
+            <div key={i} className="tm-card card-hover" style={{ padding: 0, overflow: "hidden" }}>
               <div style={{ position: "relative", aspectRatio: "16/10", background: "rgb(var(--color-surface-deep))", overflow: "hidden" }}>
                 {photo && <img src={photo} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
                 <div style={{ position: "absolute", inset: 0, background: "rgb(0 0 0/0.2)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
@@ -249,7 +250,7 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
             </div>
           );
         })}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -262,16 +263,16 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,0,0,0.65), rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.7))" }} />
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.3))" }} />
       <div className="tm-wrap" style={{ position: "relative", zIndex: 10 }}>
-        <Header white />
-        <div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <ScrollReveal delay={0}><Header white /></ScrollReveal>
+        <StaggerChildren staggerDelay={0.15}><div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {items.map((it, i) => (
-            <div key={i} className="tm-glass">
+            <div key={i} className="tm-glass card-hover">
               <Stars rating={num(it.rating) || 5} />
               <div className="tm-quote">&ldquo;{str(it.quote)}&rdquo;</div>
               <AuthorBlock item={it} />
             </div>
           ))}
-        </div>
+        </div></StaggerChildren>
       </div>
     </section>);
   }
@@ -286,18 +287,18 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
       @media(min-width:1024px){.tm-masonry{column-count:3}}
       .tm-masonry-item{break-inside:avoid;margin-bottom:16px}
     `}</style><div className="tm-wrap">
-      <Header />
-      <div className="tm-masonry ta2">
+      <ScrollReveal delay={0}><Header /></ScrollReveal>
+      <StaggerChildren staggerDelay={0.15}><div className="tm-masonry ta2">
         {items.map((it, i) => (
           <div key={i} className="tm-masonry-item">
-            <div className="tm-card" style={i % 3 === 0 ? { borderLeft: "3px solid rgb(var(--color-accent)/0.3)" } : undefined}>
+            <div className="tm-card card-hover" style={i % 3 === 0 ? { borderLeft: "3px solid rgb(var(--color-accent)/0.3)" } : undefined}>
               <Stars rating={num(it.rating) || 5} />
               <div className="tm-quote">&ldquo;{str(it.quote)}&rdquo;</div>
               <AuthorBlock item={it} />
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -306,10 +307,10 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 9) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="tm-wrap">
-      <Header />
-      <div className="ta2 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <ScrollReveal delay={0}><Header /></ScrollReveal>
+      <StaggerChildren staggerDelay={0.15}><div className="ta2 grid grid-cols-1 md:grid-cols-2 gap-6">
         {items.map((it, i) => (
-          <div key={i} className="tm-card" style={{ padding: 32, borderRadius: 24 }}>
+          <div key={i} className="tm-card card-hover" style={{ padding: 32, borderRadius: 24 }}>
             {str(it.company) && (
               <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 14px", background: "rgb(var(--color-bg-alt))", borderRadius: 8, marginBottom: 16, fontSize: 13, fontWeight: 600, color: "rgb(var(--color-text-muted))" }}>
                 <span style={{ fontSize: 16 }}>{resolveIcon(it.icon) || "🏢"}</span>
@@ -329,7 +330,7 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -341,7 +342,7 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
       ? (items.reduce((sum, it) => sum + (num(it.rating) || 5), 0) / items.length).toFixed(1)
       : "5.0";
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="tm-wrap">
-      <Header />
+      <ScrollReveal delay={0}><Header /></ScrollReveal>
       {/* Rating summary */}
       <div className="ta1" style={{ textAlign: "center", marginBottom: 48 }}>
         <div style={{ fontFamily: "var(--font-display)", fontSize: 64, fontWeight: 700, color: "rgb(var(--color-accent))", lineHeight: 1 }}>{avgRating}</div>
@@ -349,15 +350,15 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
         <div style={{ fontSize: 14, color: "rgb(var(--color-text-dim))" }}>na podstawie {items.length > 0 ? items.length * 20 : 127} opinii</div>
       </div>
       {/* Cards */}
-      <div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.15}><div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="tm-card">
+          <div key={i} className="tm-card card-hover">
             <Stars rating={num(it.rating) || 5} />
             <div className="tm-quote">&ldquo;{str(it.quote)}&rdquo;</div>
             <AuthorBlock item={it} />
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -369,7 +370,7 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
     const row1 = items.slice(0, half);
     const row2 = items.slice(half);
     return (<section className="bg-bg-alt" style={{ padding: "64px 0", overflow: "hidden" }}><style>{S}</style>
-      <div className="tm-wrap"><Header /></div>
+      <div className="tm-wrap"><ScrollReveal delay={0}><Header /></ScrollReveal></div>
       {[row1, row2].map((row, ri) => (
         <div key={ri} style={{ position: "relative", marginBottom: ri === 0 ? 16 : 0 }}>
           <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 60, background: "linear-gradient(to right, rgb(var(--color-bg-alt)), transparent)", zIndex: 2 }} />
@@ -399,7 +400,7 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
   // VN 12: NPS / data-driven (rating summary + quotes)
   // ═══════════════════════════════════════════════════════════════════════════
   return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="tm-wrap">
-    <Header />
+    <ScrollReveal delay={0}><Header /></ScrollReveal>
     {/* NPS-style summary */}
     <div className="ta1" style={{ maxWidth: 500, margin: "0 auto 48px", textAlign: "center" }}>
       <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 100, height: 100, borderRadius: "50%", border: "4px solid rgb(var(--color-accent))", marginBottom: 16 }}>
@@ -418,14 +419,14 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
       </div>
     </div>
     {/* Quotes */}
-    <div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <StaggerChildren staggerDelay={0.15}><div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {items.slice(0, 3).map((it, i) => (
-        <div key={i} className="tm-card">
+        <div key={i} className="tm-card card-hover">
           <Stars rating={num(it.rating) || 5} />
           <div className="tm-quote">&ldquo;{str(it.quote)}&rdquo;</div>
           <AuthorBlock item={it} />
         </div>
       ))}
-    </div>
+    </div></StaggerChildren>
   </div></section>);
 }

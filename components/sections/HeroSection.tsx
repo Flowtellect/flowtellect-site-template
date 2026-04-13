@@ -7,6 +7,7 @@
 
 import { useState, useEffect } from "react";
 import { str, arr, resolveImage } from "./shared";
+import { ScrollReveal, FadeScale } from './ClientComponents'
 
 interface HeroProps {
   content: Record<string, unknown>;
@@ -153,14 +154,14 @@ export default function HeroSection({ content, vn }: HeroProps) {
   if (vn === 1) {
     return (<section className="bg-bg overflow-hidden" style={{ padding: "48px 0 64px" }}><style>{S}</style><div className="he-wrap"><div className="he-grid">
       <div className="ha1">
-        {ey && <div className="he-eyebrow"><div className="he-eline"/><span className="he-etxt">{ey}</span></div>}
-        <H lines={hl} cls="he-h1 he-h1-d he-h1-s" />
-        {sub && <p className="he-sub he-sub-d">{sub}</p>}
-        <div className="he-ctas">{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div>
+        {ey && <ScrollReveal delay={0}><div className="he-eyebrow"><div className="he-eline"/><span className="he-etxt">{ey}</span></div></ScrollReveal>}
+        <ScrollReveal delay={0.1}><H lines={hl} cls="he-h1 he-h1-d he-h1-s" /></ScrollReveal>
+        {sub && <ScrollReveal delay={0.25}><p className="he-sub he-sub-d">{sub}</p></ScrollReveal>}
+        <ScrollReveal delay={0.35}><div className="he-ctas">{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div></ScrollReveal>
       </div>
-      <div className="ha2" style={{ position: "relative" }}>
+      <FadeScale delay={0.2}><div className="ha2" style={{ position: "relative" }}>
         <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 20px 60px rgb(0 0 0/0.1)" }}><ImgOrGrad aspect="4/3" /></div>
-      </div>
+      </div></FadeScale>
     </div></div></section>);
   }
 
@@ -173,10 +174,10 @@ export default function HeroSection({ content, vn }: HeroProps) {
       <div className="he-overlay" style={{ background: "linear-gradient(to bottom,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.25) 40%,rgba(0,0,0,0.6) 100%)", zIndex: 1 }}/>
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,0.3) 100%)", zIndex: 2 }}/>
       <div style={{ position: "relative", zIndex: 10, textAlign: "center", padding: "24px 16px", maxWidth: 800 }}>
-        {ey && <div className="ha2" style={{ display: "inline-flex", alignItems: "center", gap: 12, marginBottom: 24 }}><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/><span className="he-etxt-w">{ey}</span><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/></div>}
-        <H lines={hl} cls="he-h1 he-h1-w he-h1-l ha2" />
-        {sub && <p className="he-sub he-sub-w ha3" style={{ margin: "0 auto 36px", maxWidth: 560 }}>{sub}</p>}
-        <div className="he-ctas ha4" style={{ justifyContent: "center" }}>{c1 && <a href={c1.href} className="he-btn he-btn-w">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-g">{c2.label}</a>}</div>
+        {ey && <ScrollReveal delay={0}><div className="ha2" style={{ display: "inline-flex", alignItems: "center", gap: 12, marginBottom: 24 }}><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/><span className="he-etxt-w">{ey}</span><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/></div></ScrollReveal>}
+        <ScrollReveal delay={0.1}><H lines={hl} cls="he-h1 he-h1-w he-h1-l ha2" /></ScrollReveal>
+        {sub && <ScrollReveal delay={0.25}><p className="he-sub he-sub-w ha3" style={{ margin: "0 auto 36px", maxWidth: 560 }}>{sub}</p></ScrollReveal>}
+        <ScrollReveal delay={0.35}><div className="he-ctas ha4" style={{ justifyContent: "center" }}>{c1 && <a href={c1.href} className="he-btn he-btn-w">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-g">{c2.label}</a>}</div></ScrollReveal>
       </div>
       <div className="he-scroll ha5"><span className="he-scroll-t">Przewin</span><div className="he-scroll-l"/></div>
       <div className="he-fade"/>
@@ -195,10 +196,10 @@ export default function HeroSection({ content, vn }: HeroProps) {
     `}</style>
       <div style={{ position: "absolute", width: 600, height: 600, borderRadius: "50%", border: "1px solid rgb(var(--color-accent)/0.06)", top: -200, right: -200, pointerEvents: "none" }}/>
       <div style={{ position: "relative", zIndex: 10, maxWidth: 800, margin: "0 auto" }}>
-        {ey && <div className="ha1" style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 32 }}><div className="he-eline-g"/><span className="he-etxt">{ey}</span><div className="he-eline-gr"/></div>}
-        <H lines={hl} cls="he-h1 he-h1-d he-h1-l ha2" />
-        {sub && <p className="he-sub he-sub-d ha3" style={{ margin: "0 auto 40px", textAlign: "center", maxWidth: 520, fontSize: 18 }}>{sub}</p>}
-        <div className="he-ctas ha3" style={{ justifyContent: "center" }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div>
+        {ey && <ScrollReveal delay={0}><div className="ha1" style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 32 }}><div className="he-eline-g"/><span className="he-etxt">{ey}</span><div className="he-eline-gr"/></div></ScrollReveal>}
+        <ScrollReveal delay={0.1}><H lines={hl} cls="he-h1 he-h1-d he-h1-l ha2" /></ScrollReveal>
+        {sub && <ScrollReveal delay={0.25}><p className="he-sub he-sub-d ha3" style={{ margin: "0 auto 40px", textAlign: "center", maxWidth: 520, fontSize: 18 }}>{sub}</p></ScrollReveal>}
+        <ScrollReveal delay={0.35}><div className="he-ctas ha3" style={{ justifyContent: "center" }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div></ScrollReveal>
         <div className="ha4" style={{ marginTop: 48, display: "flex", flexDirection: "column", alignItems: "center" }}><div className="he3-bl"/><div className="he3-dot"/></div>
       </div>
     </section>);
@@ -209,17 +210,17 @@ export default function HeroSection({ content, vn }: HeroProps) {
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 4) {
     return (<section className="bg-bg overflow-hidden" style={{ padding: "48px 0 64px" }}><style>{S}</style><div className="he-wrap"><div className="he-grid">
-      <div className="hasl order-1 md:!order-none" style={{ position: "relative" }}>
+      <FadeScale delay={0.2}><div className="hasl order-1 md:!order-none" style={{ position: "relative" }}>
         <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 24px 64px rgb(0 0 0/0.12)", position: "relative" }}>
           <ImgOrGrad aspect="3/4" />
           <div className="he-badge ha5" style={{ bottom: 16, left: 16 }}><div className="he-badge-icon">🕯️</div><div><div className="he-badge-val">30+ zapachow</div><div className="he-badge-lbl">w kolekcji</div></div></div>
         </div>
-      </div>
+      </div></FadeScale>
       <div className="ha2 order-0 md:!order-none">
-        {ey && <div className="he-eyebrow"><div className="he-eline"/><span className="he-etxt">{ey}</span></div>}
-        <H lines={hl} cls="he-h1 he-h1-d he-h1-s" />
-        {sub && <p className="he-sub he-sub-d">{sub}</p>}
-        <div className="he-ctas" style={{ marginBottom: 24 }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div>
+        {ey && <ScrollReveal delay={0}><div className="he-eyebrow"><div className="he-eline"/><span className="he-etxt">{ey}</span></div></ScrollReveal>}
+        <ScrollReveal delay={0.1}><H lines={hl} cls="he-h1 he-h1-d he-h1-s" /></ScrollReveal>
+        {sub && <ScrollReveal delay={0.25}><p className="he-sub he-sub-d">{sub}</p></ScrollReveal>}
+        <ScrollReveal delay={0.35}><div className="he-ctas" style={{ marginBottom: 24 }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div></ScrollReveal>
         {items.length > 0 && <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>{items.slice(0,4).map((it,i) => <span key={i} className="he-pill"><span style={{ fontSize: 14 }}>{str(it.icon)||"✦"}</span> {str(it.name||it.title||it.label)}</span>)}</div>}
       </div>
     </div></div></section>);
@@ -242,10 +243,10 @@ export default function HeroSection({ content, vn }: HeroProps) {
     `}</style>
       <div className="he5-gr"/><div className="he5-blob he5-b1"/><div className="he5-blob he5-b2"/>
       <div style={{ position: "relative", zIndex: 10, textAlign: "center", padding: "24px 16px", maxWidth: 780 }}>
-        {ey && <div className="he5-pill ha1"><div className="he5-dot"/><span style={{ fontSize: 12, fontWeight: 500, letterSpacing: "0.1em", color: "rgba(255,255,255,0.9)" }}>{ey}</span></div>}
-        <H lines={hl} cls="he-h1 he-h1-w he-h1-l ha2" />
-        {sub && <p className="he-sub he-sub-w ha3" style={{ margin: "0 auto 36px", maxWidth: 520 }}>{sub}</p>}
-        <div className="he-ctas ha4" style={{ justifyContent: "center" }}>{c1 && <a href={c1.href} className="he-btn he-btn-w">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-g">{c2.label}</a>}</div>
+        {ey && <ScrollReveal delay={0}><div className="he5-pill ha1"><div className="he5-dot"/><span style={{ fontSize: 12, fontWeight: 500, letterSpacing: "0.1em", color: "rgba(255,255,255,0.9)" }}>{ey}</span></div></ScrollReveal>}
+        <ScrollReveal delay={0.1}><H lines={hl} cls="he-h1 he-h1-w he-h1-l ha2" /></ScrollReveal>
+        {sub && <ScrollReveal delay={0.25}><p className="he-sub he-sub-w ha3" style={{ margin: "0 auto 36px", maxWidth: 520 }}>{sub}</p></ScrollReveal>}
+        <ScrollReveal delay={0.35}><div className="he-ctas ha4" style={{ justifyContent: "center" }}>{c1 && <a href={c1.href} className="he-btn he-btn-w">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-g">{c2.label}</a>}</div></ScrollReveal>
         {sts.length > 0 && <div className="ha5" style={{ display: "flex", justifyContent: "center", gap: 32, marginTop: 48, paddingTop: 32, borderTop: "1px solid rgba(255,255,255,0.12)" }}>{sts.slice(0,3).map((s,i)=><div key={i}><div style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 700, color: "white" }}>{str(s.value)}{str(s.suffix)}</div><div style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", marginTop: 4 }}>{str(s.label)}</div></div>)}</div>}
       </div>
       <div className="he-fade"/>
@@ -265,16 +266,16 @@ export default function HeroSection({ content, vn }: HeroProps) {
       .he6-ft{font-size:13px;font-weight:600;color:rgb(var(--color-text-primary));line-height:1.3}
       .he6-fs{font-size:11px;color:rgb(var(--color-text-dim));margin-top:1px}
     `}</style>
-      <div className="ha1" style={{ position: "relative", overflow: "hidden", minHeight: 300 }}>
+      <FadeScale delay={0.2}><div className="ha1" style={{ position: "relative", overflow: "hidden", minHeight: 300 }}>
         {img && <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 8s ease" }}/>}
         <div className="he6-edge"/>
-      </div>
+      </div></FadeScale>
       <div className="ha2 md:!p-12 lg:!p-16" style={{ display: "flex", alignItems: "center", padding: "48px 16px" }}>
         <div style={{ maxWidth: 520 }}>
-          {ey && <div className="he-eyebrow"><div className="he-eline"/><span className="he-etxt">{ey}</span></div>}
-          <H lines={hl} cls="he-h1 he-h1-d he-h1-s" />
-          {sub && <p className="he-sub he-sub-d">{sub}</p>}
-          <div className="he-ctas" style={{ marginBottom: 28 }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div>
+          {ey && <ScrollReveal delay={0}><div className="he-eyebrow"><div className="he-eline"/><span className="he-etxt">{ey}</span></div></ScrollReveal>}
+          <ScrollReveal delay={0.1}><H lines={hl} cls="he-h1 he-h1-d he-h1-s" /></ScrollReveal>
+          {sub && <ScrollReveal delay={0.25}><p className="he-sub he-sub-d">{sub}</p></ScrollReveal>}
+          <ScrollReveal delay={0.35}><div className="he-ctas" style={{ marginBottom: 28 }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div></ScrollReveal>
           {items.length > 0 && <div className="he6-fc">{items.slice(0,4).map((it,i)=><div key={i} className="he6-f"><div className="he6-fi">{str(it.icon)||"✦"}</div><div><div className="he6-ft">{str(it.name||it.title||it.label)}</div><div className="he6-fs">{str(it.desc||it.description)}</div></div></div>)}</div>}
         </div>
       </div>
@@ -297,9 +298,9 @@ export default function HeroSection({ content, vn }: HeroProps) {
       <div className="he-overlay" style={{ background: "linear-gradient(135deg,rgba(0,0,0,0.7),rgba(0,0,0,0.5) 40%,rgba(0,0,0,0.65))", zIndex: 1 }}/>
       <div style={{ position: "relative", zIndex: 10, maxWidth: 1280, margin: "0 auto", padding: "80px 16px", display: "grid", gridTemplateColumns: "1fr", gap: 40, alignItems: "center", width: "100%" }} className="md:!grid-cols-[1fr_420px] md:!px-6 lg:!px-12 lg:!gap-16">
         <div className="ha1">
-          {ey && <div className="he-eyebrow"><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/><span className="he-etxt-w">{ey}</span></div>}
-          <H lines={hl} cls="he-h1 he-h1-w he-h1-m" />
-          {sub && <p className="he-sub he-sub-w">{sub}</p>}
+          {ey && <ScrollReveal delay={0}><div className="he-eyebrow"><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/><span className="he-etxt-w">{ey}</span></div></ScrollReveal>}
+          <ScrollReveal delay={0.1}><H lines={hl} cls="he-h1 he-h1-w he-h1-m" /></ScrollReveal>
+          {sub && <ScrollReveal delay={0.25}><p className="he-sub he-sub-w">{sub}</p></ScrollReveal>}
         </div>
         <div className="he7-form ha2">
           <div style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 600, color: "rgb(var(--color-text-primary))", marginBottom: 4 }}>Skontaktuj sie</div>
@@ -330,10 +331,10 @@ export default function HeroSection({ content, vn }: HeroProps) {
       <div className="he-overlay" style={{ background: "linear-gradient(to bottom,rgba(0,0,0,0.4),rgba(0,0,0,0.2) 40%,rgba(0,0,0,0.65))", zIndex: 1 }}/>
       <div style={{ position: "relative", zIndex: 10, minHeight: "92vh", display: "flex", alignItems: "flex-end", padding: "0 16px 80px" }} className="md:!px-12 lg:!px-20">
         <div style={{ maxWidth: 700 }}>
-          {ey && <div className="he-eyebrow ha1"><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/><span className="he-etxt-w">{ey}</span></div>}
-          <H lines={hl} cls="he-h1 he-h1-w he-h1-xl ha2" />
-          {sub && <p className="he-sub he-sub-w ha3">{sub}</p>}
-          <div className="he-ctas ha4">{c1 && <a href={c1.href} className="he-btn he-btn-w">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-g">{c2.label}</a>}</div>
+          {ey && <ScrollReveal delay={0}><div className="he-eyebrow ha1"><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/><span className="he-etxt-w">{ey}</span></div></ScrollReveal>}
+          <ScrollReveal delay={0.1}><H lines={hl} cls="he-h1 he-h1-w he-h1-xl ha2" /></ScrollReveal>
+          {sub && <ScrollReveal delay={0.25}><p className="he-sub he-sub-w ha3">{sub}</p></ScrollReveal>}
+          <ScrollReveal delay={0.35}><div className="he-ctas ha4">{c1 && <a href={c1.href} className="he-btn he-btn-w">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-g">{c2.label}</a>}</div></ScrollReveal>
         </div>
       </div>
       <div className="he8-prog"><div className="he8-bar"/></div>
@@ -359,10 +360,10 @@ export default function HeroSection({ content, vn }: HeroProps) {
       <div style={{ position: "absolute", inset: 0 }}>{img && <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }}/>}</div>
       <div className="he-overlay" style={{ background: "linear-gradient(160deg,rgba(0,0,0,0.75),rgba(0,0,0,0.5) 50%,rgba(0,0,0,0.7))", zIndex: 1 }}/>
       <div style={{ position: "relative", zIndex: 10, textAlign: "center", padding: "24px 16px", maxWidth: 800 }}>
-        {ey && <div className="he9-badge ha1"><div className="he9-dot"/><span style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgb(var(--color-accent-light))" }}>{ey}</span></div>}
-        <H lines={hl} cls="he-h1 he-h1-w he-h1-l ha2" />
-        {sub && <p className="he-sub he-sub-w ha3" style={{ margin: "0 auto 40px", maxWidth: 500 }}>{sub}</p>}
-        <div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 40 }} className="ha3">
+        {ey && <ScrollReveal delay={0}><div className="he9-badge ha1"><div className="he9-dot"/><span style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgb(var(--color-accent-light))" }}>{ey}</span></div></ScrollReveal>}
+        <ScrollReveal delay={0.1}><H lines={hl} cls="he-h1 he-h1-w he-h1-l ha2" /></ScrollReveal>
+        {sub && <ScrollReveal delay={0.25}><p className="he-sub he-sub-w ha3" style={{ margin: "0 auto 40px", maxWidth: 500 }}>{sub}</p></ScrollReveal>}
+        <ScrollReveal delay={0.25}><div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 40 }} className="ha3">
           <div style={{ textAlign: "center" }}><div className="he9-cd">{String(cd.d).padStart(2,"0")}</div><div className="he9-lb">Dni</div></div>
           <div className="he9-sep">:</div>
           <div style={{ textAlign: "center" }}><div className="he9-cd">{String(cd.h).padStart(2,"0")}</div><div className="he9-lb">Godzin</div></div>
@@ -370,8 +371,8 @@ export default function HeroSection({ content, vn }: HeroProps) {
           <div style={{ textAlign: "center" }}><div className="he9-cd">{String(cd.m).padStart(2,"0")}</div><div className="he9-lb">Minut</div></div>
           <div className="he9-sep">:</div>
           <div style={{ textAlign: "center" }}><div className="he9-cd">{String(cd.s).padStart(2,"0")}</div><div className="he9-lb">Sekund</div></div>
-        </div>
-        <div className="he-ctas ha4" style={{ justifyContent: "center" }}>{c1 && <a href={c1.href} className="he-btn he-btn-a" style={{ padding: "16px 32px" }}>{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-g">{c2.label}</a>}</div>
+        </div></ScrollReveal>
+        <ScrollReveal delay={0.35}><div className="he-ctas ha4" style={{ justifyContent: "center" }}>{c1 && <a href={c1.href} className="he-btn he-btn-a" style={{ padding: "16px 32px" }}>{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-g">{c2.label}</a>}</div></ScrollReveal>
       </div>
       <div className="he-fade"/>
     </section>);
@@ -386,13 +387,13 @@ export default function HeroSection({ content, vn }: HeroProps) {
       <div className="he-overlay" style={{ background: "linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.5) 35%,rgba(0,0,0,0.15) 60%,rgba(0,0,0,0.25) 100%)", zIndex: 1 }}/>
       <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, zIndex: 10, padding: "0 16px 48px" }} className="md:!px-12 lg:!px-20">
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          {ey && <div className="he-eyebrow ha1"><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/><span className="he-etxt-w">{ey}</span></div>}
-          <H lines={hl} cls="he-h1 he-h1-w he-h1-xl ha2" />
-          {sub && <p className="he-sub he-sub-w ha3">{sub}</p>}
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 24 }} className="ha4">
+          {ey && <ScrollReveal delay={0}><div className="he-eyebrow ha1"><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/><span className="he-etxt-w">{ey}</span></div></ScrollReveal>}
+          <ScrollReveal delay={0.1}><H lines={hl} cls="he-h1 he-h1-w he-h1-xl ha2" /></ScrollReveal>
+          {sub && <ScrollReveal delay={0.25}><p className="he-sub he-sub-w ha3">{sub}</p></ScrollReveal>}
+          <ScrollReveal delay={0.35}><div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 24 }} className="ha4">
             {c1 && <a href={c1.href} className="he-btn he-btn-w">{c1.label} <Arrow/></a>}
             {sts.length > 0 && <><div style={{ width: 1, height: 40, background: "rgb(255 255 255/0.15)" }} className="hidden md:block"/><div style={{ display: "flex", gap: 24 }}>{sts.slice(0,3).map((s,i)=><div key={i}><div style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 700, color: "white", lineHeight: 1 }}>{str(s.value)}{str(s.suffix)}</div><div style={{ fontSize: 11, color: "rgb(255 255 255/0.4)", marginTop: 4 }}>{str(s.label)}</div></div>)}</div></>}
-          </div>
+          </div></ScrollReveal>
         </div>
       </div>
     </section>);
@@ -411,10 +412,10 @@ export default function HeroSection({ content, vn }: HeroProps) {
     `}</style>
       <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle at 20% 50%,rgb(var(--color-accent)/0.04),transparent 50%),radial-gradient(circle at 80% 50%,rgb(var(--color-accent)/0.03),transparent 50%)", pointerEvents: "none" }}/>
       <div style={{ position: "relative", zIndex: 10, maxWidth: 900, margin: "0 auto" }}>
-        {ey && <div className="ha1" style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 32 }}><div className="he-eline-g"/><span className="he-etxt">{ey}</span><div className="he-eline-gr"/></div>}
-        <h1 className="he-h1 he-h1-d he-h1-l ha2">{hl[0] || "Swiece, ktore"}<br/><span className="he11-rw"><span className="he11-rws"><span className="he11-rwd">{hl[1] || "rozswietlaja"}</span><span className="he11-rwd">{hl[2] || "zachwycaja"}</span><span className="he11-rwd">{hl[3] || hl[1] || "inspiruja"}</span></span></span></h1>
-        {sub && <p className="he-sub he-sub-d ha3" style={{ margin: "0 auto 40px", textAlign: "center", maxWidth: 540, fontSize: 18 }}>{sub}</p>}
-        <div className="he-ctas ha3" style={{ justifyContent: "center" }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div>
+        {ey && <ScrollReveal delay={0}><div className="ha1" style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 32 }}><div className="he-eline-g"/><span className="he-etxt">{ey}</span><div className="he-eline-gr"/></div></ScrollReveal>}
+        <ScrollReveal delay={0.1}><h1 className="he-h1 he-h1-d he-h1-l ha2">{hl[0] || "Swiece, ktore"}<br/><span className="he11-rw"><span className="he11-rws"><span className="he11-rwd">{hl[1] || "rozswietlaja"}</span><span className="he11-rwd">{hl[2] || "zachwycaja"}</span><span className="he11-rwd">{hl[3] || hl[1] || "inspiruja"}</span></span></span></h1></ScrollReveal>
+        {sub && <ScrollReveal delay={0.25}><p className="he-sub he-sub-d ha3" style={{ margin: "0 auto 40px", textAlign: "center", maxWidth: 540, fontSize: 18 }}>{sub}</p></ScrollReveal>}
+        <ScrollReveal delay={0.35}><div className="he-ctas ha3" style={{ justifyContent: "center" }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div></ScrollReveal>
       </div>
     </section>);
   }
@@ -432,21 +433,21 @@ export default function HeroSection({ content, vn }: HeroProps) {
       .he12-ti{width:40px;height:40px;border-radius:10px;background:rgb(var(--color-accent)/0.1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
     `}</style><div className="he-wrap"><div className="he-grid">
       <div className="ha1">
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
+        <ScrollReveal delay={0}><div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
           <div style={{ display: "flex" }}><div className="he12-av">😊</div><div className="he12-av">🕯️</div><div className="he12-av">⭐</div><div className="he12-av">💛</div><div className="he12-avc">99+</div></div>
           <div><div style={{ display: "flex", alignItems: "center", gap: 4 }}><span style={{ color: "rgb(var(--color-accent))", fontSize: 13 }}>★★★★★</span><span style={{ fontSize: 13, fontWeight: 700 }}>4.9</span></div><span style={{ fontSize: 12, color: "rgb(var(--color-text-dim))" }}>500+ klientow</span></div>
-        </div>
-        {ey && <div className="he-eyebrow"><div className="he-eline"/><span className="he-etxt">{ey}</span></div>}
-        <H lines={hl} cls="he-h1 he-h1-d he-h1-s" />
-        {sub && <p className="he-sub he-sub-d">{sub}</p>}
-        <div className="he-ctas">{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div>
+        </div></ScrollReveal>
+        {ey && <ScrollReveal delay={0}><div className="he-eyebrow"><div className="he-eline"/><span className="he-etxt">{ey}</span></div></ScrollReveal>}
+        <ScrollReveal delay={0.1}><H lines={hl} cls="he-h1 he-h1-d he-h1-s" /></ScrollReveal>
+        {sub && <ScrollReveal delay={0.25}><p className="he-sub he-sub-d">{sub}</p></ScrollReveal>}
+        <ScrollReveal delay={0.35}><div className="he-ctas">{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div></ScrollReveal>
         {testimonials.length > 0 && <div className="he12-tc"><div className="he12-ti">🕯️</div><div><div style={{ color: "rgb(var(--color-accent))", fontSize: 11 }}>★★★★★</div><div style={{ fontSize: 13, color: "rgb(var(--color-text-muted))", fontStyle: "italic", lineHeight: 1.5 }}>&ldquo;{str(testimonials[0].quote)}&rdquo;</div><div style={{ fontSize: 12, fontWeight: 600, marginTop: 6 }}>{str(testimonials[0].author)}</div></div></div>}
       </div>
-      <div className="ha2" style={{ position: "relative" }}>
+      <FadeScale delay={0.2}><div className="ha2" style={{ position: "relative" }}>
         <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 20px 60px rgb(0 0 0/0.1)" }}><ImgOrGrad aspect="1/1" /></div>
         <div className="he-badge ha4" style={{ top: -16, right: -16 }}><div className="he-badge-icon">🌿</div><div><div className="he-badge-val">100%</div><div className="he-badge-lbl">Naturalne</div></div></div>
         <div className="he-badge ha5" style={{ bottom: -16, left: -16 }}><div className="he-badge-icon">🤲</div><div><div className="he-badge-val">30+</div><div className="he-badge-lbl">Zapachow</div></div></div>
-      </div>
+      </div></FadeScale>
     </div></div></section>);
   }
 
@@ -468,10 +469,10 @@ export default function HeroSection({ content, vn }: HeroProps) {
       <div style={{ position: "absolute", width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle,rgb(var(--color-accent)/0.05),transparent 70%)", top: -200, left: "50%", transform: "translateX(-50%)", pointerEvents: "none" }}/>
       <div style={{ position: "relative", zIndex: 10, maxWidth: 1280, margin: "0 auto" }}>
         <div style={{ textAlign: "center", maxWidth: 720, margin: "0 auto 48px" }}>
-          {ey && <div className="ha1" style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 24 }}><div className="he-eline-g"/><span className="he-etxt">{ey}</span><div className="he-eline-gr"/></div>}
-          <H lines={hl} cls="he-h1 he-h1-d he-h1-l ha2" />
-          {sub && <p className="he-sub he-sub-d ha3" style={{ margin: "0 auto 32px", textAlign: "center" }}>{sub}</p>}
-          <div className="he-ctas ha3" style={{ justifyContent: "center" }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div>
+          {ey && <ScrollReveal delay={0}><div className="ha1" style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 24 }}><div className="he-eline-g"/><span className="he-etxt">{ey}</span><div className="he-eline-gr"/></div></ScrollReveal>}
+          <ScrollReveal delay={0.1}><H lines={hl} cls="he-h1 he-h1-d he-h1-l ha2" /></ScrollReveal>
+          {sub && <ScrollReveal delay={0.25}><p className="he-sub he-sub-d ha3" style={{ margin: "0 auto 32px", textAlign: "center" }}>{sub}</p></ScrollReveal>}
+          <ScrollReveal delay={0.35}><div className="he-ctas ha3" style={{ justifyContent: "center" }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div></ScrollReveal>
         </div>
         {items.length > 0 && <div className="ha4 md:!grid-cols-3" style={{ display: "grid", gridTemplateColumns: "1fr", gap: 16 }}>{items.slice(0,3).map((it,i)=><div key={i} className="he13-c"><div className="he13-i">{str(it.icon)||"✦"}</div><div className="he13-t">{str(it.name||it.title||it.label)}</div><div className="he13-d">{str(it.desc||it.description)}</div></div>)}</div>}
       </div>
@@ -486,16 +487,16 @@ export default function HeroSection({ content, vn }: HeroProps) {
       <div className="hidden lg:block" style={{ position: "absolute", top: 0, right: 0, width: "45%", height: "100%", background: "rgb(var(--color-accent)/0.06)", zIndex: 0 }}/>
       <div style={{ position: "relative", zIndex: 10, maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr", gap: 40, alignItems: "center", width: "100%" }} className="lg:!grid-cols-2 lg:!gap-0 lg:!px-12">
         <div className="ha1">
-          {ey && <div className="he-eyebrow"><div className="he-eline"/><span className="he-etxt">{ey}</span></div>}
-          <H lines={hl} cls="he-h1 he-h1-d he-h1-s" />
-          {sub && <p className="he-sub he-sub-d">{sub}</p>}
-          <div className="he-ctas" style={{ marginBottom: 28 }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div>
+          {ey && <ScrollReveal delay={0}><div className="he-eyebrow"><div className="he-eline"/><span className="he-etxt">{ey}</span></div></ScrollReveal>}
+          <ScrollReveal delay={0.1}><H lines={hl} cls="he-h1 he-h1-d he-h1-s" /></ScrollReveal>
+          {sub && <ScrollReveal delay={0.25}><p className="he-sub he-sub-d">{sub}</p></ScrollReveal>}
+          <ScrollReveal delay={0.35}><div className="he-ctas" style={{ marginBottom: 28 }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div></ScrollReveal>
           {sts.length > 0 && <div style={{ display: "flex", gap: 32, paddingTop: 24, borderTop: "1px solid rgb(var(--color-border)/0.5)" }}>{sts.slice(0,3).map((s,i)=><div key={i}><div style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 700, color: "rgb(var(--color-accent))", lineHeight: 1 }}>{str(s.value)}{str(s.suffix)}</div><div style={{ fontSize: 12, color: "rgb(var(--color-text-dim))", marginTop: 4 }}>{str(s.label)}</div></div>)}</div>}
         </div>
-        <div className="hasr" style={{ position: "relative" }}>
+        <FadeScale delay={0.2}><div className="hasr" style={{ position: "relative" }}>
           {img ? <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 24px 64px rgb(0 0 0/0.12)" }}><img src={img} alt="" style={{ width: "100%", aspectRatio: "4/5", objectFit: "cover", display: "block", transition: "transform 6s ease" }}/></div>
           : <div style={{ aspectRatio: "4/5", borderRadius: 24, background: "linear-gradient(135deg, rgb(var(--color-accent)/0.1), rgb(var(--color-surface)))" }}/>}
-        </div>
+        </div></FadeScale>
       </div>
     </section>);
   }
@@ -521,10 +522,10 @@ export default function HeroSection({ content, vn }: HeroProps) {
     <div className="he-overlay" style={{ background: "linear-gradient(135deg,rgba(0,0,0,0.72),rgba(0,0,0,0.5) 40%,rgba(0,0,0,0.65))", zIndex: 1 }}/>
     <div style={{ position: "relative", zIndex: 10, maxWidth: 1280, margin: "0 auto", padding: "80px 16px", display: "grid", gridTemplateColumns: "1fr", gap: 40, alignItems: "center", width: "100%" }} className="md:!grid-cols-[1fr_380px] md:!px-6 lg:!grid-cols-[1fr_420px] lg:!px-12 lg:!gap-16">
       <div className="ha1">
-        {ey && <div className="he-eyebrow"><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/><span className="he-etxt-w">{ey}</span></div>}
-        <H lines={hl} cls="he-h1 he-h1-w he-h1-m" />
-        {sub && <p className="he-sub he-sub-w">{sub}</p>}
-        <div className="he-ctas">{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-g">{c2.label}</a>}</div>
+        {ey && <ScrollReveal delay={0}><div className="he-eyebrow"><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/><span className="he-etxt-w">{ey}</span></div></ScrollReveal>}
+        <ScrollReveal delay={0.1}><H lines={hl} cls="he-h1 he-h1-w he-h1-m" /></ScrollReveal>
+        {sub && <ScrollReveal delay={0.25}><p className="he-sub he-sub-w">{sub}</p></ScrollReveal>}
+        <ScrollReveal delay={0.35}><div className="he-ctas">{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-g">{c2.label}</a>}</div></ScrollReveal>
       </div>
       <div className="he15-card ha2">
         <div style={{ fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 600, color: "rgb(var(--color-text-primary))", marginBottom: 20, paddingBottom: 16, borderBottom: "1px solid rgb(var(--color-border)/0.5)" }}>Odwiedz nas</div>
