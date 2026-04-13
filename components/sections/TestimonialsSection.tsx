@@ -16,13 +16,13 @@ interface TestimonialsProps {
 const S = `
   .tm-wrap{max-width:1280px;margin:0 auto;padding:0 16px}
   @media(min-width:768px){.tm-wrap{padding:0 24px}}@media(min-width:1024px){.tm-wrap{padding:0 48px}}
-  .tm-header{text-align:center;max-width:640px;margin:0 auto 48px}
+  .tm-header{text-align:center;max-width:680px;margin:0 auto 56px}
   .tm-eyebrow{display:inline-flex;align-items:center;gap:16px;margin-bottom:20px}
   .tm-eline{width:32px;height:1px;background:linear-gradient(90deg,transparent,rgb(var(--color-accent)/0.4))}
   .tm-eline-r{width:32px;height:1px;background:linear-gradient(90deg,rgb(var(--color-accent)/0.4),transparent)}
   .tm-etxt{font-size:11px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:rgb(var(--color-accent))}
-  .tm-h2{font-family:var(--font-display);font-size:32px;font-weight:700;line-height:1.15;letter-spacing:-.02em;color:rgb(var(--color-text-primary));margin-bottom:14px}
-  @media(min-width:768px){.tm-h2{font-size:40px}}@media(min-width:1024px){.tm-h2{font-size:48px}}
+  .tm-h2{font-family:var(--font-display);font-size:36px;font-weight:700;line-height:1.15;letter-spacing:-.02em;color:rgb(var(--color-text-primary));margin-bottom:14px}
+  @media(min-width:768px){.tm-h2{font-size:44px}}@media(min-width:1024px){.tm-h2{font-size:52px}}
   .tm-h2 em{font-style:italic;color:rgb(var(--color-accent))}
   .tm-h2-w{color:white}
   .tm-desc{font-size:16px;line-height:1.7;color:rgb(var(--color-text-muted))}

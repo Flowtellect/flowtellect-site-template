@@ -26,10 +26,10 @@ const S = `
   .adv-etxt{font-size:11px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:rgb(var(--color-accent))}
   .adv-h2{font-family:var(--font-display);font-weight:700;line-height:1.15;letter-spacing:-.02em;color:rgb(var(--color-text-primary));margin-bottom:14px}
   .adv-h2 em{font-style:italic;color:rgb(var(--color-accent))}
-  .adv-h2-m{font-size:32px}@media(min-width:768px){.adv-h2-m{font-size:40px}}@media(min-width:1024px){.adv-h2-m{font-size:48px}}
-  .adv-desc{font-size:16px;line-height:1.7;color:rgb(var(--color-text-muted))}
-  .adv-header{text-align:center;max-width:640px;margin:0 auto 48px}
-  @media(min-width:768px){.adv-header{margin-bottom:56px}}
+  .adv-h2-m{font-size:36px}@media(min-width:768px){.adv-h2-m{font-size:44px}}@media(min-width:1024px){.adv-h2-m{font-size:52px}}
+  .adv-desc{font-size:16px;line-height:1.7;color:rgb(var(--color-text-muted));max-width:560px}
+  .adv-header{text-align:center;max-width:680px;margin:0 auto 56px}
+  @media(min-width:768px){.adv-header{margin-bottom:64px}}
 
   .adv-card{background:rgb(var(--color-surface));border:1px solid rgb(var(--color-border)/0.5);border-radius:20px;padding:28px 24px;transition:all .3s;position:relative;overflow:hidden}
   .adv-card:hover{border-color:rgb(var(--color-accent)/0.3);box-shadow:0 8px 32px rgb(0 0 0/0.06);transform:translateY(-4px)}

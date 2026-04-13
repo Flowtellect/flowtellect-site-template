@@ -287,9 +287,9 @@ export function Section({
   noPadding?: boolean;
 }) {
   return (
-    <section id={id} className={`${noPadding ? "" : "py-20 md:py-28"} ${bg} ${className}`}>
+    <section id={id} className={`${noPadding ? "" : "py-24 md:py-32 lg:py-36"} ${bg} ${className}`}>
       <ScrollReveal>
-        <div className="px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">{children}</div>
+        <div className="px-6 md:px-12 lg:px-24 max-w-[1280px] mx-auto">{children}</div>
       </ScrollReveal>
     </section>
   );
