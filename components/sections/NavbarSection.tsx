@@ -154,13 +154,13 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
     .nb-link-pill-round { font-size: 13px; font-weight: 500; padding: 7px 14px; border-radius: 100px; transition: all 0.2s; color: rgb(var(--color-text-muted)); text-decoration: none; white-space: nowrap; }
     .nb-link-pill-round:hover { color: rgb(var(--color-text-primary)); background: rgb(var(--color-surface-deep) / 0.6); }
     .nb-link-pill-round.active { color: rgb(var(--color-accent)); background: rgb(var(--color-accent) / 0.08); }
-    .nb-cta { display: inline-flex; align-items: center; gap: 8px; padding: 10px 24px; background: rgb(var(--color-accent)); color: rgb(var(--color-on-accent)); font-size: 14px; font-weight: 600; border-radius: 10px; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 2px 8px rgb(var(--color-accent) / 0.3); }
+    .nb-cta { align-items: center; gap: 8px; padding: 10px 24px; background: rgb(var(--color-accent)); color: rgb(var(--color-on-accent)); font-size: 14px; font-weight: 600; border-radius: 10px; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 2px 8px rgb(var(--color-accent) / 0.3); }
     .nb-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgb(var(--color-accent) / 0.4); }
     .nb-cta-sm { padding: 9px 20px; font-size: 13px; }
     .nb-cta-pill { border-radius: 100px; }
     .nb-cta-glass { background: rgb(255 255 255 / 0.15); color: white; border: 1px solid rgb(255 255 255 / 0.3); backdrop-filter: blur(8px); box-shadow: none; }
     .nb-cta-glass:hover { background: rgb(255 255 255 / 0.25); border-color: rgb(255 255 255 / 0.5); }
-    .nb-icon-btn { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; color: rgb(var(--color-text-muted)); transition: all 0.2s; text-decoration: none; position: relative; }
+    .nb-icon-btn { align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; color: rgb(var(--color-text-muted)); transition: all 0.2s; text-decoration: none; position: relative; }
     .nb-icon-btn:hover { color: rgb(var(--color-text-primary)); background: rgb(var(--color-surface-deep) / 0.5); }
     .nb-bar { max-width: 1280px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
     @media (min-width: 768px) { .nb-bar { padding: 0 24px; height: 64px; } }
