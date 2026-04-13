@@ -4,6 +4,7 @@
 // 10 individually crafted contact variants matching HTML mockups.
 
 import { str, arr, resolveImage } from "./shared";
+import { ScrollReveal, FadeScale } from "./ClientComponents";
 
 interface ContactProps {
   content: Record<string, unknown>;
@@ -99,8 +100,8 @@ export default function ContactSection({ content, vn }: ContactProps) {
   const Header = ({ centered = true }: { centered?: boolean }) => (
     <div className={`ca1 ${centered ? "co-header" : ""}`} style={!centered ? { marginBottom: 32 } : undefined}>
       {ey && <div className="co-eyebrow"><div className="co-eline"/><span className="co-etxt">{ey}</span>{centered && <div className="co-eline-r"/>}</div>}
-      <h2 className="co-h2">{hl}</h2>
-      {body && <p className="co-desc">{body}</p>}
+      <ScrollReveal delay={0}><h2 className="co-h2">{hl}</h2></ScrollReveal>
+      {body && <ScrollReveal delay={0.1}><p className="co-desc">{body}</p></ScrollReveal>}
     </div>
   );
 
@@ -112,11 +113,11 @@ export default function ContactSection({ content, vn }: ContactProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
         <div className="ca1">
           <Header centered={false} />
-          <ContactItems content={content} />
+          <ScrollReveal delay={0.2}><ContactItems content={content} /></ScrollReveal>
         </div>
-        <div className="ca2" style={{ borderRadius: 20, overflow: "hidden", minHeight: 300 }}>
+        <FadeScale delay={0.15}><div className="ca2" style={{ borderRadius: 20, overflow: "hidden", minHeight: 300 }}>
           {img ? <img src={img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", borderRadius: 20 }} /> : <div style={{ width: "100%", height: 300, background: "linear-gradient(135deg, rgb(var(--color-accent)/0.08), rgb(var(--color-surface)))", borderRadius: 20, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 40 }}>📍</div>}
-        </div>
+        </div></FadeScale>
       </div>
     </div></section>);
   }
@@ -126,10 +127,10 @@ export default function ContactSection({ content, vn }: ContactProps) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="co-wrap">
       <Header />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div className="ca1"><ContactForm /></div>
+        <ScrollReveal delay={0.25}><div className="ca1"><ContactForm /></div></ScrollReveal>
         <div className="ca2">
-          <div style={{ borderRadius: 20, background: "linear-gradient(135deg, rgb(var(--color-accent)/0.06), rgb(var(--color-surface)))", minHeight: 250, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 40, marginBottom: 24, border: "1px solid rgb(var(--color-border)/0.3)" }}>📍</div>
-          <ContactItems content={content} />
+          <FadeScale delay={0.2}><div style={{ borderRadius: 20, background: "linear-gradient(135deg, rgb(var(--color-accent)/0.06), rgb(var(--color-surface)))", minHeight: 250, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 40, marginBottom: 24, border: "1px solid rgb(var(--color-border)/0.3)" }}>📍</div></FadeScale>
+          <ScrollReveal delay={0.2}><ContactItems content={content} /></ScrollReveal>
         </div>
       </div>
     </div></section>);
@@ -139,7 +140,7 @@ export default function ContactSection({ content, vn }: ContactProps) {
   if (vn === 3) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="co-wrap">
       <Header />
-      <div className="ca2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <ScrollReveal delay={0.2}><div className="ca2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.length > 0 ? items.map((it, i) => (
           <div key={i} className="co-card">
             <div style={{ fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 600, marginBottom: 16 }}>{str(it.name || it.title || it.location)}</div>
@@ -152,7 +153,7 @@ export default function ContactSection({ content, vn }: ContactProps) {
         )) : (
           <div className="co-card"><ContactItems content={content} /></div>
         )}
-      </div>
+      </div></ScrollReveal>
     </div></section>);
   }
 
@@ -161,13 +162,13 @@ export default function ContactSection({ content, vn }: ContactProps) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="co-wrap">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
         <div className="ca1">
-          <div style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 600, marginBottom: 8 }}>Napisz do nas</div>
-          <p style={{ fontSize: 14, color: "rgb(var(--color-text-muted))", marginBottom: 24 }}>Odpowiadamy w ciagu 24h</p>
-          <ContactForm />
+          <ScrollReveal delay={0}><div style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 600, marginBottom: 8 }}>Napisz do nas</div></ScrollReveal>
+          <ScrollReveal delay={0.1}><p style={{ fontSize: 14, color: "rgb(var(--color-text-muted))", marginBottom: 24 }}>Odpowiadamy w ciagu 24h</p></ScrollReveal>
+          <ScrollReveal delay={0.25}><ContactForm /></ScrollReveal>
         </div>
         <div className="ca2">
           <Header centered={false} />
-          <ContactItems content={content} />
+          <ScrollReveal delay={0.2}><ContactItems content={content} /></ScrollReveal>
         </div>
       </div>
     </div></section>);
@@ -176,17 +177,17 @@ export default function ContactSection({ content, vn }: ContactProps) {
   // VN 5: Pelnoekranowa mapa + overlapping card
   if (vn === 5) {
     return (<section className="bg-bg" style={{ padding: 0 }}><style>{S}</style>
-      <div style={{ minHeight: 300, background: "linear-gradient(135deg, rgb(var(--color-accent)/0.06), rgb(var(--color-surface-deep)))", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 48 }}>📍</div>
+      <FadeScale delay={0.2}><div style={{ minHeight: 300, background: "linear-gradient(135deg, rgb(var(--color-accent)/0.06), rgb(var(--color-surface-deep)))", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 48 }}>📍</div></FadeScale>
       <div className="co-wrap">
         <div className="ca1" style={{ maxWidth: 600, margin: "-64px auto 64px", background: "rgb(var(--color-surface))", borderRadius: 24, boxShadow: "0 20px 60px rgb(0 0 0/0.1)", padding: "36px 32px", position: "relative", zIndex: 10 }}>
-          <h2 className="co-h2" style={{ fontSize: 28, textAlign: "center" }}>{hl}</h2>
-          {body && <p className="co-desc" style={{ textAlign: "center", marginBottom: 24 }}>{body}</p>}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 24 }}>
+          <ScrollReveal delay={0}><h2 className="co-h2" style={{ fontSize: 28, textAlign: "center" }}>{hl}</h2></ScrollReveal>
+          {body && <ScrollReveal delay={0.1}><p className="co-desc" style={{ textAlign: "center", marginBottom: 24 }}>{body}</p></ScrollReveal>}
+          <ScrollReveal delay={0.2}><div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 24 }}>
             <ContactItems content={content} />
-          </div>
-          <div style={{ borderTop: "1px solid rgb(var(--color-border)/0.5)", paddingTop: 24 }}>
+          </div></ScrollReveal>
+          <ScrollReveal delay={0.25}><div style={{ borderTop: "1px solid rgb(var(--color-border)/0.5)", paddingTop: 24 }}>
             <ContactForm compact />
-          </div>
+          </div></ScrollReveal>
         </div>
       </div>
     </section>);
@@ -197,8 +198,8 @@ export default function ContactSection({ content, vn }: ContactProps) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="co-wrap">
       <Header />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div className="ca1"><ContactItems content={content} /></div>
-        <div className="ca2 co-card">
+        <ScrollReveal delay={0.2}><div className="ca1"><ContactItems content={content} /></div></ScrollReveal>
+        <ScrollReveal delay={0.25}><div className="ca2 co-card">
           <div style={{ fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 600, marginBottom: 20 }}>Zarezerwuj wizyte</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             <div><label className="co-label">Data</label><input type="date" className="co-input" /></div>
@@ -207,7 +208,7 @@ export default function ContactSection({ content, vn }: ContactProps) {
             <div><label className="co-label">Telefon</label><input className="co-input" placeholder="+48 500..." /></div>
             <button className="co-btn">Zarezerwuj</button>
           </div>
-        </div>
+        </div></ScrollReveal>
       </div>
     </div></section>);
   }
@@ -216,10 +217,10 @@ export default function ContactSection({ content, vn }: ContactProps) {
   if (vn === 7) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="co-wrap">
       <div className="ca1" style={{ maxWidth: 500, margin: "0 auto", background: "rgb(var(--color-surface))", borderRadius: 24, boxShadow: "0 20px 60px rgb(0 0 0/0.08)", padding: "40px 36px", textAlign: "center" }}>
-        <div style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 600, marginBottom: 6 }}>{hl || "Candlegreen"}</div>
-        {body && <p style={{ fontSize: 14, color: "rgb(var(--color-text-muted))", marginBottom: 24 }}>{body}</p>}
+        <ScrollReveal delay={0}><div style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 600, marginBottom: 6 }}>{hl || "Candlegreen"}</div></ScrollReveal>
+        {body && <ScrollReveal delay={0.1}><p style={{ fontSize: 14, color: "rgb(var(--color-text-muted))", marginBottom: 24 }}>{body}</p></ScrollReveal>}
         <div style={{ width: 60, height: 2, background: "linear-gradient(90deg, rgb(var(--color-accent)), rgb(var(--color-accent-light)))", margin: "0 auto 24px", borderRadius: 1 }} />
-        <ContactItems content={content} />
+        <ScrollReveal delay={0.2}><ContactItems content={content} /></ScrollReveal>
       </div>
     </div></section>);
   }
@@ -229,7 +230,7 @@ export default function ContactSection({ content, vn }: ContactProps) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="co-wrap">
       <Header />
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 items-start">
-        <div className="ca1">
+        <ScrollReveal delay={0.1}><div className="ca1">
           {faqItems.map((it, i) => (
             <details key={i} style={{ borderBottom: "1px solid rgb(var(--color-border)/0.5)" }}>
               <summary style={{ display: "flex", justifyContent: "space-between", padding: "18px 0", cursor: "pointer", fontFamily: "var(--font-display)", fontSize: 15, fontWeight: 600, listStyle: "none" }}>
@@ -239,12 +240,12 @@ export default function ContactSection({ content, vn }: ContactProps) {
             </details>
           ))}
           {faqItems.length === 0 && <p style={{ color: "rgb(var(--color-text-dim))", fontSize: 14 }}>FAQ content not available</p>}
-        </div>
-        <div className="ca2" style={{ background: "rgb(var(--color-accent)/0.05)", border: "1px solid rgb(var(--color-accent)/0.2)", borderRadius: 20, padding: "28px 24px", position: "sticky", top: 100 }}>
+        </div></ScrollReveal>
+        <ScrollReveal delay={0.2}><div className="ca2" style={{ background: "rgb(var(--color-accent)/0.05)", border: "1px solid rgb(var(--color-accent)/0.2)", borderRadius: 20, padding: "28px 24px", position: "sticky", top: 100 }}>
           <div style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 600, marginBottom: 12 }}>Nie znalazles odpowiedzi?</div>
           <ContactItems content={content} />
           <a href="#" className="co-btn co-btn-sm" style={{ marginTop: 20, width: "100%", justifyContent: "center" }}>Napisz do nas <Arrow /></a>
-        </div>
+        </div></ScrollReveal>
       </div>
     </div></section>);
   }
@@ -256,12 +257,12 @@ export default function ContactSection({ content, vn }: ContactProps) {
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,0,0,0.65), rgba(0,0,0,0.5))" }} />
       <div className="co-wrap" style={{ position: "relative", zIndex: 10 }}>
         <div className="ca1" style={{ maxWidth: 600, margin: "0 auto", background: "rgb(var(--color-surface)/0.95)", backdropFilter: "blur(24px)", borderRadius: 24, boxShadow: "0 24px 64px rgba(0,0,0,0.15)", padding: "36px 32px" }}>
-          <h2 className="co-h2" style={{ fontSize: 28, textAlign: "center" }}>{hl}</h2>
-          {body && <p className="co-desc" style={{ textAlign: "center", marginBottom: 24 }}>{body}</p>}
-          <ContactItems content={content} />
-          <div style={{ borderTop: "1px solid rgb(var(--color-border)/0.5)", marginTop: 24, paddingTop: 24 }}>
+          <ScrollReveal delay={0}><h2 className="co-h2" style={{ fontSize: 28, textAlign: "center" }}>{hl}</h2></ScrollReveal>
+          {body && <ScrollReveal delay={0.1}><p className="co-desc" style={{ textAlign: "center", marginBottom: 24 }}>{body}</p></ScrollReveal>}
+          <ScrollReveal delay={0.2}><ContactItems content={content} /></ScrollReveal>
+          <ScrollReveal delay={0.25}><div style={{ borderTop: "1px solid rgb(var(--color-border)/0.5)", marginTop: 24, paddingTop: 24 }}>
             <ContactForm compact />
-          </div>
+          </div></ScrollReveal>
         </div>
       </div>
     </section>);
@@ -270,7 +271,7 @@ export default function ContactSection({ content, vn }: ContactProps) {
   // VN 10: Routing tematow (default)
   return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="co-wrap">
     <Header />
-    <div className="ca2 grid grid-cols-1 md:grid-cols-3 gap-5">
+    <ScrollReveal delay={0.2}><div className="ca2 grid grid-cols-1 md:grid-cols-3 gap-5">
       {topics.length > 0 ? topics.map((t, i) => (
         <div key={i} className="co-card" style={{ textAlign: "center" }}>
           {str(t.icon) && <div style={{ fontSize: 28, marginBottom: 12 }}>{str(t.icon)}</div>}
@@ -284,6 +285,6 @@ export default function ContactSection({ content, vn }: ContactProps) {
           <ContactItems content={content} />
         </div>
       )}
-    </div>
+    </div></ScrollReveal>
   </div></section>);
 }

@@ -7,6 +7,7 @@
 
 import { useState, useEffect } from "react";
 import { str, arr, resolveImage, resolveIcon } from "./shared";
+import { ScrollReveal, FadeScale } from "./ClientComponents";
 
 interface CtaProps {
   content: Record<string, unknown>;
@@ -95,9 +96,9 @@ export default function CtaSection({ content, vn }: CtaProps) {
     return (<section className="bg-accent text-on-accent" style={{ padding: "64px 0" }}><style>{S}</style><div className="ct-wrap" style={{ textAlign: "center" }}>
       <div className="ca1">
         {ey && <div className="ct-eyebrow" style={{ opacity: 0.8 }}>{ey}</div>}
-        <h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2>
-        {body && <p className="ct-body-w" style={{ margin: "0 auto 28px" }}>{body}</p>}
-        <a href={ctaHref} className="ct-btn ct-btn-inv">{ctaLabel || "Zamow teraz"} <Arrow /></a>
+        <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2></ScrollReveal>
+        {body && <ScrollReveal delay={0.1}><p className="ct-body-w" style={{ margin: "0 auto 28px" }}>{body}</p></ScrollReveal>}
+        <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-inv">{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
         {note && <p className="ct-note" style={{ color: "white" }}>{note}</p>}
       </div>
     </div></section>);
@@ -109,12 +110,12 @@ export default function CtaSection({ content, vn }: CtaProps) {
     return (<section className="bg-accent text-on-accent" style={{ padding: "80px 0" }}><style>{S}</style><div className="ct-wrap" style={{ textAlign: "center" }}>
       <div className="ca1">
         {ey && <div className="ct-eyebrow" style={{ opacity: 0.8 }}>{ey}</div>}
-        <h2 className="ct-h2 ct-h2-w ct-h2-m" style={{ fontSize: 36 }}>{hl}</h2>
-        {body && <p className="ct-body-w" style={{ margin: "0 auto 32px" }}>{body}</p>}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center" }}>
+        <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-w ct-h2-m" style={{ fontSize: 36 }}>{hl}</h2></ScrollReveal>
+        {body && <ScrollReveal delay={0.1}><p className="ct-body-w" style={{ margin: "0 auto 32px" }}>{body}</p></ScrollReveal>}
+        <ScrollReveal delay={0.2}><div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center" }}>
           <a href={ctaHref} className="ct-btn ct-btn-inv">{ctaLabel || "Zamow teraz"} <Arrow /></a>
           {cta2 && <a href={str(cta2.href) || "#"} className="ct-btn ct-btn-glass">{str(cta2.label)}</a>}
-        </div>
+        </div></ScrollReveal>
       </div>
     </div></section>);
   }
@@ -125,16 +126,16 @@ export default function CtaSection({ content, vn }: CtaProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div className="ca1">
           {ey && <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}><div style={{ width: 32, height: 1, background: "rgb(var(--color-accent))" }} /><span className="ct-eyebrow" style={{ color: "rgb(var(--color-accent))", marginBottom: 0 }}>{ey}</span></div>}
-          <h2 className="ct-h2 ct-h2-d ct-h2-m" style={{ fontSize: 32 }}>{hl}</h2>
-          {body && <p className="ct-body-d">{body}</p>}
+          <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-d ct-h2-m" style={{ fontSize: 32 }}>{hl}</h2></ScrollReveal>
+          {body && <ScrollReveal delay={0.1}><p className="ct-body-d">{body}</p></ScrollReveal>}
         </div>
-        <div className="ca2">
+        <ScrollReveal delay={0.2}><div className="ca2">
           <div style={{ display: "flex", gap: 0 }}>
             <input type="email" className="ct-input" placeholder="Twoj email" style={{ borderRadius: "12px 0 0 12px", flex: 1 }} />
             <button className="ct-btn ct-btn-accent" style={{ borderRadius: "0 12px 12px 0", whiteSpace: "nowrap" }}>{ctaLabel || "Zapisz sie"}</button>
           </div>
           <p style={{ fontSize: 12, color: "rgb(var(--color-text-dim))", marginTop: 10 }}>Bez spamu. Mozesz sie wypisac w kazdej chwili.</p>
-        </div>
+        </div></ScrollReveal>
       </div>
     </div></section>);
   }
@@ -147,9 +148,9 @@ export default function CtaSection({ content, vn }: CtaProps) {
       <div style={{ position: "absolute", width: 120, height: 120, borderRadius: "50%", background: "rgb(255 255 255/0.04)", top: "40%", left: "15%" }} />
       <div className="ca1" style={{ textAlign: "center", position: "relative", zIndex: 10, maxWidth: 700 }}>
         {ey && <div className="ct-eyebrow" style={{ opacity: 0.8 }}>{ey}</div>}
-        <h2 className="ct-h2 ct-h2-w ct-h2-l">{hl}</h2>
-        {body && <p className="ct-body-w" style={{ margin: "0 auto 36px" }}>{body}</p>}
-        <a href={ctaHref} className="ct-btn ct-btn-inv" style={{ padding: "18px 40px", fontSize: 16 }}>{ctaLabel || "Zamow teraz"} <Arrow /></a>
+        <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-w ct-h2-l">{hl}</h2></ScrollReveal>
+        {body && <ScrollReveal delay={0.1}><p className="ct-body-w" style={{ margin: "0 auto 36px" }}>{body}</p></ScrollReveal>}
+        <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-inv" style={{ padding: "18px 40px", fontSize: 16 }}>{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
       </div>
     </section>);
   }
@@ -160,17 +161,17 @@ export default function CtaSection({ content, vn }: CtaProps) {
     return (<section className="bg-accent text-on-accent" style={{ padding: "64px 0" }}><style>{S}</style><div className="ct-wrap" style={{ textAlign: "center" }}>
       <div className="ca1">
         {ey && <div className="ct-eyebrow" style={{ opacity: 0.8 }}>{ey}</div>}
-        <h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2>
-        {body && <p className="ct-body-w" style={{ margin: "0 auto 32px" }}>{body}</p>}
-        <div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 32 }}>
+        <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2></ScrollReveal>
+        {body && <ScrollReveal delay={0.1}><p className="ct-body-w" style={{ margin: "0 auto 32px" }}>{body}</p></ScrollReveal>}
+        <ScrollReveal delay={0.15}><div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 32 }}>
           {boxes.map((b, i) => (
             <div key={i} style={{ textAlign: "center" }}>
               <div style={{ width: 64, height: 72, background: "rgb(255 255 255/0.1)", backdropFilter: "blur(12px)", border: "1px solid rgb(255 255 255/0.12)", borderRadius: 16, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 700 }}>{String(b.v).padStart(2, "0")}</div>
               <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.15em", textTransform: "uppercase", opacity: 0.5, marginTop: 8 }}>{b.l}</div>
             </div>
           ))}
-        </div>
-        <a href={ctaHref} className="ct-btn ct-btn-inv">{ctaLabel || "Zamow teraz"} <Arrow /></a>
+        </div></ScrollReveal>
+        <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-inv">{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
       </div>
     </div></section>);
   }
@@ -179,12 +180,12 @@ export default function CtaSection({ content, vn }: CtaProps) {
   if (vn === 6) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="ct-wrap">
       <div className="ca1" style={{ maxWidth: 600, margin: "0 auto", background: "rgb(var(--color-accent)/0.05)", border: "1px solid rgb(var(--color-accent)/0.2)", borderRadius: 24, padding: "40px 32px", textAlign: "center" }}>
-        <h2 className="ct-h2 ct-h2-d ct-h2-m" style={{ fontSize: 28 }}>{hl}</h2>
-        {body && <p className="ct-body-d" style={{ margin: "0 auto 24px", textAlign: "center" }}>{body}</p>}
-        <div style={{ display: "flex", gap: 0, maxWidth: 400, margin: "0 auto" }}>
+        <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-d ct-h2-m" style={{ fontSize: 28 }}>{hl}</h2></ScrollReveal>
+        {body && <ScrollReveal delay={0.1}><p className="ct-body-d" style={{ margin: "0 auto 24px", textAlign: "center" }}>{body}</p></ScrollReveal>}
+        <ScrollReveal delay={0.2}><div style={{ display: "flex", gap: 0, maxWidth: 400, margin: "0 auto" }}>
           <input type="email" className="ct-input" placeholder="Twoj email" style={{ borderRadius: "12px 0 0 12px" }} />
           <button className="ct-btn ct-btn-accent" style={{ borderRadius: "0 12px 12px 0" }}>{ctaLabel || "Zapisz sie"}</button>
-        </div>
+        </div></ScrollReveal>
       </div>
     </div></section>);
   }
@@ -197,9 +198,9 @@ export default function CtaSection({ content, vn }: CtaProps) {
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,0.3))", zIndex: 2 }} />
       <div className="ca1" style={{ position: "relative", zIndex: 10, textAlign: "center", padding: "40px 16px", maxWidth: 700 }}>
         {ey && <div className="ct-eyebrow" style={{ color: "rgb(var(--color-accent-light))" }}>{ey}</div>}
-        <h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2>
-        {body && <p className="ct-body-w" style={{ margin: "0 auto 32px" }}>{body}</p>}
-        <a href={ctaHref} className="ct-btn ct-btn-inv">{ctaLabel || "Zamow teraz"} <Arrow /></a>
+        <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2></ScrollReveal>
+        {body && <ScrollReveal delay={0.1}><p className="ct-body-w" style={{ margin: "0 auto 32px" }}>{body}</p></ScrollReveal>}
+        <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-inv">{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
       </div>
       <div className="ct-fade" />
     </section>);
@@ -213,9 +214,9 @@ export default function CtaSection({ content, vn }: CtaProps) {
       <div style={{ position: "absolute", width: 80, height: 80, borderRadius: "50%", background: "rgb(255 255 255/0.03)", top: "40%", left: "60%" }} />
       <div className="ct-wrap ca1" style={{ textAlign: "center", position: "relative", zIndex: 10 }}>
         {ey && <div className="ct-eyebrow" style={{ opacity: 0.8 }}>{ey}</div>}
-        <h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2>
-        {body && <p className="ct-body-w" style={{ margin: "0 auto 32px" }}>{body}</p>}
-        <a href={ctaHref} className="ct-btn ct-btn-inv">{ctaLabel || "Zamow teraz"} <Arrow /></a>
+        <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2></ScrollReveal>
+        {body && <ScrollReveal delay={0.1}><p className="ct-body-w" style={{ margin: "0 auto 32px" }}>{body}</p></ScrollReveal>}
+        <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-inv">{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
         {note && <p className="ct-note" style={{ color: "white" }}>{note}</p>}
       </div>
     </section>);
@@ -227,13 +228,13 @@ export default function CtaSection({ content, vn }: CtaProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div className="ca1">
           {ey && <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}><div style={{ width: 32, height: 1, background: "rgb(var(--color-accent))" }} /><span className="ct-eyebrow" style={{ color: "rgb(var(--color-accent))", marginBottom: 0 }}>{ey}</span></div>}
-          <h2 className="ct-h2 ct-h2-d ct-h2-m" style={{ fontSize: 32 }}>{hl}</h2>
-          {body && <p className="ct-body-d">{body}</p>}
-          <a href={ctaHref} className="ct-btn ct-btn-accent">{ctaLabel || "Zamow teraz"} <Arrow /></a>
+          <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-d ct-h2-m" style={{ fontSize: 32 }}>{hl}</h2></ScrollReveal>
+          {body && <ScrollReveal delay={0.1}><p className="ct-body-d">{body}</p></ScrollReveal>}
+          <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-accent">{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
         </div>
-        <div className="ca2" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 16px 48px rgb(0 0 0/0.08)" }}>
+        <FadeScale delay={0.15}><div className="ca2" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 16px 48px rgb(0 0 0/0.08)" }}>
           {img ? <img src={img} alt="" style={{ width: "100%", aspectRatio: "4/3", objectFit: "cover", display: "block" }} /> : <div style={{ width: "100%", aspectRatio: "4/3", background: "linear-gradient(135deg, rgb(var(--color-accent)/0.1), rgb(var(--color-surface)))" }} />}
-        </div>
+        </div></FadeScale>
       </div>
     </div></section>);
   }
@@ -243,17 +244,17 @@ export default function CtaSection({ content, vn }: CtaProps) {
     return (<section className="bg-accent text-on-accent" style={{ padding: "64px 0" }}><style>{S}</style><div className="ct-wrap" style={{ textAlign: "center" }}>
       <div className="ca1">
         {ey && <div className="ct-eyebrow" style={{ opacity: 0.8 }}>{ey}</div>}
-        <h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2>
-        {body && <p className="ct-body-w" style={{ margin: "0 auto 28px" }}>{body}</p>}
-        <a href={ctaHref} className="ct-btn ct-btn-inv" style={{ marginBottom: 28 }}>{ctaLabel || "Zamow teraz"} <Arrow /></a>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, paddingTop: 24, borderTop: "1px solid rgb(255 255 255/0.15)" }}>
+        <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2></ScrollReveal>
+        {body && <ScrollReveal delay={0.1}><p className="ct-body-w" style={{ margin: "0 auto 28px" }}>{body}</p></ScrollReveal>}
+        <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-inv" style={{ marginBottom: 28 }}>{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
+        <ScrollReveal delay={0.25}><div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, paddingTop: 24, borderTop: "1px solid rgb(255 255 255/0.15)" }}>
           <div style={{ display: "flex" }}>
             {["😊", "🕯️", "⭐", "💛", "✨"].map((e, i) => (
               <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", background: "rgb(255 255 255/0.15)", border: "2px solid rgb(var(--color-accent))", marginLeft: i > 0 ? -8 : 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>{e}</div>
             ))}
           </div>
           <span style={{ fontSize: 13, opacity: 0.8 }}>500+ zadowolonych klientow</span>
-        </div>
+        </div></ScrollReveal>
       </div>
     </div></section>);
   }
@@ -263,8 +264,8 @@ export default function CtaSection({ content, vn }: CtaProps) {
     // Baner - thin strip
     return (<section style={{ background: "rgb(var(--color-accent)/0.1)", borderTop: "1px solid rgb(var(--color-accent)/0.2)", borderBottom: "1px solid rgb(var(--color-accent)/0.2)", padding: "16px 0" }}><style>{S}</style><div className="ct-wrap" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
       <span style={{ fontSize: 18 }}>🕯️</span>
-      <span style={{ fontSize: 14, color: "rgb(var(--color-text-muted))" }}>{body || hl}</span>
-      <a href={ctaHref} style={{ fontSize: 14, fontWeight: 600, color: "rgb(var(--color-accent))", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4 }}>{ctaLabel || "Zamow teraz"} <Arrow /></a>
+      <ScrollReveal delay={0}><span style={{ fontSize: 14, color: "rgb(var(--color-text-muted))" }}>{body || hl}</span></ScrollReveal>
+      <ScrollReveal delay={0.2}><a href={ctaHref} style={{ fontSize: 14, fontWeight: 600, color: "rgb(var(--color-accent))", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4 }}>{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
     </div></section>);
   }
 
@@ -273,9 +274,9 @@ export default function CtaSection({ content, vn }: CtaProps) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="ct-wrap">
       <div className="ca1" style={{ maxWidth: 500, margin: "0 auto", background: "rgb(var(--color-accent)/0.05)", border: "1px solid rgb(var(--color-accent)/0.2)", borderRadius: 24, padding: "48px 36px", textAlign: "center" }}>
         {ey && <div className="ct-eyebrow" style={{ color: "rgb(var(--color-accent))" }}>{ey}</div>}
-        <h2 className="ct-h2 ct-h2-d" style={{ fontSize: 28 }}>{hl}</h2>
-        {body && <p className="ct-body-d" style={{ margin: "0 auto 24px", textAlign: "center" }}>{body}</p>}
-        <a href={ctaHref} className="ct-btn ct-btn-accent">{ctaLabel || "Zamow teraz"} <Arrow /></a>
+        <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-d" style={{ fontSize: 28 }}>{hl}</h2></ScrollReveal>
+        {body && <ScrollReveal delay={0.1}><p className="ct-body-d" style={{ margin: "0 auto 24px", textAlign: "center" }}>{body}</p></ScrollReveal>}
+        <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-accent">{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
       </div>
     </div></section>);
   }
@@ -286,18 +287,18 @@ export default function CtaSection({ content, vn }: CtaProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div className="ca1">
           {ey && <div className="ct-eyebrow" style={{ color: "rgb(var(--color-accent))" }}>{ey}</div>}
-          <h2 className="ct-h2 ct-h2-d ct-h2-m" style={{ fontSize: 32 }}>{hl}</h2>
-          {body && <p className="ct-body-d">{body}</p>}
-          <a href={ctaHref} className="ct-btn ct-btn-accent">{ctaLabel || "Zamow teraz"} <Arrow /></a>
+          <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-d ct-h2-m" style={{ fontSize: 32 }}>{hl}</h2></ScrollReveal>
+          {body && <ScrollReveal delay={0.1}><p className="ct-body-d">{body}</p></ScrollReveal>}
+          <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-accent">{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
         </div>
-        <div className="ca2" style={{ position: "relative", borderRadius: 24, overflow: "hidden", boxShadow: "0 16px 48px rgb(0 0 0/0.08)" }}>
+        <FadeScale delay={0.15}><div className="ca2" style={{ position: "relative", borderRadius: 24, overflow: "hidden", boxShadow: "0 16px 48px rgb(0 0 0/0.08)" }}>
           {img ? <img src={img} alt="" style={{ width: "100%", aspectRatio: "16/9", objectFit: "cover", display: "block" }} /> : <div style={{ width: "100%", aspectRatio: "16/9", background: "linear-gradient(135deg, rgb(var(--color-accent)/0.15), rgb(var(--color-surface)))" }} />}
           <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "rgb(0 0 0/0.15)", cursor: "pointer" }}>
             <div style={{ width: 64, height: 64, borderRadius: "50%", background: "rgb(var(--color-surface)/0.95)", backdropFilter: "blur(12px)", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 8px 32px rgb(0 0 0/0.15)" }}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="rgb(var(--color-accent))"><polygon points="5,3 19,12 5,21"/></svg>
             </div>
           </div>
-        </div>
+        </div></FadeScale>
       </div>
     </div></section>);
   }
@@ -306,10 +307,10 @@ export default function CtaSection({ content, vn }: CtaProps) {
     // Karty opcji
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="ct-wrap">
       <div className="ca1" style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 40px" }}>
-        <h2 className="ct-h2 ct-h2-d ct-h2-m">{hl}</h2>
-        {body && <p className="ct-body-d" style={{ margin: "0 auto", textAlign: "center" }}>{body}</p>}
+        <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-d ct-h2-m">{hl}</h2></ScrollReveal>
+        {body && <ScrollReveal delay={0.1}><p className="ct-body-d" style={{ margin: "0 auto", textAlign: "center" }}>{body}</p></ScrollReveal>}
       </div>
-      <div className="ca2 grid grid-cols-1 md:grid-cols-3 gap-5">
+      <ScrollReveal delay={0.2}><div className="ca2 grid grid-cols-1 md:grid-cols-3 gap-5">
         {items.map((it, i) => (
           <div key={i} className="ct-card" style={{ padding: 28 }}>
             {str(it.icon) && <div style={{ fontSize: 28, marginBottom: 14 }}>{resolveIcon(it.icon)}</div>}
@@ -318,16 +319,16 @@ export default function CtaSection({ content, vn }: CtaProps) {
             <a href={str(it.href) || "#"} style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13, fontWeight: 600, color: "rgb(var(--color-accent))", textDecoration: "none", transition: "gap 0.2s" }} className="hover:!gap-2.5">{str(it.cta_label) || "Dowiedz sie"} <Arrow /></a>
           </div>
         ))}
-      </div>
+      </div></ScrollReveal>
     </div></section>);
   }
 
   if (vn === 15) {
     // Minimalistyczna - jeden link
     return (<section className="bg-bg" style={{ padding: "80px 16px" }}><style>{S}</style><div style={{ textAlign: "center" }}>
-      <a href={ctaHref} style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 15, color: "rgb(var(--color-accent))", textDecoration: "none", fontWeight: 500, transition: "gap 0.2s" }} className="hover:!gap-3">
+      <ScrollReveal delay={0}><a href={ctaHref} style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 15, color: "rgb(var(--color-accent))", textDecoration: "none", fontWeight: 500, transition: "gap 0.2s" }} className="hover:!gap-3">
         <span style={{ fontSize: 20 }}>🕯️</span> {body || hl || ctaLabel} <Arrow />
-      </a>
+      </a></ScrollReveal>
     </div></section>);
   }
 
@@ -336,10 +337,10 @@ export default function CtaSection({ content, vn }: CtaProps) {
     // Dwa plany
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="ct-wrap">
       <div className="ca1" style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 40px" }}>
-        <h2 className="ct-h2 ct-h2-d ct-h2-m">{hl}</h2>
-        {body && <p className="ct-body-d" style={{ margin: "0 auto" }}>{body}</p>}
+        <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-d ct-h2-m">{hl}</h2></ScrollReveal>
+        {body && <ScrollReveal delay={0.1}><p className="ct-body-d" style={{ margin: "0 auto" }}>{body}</p></ScrollReveal>}
       </div>
-      <div className="ca2 grid grid-cols-1 md:grid-cols-2 gap-5" style={{ maxWidth: 800, margin: "0 auto" }}>
+      <ScrollReveal delay={0.2}><div className="ca2 grid grid-cols-1 md:grid-cols-2 gap-5" style={{ maxWidth: 800, margin: "0 auto" }}>
         {items.slice(0, 2).map((it, i) => (
           <div key={i} style={{ background: i === 1 ? "rgb(var(--color-accent)/0.05)" : "rgb(var(--color-surface))", border: `1px solid ${i === 1 ? "rgb(var(--color-accent)/0.3)" : "rgb(var(--color-border)/0.5)"}`, borderRadius: 24, padding: 32, position: "relative" }}>
             {i === 1 && <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: "rgb(var(--color-accent))", color: "rgb(var(--color-on-accent))", fontSize: 11, fontWeight: 600, padding: "4px 16px", borderRadius: 100, textTransform: "uppercase", letterSpacing: "0.1em" }}>Popularne</div>}
@@ -349,7 +350,7 @@ export default function CtaSection({ content, vn }: CtaProps) {
             <a href={str(it.href) || "#"} className={`ct-btn ${i === 1 ? "ct-btn-accent" : "ct-btn-outline"}`} style={{ width: "100%", justifyContent: "center" }}>{str(it.cta_label) || "Wybierz"}</a>
           </div>
         ))}
-      </div>
+      </div></ScrollReveal>
     </div></section>);
   }
 
@@ -357,9 +358,9 @@ export default function CtaSection({ content, vn }: CtaProps) {
     // Chatbot / generic accent centered
     return (<section className="bg-accent text-on-accent" style={{ padding: "64px 0" }}><style>{S}</style><div className="ct-wrap ca1" style={{ textAlign: "center" }}>
       {ey && <div className="ct-eyebrow" style={{ opacity: 0.8 }}>{ey}</div>}
-      <h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2>
-      {body && <p className="ct-body-w" style={{ margin: "0 auto 28px" }}>{body}</p>}
-      <a href={ctaHref} className="ct-btn ct-btn-inv">{ctaLabel || "Zamow teraz"} <Arrow /></a>
+      <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2></ScrollReveal>
+      {body && <ScrollReveal delay={0.1}><p className="ct-body-w" style={{ margin: "0 auto 28px" }}>{body}</p></ScrollReveal>}
+      <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-inv">{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
     </div></section>);
   }
 
@@ -369,15 +370,15 @@ export default function CtaSection({ content, vn }: CtaProps) {
     const t = testimonials[0];
     return (<section className="bg-accent text-on-accent" style={{ padding: "64px 0" }}><style>{S}</style><div className="ct-wrap ca1" style={{ textAlign: "center" }}>
       {ey && <div className="ct-eyebrow" style={{ opacity: 0.8 }}>{ey}</div>}
-      <h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2>
-      {body && <p className="ct-body-w" style={{ margin: "0 auto 28px" }}>{body}</p>}
-      <a href={ctaHref} className="ct-btn ct-btn-inv" style={{ marginBottom: 28 }}>{ctaLabel || "Zamow teraz"} <Arrow /></a>
+      <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2></ScrollReveal>
+      {body && <ScrollReveal delay={0.1}><p className="ct-body-w" style={{ margin: "0 auto 28px" }}>{body}</p></ScrollReveal>}
+      <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-inv" style={{ marginBottom: 28 }}>{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
       {t && (
-        <div style={{ maxWidth: 420, margin: "0 auto", background: "rgb(255 255 255/0.1)", backdropFilter: "blur(12px)", border: "1px solid rgb(255 255 255/0.12)", borderRadius: 16, padding: "18px 22px", textAlign: "left" }}>
+        <ScrollReveal delay={0.25}><div style={{ maxWidth: 420, margin: "0 auto", background: "rgb(255 255 255/0.1)", backdropFilter: "blur(12px)", border: "1px solid rgb(255 255 255/0.12)", borderRadius: 16, padding: "18px 22px", textAlign: "left" }}>
           <div style={{ color: "rgb(var(--color-accent-light))", fontSize: 13, marginBottom: 6 }}>★★★★★</div>
           <div style={{ fontSize: 13, fontStyle: "italic", opacity: 0.8, lineHeight: 1.5, marginBottom: 8 }}>&ldquo;{str(t.quote)}&rdquo;</div>
           <div style={{ fontSize: 12, fontWeight: 600 }}>{str(t.author)}</div>
-        </div>
+        </div></ScrollReveal>
       )}
     </div></section>);
   }
@@ -390,15 +391,15 @@ export default function CtaSection({ content, vn }: CtaProps) {
     .ct-rot-word::after{content:'';position:absolute;bottom:4px;left:0;right:0;height:3px;background:rgb(var(--color-accent)/0.2);border-radius:2px}
     @keyframes ctRot{0%,28%{transform:translateY(0)}33%,61%{transform:translateY(-33.33%)}66%,94%{transform:translateY(-66.66%)}100%{transform:translateY(0)}}
   `}</style><div className="ct-wrap ca1">
-    <h2 className="ct-h2 ct-h2-d ct-h2-m">
+    <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-d ct-h2-m">
       {hl || "Swiece, ktore tworza"}{" "}
       <span className="ct-rot-wrap"><span className="ct-rot-words">
         <span className="ct-rot-word">klimat</span>
         <span className="ct-rot-word">harmonie</span>
         <span className="ct-rot-word">wspomnienia</span>
       </span></span>
-    </h2>
-    {body && <p className="ct-body-d" style={{ margin: "0 auto 32px", textAlign: "center" }}>{body}</p>}
-    <a href={ctaHref} className="ct-btn ct-btn-accent">{ctaLabel || "Zamow teraz"} <Arrow /></a>
+    </h2></ScrollReveal>
+    {body && <ScrollReveal delay={0.1}><p className="ct-body-d" style={{ margin: "0 auto 32px", textAlign: "center" }}>{body}</p></ScrollReveal>}
+    <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-accent">{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
   </div></section>);
 }

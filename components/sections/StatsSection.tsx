@@ -8,6 +8,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { str, num, arr, resolveImage, resolveIcon } from "./shared";
+import { ScrollReveal, StaggerChildren } from './ClientComponents'
 
 interface StatsProps {
   content: Record<string, unknown>;
@@ -147,10 +148,12 @@ export default function StatsSection({ content, vn }: StatsProps) {
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 1) {
     return (<section className="bg-accent text-on-accent" style={{ padding: "48px 0" }}><style>{S}</style><div className="st-wrap sta1">
-      {hl && <div className="st-header"><h2 className="st-h2 st-h2-w">{hl}</h2></div>}
+      {hl && <ScrollReveal delay={0}><div className="st-header"><h2 className="st-h2 st-h2-w">{hl}</h2></div></ScrollReveal>}
+      <StaggerChildren staggerDelay={0.1}>
       <div className="flex flex-wrap justify-around gap-8 text-center">
         {items.map((it, i) => <CountStat key={i} value={it.value} suffix={str(it.suffix)} label={str(it.label)} numClass="st-bar-num" labelClass="st-bar-lbl" />)}
       </div>
+      </StaggerChildren>
     </div></section>);
   }
 
@@ -159,7 +162,8 @@ export default function StatsSection({ content, vn }: StatsProps) {
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 2) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="st-wrap">
-      {hl && <div className="st-header sta1"><h2 className="st-h2">{hl}</h2>{body && <p className="st-desc">{body}</p>}</div>}
+      {hl && <ScrollReveal delay={0}><div className="st-header sta1"><h2 className="st-h2">{hl}</h2>{body && <p className="st-desc">{body}</p>}</div></ScrollReveal>}
+      <StaggerChildren staggerDelay={0.1}>
       <div className="sta2 grid grid-cols-2 lg:grid-cols-4 gap-5">
         {items.map((it, i) => (
           <div key={i} className="st-card">
@@ -168,6 +172,7 @@ export default function StatsSection({ content, vn }: StatsProps) {
           </div>
         ))}
       </div>
+      </StaggerChildren>
     </div></section>);
   }
 
@@ -176,7 +181,8 @@ export default function StatsSection({ content, vn }: StatsProps) {
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 3) {
     return (<section className="bg-accent text-on-accent" style={{ padding: "48px 0" }}><style>{S}</style><div className="st-wrap sta1">
-      {hl && <div className="st-header"><h2 className="st-h2 st-h2-w">{hl}</h2></div>}
+      {hl && <ScrollReveal delay={0}><div className="st-header"><h2 className="st-h2 st-h2-w">{hl}</h2></div></ScrollReveal>}
+      <StaggerChildren staggerDelay={0.1}>
       <div className="flex flex-wrap justify-around gap-8 text-center">
         {items.map((it, i) => {
           const { raw } = parseStatValue(it.value);
@@ -195,6 +201,7 @@ export default function StatsSection({ content, vn }: StatsProps) {
           );
         })}
       </div>
+      </StaggerChildren>
     </div></section>);
   }
 
@@ -203,7 +210,8 @@ export default function StatsSection({ content, vn }: StatsProps) {
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 4) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="st-wrap">
-      {hl && <div className="st-header sta1"><h2 className="st-h2">{hl}</h2></div>}
+      {hl && <ScrollReveal delay={0}><div className="st-header sta1"><h2 className="st-h2">{hl}</h2></div></ScrollReveal>}
+      <StaggerChildren staggerDelay={0.1}>
       <div className="sta2" style={{ maxWidth: 600, margin: "0 auto", display: "flex", flexDirection: "column", gap: 20 }}>
         {items.map((it, i) => {
           const { n } = parseStatValue(it.value);
@@ -221,6 +229,7 @@ export default function StatsSection({ content, vn }: StatsProps) {
           );
         })}
       </div>
+      </StaggerChildren>
     </div></section>);
   }
 
@@ -231,7 +240,8 @@ export default function StatsSection({ content, vn }: StatsProps) {
     const R = 45;
     const C = 2 * Math.PI * R;
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="st-wrap">
-      {hl && <div className="st-header sta1"><h2 className="st-h2">{hl}</h2></div>}
+      {hl && <ScrollReveal delay={0}><div className="st-header sta1"><h2 className="st-h2">{hl}</h2></div></ScrollReveal>}
+      <StaggerChildren staggerDelay={0.1}>
       <div className="sta2 grid grid-cols-2 lg:grid-cols-4 gap-5">
         {items.map((it, i) => {
           const { n, suffix } = parseStatValue(it.value);
@@ -253,6 +263,7 @@ export default function StatsSection({ content, vn }: StatsProps) {
           );
         })}
       </div>
+      </StaggerChildren>
     </div></section>);
   }
 
@@ -261,7 +272,8 @@ export default function StatsSection({ content, vn }: StatsProps) {
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 6) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="st-wrap sta1">
-      {hl && <div className="st-header"><h2 className="st-h2">{hl}</h2></div>}
+      {hl && <ScrollReveal delay={0}><div className="st-header"><h2 className="st-h2">{hl}</h2></div></ScrollReveal>}
+      <StaggerChildren staggerDelay={0.1}>
       <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", flexDirection: "column", gap: 32 }}>
         {items.map((it, i) => (
           <div key={i} style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingBottom: i < items.length - 1 ? 32 : 0, borderBottom: i < items.length - 1 ? "1px solid rgb(var(--color-border)/0.3)" : "none" }} className="md:flex-row md:gap-8 md:items-baseline">
@@ -269,6 +281,7 @@ export default function StatsSection({ content, vn }: StatsProps) {
           </div>
         ))}
       </div>
+      </StaggerChildren>
     </div></section>);
   }
 
@@ -277,6 +290,7 @@ export default function StatsSection({ content, vn }: StatsProps) {
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 7) {
     return (<section className="bg-accent text-on-accent" style={{ padding: "24px 0", overflow: "hidden" }}><style>{S}</style>
+      <ScrollReveal delay={0}>
       <div style={{ position: "relative" }}>
         <div style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: 60, background: "linear-gradient(to right, rgb(var(--color-accent)), transparent)", zIndex: 2 }} />
         <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: 60, background: "linear-gradient(to left, rgb(var(--color-accent)), transparent)", zIndex: 2 }} />
@@ -290,6 +304,7 @@ export default function StatsSection({ content, vn }: StatsProps) {
           ))}
         </div>
       </div>
+      </ScrollReveal>
     </section>);
   }
 
@@ -303,7 +318,8 @@ export default function StatsSection({ content, vn }: StatsProps) {
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(0,0,0,0.65), rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.7))" }} />
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.3))" }} />
       <div className="st-wrap sta1" style={{ position: "relative", zIndex: 10 }}>
-        {hl && <div className="st-header"><h2 className="st-h2 st-h2-w">{hl}</h2></div>}
+        {hl && <ScrollReveal delay={0}><div className="st-header"><h2 className="st-h2 st-h2-w">{hl}</h2></div></ScrollReveal>}
+        <StaggerChildren staggerDelay={0.1}>
         <div className="flex flex-wrap justify-center gap-6">
           {items.map((it, i) => (
             <div key={i} className="st-glass">
@@ -311,6 +327,7 @@ export default function StatsSection({ content, vn }: StatsProps) {
             </div>
           ))}
         </div>
+        </StaggerChildren>
       </div>
     </section>);
   }
@@ -320,7 +337,8 @@ export default function StatsSection({ content, vn }: StatsProps) {
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 9) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="st-wrap">
-      {hl && <div className="st-header sta1"><h2 className="st-h2">{hl}</h2></div>}
+      {hl && <ScrollReveal delay={0}><div className="st-header sta1"><h2 className="st-h2">{hl}</h2></div></ScrollReveal>}
+      <StaggerChildren staggerDelay={0.1}>
       <div className="sta2 flex flex-wrap justify-center gap-10">
         {items.map((it, i) => {
           const { raw } = parseStatValue(it.value);
@@ -337,6 +355,7 @@ export default function StatsSection({ content, vn }: StatsProps) {
           );
         })}
       </div>
+      </StaggerChildren>
     </div></section>);
   }
 
@@ -349,7 +368,8 @@ export default function StatsSection({ content, vn }: StatsProps) {
       { val: cd.m, label: "Minut" }, { val: cd.s, label: "Sekund" },
     ];
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="st-wrap sta1">
-      {hl && <div className="st-header"><h2 className="st-h2">{hl}</h2>{body && <p className="st-desc">{body}</p>}</div>}
+      {hl && <ScrollReveal delay={0}><div className="st-header"><h2 className="st-h2">{hl}</h2>{body && <p className="st-desc">{body}</p>}</div></ScrollReveal>}
+      <StaggerChildren staggerDelay={0.1}>
       <div className="flex justify-center gap-3 md:gap-5">
         {boxes.map((b, i) => (
           <div key={i} style={{ textAlign: "center" }}>
@@ -360,6 +380,7 @@ export default function StatsSection({ content, vn }: StatsProps) {
           </div>
         ))}
       </div>
+      </StaggerChildren>
     </div></section>);
   }
 
@@ -369,7 +390,8 @@ export default function StatsSection({ content, vn }: StatsProps) {
   if (vn === 11) {
     const anims = ["stBounce 1.5s ease infinite", "stPulse 2s ease infinite", "stWiggle 1.5s ease infinite", "stSpin 4s linear infinite"];
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="st-wrap">
-      {hl && <div className="st-header sta1"><h2 className="st-h2">{hl}</h2></div>}
+      {hl && <ScrollReveal delay={0}><div className="st-header sta1"><h2 className="st-h2">{hl}</h2></div></ScrollReveal>}
+      <StaggerChildren staggerDelay={0.1}>
       <div className="sta2 grid grid-cols-2 lg:grid-cols-4 gap-6">
         {items.map((it, i) => (
           <div key={i} style={{ textAlign: "center" }}>
@@ -378,6 +400,7 @@ export default function StatsSection({ content, vn }: StatsProps) {
           </div>
         ))}
       </div>
+      </StaggerChildren>
     </div></section>);
   }
 
@@ -390,10 +413,12 @@ export default function StatsSection({ content, vn }: StatsProps) {
     <div style={{ position: "absolute", width: 140, height: 140, borderRadius: "50%", background: "rgb(255 255 255/0.04)", bottom: -40, left: "20%" }} />
     <div style={{ position: "absolute", width: 80, height: 80, borderRadius: "50%", background: "rgb(255 255 255/0.03)", top: "40%", left: "60%" }} />
     <div className="st-wrap sta1" style={{ position: "relative", zIndex: 10 }}>
-      {hl && <div className="st-header"><h2 className="st-h2 st-h2-w">{hl}</h2></div>}
+      {hl && <ScrollReveal delay={0}><div className="st-header"><h2 className="st-h2 st-h2-w">{hl}</h2></div></ScrollReveal>}
+      <StaggerChildren staggerDelay={0.1}>
       <div className="flex flex-wrap justify-around gap-8 text-center">
         {items.map((it, i) => <CountStat key={i} value={it.value} suffix={str(it.suffix)} label={str(it.label)} numClass="st-bar-num" labelClass="st-bar-lbl" />)}
       </div>
+      </StaggerChildren>
     </div>
   </section>);
 }

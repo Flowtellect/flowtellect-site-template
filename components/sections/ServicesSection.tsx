@@ -7,6 +7,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { str, arr, resolveImage, resolveIcon } from "./shared";
+import { ScrollReveal, StaggerChildren } from "./ClientComponents";
 
 interface ServicesProps {
   content: Record<string, unknown>;
@@ -72,9 +73,9 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
 
   const Header = () => (
     <div className="sv-header sa1">
-      {ey && <div className="sv-eyebrow"><div className="sv-eline"/><span className="sv-etxt">{ey}</span><div className="sv-eline-r"/></div>}
-      <h2 className="sv-h2">{hl}</h2>
-      {body && <p className="sv-desc">{body}</p>}
+      {ey && <ScrollReveal delay={0}><div className="sv-eyebrow"><div className="sv-eline"/><span className="sv-etxt">{ey}</span><div className="sv-eline-r"/></div></ScrollReveal>}
+      <ScrollReveal delay={0.1}><h2 className="sv-h2">{hl}</h2></ScrollReveal>
+      {body && <ScrollReveal delay={0.2}><p className="sv-desc">{body}</p></ScrollReveal>}
     </div>
   );
 
@@ -91,9 +92,9 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
   if (vn === 1) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="sv-wrap">
       <Header />
-      <div className="sa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="sa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="sv-card">
+          <div key={i} className="sv-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="sv-card-body">
               {str(it.icon) && <div style={{ fontSize: 20, marginBottom: 6 }}>{resolveIcon(it.icon)}</div>}
@@ -103,7 +104,7 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
       {ctaObj && <div className="sa2" style={{ textAlign: "center", marginTop: 40 }}><a href={str(ctaObj.href) || "#"} className="sv-btn sv-btn-sm">{str(ctaObj.label)} <Arrow /></a></div>}
     </div></section>);
   }
@@ -114,11 +115,11 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
   if (vn === 2) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="sv-wrap">
       <Header />
-      <div className="sa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="sa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => {
           const badge = str(it.badge || it.tag);
           return (
-            <div key={i} className="sv-card">
+            <div key={i} className="sv-card card-hover">
               <div style={{ overflow: "hidden", position: "relative" }}>
                 <ImgOrGrad item={it} />
                 {badge && <div className="sv-badge sv-badge-accent">{badge}</div>}
@@ -131,7 +132,7 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
             </div>
           );
         })}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -141,9 +142,9 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
   if (vn === 3) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="sv-wrap">
       <Header />
-      <div className="sa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="sa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="sv-card">
+          <div key={i} className="sv-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="sv-card-body">
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 6 }}>
@@ -155,7 +156,7 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -165,9 +166,9 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
   if (vn === 4) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="sv-wrap">
       <Header />
-      <div className="sa2 grid grid-cols-1 md:grid-cols-2 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="sa2 grid grid-cols-1 md:grid-cols-2 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="sv-card" style={{ position: "relative", borderRadius: 20, overflow: "hidden" }}>
+          <div key={i} className="sv-card card-hover" style={{ position: "relative", borderRadius: 20, overflow: "hidden" }}>
             <ImgOrGrad item={it} aspect="3/4" />
             <div className="sv-overlay">
               <div>
@@ -177,7 +178,7 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -192,9 +193,9 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
       @media(min-width:768px){.sv-scroll{padding:0 24px 16px}.sv-scroll-card{min-width:300px}}
     `}</style><div className="sv-wrap">
       <Header />
-      <div className="sv-scroll sa2">
+      <ScrollReveal delay={0.2}><div className="sv-scroll sa2">
         {items.map((it, i) => (
-          <div key={i} className="sv-card sv-scroll-card">
+          <div key={i} className="sv-card sv-scroll-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="sv-card-body">
               <div className="sv-card-title">{str(it.name || it.title)}</div>
@@ -203,7 +204,7 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></ScrollReveal>
     </div></section>);
   }
 
@@ -214,13 +215,13 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
     const it = items[0] || {};
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="sv-wrap">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <div className="sa1" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 24px 64px rgb(0 0 0/0.1)" }}>
+        <ScrollReveal delay={0}><div className="sa1" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 24px 64px rgb(0 0 0/0.1)" }}>
           <ImgOrGrad item={it} aspect="1/1" />
-        </div>
+        </div></ScrollReveal>
         <div className="sa2">
-          {ey && <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgb(var(--color-accent))", marginBottom: 12 }}>{ey}</div>}
-          <h2 style={{ fontFamily: "var(--font-display)", fontSize: 36, fontWeight: 700, color: "rgb(var(--color-text-primary))", marginBottom: 12, lineHeight: 1.15 }}>{str(it.name || it.title || hl)}</h2>
-          <p style={{ fontSize: 15, lineHeight: 1.7, color: "rgb(var(--color-text-muted))", marginBottom: 20 }}>{str(it.desc || it.description || body)}</p>
+          {ey && <ScrollReveal delay={0}><div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgb(var(--color-accent))", marginBottom: 12 }}>{ey}</div></ScrollReveal>}
+          <ScrollReveal delay={0.1}><h2 style={{ fontFamily: "var(--font-display)", fontSize: 36, fontWeight: 700, color: "rgb(var(--color-text-primary))", marginBottom: 12, lineHeight: 1.15 }}>{str(it.name || it.title || hl)}</h2></ScrollReveal>
+          <ScrollReveal delay={0.2}><p style={{ fontSize: 15, lineHeight: 1.7, color: "rgb(var(--color-text-muted))", marginBottom: 20 }}>{str(it.desc || it.description || body)}</p></ScrollReveal>
           {str(it.price) && <div style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 700, color: "rgb(var(--color-accent))", marginBottom: 24 }}>{str(it.price)}</div>}
           <a href={str(it.href || it.cta_href) || "#"} className="sv-btn sv-btn-sm">{str(it.cta_label) || "Umow wizyte"} <Arrow /></a>
         </div>
@@ -234,9 +235,9 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
   if (vn === 7) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="sv-wrap">
       <Header />
-      <div className="sa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="sa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="sv-card">
+          <div key={i} className="sv-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="sv-card-body">
               {str(it.category) && <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgb(var(--color-accent))", marginBottom: 6 }}>{str(it.category)}</div>}
@@ -246,7 +247,7 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -256,9 +257,9 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
   if (vn === 8) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="sv-wrap">
       <Header />
-      <div className="sa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <StaggerChildren staggerDelay={0.12}><div className="sa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {items.map((it, i) => (
-          <div key={i} className="sv-card" style={{ textAlign: "center", padding: 24 }}>
+          <div key={i} className="sv-card card-hover" style={{ textAlign: "center", padding: 24 }}>
             <div style={{ width: 80, height: 80, borderRadius: 16, overflow: "hidden", margin: "0 auto 16px" }}>
               <ImgOrGrad item={it} aspect="1/1" />
             </div>
@@ -267,7 +268,7 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
             {str(it.price) && <div className="sv-card-price" style={{ fontSize: 24, marginTop: 12 }}>{str(it.price)}</div>}
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -277,9 +278,9 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
   if (vn === 9) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="sv-wrap">
       <Header />
-      <div className="sa2 grid grid-cols-2 lg:grid-cols-3 gap-4">
+      <StaggerChildren staggerDelay={0.12}><div className="sa2 grid grid-cols-2 lg:grid-cols-3 gap-4">
         {items.map((it, i) => (
-          <div key={i} className="sv-card" style={{ position: "relative", borderRadius: 16, overflow: "hidden" }}>
+          <div key={i} className="sv-card card-hover" style={{ position: "relative", borderRadius: 16, overflow: "hidden" }}>
             <ImgOrGrad item={it} aspect="1/1" />
             <div className="sv-overlay" style={{ borderRadius: 0 }}>
               <div style={{ width: "100%" }}>
@@ -289,7 +290,7 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -299,9 +300,9 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
   if (vn === 10) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="sv-wrap">
       <Header />
-      <div className="sa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="sa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="sv-card">
+          <div key={i} className="sv-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="sv-card-body">
               <div className="sv-card-title">{str(it.name || it.title)}</div>
@@ -311,7 +312,7 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -326,12 +327,12 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
       .sv-masonry-item{break-inside:avoid;margin-bottom:16px}
     `}</style><div className="sv-wrap">
       <Header />
-      <div className="sv-masonry sa2">
+      <StaggerChildren staggerDelay={0.12}><div className="sv-masonry sa2">
         {items.map((it, i) => {
           const tall = i % 3 === 0;
           return (
             <div key={i} className="sv-masonry-item">
-              <div className="sv-card">
+              <div className="sv-card card-hover">
                 <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} aspect={tall ? "3/4" : "4/3"} /></div>
                 <div className="sv-card-body">
                   <div className="sv-card-title">{str(it.name || it.title)}</div>
@@ -341,7 +342,7 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
             </div>
           );
         })}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -351,9 +352,9 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
   if (vn === 12) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="sv-wrap">
       <Header />
-      <div className="sa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="sa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="sv-card">
+          <div key={i} className="sv-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="sv-card-body">
               <div className="sv-card-title">{str(it.name || it.title)}</div>
@@ -368,7 +369,7 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -379,12 +380,12 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
     const badgeColors: Record<string, string> = { bestseller: "sv-badge-accent", nowosc: "sv-badge-green", limitowane: "sv-badge-red", wyprzedaz: "sv-badge-purple", promocja: "sv-badge-purple" };
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="sv-wrap">
       <Header />
-      <div className="sa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="sa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => {
           const badge = str(it.badge || it.tag);
           const cls = badgeColors[badge.toLowerCase()] || "sv-badge-accent";
           return (
-            <div key={i} className="sv-card">
+            <div key={i} className="sv-card card-hover">
               <div style={{ overflow: "hidden", position: "relative" }}>
                 <ImgOrGrad item={it} />
                 {badge && <div className={`sv-badge ${cls}`}>{badge}</div>}
@@ -397,7 +398,7 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
             </div>
           );
         })}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -409,13 +410,13 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
     const specs = arr(it.specs || it.features || content.specs);
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="sv-wrap">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-        <div className="sa1" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 20px 60px rgb(0 0 0/0.08)" }}>
+        <ScrollReveal delay={0}><div className="sa1" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 20px 60px rgb(0 0 0/0.08)" }}>
           <ImgOrGrad item={it} aspect="4/5" />
-        </div>
+        </div></ScrollReveal>
         <div className="sa2">
-          <h2 style={{ fontFamily: "var(--font-display)", fontSize: 32, fontWeight: 700, marginBottom: 8 }}>{str(it.name || it.title || hl)}</h2>
+          <ScrollReveal delay={0.1}><h2 style={{ fontFamily: "var(--font-display)", fontSize: 32, fontWeight: 700, marginBottom: 8 }}>{str(it.name || it.title || hl)}</h2></ScrollReveal>
           {str(it.price) && <div style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 700, color: "rgb(var(--color-accent))", marginBottom: 16 }}>{str(it.price)}</div>}
-          <p style={{ fontSize: 15, lineHeight: 1.7, color: "rgb(var(--color-text-muted))", marginBottom: 24 }}>{str(it.desc || it.description || body)}</p>
+          <ScrollReveal delay={0.2}><p style={{ fontSize: 15, lineHeight: 1.7, color: "rgb(var(--color-text-muted))", marginBottom: 24 }}>{str(it.desc || it.description || body)}</p></ScrollReveal>
           {specs.length > 0 && (
             <div style={{ borderRadius: 16, border: "1px solid rgb(var(--color-border)/0.5)", overflow: "hidden", marginBottom: 24 }}>
               {specs.map((sp, j) => (
@@ -439,15 +440,15 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
     const it = items[0] || {};
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="sv-wrap">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div className="sa1">
+        <ScrollReveal delay={0}><div className="sa1">
           <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 20px 60px rgb(0 0 0/0.08)", marginBottom: 12 }}>
             <ImgOrGrad item={it} aspect="1/1" />
           </div>
-        </div>
+        </div></ScrollReveal>
         <div className="sa2">
-          <h2 style={{ fontFamily: "var(--font-display)", fontSize: 32, fontWeight: 700, marginBottom: 8 }}>{str(it.name || it.title || hl)}</h2>
+          <ScrollReveal delay={0.1}><h2 style={{ fontFamily: "var(--font-display)", fontSize: 32, fontWeight: 700, marginBottom: 8 }}>{str(it.name || it.title || hl)}</h2></ScrollReveal>
           {str(it.price) && <div style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 700, color: "rgb(var(--color-accent))", marginBottom: 16 }}>{str(it.price)}</div>}
-          <p style={{ fontSize: 15, lineHeight: 1.7, color: "rgb(var(--color-text-muted))", marginBottom: 24 }}>{str(it.desc || it.description || body)}</p>
+          <ScrollReveal delay={0.2}><p style={{ fontSize: 15, lineHeight: 1.7, color: "rgb(var(--color-text-muted))", marginBottom: 24 }}>{str(it.desc || it.description || body)}</p></ScrollReveal>
           <a href="#" className="sv-btn sv-btn-sm">{str(it.cta_label) || "Umow wizyte"} <Arrow /></a>
         </div>
       </div>
@@ -459,9 +460,9 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
   // =========================================================================
   return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="sv-wrap">
     <Header />
-    <div className="sa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <StaggerChildren staggerDelay={0.12}><div className="sa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {items.map((it, i) => (
-        <div key={i} className="sv-card">
+        <div key={i} className="sv-card card-hover">
           <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
           <div className="sv-card-body">
             <div className="sv-card-title">{str(it.name || it.title)}</div>
@@ -470,6 +471,6 @@ export default function ServicesSection({ content, vn }: ServicesProps) {
           </div>
         </div>
       ))}
-    </div>
+    </div></StaggerChildren>
   </div></section>);
 }

@@ -4,6 +4,7 @@
 // 15 individually crafted FAQ variants matching HTML mockups.
 
 import { str, arr, resolveIcon } from "./shared";
+import { ScrollReveal, StaggerChildren } from "./ClientComponents";
 
 interface FaqProps {
   content: Record<string, unknown>;
@@ -70,22 +71,24 @@ export default function FaqSection({ content, vn }: FaqProps) {
   const items = arr(content.items);
 
   const Header = () => (
-    <div className="fq-header fa1">
-      {ey && <div className="fq-eyebrow"><div className="fq-eline"/><span className="fq-etxt">{ey}</span><div className="fq-eline-r"/></div>}
-      <h2 className="fq-h2">{hl}</h2>
-      {body && <p className="fq-desc">{body}</p>}
+    <div className="fq-header">
+      <ScrollReveal delay={0}>
+        {ey && <div className="fq-eyebrow"><div className="fq-eline"/><span className="fq-etxt">{ey}</span><div className="fq-eline-r"/></div>}
+        <h2 className="fq-h2">{hl}</h2>
+      </ScrollReveal>
+      {body && <ScrollReveal delay={0.1}><p className="fq-desc">{body}</p></ScrollReveal>}
     </div>
   );
 
   const Accordion = ({ maxW = 700 }: { maxW?: number }) => (
-    <div className="fa2" style={{ maxWidth: maxW, margin: "0 auto" }}>
+    <StaggerChildren staggerDelay={0.08}><div style={{ maxWidth: maxW, margin: "0 auto" }}>
       {items.map((it, i) => (
         <details key={i} className="fq-item">
           <summary>{str(it.question)}<span className="fq-plus">+</span></summary>
           <div className="fq-answer" dangerouslySetInnerHTML={{ __html: str(it.answer) }} />
         </details>
       ))}
-    </div>
+    </div></StaggerChildren>
   );
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -111,14 +114,14 @@ export default function FaqSection({ content, vn }: FaqProps) {
   if (vn === 4) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="fq-wrap">
       <Header />
-      <div className="fa2 grid grid-cols-1 md:grid-cols-2 gap-5">
+      <StaggerChildren staggerDelay={0.08}><div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {items.map((it, i) => (
           <div key={i} className="fq-card">
             <div className="fq-card-q">{str(it.question)}</div>
             <div className="fq-card-a" dangerouslySetInnerHTML={{ __html: str(it.answer) }} />
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -126,10 +129,10 @@ export default function FaqSection({ content, vn }: FaqProps) {
   if (vn === 5) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="fq-wrap">
       <Header />
-      <div className="fa1" style={{ maxWidth: 700, margin: "0 auto 32px", position: "relative" }}>
+      <ScrollReveal delay={0.1}><div style={{ maxWidth: 700, margin: "0 auto 32px", position: "relative" }}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgb(var(--color-text-dim))" strokeWidth="2" style={{ position: "absolute", left: 16, top: "50%", transform: "translateY(-50%)" }}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         <input type="text" className="fq-input" placeholder="Wpisz pytanie..." />
-      </div>
+      </div></ScrollReveal>
       <Accordion />
     </div></section>);
   }
@@ -140,7 +143,7 @@ export default function FaqSection({ content, vn }: FaqProps) {
   if (vn === 6) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="fq-wrap">
       <Header />
-      <div className="fa2" style={{ maxWidth: 700, margin: "0 auto" }}>
+      <StaggerChildren staggerDelay={0.08}><div style={{ maxWidth: 700, margin: "0 auto" }}>
         {items.map((it, i) => (
           <details key={i} className="fq-item">
             <summary style={{ gap: 14 }}>
@@ -153,7 +156,7 @@ export default function FaqSection({ content, vn }: FaqProps) {
             <div className="fq-answer" style={{ paddingLeft: 50 }} dangerouslySetInnerHTML={{ __html: str(it.answer) }} />
           </details>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -163,20 +166,20 @@ export default function FaqSection({ content, vn }: FaqProps) {
   if (vn === 7) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="fq-wrap">
       <Header />
-      <div className="fa2 grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 items-start">
-        <div>
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 items-start">
+        <StaggerChildren staggerDelay={0.08}><div>
           {items.map((it, i) => (
             <details key={i} className="fq-item">
               <summary>{str(it.question)}<span className="fq-plus">+</span></summary>
               <div className="fq-answer" dangerouslySetInnerHTML={{ __html: str(it.answer) }} />
             </details>
           ))}
-        </div>
-        <div className="fq-cta-card" style={{ position: "sticky", top: 100 }}>
+        </div></StaggerChildren>
+        <ScrollReveal delay={0.2}><div className="fq-cta-card" style={{ position: "sticky", top: 100 }}>
           <div style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 600, color: "rgb(var(--color-text-primary))", marginBottom: 10 }}>Nie znalazles odpowiedzi?</div>
           <p style={{ fontSize: 13, color: "rgb(var(--color-text-muted))", lineHeight: 1.6, marginBottom: 20 }}>Napisz do nas - chetnie pomozemy dobrac idealna swiece.</p>
           <a href="#" className="fq-btn">Skontaktuj sie <Arrow /></a>
-        </div>
+        </div></ScrollReveal>
       </div>
     </div></section>);
   }
@@ -185,14 +188,14 @@ export default function FaqSection({ content, vn }: FaqProps) {
   if (vn === 8) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="fq-wrap">
       <Header />
-      <div className="fa2 grid grid-cols-1 md:grid-cols-2 gap-5">
+      <StaggerChildren staggerDelay={0.08}><div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {items.map((it, i) => (
           <div key={i} style={{ background: "rgb(var(--color-surface)/0.9)", backdropFilter: "blur(16px)", border: "1px solid rgb(var(--color-border)/0.5)", borderRadius: 20, padding: 24, transition: "all 0.3s" }} className="hover:shadow-lg hover:-translate-y-1">
             <div className="fq-card-q">{str(it.question)}</div>
             <div className="fq-card-a" dangerouslySetInnerHTML={{ __html: str(it.answer) }} />
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -202,14 +205,14 @@ export default function FaqSection({ content, vn }: FaqProps) {
   if (vn === 9) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="fq-wrap">
       <Header />
-      <div className="fa2 grid grid-cols-1 md:grid-cols-2 gap-5">
+      <StaggerChildren staggerDelay={0.08}><div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {items.map((it, i) => (
           <div key={i} className="fq-card">
             <div className="fq-card-q">{str(it.question)}</div>
             <div className="fq-card-a" dangerouslySetInnerHTML={{ __html: str(it.answer) }} />
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -217,7 +220,7 @@ export default function FaqSection({ content, vn }: FaqProps) {
   if (vn === 10) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="fq-wrap">
       <Header />
-      <div className="fa2" style={{ maxWidth: 700, margin: "0 auto" }}>
+      <StaggerChildren staggerDelay={0.08}><div style={{ maxWidth: 700, margin: "0 auto" }}>
         {items.map((it, i) => (
           <details key={i} className="fq-item">
             <summary>{str(it.question)}<span className="fq-plus">+</span></summary>
@@ -231,7 +234,7 @@ export default function FaqSection({ content, vn }: FaqProps) {
             </div>
           </details>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -241,7 +244,7 @@ export default function FaqSection({ content, vn }: FaqProps) {
   if (vn === 11) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="fq-wrap">
       <Header />
-      <div className="fa2" style={{ maxWidth: 700, margin: "0 auto", display: "flex", flexDirection: "column", gap: 24 }}>
+      <StaggerChildren staggerDelay={0.08}><div style={{ maxWidth: 700, margin: "0 auto", display: "flex", flexDirection: "column", gap: 24 }}>
         {items.map((it, i) => (
           <div key={i} style={{ display: "flex", gap: 16 }}>
             <div className="fq-num">{i + 1}</div>
@@ -251,7 +254,7 @@ export default function FaqSection({ content, vn }: FaqProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -259,7 +262,7 @@ export default function FaqSection({ content, vn }: FaqProps) {
   if (vn === 12) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="fq-wrap">
       <Header />
-      <div className="fa2" style={{ position: "relative", maxWidth: 700, margin: "0 auto", paddingLeft: 40 }}>
+      <StaggerChildren staggerDelay={0.08}><div style={{ position: "relative", maxWidth: 700, margin: "0 auto", paddingLeft: 40 }}>
         <div style={{ position: "absolute", left: 15, top: 8, bottom: 8, width: 2, background: "linear-gradient(to bottom, rgb(var(--color-accent)/0.3), rgb(var(--color-border)/0.3))", borderRadius: 1 }} />
         {items.map((it, i) => (
           <div key={i} style={{ position: "relative", paddingBottom: i < items.length - 1 ? 32 : 0 }}>
@@ -268,7 +271,7 @@ export default function FaqSection({ content, vn }: FaqProps) {
             <div style={{ fontSize: 14, lineHeight: 1.7, color: "rgb(var(--color-text-muted))" }} dangerouslySetInnerHTML={{ __html: str(it.answer) }} />
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -283,7 +286,7 @@ export default function FaqSection({ content, vn }: FaqProps) {
   if (vn === 14) {
     return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="fq-wrap">
       <Header />
-      <div className="fa2" style={{ maxWidth: 600, margin: "0 auto", display: "flex", flexDirection: "column", gap: 16 }}>
+      <StaggerChildren staggerDelay={0.08}><div style={{ maxWidth: 600, margin: "0 auto", display: "flex", flexDirection: "column", gap: 16 }}>
         {items.map((it, i) => (
           <div key={i} style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {/* Question - right aligned */}
@@ -297,7 +300,7 @@ export default function FaqSection({ content, vn }: FaqProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 

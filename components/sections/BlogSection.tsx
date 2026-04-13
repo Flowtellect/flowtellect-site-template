@@ -6,6 +6,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { str, arr, resolveImage } from "./shared";
+import { ScrollReveal, StaggerChildren } from "./ClientComponents";
 
 interface BlogProps {
   content: Record<string, unknown>;
@@ -76,10 +77,12 @@ export default function BlogSection({ content, vn }: BlogProps) {
   const ctaObj = content.cta as Record<string, unknown> | null;
 
   const Header = () => (
-    <div className="bl-header ba1">
-      {ey && <div className="bl-eyebrow"><div className="bl-eline"/><span className="bl-etxt">{ey}</span><div className="bl-eline-r"/></div>}
-      <h2 className="bl-h2">{hl}</h2>
-      {body && <p className="bl-desc">{body}</p>}
+    <div className="bl-header">
+      <ScrollReveal delay={0}>
+        {ey && <div className="bl-eyebrow"><div className="bl-eline"/><span className="bl-etxt">{ey}</span><div className="bl-eline-r"/></div>}
+        <h2 className="bl-h2">{hl}</h2>
+      </ScrollReveal>
+      {body && <ScrollReveal delay={0.1}><p className="bl-desc">{body}</p></ScrollReveal>}
     </div>
   );
 
@@ -109,9 +112,9 @@ export default function BlogSection({ content, vn }: BlogProps) {
   if (vn === 1) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="bl-wrap">
       <Header />
-      <div className="ba2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="bl-card">
+          <div key={i} className="bl-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="bl-card-body">
               <CardMeta item={it} />
@@ -121,8 +124,8 @@ export default function BlogSection({ content, vn }: BlogProps) {
             </div>
           </div>
         ))}
-      </div>
-      {ctaObj && <div className="ba2" style={{ textAlign: "center", marginTop: 40 }}><a href={str(ctaObj.href) || "#"} className="bl-btn bl-btn-sm">{str(ctaObj.label)} <Arrow /></a></div>}
+      </div></StaggerChildren>
+      {ctaObj && <div style={{ textAlign: "center", marginTop: 40 }}><a href={str(ctaObj.href) || "#"} className="bl-btn bl-btn-sm">{str(ctaObj.label)} <Arrow /></a></div>}
     </div></section>);
   }
 
@@ -132,9 +135,9 @@ export default function BlogSection({ content, vn }: BlogProps) {
   if (vn === 2) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="bl-wrap">
       <Header />
-      <div className="ba2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="bl-card">
+          <div key={i} className="bl-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="bl-card-body">
               {str(it.category) && <div className="bl-cat">{str(it.category)}</div>}
@@ -148,7 +151,7 @@ export default function BlogSection({ content, vn }: BlogProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -161,9 +164,9 @@ export default function BlogSection({ content, vn }: BlogProps) {
       .bl-card:hover .bl-overlay{opacity:1}
     `}</style><div className="bl-wrap">
       <Header />
-      <div className="ba2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="bl-card" style={{ position: "relative", borderRadius: 20, overflow: "hidden" }}>
+          <div key={i} className="bl-card card-hover" style={{ position: "relative", borderRadius: 20, overflow: "hidden" }}>
             <ImgOrGrad item={it} aspect="4/3" />
             <div className="bl-overlay">
               <div>
@@ -174,8 +177,8 @@ export default function BlogSection({ content, vn }: BlogProps) {
             </div>
           </div>
         ))}
-      </div>
-      {ctaObj && <div className="ba2" style={{ textAlign: "center", marginTop: 40 }}><a href={str(ctaObj.href) || "#"} className="bl-btn bl-btn-sm">{str(ctaObj.label)} <Arrow /></a></div>}
+      </div></StaggerChildren>
+      {ctaObj && <div style={{ textAlign: "center", marginTop: 40 }}><a href={str(ctaObj.href) || "#"} className="bl-btn bl-btn-sm">{str(ctaObj.label)} <Arrow /></a></div>}
     </div></section>);
   }
 
@@ -190,9 +193,9 @@ export default function BlogSection({ content, vn }: BlogProps) {
       @media(min-width:768px){.bl-scroll{padding:0 24px 16px}.bl-scroll-card{min-width:340px}}
     `}</style><div className="bl-wrap">
       <Header />
-      <div className="bl-scroll ba2">
+      <ScrollReveal delay={0.2}><div className="bl-scroll">
         {items.map((it, i) => (
-          <div key={i} className="bl-card bl-scroll-card">
+          <div key={i} className="bl-card bl-scroll-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="bl-card-body">
               <CardMeta item={it} />
@@ -202,7 +205,7 @@ export default function BlogSection({ content, vn }: BlogProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></ScrollReveal>
     </div></section>);
   }
 
@@ -214,16 +217,16 @@ export default function BlogSection({ content, vn }: BlogProps) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="bl-wrap">
       <Header />
       {categories.length > 0 && (
-        <div className="ba1" style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center", marginBottom: 32 }}>
+        <ScrollReveal delay={0.1}><div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center", marginBottom: 32 }}>
           <span className="bl-filter bl-filter-active">Wszystkie</span>
           {categories.map((cat, i) => (
             <span key={i} className="bl-filter">{cat}</span>
           ))}
-        </div>
+        </div></ScrollReveal>
       )}
-      <div className="ba2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="bl-card">
+          <div key={i} className="bl-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="bl-card-body">
               {str(it.category) && <div className="bl-cat">{str(it.category)}</div>}
@@ -234,7 +237,7 @@ export default function BlogSection({ content, vn }: BlogProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -249,12 +252,12 @@ export default function BlogSection({ content, vn }: BlogProps) {
       .bl-masonry-item{break-inside:avoid;margin-bottom:16px}
     `}</style><div className="bl-wrap">
       <Header />
-      <div className="bl-masonry ba2">
+      <StaggerChildren staggerDelay={0.12}><div className="bl-masonry">
         {items.map((it, i) => {
           const tall = i % 3 === 0;
           return (
             <div key={i} className="bl-masonry-item">
-              <div className="bl-card">
+              <div className="bl-card card-hover">
                 <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} aspect={tall ? "3/4" : "16/9"} /></div>
                 <div className="bl-card-body">
                   <CardMeta item={it} />
@@ -266,7 +269,7 @@ export default function BlogSection({ content, vn }: BlogProps) {
             </div>
           );
         })}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -280,11 +283,11 @@ export default function BlogSection({ content, vn }: BlogProps) {
       .bl-list-item:hover{padding-left:12px}
     `}</style><div className="bl-wrap">
       <Header />
-      <div className="ba2" style={{ maxWidth: 800, margin: "0 auto" }}>
+      <StaggerChildren staggerDelay={0.12}><div style={{ maxWidth: 800, margin: "0 auto" }}>
         {items.map((it, i) => {
           const date = fmtDate(it.date || it.published || it.publishedAt || it.created);
           return (
-            <div key={i} className="bl-list-item">
+            <div key={i} className="bl-list-item card-hover">
               <div style={{ display: "flex", flexWrap: "wrap", alignItems: "baseline", gap: "8px 16px", marginBottom: 6 }}>
                 <a href={str(it.href || it.url || it.slug) || "#"} style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 600, color: "rgb(var(--color-text-primary))", textDecoration: "none", transition: "color .2s" }}>{str(it.title || it.name)}</a>
                 {date && <span style={{ fontSize: 13, color: "rgb(var(--color-text-dim))", whiteSpace: "nowrap" }}>{date}</span>}
@@ -294,8 +297,8 @@ export default function BlogSection({ content, vn }: BlogProps) {
             </div>
           );
         })}
-      </div>
-      {ctaObj && <div className="ba2" style={{ textAlign: "center", marginTop: 40 }}><a href={str(ctaObj.href) || "#"} className="bl-btn bl-btn-sm">{str(ctaObj.label)} <Arrow /></a></div>}
+      </div></StaggerChildren>
+      {ctaObj && <div style={{ textAlign: "center", marginTop: 40 }}><a href={str(ctaObj.href) || "#"} className="bl-btn bl-btn-sm">{str(ctaObj.label)} <Arrow /></a></div>}
     </div></section>);
   }
 
@@ -309,9 +312,9 @@ export default function BlogSection({ content, vn }: BlogProps) {
       .bl-nl-input:focus{border-color:rgb(var(--color-accent)/0.5)}
     `}</style><div className="bl-wrap">
       <Header />
-      <div className="ba2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="bl-card">
+          <div key={i} className="bl-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="bl-card-body">
               <CardMeta item={it} />
@@ -331,7 +334,7 @@ export default function BlogSection({ content, vn }: BlogProps) {
             <button className="bl-btn" style={{ width: "auto", whiteSpace: "nowrap", padding: "10px 18px" }}>Zapisz</button>
           </div>
         </div>
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -349,7 +352,7 @@ export default function BlogSection({ content, vn }: BlogProps) {
       @media(min-width:768px){.bl-timeline{padding-left:48px}.bl-timeline::before{left:19px}.bl-tl-dot{left:-48px;width:24px;height:24px}}
     `}</style><div className="bl-wrap">
       <Header />
-      <div className="bl-timeline ba2">
+      <StaggerChildren staggerDelay={0.12}><div className="bl-timeline">
         {items.map((it, i) => {
           const date = fmtDate(it.date || it.published || it.publishedAt || it.created);
           const src = resolveImage(it.image || it.src);
@@ -357,7 +360,7 @@ export default function BlogSection({ content, vn }: BlogProps) {
             <div key={i} className="bl-tl-item">
               <div className="bl-tl-dot" />
               {date && <div style={{ fontSize: 12, fontWeight: 600, color: "rgb(var(--color-accent))", marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.05em" }}>{date}</div>}
-              <div className="bl-card" style={{ flexDirection: src ? "row" : "column" }}>
+              <div className="bl-card card-hover" style={{ flexDirection: src ? "row" : "column" }}>
                 {src && (
                   <div style={{ flexShrink: 0, width: "100%", maxWidth: 180, overflow: "hidden" }}>
                     <img src={src} alt={str(it.title || it.name)} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", minHeight: 120 }} />
@@ -373,7 +376,7 @@ export default function BlogSection({ content, vn }: BlogProps) {
             </div>
           );
         })}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -389,7 +392,7 @@ export default function BlogSection({ content, vn }: BlogProps) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="bl-wrap">
       <Header />
       {/* Featured large post */}
-      <div className="ba1 grid grid-cols-1 md:grid-cols-2 gap-8 items-center" style={{ marginBottom: 40 }}>
+      <ScrollReveal delay={0.15}><div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center" style={{ marginBottom: 40 }}>
         <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 16px 48px rgb(0 0 0/0.08)" }}>
           <ImgOrGrad item={featured} aspect="4/3" />
         </div>
@@ -400,12 +403,12 @@ export default function BlogSection({ content, vn }: BlogProps) {
           <div style={{ fontSize: 15, lineHeight: 1.7, color: "rgb(var(--color-text-muted))", marginBottom: 16 }}>{str(featured.excerpt || featured.description || featured.desc)}</div>
           <a href={str(featured.href || featured.url || featured.slug) || "#"} className="bl-btn bl-btn-sm">Czytaj dalej <Arrow /></a>
         </div>
-      </div>
+      </div></ScrollReveal>
       {/* Rest in grid */}
       {rest.length > 0 && (
-        <div className="ba2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <StaggerChildren staggerDelay={0.12}><div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {rest.map((it, i) => (
-            <div key={i} className="bl-card">
+            <div key={i} className="bl-card card-hover">
               <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
               <div className="bl-card-body">
                 <CardMeta item={it} />
@@ -415,7 +418,7 @@ export default function BlogSection({ content, vn }: BlogProps) {
               </div>
             </div>
           ))}
-        </div>
+        </div></StaggerChildren>
       )}
     </div></section>);
   }
@@ -425,9 +428,9 @@ export default function BlogSection({ content, vn }: BlogProps) {
   // =========================================================================
   return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="bl-wrap">
     <Header />
-    <div className="ba2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <StaggerChildren staggerDelay={0.12}><div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {items.map((it, i) => (
-        <div key={i} className="bl-card">
+        <div key={i} className="bl-card card-hover">
           <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
           <div className="bl-card-body">
             <CardMeta item={it} />
@@ -437,6 +440,6 @@ export default function BlogSection({ content, vn }: BlogProps) {
           </div>
         </div>
       ))}
-    </div>
+    </div></StaggerChildren>
   </div></section>);
 }

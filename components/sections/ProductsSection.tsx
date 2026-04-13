@@ -7,6 +7,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { str, arr, resolveImage, resolveIcon } from "./shared";
+import { ScrollReveal, StaggerChildren } from "./ClientComponents";
 
 interface ProductsProps {
   content: Record<string, unknown>;
@@ -72,9 +73,9 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
 
   const Header = () => (
     <div className="pr-header pa1">
-      {ey && <div className="pr-eyebrow"><div className="pr-eline"/><span className="pr-etxt">{ey}</span><div className="pr-eline-r"/></div>}
-      <h2 className="pr-h2">{hl}</h2>
-      {body && <p className="pr-desc">{body}</p>}
+      {ey && <ScrollReveal delay={0}><div className="pr-eyebrow"><div className="pr-eline"/><span className="pr-etxt">{ey}</span><div className="pr-eline-r"/></div></ScrollReveal>}
+      <ScrollReveal delay={0.1}><h2 className="pr-h2">{hl}</h2></ScrollReveal>
+      {body && <ScrollReveal delay={0.2}><p className="pr-desc">{body}</p></ScrollReveal>}
     </div>
   );
 
@@ -91,9 +92,9 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
   if (vn === 1) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
       <Header />
-      <div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="pr-card">
+          <div key={i} className="pr-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="pr-card-body">
               {str(it.icon) && <div style={{ fontSize: 20, marginBottom: 6 }}>{resolveIcon(it.icon)}</div>}
@@ -103,7 +104,7 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
       {ctaObj && <div className="pa2" style={{ textAlign: "center", marginTop: 40 }}><a href={str(ctaObj.href) || "#"} className="pr-btn pr-btn-sm">{str(ctaObj.label)} <Arrow /></a></div>}
     </div></section>);
   }
@@ -114,11 +115,11 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
   if (vn === 2) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
       <Header />
-      <div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => {
           const badge = str(it.badge || it.tag);
           return (
-            <div key={i} className="pr-card">
+            <div key={i} className="pr-card card-hover">
               <div style={{ overflow: "hidden", position: "relative" }}>
                 <ImgOrGrad item={it} />
                 {badge && <div className="pr-badge pr-badge-accent">{badge}</div>}
@@ -131,7 +132,7 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
             </div>
           );
         })}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -141,9 +142,9 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
   if (vn === 3) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
       <Header />
-      <div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="pr-card">
+          <div key={i} className="pr-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="pr-card-body">
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 6 }}>
@@ -155,7 +156,7 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -165,9 +166,9 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
   if (vn === 4) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
       <Header />
-      <div className="pa2 grid grid-cols-1 md:grid-cols-2 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="pa2 grid grid-cols-1 md:grid-cols-2 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="pr-card" style={{ position: "relative", borderRadius: 20, overflow: "hidden" }}>
+          <div key={i} className="pr-card card-hover" style={{ position: "relative", borderRadius: 20, overflow: "hidden" }}>
             <ImgOrGrad item={it} aspect="3/4" />
             <div className="pr-overlay">
               <div>
@@ -177,7 +178,7 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -192,9 +193,9 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
       @media(min-width:768px){.pr-scroll{padding:0 24px 16px}.pr-scroll-card{min-width:300px}}
     `}</style><div className="pr-wrap">
       <Header />
-      <div className="pr-scroll pa2">
+      <ScrollReveal delay={0.2}><div className="pr-scroll pa2">
         {items.map((it, i) => (
-          <div key={i} className="pr-card pr-scroll-card">
+          <div key={i} className="pr-card pr-scroll-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="pr-card-body">
               <div className="pr-card-title">{str(it.name || it.title)}</div>
@@ -203,7 +204,7 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></ScrollReveal>
     </div></section>);
   }
 
@@ -214,13 +215,13 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
     const it = items[0] || {};
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <div className="pa1" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 24px 64px rgb(0 0 0/0.1)" }}>
+        <ScrollReveal delay={0}><div className="pa1" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 24px 64px rgb(0 0 0/0.1)" }}>
           <ImgOrGrad item={it} aspect="1/1" />
-        </div>
+        </div></ScrollReveal>
         <div className="pa2">
-          {ey && <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgb(var(--color-accent))", marginBottom: 12 }}>{ey}</div>}
-          <h2 style={{ fontFamily: "var(--font-display)", fontSize: 36, fontWeight: 700, color: "rgb(var(--color-text-primary))", marginBottom: 12, lineHeight: 1.15 }}>{str(it.name || it.title || hl)}</h2>
-          <p style={{ fontSize: 15, lineHeight: 1.7, color: "rgb(var(--color-text-muted))", marginBottom: 20 }}>{str(it.desc || it.description || body)}</p>
+          {ey && <ScrollReveal delay={0}><div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgb(var(--color-accent))", marginBottom: 12 }}>{ey}</div></ScrollReveal>}
+          <ScrollReveal delay={0.1}><h2 style={{ fontFamily: "var(--font-display)", fontSize: 36, fontWeight: 700, color: "rgb(var(--color-text-primary))", marginBottom: 12, lineHeight: 1.15 }}>{str(it.name || it.title || hl)}</h2></ScrollReveal>
+          <ScrollReveal delay={0.2}><p style={{ fontSize: 15, lineHeight: 1.7, color: "rgb(var(--color-text-muted))", marginBottom: 20 }}>{str(it.desc || it.description || body)}</p></ScrollReveal>
           {str(it.price) && <div style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 700, color: "rgb(var(--color-accent))", marginBottom: 24 }}>{str(it.price)}</div>}
           <a href={str(it.href || it.cta_href) || "#"} className="pr-btn pr-btn-sm">{str(it.cta_label) || "Zamow teraz"} <Arrow /></a>
         </div>
@@ -234,9 +235,9 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
   if (vn === 7) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
       <Header />
-      <div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="pr-card">
+          <div key={i} className="pr-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="pr-card-body">
               {str(it.category) && <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgb(var(--color-accent))", marginBottom: 6 }}>{str(it.category)}</div>}
@@ -246,7 +247,7 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -256,9 +257,9 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
   if (vn === 8) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
       <Header />
-      <div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <StaggerChildren staggerDelay={0.12}><div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {items.map((it, i) => (
-          <div key={i} className="pr-card" style={{ textAlign: "center", padding: 24 }}>
+          <div key={i} className="pr-card card-hover" style={{ textAlign: "center", padding: 24 }}>
             <div style={{ width: 80, height: 80, borderRadius: 16, overflow: "hidden", margin: "0 auto 16px" }}>
               <ImgOrGrad item={it} aspect="1/1" />
             </div>
@@ -267,7 +268,7 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
             {str(it.price) && <div className="pr-card-price" style={{ fontSize: 24, marginTop: 12 }}>{str(it.price)}</div>}
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -277,9 +278,9 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
   if (vn === 9) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
       <Header />
-      <div className="pa2 grid grid-cols-2 lg:grid-cols-3 gap-4">
+      <StaggerChildren staggerDelay={0.12}><div className="pa2 grid grid-cols-2 lg:grid-cols-3 gap-4">
         {items.map((it, i) => (
-          <div key={i} className="pr-card" style={{ position: "relative", borderRadius: 16, overflow: "hidden" }}>
+          <div key={i} className="pr-card card-hover" style={{ position: "relative", borderRadius: 16, overflow: "hidden" }}>
             <ImgOrGrad item={it} aspect="1/1" />
             <div className="pr-overlay" style={{ borderRadius: 0 }}>
               <div style={{ width: "100%" }}>
@@ -289,7 +290,7 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -299,9 +300,9 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
   if (vn === 10) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
       <Header />
-      <div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="pr-card">
+          <div key={i} className="pr-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="pr-card-body">
               <div className="pr-card-title">{str(it.name || it.title)}</div>
@@ -311,7 +312,7 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -326,12 +327,12 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
       .pr-masonry-item{break-inside:avoid;margin-bottom:16px}
     `}</style><div className="pr-wrap">
       <Header />
-      <div className="pr-masonry pa2">
+      <StaggerChildren staggerDelay={0.12}><div className="pr-masonry pa2">
         {items.map((it, i) => {
           const tall = i % 3 === 0;
           return (
             <div key={i} className="pr-masonry-item">
-              <div className="pr-card">
+              <div className="pr-card card-hover">
                 <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} aspect={tall ? "3/4" : "4/3"} /></div>
                 <div className="pr-card-body">
                   <div className="pr-card-title">{str(it.name || it.title)}</div>
@@ -341,7 +342,7 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
             </div>
           );
         })}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -351,9 +352,9 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
   if (vn === 12) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
       <Header />
-      <div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="pr-card">
+          <div key={i} className="pr-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="pr-card-body">
               <div className="pr-card-title">{str(it.name || it.title)}</div>
@@ -368,7 +369,7 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -379,12 +380,12 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
     const badgeColors: Record<string, string> = { bestseller: "pr-badge-accent", nowosc: "pr-badge-green", limitowane: "pr-badge-red", wyprzedaz: "pr-badge-purple", promocja: "pr-badge-purple" };
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
       <Header />
-      <div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => {
           const badge = str(it.badge || it.tag);
           const cls = badgeColors[badge.toLowerCase()] || "pr-badge-accent";
           return (
-            <div key={i} className="pr-card">
+            <div key={i} className="pr-card card-hover">
               <div style={{ overflow: "hidden", position: "relative" }}>
                 <ImgOrGrad item={it} />
                 {badge && <div className={`pr-badge ${cls}`}>{badge}</div>}
@@ -397,7 +398,7 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
             </div>
           );
         })}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -409,13 +410,13 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
     const specs = arr(it.specs || it.features || content.specs);
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-        <div className="pa1" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 20px 60px rgb(0 0 0/0.08)" }}>
+        <ScrollReveal delay={0}><div className="pa1" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 20px 60px rgb(0 0 0/0.08)" }}>
           <ImgOrGrad item={it} aspect="4/5" />
-        </div>
+        </div></ScrollReveal>
         <div className="pa2">
-          <h2 style={{ fontFamily: "var(--font-display)", fontSize: 32, fontWeight: 700, marginBottom: 8 }}>{str(it.name || it.title || hl)}</h2>
+          <ScrollReveal delay={0.1}><h2 style={{ fontFamily: "var(--font-display)", fontSize: 32, fontWeight: 700, marginBottom: 8 }}>{str(it.name || it.title || hl)}</h2></ScrollReveal>
           {str(it.price) && <div style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 700, color: "rgb(var(--color-accent))", marginBottom: 16 }}>{str(it.price)}</div>}
-          <p style={{ fontSize: 15, lineHeight: 1.7, color: "rgb(var(--color-text-muted))", marginBottom: 24 }}>{str(it.desc || it.description || body)}</p>
+          <ScrollReveal delay={0.2}><p style={{ fontSize: 15, lineHeight: 1.7, color: "rgb(var(--color-text-muted))", marginBottom: 24 }}>{str(it.desc || it.description || body)}</p></ScrollReveal>
           {specs.length > 0 && (
             <div style={{ borderRadius: 16, border: "1px solid rgb(var(--color-border)/0.5)", overflow: "hidden", marginBottom: 24 }}>
               {specs.map((sp, j) => (
@@ -439,15 +440,15 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
     const it = items[0] || {};
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div className="pa1">
+        <ScrollReveal delay={0}><div className="pa1">
           <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 20px 60px rgb(0 0 0/0.08)", marginBottom: 12 }}>
             <ImgOrGrad item={it} aspect="1/1" />
           </div>
-        </div>
+        </div></ScrollReveal>
         <div className="pa2">
-          <h2 style={{ fontFamily: "var(--font-display)", fontSize: 32, fontWeight: 700, marginBottom: 8 }}>{str(it.name || it.title || hl)}</h2>
+          <ScrollReveal delay={0.1}><h2 style={{ fontFamily: "var(--font-display)", fontSize: 32, fontWeight: 700, marginBottom: 8 }}>{str(it.name || it.title || hl)}</h2></ScrollReveal>
           {str(it.price) && <div style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 700, color: "rgb(var(--color-accent))", marginBottom: 16 }}>{str(it.price)}</div>}
-          <p style={{ fontSize: 15, lineHeight: 1.7, color: "rgb(var(--color-text-muted))", marginBottom: 24 }}>{str(it.desc || it.description || body)}</p>
+          <ScrollReveal delay={0.2}><p style={{ fontSize: 15, lineHeight: 1.7, color: "rgb(var(--color-text-muted))", marginBottom: 24 }}>{str(it.desc || it.description || body)}</p></ScrollReveal>
           <a href="#" className="pr-btn pr-btn-sm">{str(it.cta_label) || "Zamow teraz"} <Arrow /></a>
         </div>
       </div>
@@ -464,9 +465,9 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
       .pr-3d .pr-card:hover{transform:rotateY(4deg) rotateX(-2deg);box-shadow:-8px 12px 40px rgb(0 0 0/0.1)}
     `}</style><div className="pr-wrap">
       <Header />
-      <div className="pa2 pr-3d grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="pa2 pr-3d grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="pr-card">
+          <div key={i} className="pr-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="pr-card-body">
               <div className="pr-card-title">{str(it.name || it.title)}</div>
@@ -475,7 +476,7 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -485,9 +486,9 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
   if (vn === 17) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
       <Header />
-      <div className="pa2 grid grid-cols-1 md:grid-cols-2 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="pa2 grid grid-cols-1 md:grid-cols-2 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="pr-card" style={{ position: "relative", borderRadius: 24, overflow: "hidden", minHeight: 280 }}>
+          <div key={i} className="pr-card card-hover" style={{ position: "relative", borderRadius: 24, overflow: "hidden", minHeight: 280 }}>
             <ImgOrGrad item={it} aspect="16/9" />
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.2))", display: "flex", alignItems: "flex-end", padding: 28 }}>
               <div>
@@ -498,7 +499,7 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -508,9 +509,9 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
   if (vn === 18) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
       <Header />
-      <div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {items.map((it, i) => (
-          <div key={i} className="pr-card">
+          <div key={i} className="pr-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="pr-card-body">
               <div className="pr-card-title">{str(it.name || it.title)}</div>
@@ -519,7 +520,7 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -530,16 +531,16 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
     const it = items[0] || {};
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <div className="pa1" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 24px 64px rgb(0 0 0/0.1)" }}>
+        <ScrollReveal delay={0}><div className="pa1" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 24px 64px rgb(0 0 0/0.1)" }}>
           <ImgOrGrad item={it} aspect="1/1" />
-        </div>
+        </div></ScrollReveal>
         <div className="pa2">
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 16px", background: "rgb(var(--color-accent)/0.1)", borderRadius: 100, marginBottom: 16 }}>
+          <ScrollReveal delay={0}><div style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "6px 16px", background: "rgb(var(--color-accent)/0.1)", borderRadius: 100, marginBottom: 16 }}>
             <div style={{ width: 8, height: 8, borderRadius: "50%", background: "rgb(var(--color-accent))", animation: "prUp 1.5s ease infinite" }} />
             <span style={{ fontSize: 12, fontWeight: 600, color: "rgb(var(--color-accent))", textTransform: "uppercase", letterSpacing: "0.1em" }}>Oferta dnia</span>
-          </div>
-          <h2 style={{ fontFamily: "var(--font-display)", fontSize: 32, fontWeight: 700, marginBottom: 8 }}>{str(it.name || it.title || hl)}</h2>
-          <p style={{ fontSize: 15, lineHeight: 1.7, color: "rgb(var(--color-text-muted))", marginBottom: 16 }}>{str(it.desc || it.description || body)}</p>
+          </div></ScrollReveal>
+          <ScrollReveal delay={0.1}><h2 style={{ fontFamily: "var(--font-display)", fontSize: 32, fontWeight: 700, marginBottom: 8 }}>{str(it.name || it.title || hl)}</h2></ScrollReveal>
+          <ScrollReveal delay={0.2}><p style={{ fontSize: 15, lineHeight: 1.7, color: "rgb(var(--color-text-muted))", marginBottom: 16 }}>{str(it.desc || it.description || body)}</p></ScrollReveal>
           {str(it.price) && <div style={{ fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 700, color: "rgb(var(--color-accent))", marginBottom: 24 }}>{str(it.price)}</div>}
           <a href="#" className="pr-btn pr-btn-sm">{str(it.cta_label) || "Zamow teraz"} <Arrow /></a>
         </div>
@@ -556,7 +557,7 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
       <Header />
       {/* Featured large */}
-      <div className="pa1 grid grid-cols-1 md:grid-cols-2 gap-8 items-center" style={{ marginBottom: 32 }}>
+      <ScrollReveal delay={0}><div className="pa1 grid grid-cols-1 md:grid-cols-2 gap-8 items-center" style={{ marginBottom: 32 }}>
         <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 16px 48px rgb(0 0 0/0.08)" }}>
           <ImgOrGrad item={featured} aspect="4/3" />
         </div>
@@ -566,11 +567,11 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
           <div style={{ fontSize: 15, lineHeight: 1.7, color: "rgb(var(--color-text-muted))", marginBottom: 12 }}>{str(featured.desc || featured.description)}</div>
           {str(featured.price) && <div className="pr-card-price" style={{ fontSize: 20 }}>{str(featured.price)}</div>}
         </div>
-      </div>
+      </div></ScrollReveal>
       {/* Rest in grid */}
-      <div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <StaggerChildren staggerDelay={0.12}><div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {rest.map((it, i) => (
-          <div key={i} className="pr-card">
+          <div key={i} className="pr-card card-hover">
             <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
             <div className="pr-card-body">
               <div className="pr-card-title">{str(it.name || it.title)}</div>
@@ -579,16 +580,16 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
   // Single item fallback
   return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
     <Header />
-    <div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <StaggerChildren staggerDelay={0.12}><div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {items.map((it, i) => (
-        <div key={i} className="pr-card">
+        <div key={i} className="pr-card card-hover">
           <div style={{ overflow: "hidden" }}><ImgOrGrad item={it} /></div>
           <div className="pr-card-body">
             <div className="pr-card-title">{str(it.name || it.title)}</div>
@@ -597,6 +598,6 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
           </div>
         </div>
       ))}
-    </div>
+    </div></StaggerChildren>
   </div></section>);
 }

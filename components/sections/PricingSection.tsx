@@ -4,6 +4,7 @@
 // 5 individually crafted pricing variants matching HTML mockups.
 
 import { str, arr, strArr } from "./shared";
+import { ScrollReveal, StaggerChildren } from "./ClientComponents";
 
 interface PricingProps {
   content: Record<string, unknown>;
@@ -48,8 +49,8 @@ export default function PricingSection({ content, vn }: PricingProps) {
 
   const Header = () => (
     <div className="pc-header pa1">
-      <h2 className="pc-h2">{hl}</h2>
-      {body && <p className="pc-desc">{body}</p>}
+      <ScrollReveal delay={0}><h2 className="pc-h2">{hl}</h2></ScrollReveal>
+      {body && <ScrollReveal delay={0.1}><p className="pc-desc">{body}</p></ScrollReveal>}
     </div>
   );
 
@@ -59,11 +60,11 @@ export default function PricingSection({ content, vn }: PricingProps) {
   if (vn === 1) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pc-wrap">
       <Header />
-      <div className="pa2 grid grid-cols-1 md:grid-cols-3 gap-6" style={{ alignItems: "start" }}>
+      <StaggerChildren staggerDelay={0.15}><div className="pa2 grid grid-cols-1 md:grid-cols-3 gap-6" style={{ alignItems: "start" }}>
         {tiers.map((t, i) => {
           const hl2 = !!t.highlighted;
           return (
-            <div key={i} className={`pc-card ${hl2 ? "pc-card-hl" : ""}`} style={hl2 ? { marginTop: -8 } : undefined}>
+            <div key={i} className={`pc-card card-hover ${hl2 ? "pc-card-hl" : ""}`} style={hl2 ? { marginTop: -8 } : undefined}>
               {hl2 && <div className="pc-badge">Popularne</div>}
               <div className="pc-name">{str(t.name)}</div>
               <div className="pc-price">{str(t.price)}</div>
@@ -77,7 +78,7 @@ export default function PricingSection({ content, vn }: PricingProps) {
             </div>
           );
         })}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -87,11 +88,11 @@ export default function PricingSection({ content, vn }: PricingProps) {
   if (vn === 2) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pc-wrap">
       <Header />
-      <div className="pa2 grid grid-cols-1 md:grid-cols-3 gap-6" style={{ alignItems: "start" }}>
+      <StaggerChildren staggerDelay={0.15}><div className="pa2 grid grid-cols-1 md:grid-cols-3 gap-6" style={{ alignItems: "start" }}>
         {tiers.map((t, i) => {
           const hl2 = !!t.highlighted;
           return (
-            <div key={i} className={`pc-card ${hl2 ? "pc-card-hl" : ""}`}>
+            <div key={i} className={`pc-card card-hover ${hl2 ? "pc-card-hl" : ""}`}>
               {hl2 && <div className="pc-badge">Popularne</div>}
               <div className="pc-name">{str(t.name)}</div>
               <div className="pc-price">{str(t.price)}</div>
@@ -105,7 +106,7 @@ export default function PricingSection({ content, vn }: PricingProps) {
             </div>
           );
         })}
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -115,8 +116,8 @@ export default function PricingSection({ content, vn }: PricingProps) {
   if (vn === 3) {
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pc-wrap">
       <Header />
-      <div className="pa2" style={{ overflowX: "auto" }}>
-        <div style={{ background: "rgb(var(--color-surface))", border: "1px solid rgb(var(--color-border)/0.5)", borderRadius: 20, overflow: "hidden", minWidth: 600 }}>
+      <StaggerChildren staggerDelay={0.15}><div className="pa2" style={{ overflowX: "auto" }}>
+        <div className="card-hover" style={{ background: "rgb(var(--color-surface))", border: "1px solid rgb(var(--color-border)/0.5)", borderRadius: 20, overflow: "hidden", minWidth: 600 }}>
           {/* Header */}
           <div style={{ display: "grid", gridTemplateColumns: `200px repeat(${tiers.length}, 1fr)`, borderBottom: "2px solid rgb(var(--color-border)/0.5)", background: "rgb(var(--color-surface-deep)/0.3)" }}>
             <div style={{ padding: "16px 20px" }} />
@@ -153,7 +154,7 @@ export default function PricingSection({ content, vn }: PricingProps) {
             ))}
           </div>
         </div>
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -164,8 +165,8 @@ export default function PricingSection({ content, vn }: PricingProps) {
     const t = tiers[0] || {};
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pc-wrap">
       <Header />
-      <div className="pa2" style={{ maxWidth: 480, margin: "0 auto" }}>
-        <div className="pc-card pc-card-hl" style={{ textAlign: "center", padding: "40px 36px", boxShadow: "0 20px 60px rgb(0 0 0/0.1)" }}>
+      <StaggerChildren staggerDelay={0.15}><div className="pa2" style={{ maxWidth: 480, margin: "0 auto" }}>
+        <div className="pc-card pc-card-hl card-hover" style={{ textAlign: "center", padding: "40px 36px", boxShadow: "0 20px 60px rgb(0 0 0/0.1)" }}>
           <div className="pc-name" style={{ fontSize: 24 }}>{str(t.name) || hl}</div>
           {str(t.period) && <div className="pc-period" style={{ marginBottom: 8 }}>{str(t.period)}</div>}
           <div className="pc-price" style={{ fontSize: 56, marginBottom: 24 }}>{str(t.price)}</div>
@@ -176,7 +177,7 @@ export default function PricingSection({ content, vn }: PricingProps) {
             {str(t.cta_text || t.cta_label) || "Zamow teraz"}
           </a>
         </div>
-      </div>
+      </div></StaggerChildren>
     </div></section>);
   }
 
@@ -185,11 +186,11 @@ export default function PricingSection({ content, vn }: PricingProps) {
   // ═══════════════════════════════════════════════════════════════════════════
   return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pc-wrap">
     <Header />
-    <div className="pa2 grid grid-cols-1 md:grid-cols-3 gap-6" style={{ alignItems: "start" }}>
+    <StaggerChildren staggerDelay={0.15}><div className="pa2 grid grid-cols-1 md:grid-cols-3 gap-6" style={{ alignItems: "start" }}>
       {tiers.map((t, i) => {
         const hl2 = !!t.highlighted;
         return (
-          <div key={i} className={`pc-card ${hl2 ? "pc-card-hl" : ""}`}>
+          <div key={i} className={`pc-card card-hover ${hl2 ? "pc-card-hl" : ""}`}>
             {hl2 && <div className="pc-badge">Popularne</div>}
             <div className="pc-name">{str(t.name)}</div>
             <div className="pc-price">{str(t.price)}</div>
@@ -203,6 +204,6 @@ export default function PricingSection({ content, vn }: PricingProps) {
           </div>
         );
       })}
-    </div>
+    </div></StaggerChildren>
   </div></section>);
 }

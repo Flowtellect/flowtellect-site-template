@@ -8,6 +8,7 @@
 
 import { useState } from "react";
 import { str, arr, resolveImage } from "./shared";
+import { ScrollReveal, StaggerChildren } from './ClientComponents'
 
 interface ShowcaseProps {
   content: Record<string, unknown>;
@@ -118,11 +119,13 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
 
   // -- Sub-components ---------------------------------------------------------
   const Header = () => (
+    <ScrollReveal delay={0}>
     <div className="sc-header sca1">
       {ey && <div className="sc-eyebrow"><div className="sc-eline"/><span className="sc-etxt">{ey}</span><div className="sc-eline-r"/></div>}
       <h2 className="sc-h2">{hl}</h2>
       {body && <p className="sc-desc">{body}</p>}
     </div>
+    </ScrollReveal>
   );
 
   const LightboxModal = () => {
@@ -160,6 +163,7 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
         <style>{S}</style>
         <div className="sc-wrap">
           <Header />
+          <StaggerChildren staggerDelay={0.1}>
           <div className="sca2" style={{ display: "grid", gridTemplateColumns: "repeat(1, 1fr)", gap: 16 }}>
             <style>{`@media(min-width:640px){.sc-grid3{grid-template-columns:repeat(2,1fr)!important}}@media(min-width:1024px){.sc-grid3{grid-template-columns:repeat(3,1fr)!important}}`}</style>
             <div className="sc-grid3" style={{ display: "grid", gridTemplateColumns: "1fr", gap: 16 }}>
@@ -167,7 +171,7 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
                 const src = getImg(it);
                 const href = getLink(it);
                 const inner = (
-                  <div key={i} className="sc-card" style={{ aspectRatio: "4/3" }}>
+                  <div key={i} className="sc-card img-zoom" style={{ aspectRatio: "4/3" }}>
                     {src ? <img src={src} alt={getTitle(it)} /> : <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, rgb(var(--color-accent)/0.1), rgb(var(--color-surface)))" }} />}
                     <CardOverlay it={it} />
                   </div>
@@ -176,6 +180,7 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
               })}
             </div>
           </div>
+          </StaggerChildren>
         </div>
       </section>
     );
@@ -190,12 +195,13 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
         <style>{S}</style>
         <div className="sc-wrap">
           <Header />
+          <StaggerChildren staggerDelay={0.1}>
           <div className="sc-masonry sca2">
             {items.map((it, i) => {
               const src = getImg(it);
               return (
                 <div key={i} className="sc-masonry-item">
-                  <div className="sc-card" style={{ aspectRatio: i % 3 === 0 ? "3/4" : i % 3 === 1 ? "1/1" : "4/3" }}>
+                  <div className="sc-card img-zoom" style={{ aspectRatio: i % 3 === 0 ? "3/4" : i % 3 === 1 ? "1/1" : "4/3" }}>
                     {src ? <img src={src} alt={getTitle(it)} /> : <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, rgb(var(--color-accent)/0.1), rgb(var(--color-surface)))" }} />}
                     <CardOverlay it={it} />
                   </div>
@@ -203,6 +209,7 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
               );
             })}
           </div>
+          </StaggerChildren>
         </div>
       </section>
     );
@@ -216,17 +223,19 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
       <section className="bg-bg" style={{ padding: "64px 0" }}>
         <style>{S}</style>
         <div className="sc-wrap"><Header /></div>
+        <ScrollReveal delay={0.1}>
         <div className="sc-scroll sca2">
           {items.map((it, i) => {
             const src = getImg(it);
             return (
-              <div key={i} className="sc-scroll-item sc-card" style={{ aspectRatio: "4/3" }}>
+              <div key={i} className="sc-scroll-item sc-card img-zoom" style={{ aspectRatio: "4/3" }}>
                 {src ? <img src={src} alt={getTitle(it)} /> : <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, rgb(var(--color-accent)/0.1), rgb(var(--color-surface)))" }} />}
                 <CardOverlay it={it} />
               </div>
             );
           })}
         </div>
+        </ScrollReveal>
       </section>
     );
   }
@@ -240,13 +249,14 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
         <style>{S}</style>
         <div className="sc-wrap">
           <Header />
+          <StaggerChildren staggerDelay={0.1}>
           <div className="sca2" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 12 }}>
             <style>{`@media(min-width:768px){.sc-lb-grid{grid-template-columns:repeat(3,1fr)!important}}@media(min-width:1024px){.sc-lb-grid{grid-template-columns:repeat(4,1fr)!important}}`}</style>
             <div className="sc-lb-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 12 }}>
               {items.map((it, i) => {
                 const src = getImg(it);
                 return (
-                  <div key={i} className="sc-card" style={{ aspectRatio: "1/1", cursor: "zoom-in" }} onClick={() => setLightboxIdx(i)}>
+                  <div key={i} className="sc-card img-zoom" style={{ aspectRatio: "1/1", cursor: "zoom-in" }} onClick={() => setLightboxIdx(i)}>
                     {src ? <img src={src} alt={getTitle(it)} /> : <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, rgb(var(--color-accent)/0.1), rgb(var(--color-surface)))" }} />}
                     <CardOverlay it={it} />
                   </div>
@@ -254,6 +264,7 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
               })}
             </div>
           </div>
+          </StaggerChildren>
         </div>
         <LightboxModal />
       </section>
@@ -269,6 +280,7 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
         <style>{S}</style>
         <div className="sc-wrap">
           <Header />
+          <StaggerChildren staggerDelay={0.1}>
           <div className="sca2" style={{ display: "grid", gridTemplateColumns: "1fr", gap: 24 }}>
             <style>{`@media(min-width:768px){.sc-case-grid{grid-template-columns:repeat(2,1fr)!important}}@media(min-width:1024px){.sc-case-grid{grid-template-columns:repeat(3,1fr)!important}}`}</style>
             <div className="sc-case-grid" style={{ display: "grid", gridTemplateColumns: "1fr", gap: 24 }}>
@@ -278,7 +290,7 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
                 const results = arr(it.results || it.stats || it.metrics);
                 const card = (
                   <div className="sc-case">
-                    <div style={{ aspectRatio: "16/9", overflow: "hidden" }}>
+                    <div className="img-zoom" style={{ aspectRatio: "16/9", overflow: "hidden" }}>
                       {src ? <img src={src} alt={getTitle(it)} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} /> : <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, rgb(var(--color-accent)/0.1), rgb(var(--color-surface)))" }} />}
                     </div>
                     <div className="sc-case-body">
@@ -303,6 +315,7 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
               })}
             </div>
           </div>
+          </StaggerChildren>
         </div>
       </section>
     );
@@ -331,13 +344,14 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
               </button>
             ))}
           </div>
+          <StaggerChildren staggerDelay={0.1}>
           <div className="sca2" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
             <style>{`@media(min-width:1024px){.sc-filter-grid{grid-template-columns:repeat(3,1fr)!important}}`}</style>
             <div className="sc-filter-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
               {filtered.map((it, i) => {
                 const src = getImg(it);
                 return (
-                  <div key={i} className="sc-card" style={{ aspectRatio: "4/3" }} onClick={() => setLightboxIdx(items.indexOf(it))}>
+                  <div key={i} className="sc-card img-zoom" style={{ aspectRatio: "4/3" }} onClick={() => setLightboxIdx(items.indexOf(it))}>
                     {src ? <img src={src} alt={getTitle(it)} /> : <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, rgb(var(--color-accent)/0.1), rgb(var(--color-surface)))" }} />}
                     <CardOverlay it={it} />
                   </div>
@@ -345,6 +359,7 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
               })}
             </div>
           </div>
+          </StaggerChildren>
         </div>
         <LightboxModal />
       </section>
@@ -369,6 +384,7 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
         <style>{S}</style>
         <div className="sc-wrap">
           <Header />
+          <StaggerChildren staggerDelay={0.1}>
           <div className="sca2" style={{ display: "grid", gridTemplateColumns: "1fr", gap: 32 }}>
             <style>{`@media(min-width:768px){.sc-ba-grid{grid-template-columns:repeat(2,1fr)!important}}`}</style>
             <div className="sc-ba-grid" style={{ display: "grid", gridTemplateColumns: "1fr", gap: 32 }}>
@@ -379,11 +395,11 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
                   <div key={i}>
                     <div style={{ fontSize: 15, fontWeight: 600, color: "rgb(var(--color-text-primary))", marginBottom: 12, fontFamily: "var(--font-display)" }}>{pair.label}</div>
                     <div className="sc-ba-pair">
-                      <div style={{ position: "relative", aspectRatio: "4/3", overflow: "hidden" }}>
+                      <div className="img-zoom" style={{ position: "relative", aspectRatio: "4/3", overflow: "hidden" }}>
                         {beforeSrc ? <img src={beforeSrc} alt="Before" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} /> : <div style={{ width: "100%", height: "100%", background: "rgb(var(--color-surface-deep))" }} />}
                         <div className="sc-ba-label sc-ba-before">Before</div>
                       </div>
-                      <div style={{ position: "relative", aspectRatio: "4/3", overflow: "hidden" }}>
+                      <div className="img-zoom" style={{ position: "relative", aspectRatio: "4/3", overflow: "hidden" }}>
                         {afterSrc ? <img src={afterSrc} alt="After" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} /> : <div style={{ width: "100%", height: "100%", background: "rgb(var(--color-surface-deep))" }} />}
                         <div className="sc-ba-label sc-ba-after">After</div>
                       </div>
@@ -394,6 +410,7 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
               })}
             </div>
           </div>
+          </StaggerChildren>
         </div>
       </section>
     );
@@ -408,6 +425,7 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
         <style>{S}</style>
         <div className="sc-wrap">
           <Header />
+          <StaggerChildren staggerDelay={0.1}>
           <div className="sca2" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
             <style>{`@media(min-width:768px){.sc-mix-grid{grid-template-columns:repeat(3,1fr)!important}}`}</style>
             <div className="sc-mix-grid" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
@@ -415,7 +433,7 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
                 const src = getImg(it);
                 const isVideo = str(it.type || it.media_type).toLowerCase().includes("video") || i % 4 === 2;
                 return (
-                  <div key={i} className="sc-card" style={{ aspectRatio: "4/3" }} onClick={() => setLightboxIdx(i)}>
+                  <div key={i} className="sc-card img-zoom" style={{ aspectRatio: "4/3" }} onClick={() => setLightboxIdx(i)}>
                     {src ? <img src={src} alt={getTitle(it)} /> : <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, rgb(var(--color-accent)/0.1), rgb(var(--color-surface)))" }} />}
                     {isVideo && (
                       <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", background: "rgb(0 0 0/0.15)", pointerEvents: "none" }}>
@@ -430,6 +448,7 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
               })}
             </div>
           </div>
+          </StaggerChildren>
         </div>
         <LightboxModal />
       </section>
@@ -447,6 +466,7 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
         <style>{S}</style>
         <div className="sc-wrap">
           <Header />
+          <ScrollReveal delay={0.1}>
           <div className="sc-slider sca2">
             <div style={{ position: "relative", aspectRatio: "16/9" }}>
               {src ? <img src={src} alt={getTitle(current)} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "opacity 0.5s" }} /> : <div style={{ width: "100%", height: "100%", background: "rgb(var(--color-surface-deep))" }} />}
@@ -470,6 +490,7 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
               </div>
             </div>
           </div>
+          </ScrollReveal>
         </div>
       </section>
     );
@@ -483,12 +504,13 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
       <style>{S}</style>
       <div className="sc-wrap">
         <Header />
+        <StaggerChildren staggerDelay={0.1}>
         <div className="sc-2col sca2">
           {items.map((it, i) => {
             const src = getImg(it);
             const href = getLink(it);
             const inner = (
-              <div className="sc-2col-card">
+              <div className="sc-2col-card img-zoom">
                 {src ? <img src={src} alt={getTitle(it)} /> : <div style={{ width: "100%", aspectRatio: "4/3", background: "linear-gradient(135deg, rgb(var(--color-accent)/0.1), rgb(var(--color-surface)))" }} />}
                 <div className="sc-2col-info">
                   {getCat(it) && <div className="sc-2col-cat">{getCat(it)}</div>}
@@ -501,6 +523,7 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
             return href ? <a key={i} href={href} style={{ textDecoration: "none" }}>{inner}</a> : <div key={i}>{inner}</div>;
           })}
         </div>
+        </StaggerChildren>
       </div>
     </section>
   );
