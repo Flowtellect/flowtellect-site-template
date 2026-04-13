@@ -3,6 +3,7 @@
 // No hardcoded components - everything is rendered dynamically.
 
 import GenericSection from "./sections/GenericSection";
+import { ScrollReveal } from "./sections/ClientComponents";
 
 interface ThemeOverrides {
   bg?: string | null;
@@ -55,12 +56,21 @@ export default function SectionRenderer({
 
   const overrideStyle = buildOverrideStyle(section.theme_overrides);
   const anchorId = getSectionAnchorId(section.variant);
+  const category = section.variant.replace(/_\d+$/, "");
   const rendered = <GenericSection variant={section.variant} content={section.content} />;
 
-  // Wrap in div with anchor ID for smooth scroll navigation
+  // Navbar and footer: no scroll reveal (always visible)
+  const skipAnimation = category === "navbar" || category === "footer";
+
+  const content = skipAnimation ? rendered : (
+    <ScrollReveal duration={0.7} distance={20}>
+      {rendered}
+    </ScrollReveal>
+  );
+
   if (overrideStyle || anchorId) {
-    return <div id={anchorId} style={overrideStyle}>{rendered}</div>;
+    return <div id={anchorId} style={overrideStyle}>{content}</div>;
   }
 
-  return rendered;
+  return content;
 }
