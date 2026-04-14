@@ -4,28 +4,41 @@ import PreviewListener from "@/components/PreviewListener";
 import ScrollToTop from "@/components/ScrollToTop";
 import "./globals.css";
 
-// Dynamiczny tytul z flowtellect.config.json lub homepage meta
-function getSiteTitle(): string {
+// Dynamiczny tytul + opis z homepage.json meta
+function getSiteMeta(): { title: string; description: string } {
   try {
     const fs = require("fs");
     const path = require("path");
+    let title = "Strona";
+    let description = "";
+
     const configPath = path.join(process.cwd(), "flowtellect.config.json");
     if (fs.existsSync(configPath)) {
       const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-      if (config.siteName) return config.siteName;
+      if (config.siteName) title = config.siteName;
     }
+
     const homePath = path.join(process.cwd(), "content", "homepage.json");
     if (fs.existsSync(homePath)) {
       const home = JSON.parse(fs.readFileSync(homePath, "utf-8"));
-      if (home.meta?.title && home.meta.title !== "Strona glowna") return home.meta.title;
+      if (home.meta?.title && home.meta.title !== "Strona glowna") title = home.meta.title;
+      if (home.meta?.description) description = home.meta.description;
     }
+
+    return { title, description };
   } catch { /* fallback */ }
-  return "Strona";
+  return { title: "Strona", description: "" };
 }
 
+const siteMeta = getSiteMeta();
+
 export const metadata: Metadata = {
-  title: getSiteTitle(),
-  description: "",
+  title: siteMeta.title,
+  description: siteMeta.description,
+  openGraph: {
+    title: siteMeta.title,
+    description: siteMeta.description,
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
