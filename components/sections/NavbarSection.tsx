@@ -327,9 +327,9 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
         <style>{styles}</style>
         <header style={{
           position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
-          background: solid ? "rgb(var(--color-bg) / 0.95)" : "transparent",
-          backdropFilter: solid ? "blur(24px)" : "none",
-          WebkitBackdropFilter: solid ? "blur(24px)" : "none",
+          background: solid ? "rgb(var(--color-bg) / 0.95)" : "rgb(var(--color-bg) / 0.6)",
+          backdropFilter: "blur(24px)",
+          WebkitBackdropFilter: "blur(24px)",
           boxShadow: solid ? "0 4px 30px rgb(0 0 0 / 0.08)" : "none",
           borderBottom: solid ? "1px solid rgb(var(--color-border) / 0.3)" : "none",
           transition: "all 0.5s cubic-bezier(0.16,1,0.3,1)",
@@ -338,21 +338,20 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
             {/* Logo - click scrolls to top */}
             <a href="#" style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center", gap: 10 }} onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
             {hasRealLogo ? (
-              <img src={logo!} alt={brandName} style={{ height: 36, width: "auto", filter: solid ? "none" : "brightness(0) invert(1)", transition: "filter 0.4s ease" }} />
+              <img src={logo!} alt={brandName} style={{ height: 36, width: "auto", transition: "filter 0.4s ease" }} />
             ) : (
               <div className="flex items-center gap-2.5">
                 <div style={{
                   width: 36, height: 36, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center",
                   fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 700, transition: "all 0.4s ease",
-                  background: solid ? "rgb(var(--color-accent))" : "rgb(255 255 255 / 0.2)",
-                  color: solid ? "rgb(var(--color-on-accent))" : "white",
-                  backdropFilter: solid ? "none" : "blur(8px)",
+                  background: "rgb(var(--color-accent))",
+                  color: "rgb(var(--color-on-accent))",
                 }}>
                   {brandName.split(/[\s-]+/).slice(0, 2).map(w => w[0]?.toUpperCase() || "").join("")}
                 </div>
                 <span style={{
                   fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em",
-                  color: solid ? "rgb(var(--color-text-primary))" : "white", transition: "color 0.4s ease",
+                  color: "rgb(var(--color-text-primary))", transition: "color 0.4s ease",
                 }}>
                   {brandName}
                 </span>
@@ -361,16 +360,16 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
             </a>
             <nav className="hidden md:flex items-center" style={{ gap: 32 }}>
               {links.map((l, i) => (
-                <a key={i} href={l.href} className={`nb-link ${solid ? "nb-link-default" : "nb-link-white"}`}>{l.label}</a>
+                <a key={i} href={l.href} className="nb-link nb-link-default">{l.label}</a>
               ))}
             </nav>
             <div className="flex items-center gap-4">
               {ctaLabel && (
-                <a href={ctaHref} className={`nb-cta hidden md:inline-flex ${solid ? "" : "nb-cta-glass"}`}>
+                <a href={ctaHref} className="nb-cta hidden md:inline-flex">
                   {ctaLabel}
                 </a>
               )}
-              <Hamburger onClick={() => setMenuOpen(true)} className={solid ? "text-muted hover:text-primary" : "text-white"} />
+              <Hamburger onClick={() => setMenuOpen(true)} className="text-muted hover:text-primary" />
             </div>
           </div>
         </header>
