@@ -118,7 +118,7 @@ export default function FooterSection({ content, vn }: FooterProps) {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
         <div className="md:col-span-4">
           <BrandLogo content={content} size="sm" />
-          <p className="ft-tagline">{tagline}</p>
+          {tagline && <p className="ft-tagline">{tagline}</p>}
           <SocialIcons />
         </div>
         <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8">
@@ -141,7 +141,7 @@ export default function FooterSection({ content, vn }: FooterProps) {
         </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
-        <div className="md:col-span-4"><BrandLogo content={content} size="sm" /><p className="ft-tagline">{tagline}</p><SocialIcons /></div>
+        <div className="md:col-span-4"><BrandLogo content={content} size="sm" />{tagline && <p className="ft-tagline">{tagline}</p>}<SocialIcons /></div>
         <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8"><Columns /></div>
       </div>
       <CopyBar />
@@ -152,7 +152,7 @@ export default function FooterSection({ content, vn }: FooterProps) {
   if (vn === 4) {
     return (<footer style={{ background: "rgb(var(--color-surface-deep))", borderTop: "1px solid rgb(var(--color-border)/0.5)", padding: "48px 0" }}><style>{S}</style><div className="ft-wrap">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
-        <div className="md:col-span-4"><BrandLogo content={content} size="sm" /><p className="ft-tagline">{tagline}</p><SocialIcons large /></div>
+        <div className="md:col-span-4"><BrandLogo content={content} size="sm" />{tagline && <p className="ft-tagline">{tagline}</p>}<SocialIcons large /></div>
         <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8"><Columns /></div>
       </div>
       <CopyBar />
@@ -171,7 +171,7 @@ export default function FooterSection({ content, vn }: FooterProps) {
       <div style={{ background: "rgb(var(--color-surface-deep))", padding: "48px 0" }}>
         <div className="ft-wrap">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
-            <div className="md:col-span-4"><BrandLogo content={content} size="sm" /><p className="ft-tagline">{tagline}</p><SocialIcons /></div>
+            <div className="md:col-span-4"><BrandLogo content={content} size="sm" />{tagline && <p className="ft-tagline">{tagline}</p>}<SocialIcons /></div>
             <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8"><Columns /></div>
           </div>
           <CopyBar />
@@ -204,7 +204,7 @@ export default function FooterSection({ content, vn }: FooterProps) {
       <div style={{ position: "absolute", inset: 0, background: "rgb(var(--color-text-primary))" }} />
       <div className="ft-wrap" style={{ position: "relative", zIndex: 10 }}>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
-          <div className="md:col-span-4"><BrandLogo content={content} size="sm" className="brightness-0 invert" /><p className="ft-tagline-w">{tagline}</p><SocialIcons white /></div>
+          <div className="md:col-span-4"><BrandLogo content={content} size="sm" className="brightness-0 invert" />{tagline && <p className="ft-tagline-w">{tagline}</p>}<SocialIcons white /></div>
           <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8"><Columns white /></div>
         </div>
         <CopyBar white />
@@ -218,7 +218,7 @@ export default function FooterSection({ content, vn }: FooterProps) {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div>
           <BrandLogo content={content} size="sm" />
-          <p className="ft-tagline">{tagline}</p>
+          {tagline && <p className="ft-tagline">{tagline}</p>}
           <SocialIcons />
           <div className="grid grid-cols-2 gap-8" style={{ marginTop: 28 }}><Columns /></div>
         </div>
@@ -240,7 +240,7 @@ export default function FooterSection({ content, vn }: FooterProps) {
       <div style={{ position: "absolute", width: 120, height: 120, borderRadius: "50%", background: "rgb(255 255 255/0.04)", bottom: -30, left: "25%" }} />
       <div className="ft-wrap" style={{ position: "relative", zIndex: 10 }}>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
-          <div className="md:col-span-4"><BrandLogo content={content} size="sm" className="brightness-0 invert" /><p className="ft-tagline-w">{tagline}</p><SocialIcons white /></div>
+          <div className="md:col-span-4"><BrandLogo content={content} size="sm" className="brightness-0 invert" />{tagline && <p className="ft-tagline-w">{tagline}</p>}<SocialIcons white /></div>
           <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8"><Columns white /></div>
         </div>
         <CopyBar white />
@@ -252,7 +252,7 @@ export default function FooterSection({ content, vn }: FooterProps) {
   if (vn === 10) {
     return (<footer style={{ background: "rgb(var(--color-surface-deep))", borderTop: "1px solid rgb(var(--color-border)/0.5)", padding: "48px 0" }}><style>{S}</style><div className="ft-wrap">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
-        <div className="md:col-span-3"><BrandLogo content={content} size="sm" /><p className="ft-tagline">{tagline}</p><SocialIcons /></div>
+        <div className="md:col-span-3"><BrandLogo content={content} size="sm" />{tagline && <p className="ft-tagline">{tagline}</p>}<SocialIcons /></div>
         <div className="md:col-span-9 grid grid-cols-2 md:grid-cols-4 gap-8"><Columns /></div>
       </div>
       <CopyBar />
@@ -263,7 +263,7 @@ export default function FooterSection({ content, vn }: FooterProps) {
   if (vn === 11) {
     return (<footer style={{ background: "rgb(var(--color-surface-deep))", borderTop: "1px solid rgb(var(--color-border)/0.5)", padding: "48px 0" }}><style>{S}</style><div className="ft-wrap">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10" style={{ paddingBottom: 32, borderBottom: "1px solid rgb(var(--color-border)/0.5)" }}>
-        <div className="lg:col-span-5"><BrandLogo content={content} size="sm" /><p className="ft-tagline">{tagline}</p><SocialIcons /></div>
+        <div className="lg:col-span-5"><BrandLogo content={content} size="sm" />{tagline && <p className="ft-tagline">{tagline}</p>}<SocialIcons /></div>
         <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-8"><Columns /></div>
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", paddingTop: 24, gap: 12 }}>
@@ -280,7 +280,7 @@ export default function FooterSection({ content, vn }: FooterProps) {
   if (vn === 12) {
     return (<footer style={{ background: "rgb(var(--color-surface-deep))", borderTop: "1px solid rgb(var(--color-border)/0.5)", padding: "48px 0" }}><style>{S}</style><div className="ft-wrap">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
-        <div className="md:col-span-4"><BrandLogo content={content} size="sm" /><p className="ft-tagline">{tagline}</p><SocialIcons /></div>
+        <div className="md:col-span-4"><BrandLogo content={content} size="sm" />{tagline && <p className="ft-tagline">{tagline}</p>}<SocialIcons /></div>
         <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8">
           <Columns />
           {(hours || phone || email) && (
@@ -303,7 +303,7 @@ export default function FooterSection({ content, vn }: FooterProps) {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div>
           <BrandLogo content={content} size="sm" />
-          <p className="ft-tagline">{tagline}</p>
+          {tagline && <p className="ft-tagline">{tagline}</p>}
           <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 20 }}>
             {phone && <a href={`tel:${phone}`} className="ft-link" style={{ display: "flex", alignItems: "center", gap: 8 }}><span style={{ width: 28, height: 28, borderRadius: 8, background: "rgb(var(--color-accent)/0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>📞</span> {phone}</a>}
             {email && <a href={`mailto:${email}`} className="ft-link" style={{ display: "flex", alignItems: "center", gap: 8 }}><span style={{ width: 28, height: 28, borderRadius: 8, background: "rgb(var(--color-accent)/0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>✉️</span> {email}</a>}
@@ -333,7 +333,7 @@ export default function FooterSection({ content, vn }: FooterProps) {
       <div style={{ background: "rgb(var(--color-surface-deep))", padding: "48px 0" }}>
         <div className="ft-wrap">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
-            <div className="md:col-span-4"><BrandLogo content={content} size="sm" /><p className="ft-tagline">{tagline}</p><SocialIcons /></div>
+            <div className="md:col-span-4"><BrandLogo content={content} size="sm" />{tagline && <p className="ft-tagline">{tagline}</p>}<SocialIcons /></div>
             <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8"><Columns /></div>
           </div>
           <CopyBar />
@@ -350,7 +350,7 @@ export default function FooterSection({ content, vn }: FooterProps) {
     <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
       <div className="md:col-span-4">
         <BrandLogo content={content} size="sm" />
-        <p className="ft-tagline">{tagline}</p>
+        {tagline && <p className="ft-tagline">{tagline}</p>}
         {/* App store badges */}
         {(appStoreUrl || googlePlayUrl) && <div style={{ display: "flex", gap: 8, marginTop: 16, flexWrap: "wrap" }}>
           {appStoreUrl && <a href={appStoreUrl} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 16px", background: "rgb(var(--color-text-primary))", color: "white", borderRadius: 10, textDecoration: "none", fontSize: 12, fontWeight: 500 }}>
@@ -373,7 +373,7 @@ export default function FooterSection({ content, vn }: FooterProps) {
   // Fallback: Simple footer
   return (<footer style={{ background: "rgb(var(--color-surface-deep))", borderTop: "1px solid rgb(var(--color-border)/0.5)", padding: "48px 0" }}><style>{S}</style><div className="ft-wrap">
     <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
-      <div className="md:col-span-4"><BrandLogo content={content} size="sm" /><p className="ft-tagline">{tagline}</p><SocialIcons /></div>
+      <div className="md:col-span-4"><BrandLogo content={content} size="sm" />{tagline && <p className="ft-tagline">{tagline}</p>}<SocialIcons /></div>
       <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8"><Columns /></div>
     </div>
     <CopyBar />

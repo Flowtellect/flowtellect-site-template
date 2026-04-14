@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getThemeStyleObject, getThemeFontStyleObject, getThemeDataAttributes, getActiveTheme } from "@/lib/applyTheme";
 import PreviewListener from "@/components/PreviewListener";
+import ScrollToTop from "@/components/ScrollToTop";
 import "./globals.css";
 
 // Dynamiczny tytul z flowtellect.config.json lub homepage meta
@@ -54,10 +55,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <link href={googleFontsUrl} rel="stylesheet" />
           </>
         )}
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body className="bg-bg text-primary font-body antialiased">
         <PreviewListener />
         {children}
+        <ScrollToTop />
       </body>
     </html>
   );

@@ -13,8 +13,9 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { str, arr, resolveImage, BrandLogo } from "./shared";
+import { useActiveSection } from "./useActiveSection";
 
 interface NavbarProps {
   content: Record<string, unknown>;
@@ -130,6 +131,19 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
   const ctaHref = getCtaHref(cta);
   const hasRealLogo = logo && !logo.includes("unsplash.com");
 
+  // Active section tracking for nav link highlighting
+  const sectionIds = useMemo(
+    () => links.map(l => l.href.replace(/^#/, '')).filter(id => id && !id.startsWith('/')),
+    [links]
+  );
+  const activeSection = useActiveSection(sectionIds);
+
+  // Active link class helper
+  const navLinkClass = (href: string, base: string) => {
+    const id = href.replace(/^#/, '')
+    return activeSection === id ? `${base} nb-active` : base
+  }
+
   // Logo renderer
   const LogoEl = ({ className = "" }: { className?: string }) => (
     <a href="#" style={{ textDecoration: "none", color: "inherit" }} onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
@@ -146,6 +160,8 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
     .nb-link-default { color: rgb(var(--color-text-muted)); }
     .nb-link-default:hover { color: rgb(var(--color-text-primary)); }
     .nb-link-default::after { background: rgb(var(--color-accent)); }
+    .nb-link-default.nb-active { color: rgb(var(--color-accent)); }
+    .nb-link-default.nb-active::after { width: 100%; }
     .nb-link-white { color: rgb(255 255 255 / 0.85); }
     .nb-link-white:hover { color: white; }
     .nb-link-white::after { background: white; }
@@ -187,7 +203,7 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
           <div className="nb-bar">
             <LogoEl />
             <nav className="hidden md:flex items-center" style={{ gap: 32 }}>
-              {links.map((l, i) => <a key={i} href={l.href} className="nb-link nb-link-default">{l.label}</a>)}
+              {links.map((l, i) => <a key={i} href={l.href} className={navLinkClass(l.href, "nb-link nb-link-default")}>{l.label}</a>)}
             </nav>
             <div className="flex items-center gap-4">
               {ctaLabel && <a href={ctaHref} className="nb-cta hidden md:inline-flex">{ctaLabel}</a>}
@@ -361,7 +377,7 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
             <div className="nb-bar">
               <LogoEl />
               <nav className="hidden md:flex items-center" style={{ gap: 32 }}>
-                {links.map((l, i) => <a key={i} href={l.href} className="nb-link nb-link-default">{l.label}</a>)}
+                {links.map((l, i) => <a key={i} href={l.href} className={navLinkClass(l.href, "nb-link nb-link-default")}>{l.label}</a>)}
               </nav>
               <div className="flex items-center gap-4">
                 {ctaLabel && <a href={ctaHref} className="nb-cta hidden md:inline-flex">{ctaLabel}</a>}
@@ -709,7 +725,7 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
         <div className="nb-bar">
           <LogoEl />
           <nav className="hidden md:flex items-center" style={{ gap: 32 }}>
-            {links.map((l, i) => <a key={i} href={l.href} className="nb-link nb-link-default">{l.label}</a>)}
+            {links.map((l, i) => <a key={i} href={l.href} className={navLinkClass(l.href, "nb-link nb-link-default")}>{l.label}</a>)}
           </nav>
           <div className="flex items-center gap-4">
             {ctaLabel && <a href={ctaHref} className="nb-cta hidden md:inline-flex">{ctaLabel}</a>}
