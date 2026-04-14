@@ -354,13 +354,61 @@ export default function CtaSection({ content, vn }: CtaProps) {
     </div></section>);
   }
 
-  if (vn === 17 || vn === 18) {
-    // Chatbot / generic accent centered
-    return (<section className="bg-accent text-on-accent" style={{ padding: "64px 0" }}><style>{S}</style><div className="ct-wrap ca1" style={{ textAlign: "center" }}>
-      {ey && <div className="ct-eyebrow" style={{ opacity: 0.8 }}>{ey}</div>}
-      <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2></ScrollReveal>
-      {body && <ScrollReveal delay={0.1}><p className="ct-body-w" style={{ margin: "0 auto 28px" }}>{body}</p></ScrollReveal>}
-      <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-inv">{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
+  if (vn === 17) {
+    // Mini pricing with plans
+    const plans = arr(content.plans || content.tiers);
+    return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="ct-wrap">
+      <div className="ca1" style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 40px" }}>
+        <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-d ct-h2-m">{hl}</h2></ScrollReveal>
+        {body && <ScrollReveal delay={0.1}><p className="ct-body-d" style={{ margin: "0 auto" }}>{body}</p></ScrollReveal>}
+      </div>
+      <ScrollReveal delay={0.2}><div className="ca2 grid grid-cols-1 md:grid-cols-3 gap-5" style={{ maxWidth: 900, margin: "0 auto" }}>
+        {plans.map((p, i) => {
+          const isHl = !!p.highlighted;
+          return (
+          <div key={i} style={{ background: isHl ? "rgb(var(--color-accent)/0.05)" : "rgb(var(--color-surface))", border: `1px solid ${isHl ? "rgb(var(--color-accent)/0.3)" : "rgb(var(--color-border)/0.5)"}`, borderRadius: 24, padding: 28, position: "relative", textAlign: "center" }}>
+            {isHl && <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: "rgb(var(--color-accent))", color: "rgb(var(--color-on-accent))", fontSize: 11, fontWeight: 600, padding: "4px 16px", borderRadius: 100, textTransform: "uppercase", letterSpacing: "0.1em" }}>Popularne</div>}
+            <div style={{ fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 600, marginBottom: 8 }}>{str(p.name || p.title)}</div>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: 32, fontWeight: 700, color: "rgb(var(--color-accent))", marginBottom: 16 }}>{str(p.price)}</div>
+            <div style={{ fontSize: 14, color: "rgb(var(--color-text-muted))", lineHeight: 1.6, marginBottom: 20 }}>{str(p.desc || p.description)}</div>
+            <a href={str(p.href || p.cta_href) || ctaHref} className={`ct-btn ${isHl ? "ct-btn-accent" : "ct-btn-outline"}`} style={{ width: "100%", justifyContent: "center" }}>{str(p.cta_label) || ctaLabel || "Wybierz"}</a>
+          </div>
+          );
+        })}
+      </div></ScrollReveal>
+    </div></section>);
+  }
+
+  if (vn === 18) {
+    // Chatbot UI
+    const botName = str(content.bot_name) || "Asystent";
+    const botAvatar = str(content.bot_avatar) || "🤖";
+    const sampleMessages = arr(content.sample_messages);
+    return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="ct-wrap">
+      <div className="ca1" style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 40px" }}>
+        <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-d ct-h2-m">{hl}</h2></ScrollReveal>
+        {body && <ScrollReveal delay={0.1}><p className="ct-body-d" style={{ margin: "0 auto" }}>{body}</p></ScrollReveal>}
+      </div>
+      <ScrollReveal delay={0.2}><div className="ca2" style={{ maxWidth: 500, margin: "0 auto", background: "rgb(var(--color-surface))", border: "1px solid rgb(var(--color-border)/0.5)", borderRadius: 24, overflow: "hidden" }}>
+        {/* Chat header */}
+        <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "16px 20px", borderBottom: "1px solid rgb(var(--color-border)/0.5)" }}>
+          <div style={{ width: 36, height: 36, borderRadius: "50%", background: "rgb(var(--color-accent)/0.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>{botAvatar}</div>
+          <div><div style={{ fontSize: 14, fontWeight: 600 }}>{botName}</div><div style={{ fontSize: 11, color: "rgb(var(--color-text-dim))" }}>Online</div></div>
+        </div>
+        {/* Messages */}
+        <div style={{ padding: 20, display: "flex", flexDirection: "column", gap: 12, minHeight: 200 }}>
+          {sampleMessages.map((msg, i) => (
+            <div key={i} style={{ display: "flex", justifyContent: i % 2 === 0 ? "flex-start" : "flex-end" }}>
+              <div style={{ maxWidth: "80%", padding: "10px 16px", borderRadius: i % 2 === 0 ? "16px 16px 16px 4px" : "16px 16px 4px 16px", background: i % 2 === 0 ? "rgb(var(--color-bg-alt))" : "rgb(var(--color-accent)/0.1)", fontSize: 13, lineHeight: 1.5, color: "rgb(var(--color-text-muted))" }}>{str(msg.text || msg)}</div>
+            </div>
+          ))}
+        </div>
+        {/* Input */}
+        <div style={{ padding: "12px 20px", borderTop: "1px solid rgb(var(--color-border)/0.5)", display: "flex", gap: 8 }}>
+          <input className="ct-input" placeholder="Napisz wiadomosc..." style={{ flex: 1 }} />
+          <button className="ct-btn ct-btn-accent" style={{ padding: "10px 20px" }}>Wyslij</button>
+        </div>
+      </div></ScrollReveal>
     </div></section>);
   }
 
@@ -383,7 +431,11 @@ export default function CtaSection({ content, vn }: CtaProps) {
     </div></section>);
   }
 
-  // VN 20: Animowany tekst (default)
+  // VN 20: Animowany tekst
+  if (vn === 20) {
+  const staticText = str(content.static_text) || hl || "Swiece, ktore tworza";
+  const rotatingWords = arr(content.rotating_words);
+  const words = rotatingWords.length >= 3 ? rotatingWords.map(w => str(w.text || w)) : ["klimat", "harmonie", "wspomnienia"];
   return (<section className="bg-bg" style={{ padding: "80px 0", textAlign: "center" }}><style>{S}{`
     .ct-rot-wrap{display:inline-block;position:relative;height:1.15em;overflow:hidden;vertical-align:bottom}
     .ct-rot-words{display:flex;flex-direction:column;animation:ctRot 9s cubic-bezier(.4,0,.2,1) infinite}
@@ -392,14 +444,21 @@ export default function CtaSection({ content, vn }: CtaProps) {
     @keyframes ctRot{0%,28%{transform:translateY(0)}33%,61%{transform:translateY(-33.33%)}66%,94%{transform:translateY(-66.66%)}100%{transform:translateY(0)}}
   `}</style><div className="ct-wrap ca1">
     <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-d ct-h2-m">
-      {hl || "Swiece, ktore tworza"}{" "}
+      {staticText}{" "}
       <span className="ct-rot-wrap"><span className="ct-rot-words">
-        <span className="ct-rot-word">klimat</span>
-        <span className="ct-rot-word">harmonie</span>
-        <span className="ct-rot-word">wspomnienia</span>
+        {words.slice(0, 3).map((w, i) => <span key={i} className="ct-rot-word">{w}</span>)}
       </span></span>
     </h2></ScrollReveal>
     {body && <ScrollReveal delay={0.1}><p className="ct-body-d" style={{ margin: "0 auto 32px", textAlign: "center" }}>{body}</p></ScrollReveal>}
     <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-accent">{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
+  </div></section>);
+  }
+
+  // Fallback: Simple accent CTA
+  return (<section className="bg-accent text-on-accent" style={{ padding: "64px 0" }}><style>{S}</style><div className="ct-wrap ca1" style={{ textAlign: "center" }}>
+    {ey && <div className="ct-eyebrow" style={{ opacity: 0.8 }}>{ey}</div>}
+    <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2></ScrollReveal>
+    {body && <ScrollReveal delay={0.1}><p className="ct-body-w" style={{ margin: "0 auto 28px" }}>{body}</p></ScrollReveal>}
+    <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-inv">{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
   </div></section>);
 }

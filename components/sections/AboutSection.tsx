@@ -211,6 +211,7 @@ export default function AboutSection({ content, vn }: AboutProps) {
   // ═══════════════════════════════════════════════════════════════════════════
   // VN 6: Z liczbami - tekst lewo + 2x2 number cards prawo
   // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 6) {
   return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="ab-wrap"><div className="ab-grid">
     <div className="aba1">
       {ey && <ScrollReveal delay={0}><div className="ab-eyebrow"><div className="ab-eline"/><span className="ab-etxt">{ey}</span></div></ScrollReveal>}
@@ -234,5 +235,18 @@ export default function AboutSection({ content, vn }: AboutProps) {
         </div>
       ))}
     </div></StaggerChildren>
+  </div></div></section>);
+  }
+
+  // Fallback: Intro layout
+  return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="ab-wrap"><div className="ab-grid">
+    <FadeScale delay={0.15}><div className="aba1" style={{ position: "relative" }}>
+      {img ? <img src={img} alt="" className="ab-img" style={{ aspectRatio: "4/3" }} /> : <div style={{ aspectRatio: "4/3", borderRadius: 24, background: "linear-gradient(135deg, rgb(var(--color-accent)/0.1), rgb(var(--color-surface)))" }} />}
+    </div></FadeScale>
+    <div className="aba2">
+      {ey && <ScrollReveal delay={0}><div className="ab-eyebrow"><div className="ab-eline"/><span className="ab-etxt">{ey}</span></div></ScrollReveal>}
+      <ScrollReveal delay={0.1}><h2 className="ab-h2 ab-h2-s">{hl}</h2></ScrollReveal>
+      {body && <ScrollReveal delay={0.2}><p className="ab-body">{body}</p></ScrollReveal>}
+    </div>
   </div></div></section>);
 }

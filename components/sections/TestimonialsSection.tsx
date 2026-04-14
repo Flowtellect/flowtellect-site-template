@@ -399,28 +399,61 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
   // ═══════════════════════════════════════════════════════════════════════════
   // VN 12: NPS / data-driven (rating summary + quotes)
   // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 12) {
+  const npsScore = typeof content.nps_score === "number" ? content.nps_score : 92;
+  const npsLabel = str(content.nps_label) || "NPS Score";
+  const npsHighlights = arr(content.highlights);
+  const quotes = arr(content.quotes).length > 0 ? arr(content.quotes) : items;
   return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="tm-wrap">
     <ScrollReveal delay={0}><Header /></ScrollReveal>
     {/* NPS-style summary */}
     <div className="ta1" style={{ maxWidth: 500, margin: "0 auto 48px", textAlign: "center" }}>
       <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 100, height: 100, borderRadius: "50%", border: "4px solid rgb(var(--color-accent))", marginBottom: 16 }}>
-        <span style={{ fontFamily: "var(--font-display)", fontSize: 36, fontWeight: 700, color: "rgb(var(--color-accent))" }}>92</span>
+        <span style={{ fontFamily: "var(--font-display)", fontSize: 36, fontWeight: 700, color: "rgb(var(--color-accent))" }}>{npsScore}</span>
       </div>
-      <div style={{ fontSize: 14, fontWeight: 600, color: "rgb(var(--color-text-primary))", marginBottom: 4 }}>NPS Score</div>
+      <div style={{ fontSize: 14, fontWeight: 600, color: "rgb(var(--color-text-primary))", marginBottom: 4 }}>{npsLabel}</div>
       <div style={{ fontSize: 13, color: "rgb(var(--color-text-dim))" }}>Na podstawie {items.length > 0 ? items.length * 20 : 127} odpowiedzi</div>
       {/* Bar */}
-      <div style={{ display: "flex", borderRadius: 6, overflow: "hidden", height: 8, marginTop: 20 }}>
-        <div style={{ width: "73%", background: "rgb(34 197 94)" }} />
-        <div style={{ width: "19%", background: "rgb(var(--color-accent))" }} />
-        <div style={{ width: "8%", background: "rgb(239 68 68)" }} />
-      </div>
-      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "rgb(var(--color-text-dim))", marginTop: 6 }}>
-        <span>73% promotorzy</span><span>19% neutralni</span><span>8% krytycy</span>
-      </div>
+      {npsHighlights.length === 3 ? (
+        <>
+        <div style={{ display: "flex", borderRadius: 6, overflow: "hidden", height: 8, marginTop: 20 }}>
+          {npsHighlights.map((h, i) => <div key={i} style={{ width: str(h.pct) || "33%", background: i === 0 ? "rgb(34 197 94)" : i === 1 ? "rgb(var(--color-accent))" : "rgb(239 68 68)" }} />)}
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "rgb(var(--color-text-dim))", marginTop: 6 }}>
+          {npsHighlights.map((h, i) => <span key={i}>{str(h.label)}</span>)}
+        </div>
+        </>
+      ) : (
+        <>
+        <div style={{ display: "flex", borderRadius: 6, overflow: "hidden", height: 8, marginTop: 20 }}>
+          <div style={{ width: "73%", background: "rgb(34 197 94)" }} />
+          <div style={{ width: "19%", background: "rgb(var(--color-accent))" }} />
+          <div style={{ width: "8%", background: "rgb(239 68 68)" }} />
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 11, color: "rgb(var(--color-text-dim))", marginTop: 6 }}>
+          <span>73% promotorzy</span><span>19% neutralni</span><span>8% krytycy</span>
+        </div>
+        </>
+      )}
     </div>
     {/* Quotes */}
     <StaggerChildren staggerDelay={0.15}><div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-      {items.slice(0, 3).map((it, i) => (
+      {quotes.slice(0, 3).map((it, i) => (
+        <div key={i} className="tm-card card-hover">
+          <Stars rating={num(it.rating) || 5} />
+          <div className="tm-quote">&ldquo;{str(it.quote)}&rdquo;</div>
+          <AuthorBlock item={it} />
+        </div>
+      ))}
+    </div></StaggerChildren>
+  </div></section>);
+  }
+
+  // Fallback: Basic 3-col grid
+  return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="tm-wrap">
+    <ScrollReveal delay={0}><Header /></ScrollReveal>
+    <StaggerChildren staggerDelay={0.15}><div className="ta2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {items.map((it, i) => (
         <div key={i} className="tm-card card-hover">
           <Stars rating={num(it.rating) || 5} />
           <div className="tm-quote">&ldquo;{str(it.quote)}&rdquo;</div>

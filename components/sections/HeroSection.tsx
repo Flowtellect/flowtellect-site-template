@@ -206,24 +206,37 @@ export default function HeroSection({ content, vn }: HeroProps) {
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // VN 4: Split odwrocony - obraz lewo, tekst prawo, floating badge
+  // VN 4: Wideo - pelnoekranowe wideo w tle z overlayem
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 4) {
-    return (<section className="bg-bg overflow-hidden" style={{ padding: "48px 0 64px" }}><style>{S}</style><div className="he-wrap"><div className="he-grid">
-      <FadeScale delay={0.2}><div className="hasl order-1 md:!order-none" style={{ position: "relative" }}>
-        <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 24px 64px rgb(0 0 0/0.12)", position: "relative" }}>
-          <ImgOrGrad aspect="3/4" />
-          <div className="he-badge ha5" style={{ bottom: 16, left: 16 }}><div className="he-badge-icon">🕯️</div><div><div className="he-badge-val">30+ zapachow</div><div className="he-badge-lbl">w kolekcji</div></div></div>
-        </div>
-      </div></FadeScale>
-      <div className="ha2 order-0 md:!order-none">
-        {ey && <ScrollReveal delay={0}><div className="he-eyebrow"><div className="he-eline"/><span className="he-etxt">{ey}</span></div></ScrollReveal>}
-        <ScrollReveal delay={0.1}><H lines={hl} cls="he-h1 he-h1-d he-h1-s" /></ScrollReveal>
-        {sub && <ScrollReveal delay={0.25}><p className="he-sub he-sub-d">{sub}</p></ScrollReveal>}
-        <ScrollReveal delay={0.35}><div className="he-ctas" style={{ marginBottom: 24 }}>{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div></ScrollReveal>
-        {items.length > 0 && <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>{items.slice(0,4).map((it,i) => <span key={i} className="he-pill"><span style={{ fontSize: 14 }}>{str(it.icon)||"✦"}</span> {str(it.name||it.title||it.label)}</span>)}</div>}
+    const videoUrl = str(content.video_url);
+    const posterImg = resolveImage(content.poster_image) || img;
+    const overlayOpacity = typeof content.overlay_opacity === "number" ? content.overlay_opacity : 0.5;
+    return (<section style={{ position: "relative", minHeight: "90vh", display: "flex", alignItems: "center", overflow: "hidden" }}><style>{S}</style>
+      {/* Video or poster background */}
+      <div style={{ position: "absolute", inset: 0 }}>
+        {videoUrl ? (
+          <video autoPlay muted loop playsInline poster={posterImg || undefined} style={{ width: "100%", height: "100%", objectFit: "cover" }}>
+            <source src={videoUrl} type="video/mp4" />
+          </video>
+        ) : posterImg ? (
+          <img src={posterImg} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+        ) : (
+          <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, rgb(var(--color-accent)/0.2), rgb(var(--color-bg)))" }} />
+        )}
       </div>
-    </div></div></section>);
+      <div style={{ position: "absolute", inset: 0, background: `rgba(0,0,0,${overlayOpacity})`, zIndex: 1 }} />
+      <div style={{ position: "relative", zIndex: 10, maxWidth: 800, margin: "0 auto", padding: "80px 24px", textAlign: "center" }}>
+        {ey && <ScrollReveal delay={0}><div style={{ display: "inline-flex", alignItems: "center", gap: 16, marginBottom: 20 }}><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/><span className="he-etxt-w">{ey}</span><div className="he-eline" style={{ background: "rgb(var(--color-accent-light))" }}/></div></ScrollReveal>}
+        <ScrollReveal delay={0.1}><H lines={hl} cls="he-h1 he-h1-w he-h1-l" /></ScrollReveal>
+        {sub && <ScrollReveal delay={0.25}><p className="he-sub he-sub-w" style={{ margin: "0 auto 32px", textAlign: "center", maxWidth: 600 }}>{sub}</p></ScrollReveal>}
+        <ScrollReveal delay={0.35}><div className="he-ctas" style={{ justifyContent: "center" }}>
+          {c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}
+          {c2 && <a href={c2.href} className="he-btn he-btn-g">{c2.label}</a>}
+        </div></ScrollReveal>
+      </div>
+      <div className="he-fade"/>
+    </section>);
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -504,6 +517,7 @@ export default function HeroSection({ content, vn }: HeroProps) {
   // ═══════════════════════════════════════════════════════════════════════════
   // VN 15: Lokalizacja - zdjecie bg + glassmorphism info card
   // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 15) {
   const address = str(content.address);
   const phone = str(content.phone);
   const email = str(content.email);
@@ -539,4 +553,18 @@ export default function HeroSection({ content, vn }: HeroProps) {
     </div>
     <div className="he-fade"/>
   </section>);
+  }
+
+  // Fallback: Classic hero
+  return (<section className="bg-bg overflow-hidden" style={{ padding: "48px 0 64px" }}><style>{S}</style><div className="he-wrap"><div className="he-grid">
+    <div className="ha1">
+      {ey && <ScrollReveal delay={0}><div className="he-eyebrow"><div className="he-eline"/><span className="he-etxt">{ey}</span></div></ScrollReveal>}
+      <ScrollReveal delay={0.1}><H lines={hl} cls="he-h1 he-h1-d he-h1-s" /></ScrollReveal>
+      {sub && <ScrollReveal delay={0.25}><p className="he-sub he-sub-d">{sub}</p></ScrollReveal>}
+      <ScrollReveal delay={0.35}><div className="he-ctas">{c1 && <a href={c1.href} className="he-btn he-btn-a">{c1.label} <Arrow/></a>}{c2 && <a href={c2.href} className="he-btn he-btn-o">{c2.label}</a>}</div></ScrollReveal>
+    </div>
+    <FadeScale delay={0.2}><div className="hasr" style={{ position: "relative" }}>
+      <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 20px 60px rgb(0 0 0/0.1)" }}><ImgOrGrad /></div>
+    </div></FadeScale>
+  </div></div></section>);
 }

@@ -342,7 +342,35 @@ export default function FooterSection({ content, vn }: FooterProps) {
     </footer>);
   }
 
-  // VN 15: Z app badges (default)
+  // VN 15: Z app badges
+  if (vn === 15) {
+  const appStoreUrl = str(content.app_store_url);
+  const googlePlayUrl = str(content.google_play_url);
+  return (<footer style={{ background: "rgb(var(--color-surface-deep))", borderTop: "1px solid rgb(var(--color-border)/0.5)", padding: "48px 0" }}><style>{S}</style><div className="ft-wrap">
+    <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
+      <div className="md:col-span-4">
+        <BrandLogo content={content} size="sm" />
+        <p className="ft-tagline">{tagline}</p>
+        {/* App store badges */}
+        {(appStoreUrl || googlePlayUrl) && <div style={{ display: "flex", gap: 8, marginTop: 16, flexWrap: "wrap" }}>
+          {appStoreUrl && <a href={appStoreUrl} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 16px", background: "rgb(var(--color-text-primary))", color: "white", borderRadius: 10, textDecoration: "none", fontSize: 12, fontWeight: 500 }}>
+            <span style={{ fontSize: 18 }}>🍎</span>
+            <div><div style={{ fontSize: 9, opacity: 0.7 }}>Pobierz z</div><div style={{ fontSize: 13, fontWeight: 600 }}>App Store</div></div>
+          </a>}
+          {googlePlayUrl && <a href={googlePlayUrl} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 16px", background: "rgb(var(--color-text-primary))", color: "white", borderRadius: 10, textDecoration: "none", fontSize: 12, fontWeight: 500 }}>
+            <span style={{ fontSize: 18 }}>▶️</span>
+            <div><div style={{ fontSize: 9, opacity: 0.7 }}>Pobierz z</div><div style={{ fontSize: 13, fontWeight: 600 }}>Google Play</div></div>
+          </a>}
+        </div>}
+        <SocialIcons />
+      </div>
+      <div className="md:col-span-8 grid grid-cols-2 md:grid-cols-3 gap-8"><Columns /></div>
+    </div>
+    <CopyBar />
+  </div></footer>);
+  }
+
+  // Fallback: Simple footer
   return (<footer style={{ background: "rgb(var(--color-surface-deep))", borderTop: "1px solid rgb(var(--color-border)/0.5)", padding: "48px 0" }}><style>{S}</style><div className="ft-wrap">
     <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
       <div className="md:col-span-4"><BrandLogo content={content} size="sm" /><p className="ft-tagline">{tagline}</p><SocialIcons /></div>

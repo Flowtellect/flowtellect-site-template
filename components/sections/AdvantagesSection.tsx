@@ -297,6 +297,7 @@ export default function AdvantagesSection({ content, vn }: AdvantagesProps) {
   // ═══════════════════════════════════════════════════════════════════════════
   // VN 10: Ze zdjeciami (karty z duzymi obrazami)
   // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 10) {
   return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="adv-wrap">
     <Header />
     <div className="aa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -314,5 +315,20 @@ export default function AdvantagesSection({ content, vn }: AdvantagesProps) {
         );
       })}
     </div>
+  </div></section>);
+  }
+
+  // Fallback: Simple icon cards
+  return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="adv-wrap">
+    <Header />
+    <StaggerChildren staggerDelay={0.12}><div className="aa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {items.map((it, i) => (
+        <div key={i} className="adv-card card-hover" style={{ textAlign: "center" }}>
+          <div className="adv-card-icon" style={{ margin: "0 auto 18px" }}>{resolveIcon(it.icon)}</div>
+          <div className="adv-card-title">{str(it.name || it.title || it.label)}</div>
+          <div className="adv-card-desc">{str(it.desc || it.description)}</div>
+        </div>
+      ))}
+    </div></StaggerChildren>
   </div></section>);
 }

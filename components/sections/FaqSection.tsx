@@ -305,10 +305,57 @@ export default function FaqSection({ content, vn }: FaqProps) {
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // VN 15: Mega z nawigacja (default)
+  // VN 15: Mega z nawigacja - sidebar + categorized accordion
   // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 15) {
+  const categories = arr(content.categories);
+  if (categories.length > 0) {
+    return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="fq-wrap">
+      <Header />
+      <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-10 items-start">
+        {/* Sidebar nav */}
+        <div style={{ position: "sticky", top: 100 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            {categories.map((cat, i) => (
+              <a key={i} href={`#faq-cat-${i}`} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 14px", borderRadius: 12, fontSize: 14, fontWeight: 500, color: "rgb(var(--color-text-muted))", textDecoration: "none", transition: "all 0.2s" }} className="hover:!bg-surface hover:!text-text-primary">
+                {str(cat.icon) && <span style={{ fontSize: 16 }}>{resolveIcon(cat.icon)}</span>}
+                {str(cat.name || cat.title)}
+              </a>
+            ))}
+          </div>
+        </div>
+        {/* Categorized accordion */}
+        <div>
+          {categories.map((cat, ci) => {
+            const catItems = arr(cat.items || cat.questions);
+            return (
+              <div key={ci} id={`faq-cat-${ci}`} style={{ marginBottom: ci < categories.length - 1 ? 40 : 0 }}>
+                <div style={{ fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 600, color: "rgb(var(--color-text-primary))", marginBottom: 16, paddingBottom: 12, borderBottom: "2px solid rgb(var(--color-accent)/0.2)" }}>{str(cat.name || cat.title)}</div>
+                <StaggerChildren staggerDelay={0.08}><div>
+                  {catItems.map((it, i) => (
+                    <details key={i} className="fq-item">
+                      <summary>{str(it.question)}<span className="fq-plus">+</span></summary>
+                      <div className="fq-answer" dangerouslySetInnerHTML={{ __html: str(it.answer) }} />
+                    </details>
+                  ))}
+                </div></StaggerChildren>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div></section>);
+  }
+  // No categories - simple accordion
   return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="fq-wrap">
     <Header />
     <Accordion maxW={800} />
+  </div></section>);
+  }
+
+  // Fallback: Simple accordion
+  return (<section className="bg-bg-alt" style={{ padding: "64px 0" }}><style>{S}</style><div className="fq-wrap">
+    <Header />
+    <Accordion />
   </div></section>);
 }

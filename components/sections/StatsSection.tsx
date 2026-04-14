@@ -407,7 +407,10 @@ export default function StatsSection({ content, vn }: StatsProps) {
   // ═══════════════════════════════════════════════════════════════════════════
   // VN 12: Gradient strip z dekoracyjnymi kolkami
   // ═══════════════════════════════════════════════════════════════════════════
-  return (<section style={{ position: "relative", padding: "64px 0", background: "linear-gradient(135deg, rgb(var(--color-accent)), rgb(var(--color-accent-dark)), rgb(var(--color-accent)))", color: "white", overflow: "hidden" }}><style>{S}</style>
+  if (vn === 12) {
+  const gradientFrom = str(content.gradient_from) || "rgb(var(--color-accent))";
+  const gradientTo = str(content.gradient_to) || "rgb(var(--color-accent-dark))";
+  return (<section style={{ position: "relative", padding: "64px 0", background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo}, ${gradientFrom})`, color: "white", overflow: "hidden" }}><style>{S}</style>
     {/* Decorative circles */}
     <div style={{ position: "absolute", width: 200, height: 200, borderRadius: "50%", background: "rgb(255 255 255/0.05)", top: -60, right: -40 }} />
     <div style={{ position: "absolute", width: 140, height: 140, borderRadius: "50%", background: "rgb(255 255 255/0.04)", bottom: -40, left: "20%" }} />
@@ -421,4 +424,15 @@ export default function StatsSection({ content, vn }: StatsProps) {
       </StaggerChildren>
     </div>
   </section>);
+  }
+
+  // Fallback: Accent bar
+  return (<section className="bg-accent text-on-accent" style={{ padding: "48px 0" }}><style>{S}</style><div className="st-wrap sta1">
+    {hl && <ScrollReveal delay={0}><div className="st-header"><h2 className="st-h2 st-h2-w">{hl}</h2></div></ScrollReveal>}
+    <StaggerChildren staggerDelay={0.1}>
+    <div className="flex flex-wrap justify-around gap-8 text-center">
+      {items.map((it, i) => <CountStat key={i} value={it.value} suffix={str(it.suffix)} label={str(it.label)} numClass="st-bar-num" labelClass="st-bar-lbl" />)}
+    </div>
+    </StaggerChildren>
+  </div></section>);
 }

@@ -182,8 +182,43 @@ export default function PricingSection({ content, vn }: PricingProps) {
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // VN 5: Kalkulator (default) - falls back to standard grid
+  // VN 5: Kalkulator - slider + breakpoints + features
   // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 5) {
+  const unitLabel = str(content.unit_label) || "sztuk";
+  const calcTiers = arr(content.tiers || content.breakpoints);
+  const calcFeatures = arr(content.features);
+  const calcCtaText = str(content.cta_text) || "Zamow";
+  const calcCtaLink = str(content.cta_link) || "#";
+  return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pc-wrap">
+    <Header />
+    <div className="pa2" style={{ maxWidth: 600, margin: "0 auto" }}>
+      <div style={{ background: "rgb(var(--color-surface))", border: "1px solid rgb(var(--color-border)/0.5)", borderRadius: 24, padding: "32px 28px" }}>
+        {/* Slider */}
+        <div style={{ marginBottom: 24 }}>
+          <label style={{ display: "block", fontSize: 14, fontWeight: 600, color: "rgb(var(--color-text-primary))", marginBottom: 12 }}>Ilosc {unitLabel}</label>
+          <input type="range" min="1" max="100" defaultValue="10" style={{ width: "100%", accentColor: "rgb(var(--color-accent))" }} />
+          {/* Tier breakpoints */}
+          {calcTiers.length > 0 && <div style={{ display: "flex", justifyContent: "space-between", marginTop: 8, fontSize: 11, color: "rgb(var(--color-text-dim))" }}>
+            {calcTiers.map((t, i) => <span key={i}>{str(t.label || t.value)}</span>)}
+          </div>}
+        </div>
+        {/* Price display */}
+        <div style={{ textAlign: "center", padding: "20px 0", borderTop: "1px solid rgb(var(--color-border)/0.3)", borderBottom: "1px solid rgb(var(--color-border)/0.3)", marginBottom: 20 }}>
+          <div style={{ fontSize: 13, color: "rgb(var(--color-text-dim))", marginBottom: 4 }}>Szacowana cena</div>
+          <div className="pc-price" style={{ fontSize: 48 }}>{str(calcTiers[0]?.price) || "od 39 zl"}</div>
+        </div>
+        {/* Features list */}
+        {calcFeatures.length > 0 && <ul className="pc-features" style={{ marginBottom: 20 }}>
+          {calcFeatures.map((f, j) => <li key={j} className="pc-feature"><span className="pc-check">✓</span>{str(f.label || f)}</li>)}
+        </ul>}
+        <a href={calcCtaLink} className="pc-btn pc-btn-fill" style={{ display: "block", textAlign: "center" }}>{calcCtaText}</a>
+      </div>
+    </div>
+  </div></section>);
+  }
+
+  // Fallback: Standard grid
   return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pc-wrap">
     <Header />
     <StaggerChildren staggerDelay={0.15}><div className="pa2 grid grid-cols-1 md:grid-cols-3 gap-6" style={{ alignItems: "start" }}>

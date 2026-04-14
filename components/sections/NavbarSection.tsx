@@ -172,7 +172,7 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
   // ═══════════════════════════════════════════════════════════════════════════
   // VN 1: Classic (logo lewo, linki prawo, CTA)
   // ═══════════════════════════════════════════════════════════════════════════
-  if (vn === 1 || vn === 3) {
+  if (vn === 1) {
     return (
       <>
         <style>{styles}</style>
@@ -241,6 +241,66 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
               )}
             </div>
             <div className="md:hidden"><Hamburger onClick={() => setMenuOpen(true)} className="text-muted hover:text-primary" /></div>
+          </div>
+        </header>
+        <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} links={links} cta={cta} />
+      </>
+    );
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // VN 3: Z podmenu / dropdown
+  // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 3) {
+    const rawLinks = arr(content.links);
+    return (
+      <>
+        <style>{styles}{`
+          .nb-dd-wrap{position:relative}
+          .nb-dd-panel{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);min-width:220px;padding:12px 0;background:rgb(var(--color-surface));border:1px solid rgb(var(--color-border)/0.5);border-radius:16px;box-shadow:0 12px 40px rgb(0 0 0/0.1);z-index:60;margin-top:8px}
+          .nb-dd-wrap:hover .nb-dd-panel{display:block}
+          .nb-dd-item{display:block;padding:10px 20px;text-decoration:none;transition:background 0.15s}
+          .nb-dd-item:hover{background:rgb(var(--color-bg-alt))}
+          .nb-dd-label{font-size:14px;font-weight:500;color:rgb(var(--color-text-primary))}
+          .nb-dd-desc{font-size:12px;color:rgb(var(--color-text-dim));margin-top:2px;line-height:1.4}
+          .nb-dd-arrow{display:inline-block;margin-left:4px;transition:transform .2s;font-size:10px}
+          .nb-dd-wrap:hover .nb-dd-arrow{transform:rotate(180deg)}
+        `}</style>
+        <header style={{
+          position: "sticky", top: 0, zIndex: 50,
+          background: scrolled ? "rgb(var(--color-bg) / 0.85)" : "rgb(var(--color-bg))",
+          backdropFilter: scrolled ? "blur(20px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
+          borderBottom: `1px solid rgb(var(--color-border) / ${scrolled ? "0.5" : "0.3"})`,
+          transition: "all 0.3s ease",
+        }}>
+          <div className="nb-bar">
+            <LogoEl />
+            <nav className="hidden md:flex items-center" style={{ gap: 28 }}>
+              {rawLinks.map((l, i) => {
+                const children = arr(l.children);
+                if (children.length > 0) {
+                  return (
+                    <div key={i} className="nb-dd-wrap" style={{ padding: "8px 0" }}>
+                      <a href={str(l.href) || "#"} className="nb-link nb-link-default">{str(l.label)} <span className="nb-dd-arrow">▾</span></a>
+                      <div className="nb-dd-panel">
+                        {children.map((ch, j) => (
+                          <a key={j} href={str(ch.href) || "#"} className="nb-dd-item">
+                            <div className="nb-dd-label">{str(ch.label)}</div>
+                            {str(ch.desc) && <div className="nb-dd-desc">{str(ch.desc)}</div>}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                }
+                return <a key={i} href={str(l.href) || "#"} className="nb-link nb-link-default">{str(l.label)}</a>;
+              })}
+            </nav>
+            <div className="flex items-center gap-4">
+              {ctaLabel && <a href={ctaHref} className="nb-cta hidden md:inline-flex">{ctaLabel}</a>}
+              <Hamburger onClick={() => setMenuOpen(true)} className="text-muted hover:text-primary" />
+            </div>
           </div>
         </header>
         <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} links={links} cta={cta} />
@@ -504,35 +564,65 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // VN 9: Sidebar
+  // VN 9: Sidebar (pionowa nawigacja boczna)
   // ═══════════════════════════════════════════════════════════════════════════
   if (vn === 9) {
-    // Sidebar is complex for generated sites - fall back to floating pill
-    // (sidebar requires layout changes to entire page)
+    const tagline = str(content.tagline);
+    const socials = arr(content.social || content.socials);
+    const socialIcons: Record<string, string> = { instagram: "📸", behance: "🎨", dribbble: "🏀", linkedin: "💼", github: "💻", facebook: "📘", twitter: "🐦" };
     return (
       <>
-        <style>{styles}</style>
-        <div style={{ height: 84 }} />
-        <div style={{ position: "fixed", top: 12, left: 16, right: 16, zIndex: 50 }} className="md:left-8 md:right-8">
-          <div style={{
-            maxWidth: 1100, margin: "0 auto",
-            background: "rgb(var(--color-surface) / 0.9)",
-            backdropFilter: "blur(24px)", WebkitBackdropFilter: "blur(24px)",
-            border: "1px solid rgb(var(--color-border) / 0.4)",
-            borderRadius: 100, padding: "0 6px 0 20px",
-            display: "flex", alignItems: "center", justifyContent: "space-between", height: 58,
-            boxShadow: "0 4px 24px rgb(0 0 0 / 0.05), 0 1px 4px rgb(0 0 0 / 0.03)",
-            transition: "all 0.4s ease",
-          }}>
-            <LogoEl />
-            <nav className="hidden md:flex items-center gap-0.5" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
-              {links.map((l, i) => <a key={i} href={l.href} className="nb-link-pill-round">{l.label}</a>)}
-            </nav>
-            <div className="flex items-center gap-1.5" style={{ paddingRight: 4 }}>
-              {ctaLabel && <a href={ctaHref} className="nb-cta nb-cta-sm nb-cta-pill hidden md:inline-flex">{ctaLabel}</a>}
+        <style>{styles}{`
+          .nb-sidebar{position:fixed;top:0;left:0;width:72px;height:100vh;background:rgb(var(--color-surface));border-right:1px solid rgb(var(--color-border)/0.5);z-index:50;display:none;flex-direction:column;align-items:center;padding:24px 0;transition:width .3s ease;overflow:hidden}
+          .nb-sidebar:hover{width:220px}
+          @media(min-width:768px){.nb-sidebar{display:flex}}
+          .nb-sidebar-logo{width:40px;height:40px;border-radius:12px;overflow:hidden;flex-shrink:0;margin-bottom:8px;transition:all .3s}
+          .nb-sidebar:hover .nb-sidebar-logo{width:52px;height:52px}
+          .nb-sidebar-tagline{font-size:11px;color:rgb(var(--color-text-dim));letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;opacity:0;transition:opacity .2s;margin-bottom:24px;text-align:center}
+          .nb-sidebar:hover .nb-sidebar-tagline{opacity:1}
+          .nb-sidebar-nav{display:flex;flex-direction:column;gap:4px;width:100%;padding:0 12px;flex:1}
+          .nb-sidebar-link{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;text-decoration:none;color:rgb(var(--color-text-muted));font-size:14px;font-weight:500;transition:all .2s;white-space:nowrap;overflow:hidden}
+          .nb-sidebar-link:hover{color:rgb(var(--color-text-primary));background:rgb(var(--color-bg-alt))}
+          .nb-sidebar-link-dot{width:6px;height:6px;border-radius:50%;background:rgb(var(--color-accent)/0.4);flex-shrink:0;transition:all .2s}
+          .nb-sidebar-link:hover .nb-sidebar-link-dot{background:rgb(var(--color-accent));transform:scale(1.3)}
+          .nb-sidebar-label{opacity:0;transition:opacity .2s}
+          .nb-sidebar:hover .nb-sidebar-label{opacity:1}
+          .nb-sidebar-social{display:flex;flex-direction:column;gap:6px;padding:0 12px;width:100%}
+          .nb-sidebar-social-row{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+          .nb-sidebar:hover .nb-sidebar-social-row{justify-content:flex-start;padding-left:14px}
+          .nb-sidebar-social a{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;background:rgb(var(--color-bg-alt));text-decoration:none;transition:all .2s}
+          .nb-sidebar-social a:hover{background:rgb(var(--color-accent)/0.1)}
+        `}</style>
+        <div className="nb-sidebar">
+          <LogoEl className="nb-sidebar-logo" />
+          {tagline && <div className="nb-sidebar-tagline">{tagline}</div>}
+          <nav className="nb-sidebar-nav">
+            {links.map((l, i) => (
+              <a key={i} href={l.href} className="nb-sidebar-link">
+                <span className="nb-sidebar-link-dot" />
+                <span className="nb-sidebar-label">{l.label}</span>
+              </a>
+            ))}
+          </nav>
+          {socials.length > 0 && (
+            <div className="nb-sidebar-social">
+              <div className="nb-sidebar-social-row">
+                {socials.map((s, i) => (
+                  <a key={i} href={str(s.href || s.url)} target="_blank" rel="noopener noreferrer" title={str(s.platform)}>
+                    {socialIcons[str(s.platform).toLowerCase()] || "🔗"}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="md:hidden">
+          <header style={{ position: "sticky", top: 0, zIndex: 50, background: "rgb(var(--color-bg))", borderBottom: "1px solid rgb(var(--color-border)/0.3)" }}>
+            <div className="nb-bar">
+              <LogoEl />
               <Hamburger onClick={() => setMenuOpen(true)} className="text-muted hover:text-primary" />
             </div>
-          </div>
+          </header>
         </div>
         <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} links={links} cta={cta} />
       </>
@@ -540,8 +630,72 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // VN 10: Mega menu (classic + dropdown)
+  // VN 10: Mega menu z obrazkami
   // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 10) {
+    const menuGroups = arr(content.menu_groups);
+    return (
+      <>
+        <style>{styles}{`
+          .nb-mega-wrap{position:relative}
+          .nb-mega-panel{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);min-width:560px;background:rgb(var(--color-surface));border:1px solid rgb(var(--color-border)/0.5);border-radius:20px;box-shadow:0 16px 48px rgb(0 0 0/0.12);z-index:60;margin-top:12px;padding:20px;overflow:hidden}
+          .nb-mega-wrap:hover .nb-mega-panel{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+          .nb-mega-group{display:flex;flex-direction:column;gap:8px}
+          .nb-mega-img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:12px;margin-bottom:8px}
+          .nb-mega-img-ph{width:100%;aspect-ratio:16/9;border-radius:12px;margin-bottom:8px;background:linear-gradient(135deg,rgb(var(--color-accent)/0.08),rgb(var(--color-surface)))}
+          .nb-mega-gtitle{font-size:13px;font-weight:600;color:rgb(var(--color-text-primary));padding:0 4px;margin-bottom:4px}
+          .nb-mega-child{display:block;padding:8px 12px;border-radius:10px;text-decoration:none;transition:background .15s}
+          .nb-mega-child:hover{background:rgb(var(--color-bg-alt))}
+          .nb-mega-child-lbl{font-size:13px;font-weight:500;color:rgb(var(--color-text-primary))}
+          .nb-mega-child-desc{font-size:11px;color:rgb(var(--color-text-dim));margin-top:2px;line-height:1.3}
+        `}</style>
+        <header style={{
+          position: "sticky", top: 0, zIndex: 50,
+          background: scrolled ? "rgb(var(--color-bg) / 0.85)" : "rgb(var(--color-bg))",
+          backdropFilter: scrolled ? "blur(20px)" : "none",
+          borderBottom: "1px solid rgb(var(--color-border) / 0.5)",
+          transition: "all 0.3s ease",
+        }}>
+          <div className="nb-bar">
+            <LogoEl />
+            <nav className="hidden md:flex items-center" style={{ gap: 28 }}>
+              {menuGroups.length > 0 ? (
+                <div className="nb-mega-wrap" style={{ padding: "8px 0" }}>
+                  <span className="nb-link nb-link-default" style={{ cursor: "pointer" }}>Menu <span style={{ fontSize: 10, marginLeft: 4 }}>▾</span></span>
+                  <div className="nb-mega-panel">
+                    {menuGroups.map((g, i) => {
+                      const gImg = resolveImage(g.image);
+                      const children = arr(g.children);
+                      return (
+                        <div key={i} className="nb-mega-group">
+                          {gImg ? <img src={gImg} alt="" className="nb-mega-img" /> : <div className="nb-mega-img-ph" />}
+                          <div className="nb-mega-gtitle">{str(g.label)}</div>
+                          {children.map((ch, j) => (
+                            <a key={j} href={str(ch.href) || "#"} className="nb-mega-child">
+                              <div className="nb-mega-child-lbl">{str(ch.label)}</div>
+                              {str(ch.desc) && <div className="nb-mega-child-desc">{str(ch.desc)}</div>}
+                            </a>
+                          ))}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : links.map((l, i) => <a key={i} href={l.href} className="nb-link nb-link-default">{l.label}</a>)}
+              {links.length > 0 && menuGroups.length > 0 && links.slice(0, 3).map((l, i) => <a key={i} href={l.href} className="nb-link nb-link-default">{l.label}</a>)}
+            </nav>
+            <div className="flex items-center gap-4">
+              {ctaLabel && <a href={ctaHref} className="nb-cta hidden md:inline-flex">{ctaLabel}</a>}
+              <Hamburger onClick={() => setMenuOpen(true)} className="text-muted hover:text-primary" />
+            </div>
+          </div>
+        </header>
+        <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} links={links} cta={cta} />
+      </>
+    );
+  }
+
+  // Fallback: Classic navbar
   return (
     <>
       <style>{styles}</style>

@@ -549,14 +549,49 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // VN 20: Konfigurator / Featured + grid (default)
+  // VN 20: Konfigurator - split layout: image left, config right
   // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 20) {
+    const cfgName = str(content.name || content.product_name) || str(items[0]?.name || items[0]?.title) || hl;
+    const cfgDesc = str(content.desc || content.product_desc) || str(items[0]?.desc || items[0]?.description) || body;
+    const cfgBasePrice = str(content.base_price) || str(items[0]?.price) || "od 49 zl";
+    const cfgImage = resolveImage(content.image || content.product_image) || resolveImage(items[0]?.image);
+    const cfgOptions = arr(content.options);
+    const cfgCta = content.cta as Record<string, unknown> | null;
+    return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+        {/* Image */}
+        <ScrollReveal delay={0}><div className="pa1" style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 24px 64px rgb(0 0 0/0.1)", position: "sticky", top: 100 }}>
+          {cfgImage ? <img src={cfgImage} alt="" style={{ width: "100%", aspectRatio: "1/1", objectFit: "cover", display: "block" }} /> : <div style={{ width: "100%", aspectRatio: "1/1", background: "linear-gradient(135deg, rgb(var(--color-accent)/0.1), rgb(var(--color-surface)))" }} />}
+        </div></ScrollReveal>
+        {/* Config */}
+        <div className="pa2">
+          <ScrollReveal delay={0.1}><h2 style={{ fontFamily: "var(--font-display)", fontSize: 32, fontWeight: 700, marginBottom: 8 }}>{cfgName}</h2></ScrollReveal>
+          <div style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 700, color: "rgb(var(--color-accent))", marginBottom: 16 }}>{cfgBasePrice}</div>
+          {cfgDesc && <ScrollReveal delay={0.2}><p style={{ fontSize: 15, lineHeight: 1.7, color: "rgb(var(--color-text-muted))", marginBottom: 24 }}>{cfgDesc}</p></ScrollReveal>}
+          {/* Options */}
+          {cfgOptions.map((opt, oi) => (
+            <div key={oi} style={{ marginBottom: 20 }}>
+              <div style={{ fontSize: 14, fontWeight: 600, color: "rgb(var(--color-text-primary))", marginBottom: 10 }}>{str(opt.label || opt.name)}</div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {arr(opt.choices).map((ch, ci) => (
+                  <button key={ci} style={{ padding: "8px 16px", borderRadius: 10, border: ci === 0 ? "2px solid rgb(var(--color-accent))" : "1px solid rgb(var(--color-border))", background: ci === 0 ? "rgb(var(--color-accent)/0.05)" : "rgb(var(--color-surface))", fontSize: 13, fontWeight: 500, color: ci === 0 ? "rgb(var(--color-accent))" : "rgb(var(--color-text-muted))", cursor: "pointer", fontFamily: "var(--font-body)" }}>{str(ch.label || ch)}</button>
+                ))}
+              </div>
+            </div>
+          ))}
+          <button className="pr-btn" style={{ marginTop: 8 }}>{cfgCta ? str(cfgCta.label) : "Dodaj do koszyka"}</button>
+        </div>
+      </div>
+    </div></section>);
+  }
+
+  // Featured + grid (multi-item)
   if (items.length > 1) {
     const featured = items[0];
     const rest = items.slice(1);
     return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
       <Header />
-      {/* Featured large */}
       <ScrollReveal delay={0}><div className="pa1 grid grid-cols-1 md:grid-cols-2 gap-8 items-center" style={{ marginBottom: 32 }}>
         <div style={{ borderRadius: 24, overflow: "hidden", boxShadow: "0 16px 48px rgb(0 0 0/0.08)" }}>
           <ImgOrGrad item={featured} aspect="4/3" />
@@ -568,7 +603,6 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
           {str(featured.price) && <div className="pr-card-price" style={{ fontSize: 20 }}>{str(featured.price)}</div>}
         </div>
       </div></ScrollReveal>
-      {/* Rest in grid */}
       <StaggerChildren staggerDelay={0.12}><div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {rest.map((it, i) => (
           <div key={i} className="pr-card card-hover">
@@ -584,7 +618,7 @@ export default function ProductsSection({ content, vn }: ProductsProps) {
     </div></section>);
   }
 
-  // Single item fallback
+  // Fallback: Basic grid
   return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="pr-wrap">
     <Header />
     <StaggerChildren staggerDelay={0.12}><div className="pa2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

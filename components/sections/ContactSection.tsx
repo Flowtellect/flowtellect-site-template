@@ -3,7 +3,7 @@
 // ─── ContactSection ──────────────────────────────────────────────────────────
 // 10 individually crafted contact variants matching HTML mockups.
 
-import { str, arr, resolveImage } from "./shared";
+import { str, arr, resolveImage, resolveIcon } from "./shared";
 import { ScrollReveal, FadeScale } from "./ClientComponents";
 
 interface ContactProps {
@@ -268,17 +268,20 @@ export default function ContactSection({ content, vn }: ContactProps) {
     </section>);
   }
 
-  // VN 10: Routing tematow (default)
+  // VN 10: Routing tematow
+  if (vn === 10) {
+  const departments = arr(content.departments || content.topics);
   return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="co-wrap">
     <Header />
     <ScrollReveal delay={0.2}><div className="ca2 grid grid-cols-1 md:grid-cols-3 gap-5">
-      {topics.length > 0 ? topics.map((t, i) => (
+      {departments.length > 0 ? departments.map((t, i) => (
         <div key={i} className="co-card" style={{ textAlign: "center" }}>
-          {str(t.icon) && <div style={{ fontSize: 28, marginBottom: 12 }}>{str(t.icon)}</div>}
+          {str(t.icon) && <div style={{ fontSize: 28, marginBottom: 12 }}>{resolveIcon(t.icon)}</div>}
           <div style={{ fontFamily: "var(--font-display)", fontSize: 18, fontWeight: 600, marginBottom: 8 }}>{str(t.name || t.title)}</div>
           <div style={{ fontSize: 13, color: "rgb(var(--color-text-muted))", lineHeight: 1.6, marginBottom: 16 }}>{str(t.desc || t.description)}</div>
           {str(t.email) && <a href={`mailto:${str(t.email)}`} style={{ display: "block", fontSize: 13, color: "rgb(var(--color-accent))", fontWeight: 600, textDecoration: "none" }}>{str(t.email)}</a>}
           {str(t.phone) && <a href={`tel:${str(t.phone)}`} style={{ display: "block", fontSize: 13, color: "rgb(var(--color-accent))", fontWeight: 600, textDecoration: "none", marginTop: 4 }}>{str(t.phone)}</a>}
+          {str(t.hours) && <div style={{ fontSize: 12, color: "rgb(var(--color-text-dim))", marginTop: 8 }}>{str(t.hours)}</div>}
         </div>
       )) : (
         <div className="co-card md:col-span-3" style={{ maxWidth: 600, margin: "0 auto" }}>
@@ -286,5 +289,19 @@ export default function ContactSection({ content, vn }: ContactProps) {
         </div>
       )}
     </div></ScrollReveal>
+  </div></section>);
+  }
+
+  // Fallback: Simple contact
+  return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="co-wrap">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+      <div className="ca1">
+        <Header centered={false} />
+        <ScrollReveal delay={0.2}><ContactItems content={content} /></ScrollReveal>
+      </div>
+      <FadeScale delay={0.15}><div className="ca2" style={{ borderRadius: 20, overflow: "hidden", minHeight: 300 }}>
+        <div style={{ width: "100%", height: 300, background: "linear-gradient(135deg, rgb(var(--color-accent)/0.08), rgb(var(--color-surface)))", borderRadius: 20, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 40 }}>📍</div>
+      </div></FadeScale>
+    </div>
   </div></section>);
 }
