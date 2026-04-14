@@ -483,8 +483,9 @@ export default function GallerySection({ content, vn }: GalleryProps) {
   }
 
   // ═══════════════════════════════════════════════════════════════════════════
-  // VN 20: Tilt 3D (default)
+  // VN 20: Tilt 3D
   // ═══════════════════════════════════════════════════════════════════════════
+  if (vn === 20) {
   return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}{`
     .gl-tilt{perspective:800px}
     .gl-tilt .gl-cell{transition:transform .4s ease,box-shadow .4s ease}
@@ -501,4 +502,17 @@ export default function GallerySection({ content, vn }: GalleryProps) {
     </div>
     </StaggerChildren>
   </div><Lightbox /></section>);
+  }
+
+  // Fallback: basic grid
+  return (<section className="bg-bg" style={{ padding: "64px 0" }}><style>{S}</style><div className="gl-wrap">
+    <Header />
+    <div className="ga2 grid grid-cols-2 md:grid-cols-3 gap-4">
+      {images.map((img, i) => (
+        <div key={i}>
+          <ImgCell src={getImgSrc(img)} alt={getCaption(img)} aspect="4/3" className="rounded-2xl" caption={getCaption(img)} />
+        </div>
+      ))}
+    </div>
+  <Lightbox /></div></section>);
 }

@@ -1,0 +1,3128 @@
+[
+  {
+    "variant_id": "navbar_1",
+    "category": "navbar",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "links": [
+        { "label": "Strona glowna", "href": "/" },
+        { "label": "O nas", "href": "/o-nas" },
+        { "label": "Uslugi", "href": "/uslugi" },
+        { "label": "Kontakt", "href": "/kontakt" }
+      ],
+      "cta": { "label": "Kontakt", "href": "/kontakt" }
+    }
+  },
+  {
+    "variant_id": "navbar_2",
+    "category": "navbar",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "links": [
+        { "label": "Strona glowna", "href": "/" },
+        { "label": "O nas", "href": "/o-nas" },
+        { "label": "Uslugi", "href": "/uslugi" },
+        { "label": "Kontakt", "href": "/kontakt" }
+      ],
+      "cta": { "label": "Kontakt", "href": "/kontakt" }
+    }
+  },
+  {
+    "variant_id": "navbar_3",
+    "category": "navbar",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "links": [
+        {
+          "label": "Uslugi",
+          "href": "/uslugi",
+          "children": [
+            { "label": "Konsultacja", "href": "/uslugi/konsultacja", "desc": "Profesjonalna konsultacja" },
+            { "label": "Wdrozenie", "href": "/uslugi/wdrozenie", "desc": "Kompleksowe wdrozenie" }
+          ]
+        },
+        { "label": "O nas", "href": "/o-nas" },
+        { "label": "Kontakt", "href": "/kontakt" }
+      ],
+      "cta": { "label": "Kontakt", "href": "/kontakt" }
+    }
+  },
+  {
+    "variant_id": "navbar_4",
+    "category": "navbar",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "links": [
+        { "label": "Strona glowna", "href": "/" },
+        { "label": "O nas", "href": "/o-nas" },
+        { "label": "Uslugi", "href": "/uslugi" },
+        { "label": "Kontakt", "href": "/kontakt" }
+      ],
+      "cta": { "label": "Kontakt", "href": "/kontakt" },
+      "phone": "+48 123 456 789",
+      "email": "kontakt@test.pl",
+      "topbar_text": "Zapraszamy codziennie 9-17",
+      "social": [
+        { "platform": "facebook", "href": "#" },
+        { "platform": "instagram", "href": "#" }
+      ]
+    }
+  },
+  {
+    "variant_id": "navbar_5",
+    "category": "navbar",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "links": [
+        { "label": "Strona glowna", "href": "/" },
+        { "label": "O nas", "href": "/o-nas" },
+        { "label": "Uslugi", "href": "/uslugi" },
+        { "label": "Kontakt", "href": "/kontakt" }
+      ],
+      "cta": { "label": "Kontakt", "href": "/kontakt" }
+    }
+  },
+  {
+    "variant_id": "navbar_6",
+    "category": "navbar",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "links": [
+        { "label": "Strona glowna", "href": "/" },
+        { "label": "O nas", "href": "/o-nas" },
+        { "label": "Uslugi", "href": "/uslugi" },
+        { "label": "Kontakt", "href": "/kontakt" }
+      ],
+      "cta": { "label": "Kontakt", "href": "/kontakt" }
+    }
+  },
+  {
+    "variant_id": "navbar_7",
+    "category": "navbar",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "links": [
+        { "label": "Strona glowna", "href": "/" },
+        { "label": "O nas", "href": "/o-nas" },
+        { "label": "Uslugi", "href": "/uslugi" },
+        { "label": "Kontakt", "href": "/kontakt" }
+      ],
+      "cta": { "label": "Kontakt", "href": "/kontakt" }
+    }
+  },
+  {
+    "variant_id": "navbar_8",
+    "category": "navbar",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "links": [
+        { "label": "Strona glowna", "href": "/" },
+        { "label": "O nas", "href": "/o-nas" },
+        { "label": "Uslugi", "href": "/uslugi" },
+        { "label": "Kontakt", "href": "/kontakt" }
+      ],
+      "cta": { "label": "Kontakt", "href": "/kontakt" }
+    }
+  },
+  {
+    "variant_id": "navbar_9",
+    "category": "navbar",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "links": [
+        { "label": "Strona glowna", "href": "/" },
+        { "label": "O nas", "href": "/o-nas" },
+        { "label": "Uslugi", "href": "/uslugi" },
+        { "label": "Kontakt", "href": "/kontakt" }
+      ],
+      "cta": { "label": "Kontakt", "href": "/kontakt" },
+      "tagline": "Profesjonalne uslugi",
+      "social": [
+        { "platform": "facebook", "href": "#" },
+        { "platform": "instagram", "href": "#" }
+      ]
+    }
+  },
+  {
+    "variant_id": "navbar_10",
+    "category": "navbar",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "links": [
+        { "label": "Strona glowna", "href": "/" },
+        { "label": "O nas", "href": "/o-nas" },
+        { "label": "Kontakt", "href": "/kontakt" }
+      ],
+      "cta": { "label": "Kontakt", "href": "/kontakt" },
+      "menu_groups": [
+        {
+          "label": "Uslugi",
+          "href": "/uslugi",
+          "image": "AUTO",
+          "children": [
+            { "label": "Konsultacja", "href": "/uslugi/konsultacja", "desc": "Profesjonalna konsultacja" },
+            { "label": "Wdrozenie", "href": "/uslugi/wdrozenie", "desc": "Kompleksowe wdrozenie" }
+          ]
+        }
+      ],
+      "quick_links": [
+        { "label": "FAQ", "href": "/faq" },
+        { "label": "Blog", "href": "/blog" }
+      ]
+    }
+  },
+  {
+    "variant_id": "hero_1",
+    "category": "hero",
+    "sample_content": {
+      "eyebrow": "Witamy",
+      "headline": ["Profesjonalne uslugi"],
+      "subheadline": "Najwyzsza jakosc uslug dla Ciebie",
+      "hero_image": "AUTO",
+      "cta_primary": { "label": "Sprawdz oferte", "href": "#oferta" },
+      "cta_secondary": { "label": "Dowiedz sie wiecej", "href": "#o-nas" }
+    }
+  },
+  {
+    "variant_id": "hero_2",
+    "category": "hero",
+    "sample_content": {
+      "eyebrow": "Witamy",
+      "headline": ["Profesjonalne uslugi"],
+      "subheadline": "Najwyzsza jakosc uslug dla Ciebie",
+      "hero_image": "AUTO",
+      "cta_primary": { "label": "Sprawdz oferte", "href": "#oferta" },
+      "cta_secondary": { "label": "Dowiedz sie wiecej", "href": "#o-nas" }
+    }
+  },
+  {
+    "variant_id": "hero_3",
+    "category": "hero",
+    "sample_content": {
+      "eyebrow": "Witamy",
+      "headline": ["Profesjonalne uslugi"],
+      "subheadline": "Najwyzsza jakosc uslug dla Ciebie",
+      "hero_image": "AUTO",
+      "cta_primary": { "label": "Sprawdz oferte", "href": "#oferta" },
+      "cta_secondary": { "label": "Dowiedz sie wiecej", "href": "#o-nas" }
+    }
+  },
+  {
+    "variant_id": "hero_4",
+    "category": "hero",
+    "sample_content": {
+      "eyebrow": "Witamy",
+      "headline": ["Profesjonalne uslugi"],
+      "subheadline": "Najwyzsza jakosc uslug dla Ciebie",
+      "hero_image": "AUTO",
+      "cta_primary": { "label": "Sprawdz oferte", "href": "#oferta" },
+      "cta_secondary": { "label": "Dowiedz sie wiecej", "href": "#o-nas" },
+      "video_url": "",
+      "poster_image": "AUTO",
+      "overlay_opacity": 0.5
+    }
+  },
+  {
+    "variant_id": "hero_5",
+    "category": "hero",
+    "sample_content": {
+      "eyebrow": "Witamy",
+      "headline": ["Profesjonalne uslugi"],
+      "subheadline": "Najwyzsza jakosc uslug dla Ciebie",
+      "hero_image": "AUTO",
+      "cta_primary": { "label": "Sprawdz oferte", "href": "#oferta" },
+      "cta_secondary": { "label": "Dowiedz sie wiecej", "href": "#o-nas" }
+    }
+  },
+  {
+    "variant_id": "hero_6",
+    "category": "hero",
+    "sample_content": {
+      "eyebrow": "Witamy",
+      "headline": ["Profesjonalne uslugi"],
+      "subheadline": "Najwyzsza jakosc uslug dla Ciebie",
+      "hero_image": "AUTO",
+      "cta_primary": { "label": "Sprawdz oferte", "href": "#oferta" },
+      "cta_secondary": { "label": "Dowiedz sie wiecej", "href": "#o-nas" }
+    }
+  },
+  {
+    "variant_id": "hero_7",
+    "category": "hero",
+    "sample_content": {
+      "eyebrow": "Witamy",
+      "headline": ["Profesjonalne uslugi"],
+      "subheadline": "Najwyzsza jakosc uslug dla Ciebie",
+      "hero_image": "AUTO",
+      "cta_primary": { "label": "Sprawdz oferte", "href": "#oferta" },
+      "cta_secondary": { "label": "Dowiedz sie wiecej", "href": "#o-nas" }
+    }
+  },
+  {
+    "variant_id": "hero_8",
+    "category": "hero",
+    "sample_content": {
+      "eyebrow": "Witamy",
+      "headline": ["Profesjonalne uslugi"],
+      "subheadline": "Najwyzsza jakosc uslug dla Ciebie",
+      "hero_image": "AUTO",
+      "cta_primary": { "label": "Sprawdz oferte", "href": "#oferta" },
+      "cta_secondary": { "label": "Dowiedz sie wiecej", "href": "#o-nas" }
+    }
+  },
+  {
+    "variant_id": "hero_9",
+    "category": "hero",
+    "sample_content": {
+      "eyebrow": "Witamy",
+      "headline": ["Profesjonalne uslugi"],
+      "subheadline": "Najwyzsza jakosc uslug dla Ciebie",
+      "hero_image": "AUTO",
+      "cta_primary": { "label": "Sprawdz oferte", "href": "#oferta" },
+      "cta_secondary": { "label": "Dowiedz sie wiecej", "href": "#o-nas" }
+    }
+  },
+  {
+    "variant_id": "hero_10",
+    "category": "hero",
+    "sample_content": {
+      "eyebrow": "Witamy",
+      "headline": ["Profesjonalne uslugi"],
+      "subheadline": "Najwyzsza jakosc uslug dla Ciebie",
+      "hero_image": "AUTO",
+      "cta_primary": { "label": "Sprawdz oferte", "href": "#oferta" },
+      "cta_secondary": { "label": "Dowiedz sie wiecej", "href": "#o-nas" }
+    }
+  },
+  {
+    "variant_id": "hero_11",
+    "category": "hero",
+    "sample_content": {
+      "eyebrow": "Witamy",
+      "headline": ["Profesjonalne uslugi"],
+      "subheadline": "Najwyzsza jakosc uslug dla Ciebie",
+      "hero_image": "AUTO",
+      "cta_primary": { "label": "Sprawdz oferte", "href": "#oferta" },
+      "cta_secondary": { "label": "Dowiedz sie wiecej", "href": "#o-nas" }
+    }
+  },
+  {
+    "variant_id": "hero_12",
+    "category": "hero",
+    "sample_content": {
+      "eyebrow": "Witamy",
+      "headline": ["Profesjonalne uslugi"],
+      "subheadline": "Najwyzsza jakosc uslug dla Ciebie",
+      "hero_image": "AUTO",
+      "cta_primary": { "label": "Sprawdz oferte", "href": "#oferta" },
+      "cta_secondary": { "label": "Dowiedz sie wiecej", "href": "#o-nas" }
+    }
+  },
+  {
+    "variant_id": "hero_13",
+    "category": "hero",
+    "sample_content": {
+      "eyebrow": "Witamy",
+      "headline": ["Profesjonalne uslugi"],
+      "subheadline": "Najwyzsza jakosc uslug dla Ciebie",
+      "hero_image": "AUTO",
+      "cta_primary": { "label": "Sprawdz oferte", "href": "#oferta" },
+      "cta_secondary": { "label": "Dowiedz sie wiecej", "href": "#o-nas" }
+    }
+  },
+  {
+    "variant_id": "hero_14",
+    "category": "hero",
+    "sample_content": {
+      "eyebrow": "Witamy",
+      "headline": ["Profesjonalne uslugi"],
+      "subheadline": "Najwyzsza jakosc uslug dla Ciebie",
+      "hero_image": "AUTO",
+      "cta_primary": { "label": "Sprawdz oferte", "href": "#oferta" },
+      "cta_secondary": { "label": "Dowiedz sie wiecej", "href": "#o-nas" }
+    }
+  },
+  {
+    "variant_id": "hero_15",
+    "category": "hero",
+    "sample_content": {
+      "eyebrow": "Witamy",
+      "headline": ["Profesjonalne uslugi"],
+      "subheadline": "Najwyzsza jakosc uslug dla Ciebie",
+      "hero_image": "AUTO",
+      "cta_primary": { "label": "Sprawdz oferte", "href": "#oferta" },
+      "cta_secondary": { "label": "Dowiedz sie wiecej", "href": "#o-nas" },
+      "address": "ul. Testowa 1, Warszawa",
+      "phone": "+48 123 456 789",
+      "hours": "Pon-Pt 9-17"
+    }
+  },
+  {
+    "variant_id": "about_1",
+    "category": "about",
+    "sample_content": {
+      "eyebrow": "O nas",
+      "headline": "Nasza historia",
+      "body": "Jestesmy zespolem profesjonalistow z wieloletnim doswiadczeniem w branzy.",
+      "image": "AUTO",
+      "stats": [
+        { "value": "10+", "label": "Lat doswiadczenia" },
+        { "value": "500+", "label": "Zadowolonych klientow" }
+      ],
+      "highlights": [
+        { "icon": "star", "label": "Jakosc", "desc": "Najwyzsza jakosc uslug" }
+      ],
+      "members": [
+        { "name": "Jan Kowalski", "role": "CEO", "bio": "Zalozyciel firmy" }
+      ],
+      "pillars": [
+        { "icon": "star", "title": "Misja", "body": "Dostarczamy najlepsze rozwiazania" }
+      ],
+      "items": [
+        { "year": "2015", "title": "Zalozenie firmy", "desc": "Poczatek naszej dzialalnosci" }
+      ]
+    }
+  },
+  {
+    "variant_id": "about_2",
+    "category": "about",
+    "sample_content": {
+      "eyebrow": "O nas",
+      "headline": "Nasza historia",
+      "body": "Jestesmy zespolem profesjonalistow z wieloletnim doswiadczeniem w branzy.",
+      "image": "AUTO",
+      "stats": [
+        { "value": "10+", "label": "Lat doswiadczenia" },
+        { "value": "500+", "label": "Zadowolonych klientow" }
+      ],
+      "highlights": [
+        { "icon": "star", "label": "Jakosc", "desc": "Najwyzsza jakosc uslug" }
+      ],
+      "members": [
+        { "name": "Jan Kowalski", "role": "CEO", "bio": "Zalozyciel firmy" }
+      ],
+      "pillars": [
+        { "icon": "star", "title": "Misja", "body": "Dostarczamy najlepsze rozwiazania" }
+      ],
+      "items": [
+        { "year": "2015", "title": "Zalozenie firmy", "desc": "Poczatek naszej dzialalnosci" }
+      ]
+    }
+  },
+  {
+    "variant_id": "about_3",
+    "category": "about",
+    "sample_content": {
+      "eyebrow": "O nas",
+      "headline": "Nasza historia",
+      "body": "Jestesmy zespolem profesjonalistow z wieloletnim doswiadczeniem w branzy.",
+      "image": "AUTO",
+      "stats": [
+        { "value": "10+", "label": "Lat doswiadczenia" },
+        { "value": "500+", "label": "Zadowolonych klientow" }
+      ],
+      "highlights": [
+        { "icon": "star", "label": "Jakosc", "desc": "Najwyzsza jakosc uslug" }
+      ],
+      "members": [
+        { "name": "Jan Kowalski", "role": "CEO", "bio": "Zalozyciel firmy" }
+      ],
+      "pillars": [
+        { "icon": "star", "title": "Misja", "body": "Dostarczamy najlepsze rozwiazania" }
+      ],
+      "items": [
+        { "year": "2015", "title": "Zalozenie firmy", "desc": "Poczatek naszej dzialalnosci" }
+      ]
+    }
+  },
+  {
+    "variant_id": "about_4",
+    "category": "about",
+    "sample_content": {
+      "eyebrow": "O nas",
+      "headline": "Nasza historia",
+      "body": "Jestesmy zespolem profesjonalistow z wieloletnim doswiadczeniem w branzy.",
+      "image": "AUTO",
+      "stats": [
+        { "value": "10+", "label": "Lat doswiadczenia" },
+        { "value": "500+", "label": "Zadowolonych klientow" }
+      ],
+      "highlights": [
+        { "icon": "star", "label": "Jakosc", "desc": "Najwyzsza jakosc uslug" }
+      ],
+      "members": [
+        { "name": "Jan Kowalski", "role": "CEO", "bio": "Zalozyciel firmy" }
+      ],
+      "pillars": [
+        { "icon": "star", "title": "Misja", "body": "Dostarczamy najlepsze rozwiazania" }
+      ],
+      "items": [
+        { "year": "2015", "title": "Zalozenie firmy", "desc": "Poczatek naszej dzialalnosci" }
+      ]
+    }
+  },
+  {
+    "variant_id": "about_5",
+    "category": "about",
+    "sample_content": {
+      "eyebrow": "O nas",
+      "headline": "Nasza historia",
+      "body": "Jestesmy zespolem profesjonalistow z wieloletnim doswiadczeniem w branzy.",
+      "image": "AUTO",
+      "stats": [
+        { "value": "10+", "label": "Lat doswiadczenia" },
+        { "value": "500+", "label": "Zadowolonych klientow" }
+      ],
+      "highlights": [
+        { "icon": "star", "label": "Jakosc", "desc": "Najwyzsza jakosc uslug" }
+      ],
+      "members": [
+        { "name": "Jan Kowalski", "role": "CEO", "bio": "Zalozyciel firmy" }
+      ],
+      "pillars": [
+        { "icon": "star", "title": "Misja", "body": "Dostarczamy najlepsze rozwiazania" }
+      ],
+      "items": [
+        { "year": "2015", "title": "Zalozenie firmy", "desc": "Poczatek naszej dzialalnosci" }
+      ]
+    }
+  },
+  {
+    "variant_id": "about_6",
+    "category": "about",
+    "sample_content": {
+      "eyebrow": "O nas",
+      "headline": "Nasza historia",
+      "body": "Jestesmy zespolem profesjonalistow z wieloletnim doswiadczeniem w branzy.",
+      "image": "AUTO",
+      "stats": [
+        { "value": "10+", "label": "Lat doswiadczenia" },
+        { "value": "500+", "label": "Zadowolonych klientow" },
+        { "value": "50+", "label": "Projektow" }
+      ],
+      "highlights": [
+        { "icon": "star", "label": "Jakosc", "desc": "Najwyzsza jakosc uslug" }
+      ],
+      "members": [
+        { "name": "Jan Kowalski", "role": "CEO", "bio": "Zalozyciel firmy" }
+      ],
+      "pillars": [
+        { "icon": "star", "title": "Misja", "body": "Dostarczamy najlepsze rozwiazania" }
+      ],
+      "items": [
+        { "year": "2015", "title": "Zalozenie firmy", "desc": "Poczatek naszej dzialalnosci" }
+      ]
+    }
+  },
+  {
+    "variant_id": "products_1",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_2",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_3",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_4",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_5",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_6",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_7",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_8",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_9",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_10",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_11",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_12",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_13",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_14",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_15",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_16",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_17",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_18",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_19",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "items": [
+        { "name": "Produkt 1", "desc": "Opis produktu 1", "price": "199 zl", "image": "AUTO" },
+        { "name": "Produkt 2", "desc": "Opis produktu 2", "price": "299 zl", "image": "AUTO" },
+        { "name": "Produkt 3", "desc": "Opis produktu 3", "price": "399 zl", "image": "AUTO" }
+      ],
+      "cta": { "label": "Zobacz wszystkie", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "products_20",
+    "category": "products",
+    "sample_content": {
+      "eyebrow": "Oferta",
+      "headline": "Nasze produkty",
+      "body": "Poznaj nasza oferte produktow najwyzszej jakosci.",
+      "name": "Produkt Premium",
+      "desc": "Produkt najwyzszej jakosci z mozliwoscia personalizacji",
+      "base_price": "999 zl",
+      "image": "AUTO",
+      "options": [
+        {
+          "label": "Kolor",
+          "choices": [
+            { "name": "Czerwony", "surcharge": "" },
+            { "name": "Niebieski", "surcharge": "+50 zl" }
+          ]
+        }
+      ],
+      "cta": { "label": "Zamow teraz", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "services_1",
+    "category": "services",
+    "sample_content": {
+      "eyebrow": "Uslugi",
+      "headline": "Nasze uslugi",
+      "body": "Oferujemy szeroki zakres profesjonalnych uslug.",
+      "items": [
+        { "name": "Usluga 1", "desc": "Opis uslugi 1", "price": "150 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 2", "desc": "Opis uslugi 2", "price": "250 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 3", "desc": "Opis uslugi 3", "price": "350 zl", "icon": "star", "image": "AUTO" }
+      ],
+      "cta": { "label": "Umow wizyte", "href": "#kontakt" }
+    }
+  },
+  {
+    "variant_id": "services_2",
+    "category": "services",
+    "sample_content": {
+      "eyebrow": "Uslugi",
+      "headline": "Nasze uslugi",
+      "body": "Oferujemy szeroki zakres profesjonalnych uslug.",
+      "items": [
+        { "name": "Usluga 1", "desc": "Opis uslugi 1", "price": "150 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 2", "desc": "Opis uslugi 2", "price": "250 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 3", "desc": "Opis uslugi 3", "price": "350 zl", "icon": "star", "image": "AUTO" }
+      ],
+      "cta": { "label": "Umow wizyte", "href": "#kontakt" }
+    }
+  },
+  {
+    "variant_id": "services_3",
+    "category": "services",
+    "sample_content": {
+      "eyebrow": "Uslugi",
+      "headline": "Nasze uslugi",
+      "body": "Oferujemy szeroki zakres profesjonalnych uslug.",
+      "items": [
+        { "name": "Usluga 1", "desc": "Opis uslugi 1", "price": "150 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 2", "desc": "Opis uslugi 2", "price": "250 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 3", "desc": "Opis uslugi 3", "price": "350 zl", "icon": "star", "image": "AUTO" }
+      ],
+      "cta": { "label": "Umow wizyte", "href": "#kontakt" }
+    }
+  },
+  {
+    "variant_id": "services_4",
+    "category": "services",
+    "sample_content": {
+      "eyebrow": "Uslugi",
+      "headline": "Nasze uslugi",
+      "body": "Oferujemy szeroki zakres profesjonalnych uslug.",
+      "items": [
+        { "name": "Usluga 1", "desc": "Opis uslugi 1", "price": "150 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 2", "desc": "Opis uslugi 2", "price": "250 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 3", "desc": "Opis uslugi 3", "price": "350 zl", "icon": "star", "image": "AUTO" }
+      ],
+      "cta": { "label": "Umow wizyte", "href": "#kontakt" }
+    }
+  },
+  {
+    "variant_id": "services_5",
+    "category": "services",
+    "sample_content": {
+      "eyebrow": "Uslugi",
+      "headline": "Nasze uslugi",
+      "body": "Oferujemy szeroki zakres profesjonalnych uslug.",
+      "items": [
+        { "name": "Usluga 1", "desc": "Opis uslugi 1", "price": "150 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 2", "desc": "Opis uslugi 2", "price": "250 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 3", "desc": "Opis uslugi 3", "price": "350 zl", "icon": "star", "image": "AUTO" }
+      ],
+      "cta": { "label": "Umow wizyte", "href": "#kontakt" }
+    }
+  },
+  {
+    "variant_id": "services_6",
+    "category": "services",
+    "sample_content": {
+      "eyebrow": "Uslugi",
+      "headline": "Nasze uslugi",
+      "body": "Oferujemy szeroki zakres profesjonalnych uslug.",
+      "items": [
+        { "name": "Usluga 1", "desc": "Opis uslugi 1", "price": "150 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 2", "desc": "Opis uslugi 2", "price": "250 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 3", "desc": "Opis uslugi 3", "price": "350 zl", "icon": "star", "image": "AUTO" }
+      ],
+      "cta": { "label": "Umow wizyte", "href": "#kontakt" }
+    }
+  },
+  {
+    "variant_id": "services_7",
+    "category": "services",
+    "sample_content": {
+      "eyebrow": "Uslugi",
+      "headline": "Nasze uslugi",
+      "body": "Oferujemy szeroki zakres profesjonalnych uslug.",
+      "items": [
+        { "name": "Usluga 1", "desc": "Opis uslugi 1", "price": "150 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 2", "desc": "Opis uslugi 2", "price": "250 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 3", "desc": "Opis uslugi 3", "price": "350 zl", "icon": "star", "image": "AUTO" }
+      ],
+      "cta": { "label": "Umow wizyte", "href": "#kontakt" }
+    }
+  },
+  {
+    "variant_id": "services_8",
+    "category": "services",
+    "sample_content": {
+      "eyebrow": "Uslugi",
+      "headline": "Nasze uslugi",
+      "body": "Oferujemy szeroki zakres profesjonalnych uslug.",
+      "items": [
+        { "name": "Usluga 1", "desc": "Opis uslugi 1", "price": "150 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 2", "desc": "Opis uslugi 2", "price": "250 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 3", "desc": "Opis uslugi 3", "price": "350 zl", "icon": "star", "image": "AUTO" }
+      ],
+      "cta": { "label": "Umow wizyte", "href": "#kontakt" }
+    }
+  },
+  {
+    "variant_id": "services_9",
+    "category": "services",
+    "sample_content": {
+      "eyebrow": "Uslugi",
+      "headline": "Nasze uslugi",
+      "body": "Oferujemy szeroki zakres profesjonalnych uslug.",
+      "items": [
+        { "name": "Usluga 1", "desc": "Opis uslugi 1", "price": "150 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 2", "desc": "Opis uslugi 2", "price": "250 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 3", "desc": "Opis uslugi 3", "price": "350 zl", "icon": "star", "image": "AUTO" }
+      ],
+      "cta": { "label": "Umow wizyte", "href": "#kontakt" }
+    }
+  },
+  {
+    "variant_id": "services_10",
+    "category": "services",
+    "sample_content": {
+      "eyebrow": "Uslugi",
+      "headline": "Nasze uslugi",
+      "body": "Oferujemy szeroki zakres profesjonalnych uslug.",
+      "items": [
+        { "name": "Usluga 1", "desc": "Opis uslugi 1", "price": "150 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 2", "desc": "Opis uslugi 2", "price": "250 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 3", "desc": "Opis uslugi 3", "price": "350 zl", "icon": "star", "image": "AUTO" }
+      ],
+      "cta": { "label": "Umow wizyte", "href": "#kontakt" }
+    }
+  },
+  {
+    "variant_id": "services_11",
+    "category": "services",
+    "sample_content": {
+      "eyebrow": "Uslugi",
+      "headline": "Nasze uslugi",
+      "body": "Oferujemy szeroki zakres profesjonalnych uslug.",
+      "items": [
+        { "name": "Usluga 1", "desc": "Opis uslugi 1", "price": "150 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 2", "desc": "Opis uslugi 2", "price": "250 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 3", "desc": "Opis uslugi 3", "price": "350 zl", "icon": "star", "image": "AUTO" }
+      ],
+      "cta": { "label": "Umow wizyte", "href": "#kontakt" }
+    }
+  },
+  {
+    "variant_id": "services_12",
+    "category": "services",
+    "sample_content": {
+      "eyebrow": "Uslugi",
+      "headline": "Nasze uslugi",
+      "body": "Oferujemy szeroki zakres profesjonalnych uslug.",
+      "items": [
+        { "name": "Usluga 1", "desc": "Opis uslugi 1", "price": "150 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 2", "desc": "Opis uslugi 2", "price": "250 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 3", "desc": "Opis uslugi 3", "price": "350 zl", "icon": "star", "image": "AUTO" }
+      ],
+      "cta": { "label": "Umow wizyte", "href": "#kontakt" }
+    }
+  },
+  {
+    "variant_id": "services_13",
+    "category": "services",
+    "sample_content": {
+      "eyebrow": "Uslugi",
+      "headline": "Nasze uslugi",
+      "body": "Oferujemy szeroki zakres profesjonalnych uslug.",
+      "items": [
+        { "name": "Usluga 1", "desc": "Opis uslugi 1", "price": "150 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 2", "desc": "Opis uslugi 2", "price": "250 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 3", "desc": "Opis uslugi 3", "price": "350 zl", "icon": "star", "image": "AUTO" }
+      ],
+      "cta": { "label": "Umow wizyte", "href": "#kontakt" }
+    }
+  },
+  {
+    "variant_id": "services_14",
+    "category": "services",
+    "sample_content": {
+      "eyebrow": "Uslugi",
+      "headline": "Nasze uslugi",
+      "body": "Oferujemy szeroki zakres profesjonalnych uslug.",
+      "items": [
+        { "name": "Usluga 1", "desc": "Opis uslugi 1", "price": "150 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 2", "desc": "Opis uslugi 2", "price": "250 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 3", "desc": "Opis uslugi 3", "price": "350 zl", "icon": "star", "image": "AUTO" }
+      ],
+      "cta": { "label": "Umow wizyte", "href": "#kontakt" }
+    }
+  },
+  {
+    "variant_id": "services_15",
+    "category": "services",
+    "sample_content": {
+      "eyebrow": "Uslugi",
+      "headline": "Nasze uslugi",
+      "body": "Oferujemy szeroki zakres profesjonalnych uslug.",
+      "items": [
+        { "name": "Usluga 1", "desc": "Opis uslugi 1", "price": "150 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 2", "desc": "Opis uslugi 2", "price": "250 zl", "icon": "star", "image": "AUTO" },
+        { "name": "Usluga 3", "desc": "Opis uslugi 3", "price": "350 zl", "icon": "star", "image": "AUTO" }
+      ],
+      "cta": { "label": "Umow wizyte", "href": "#kontakt" }
+    }
+  },
+  {
+    "variant_id": "advantages_1",
+    "category": "advantages",
+    "sample_content": {
+      "eyebrow": "Dlaczego my",
+      "headline": "Nasze zalety",
+      "items": [
+        { "icon": "star", "title": "Doswiadczenie", "desc": "Ponad 10 lat na rynku", "image": "AUTO" },
+        { "icon": "star", "title": "Jakosc", "desc": "Najwyzsze standardy", "image": "AUTO" },
+        { "icon": "star", "title": "Wsparcie", "desc": "Pomoc na kazdym etapie", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "advantages_2",
+    "category": "advantages",
+    "sample_content": {
+      "eyebrow": "Dlaczego my",
+      "headline": "Nasze zalety",
+      "items": [
+        { "icon": "star", "title": "Doswiadczenie", "desc": "Ponad 10 lat na rynku", "image": "AUTO" },
+        { "icon": "star", "title": "Jakosc", "desc": "Najwyzsze standardy", "image": "AUTO" },
+        { "icon": "star", "title": "Wsparcie", "desc": "Pomoc na kazdym etapie", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "advantages_3",
+    "category": "advantages",
+    "sample_content": {
+      "eyebrow": "Dlaczego my",
+      "headline": "Nasze zalety",
+      "items": [
+        { "icon": "star", "title": "Doswiadczenie", "desc": "Ponad 10 lat na rynku", "image": "AUTO" },
+        { "icon": "star", "title": "Jakosc", "desc": "Najwyzsze standardy", "image": "AUTO" },
+        { "icon": "star", "title": "Wsparcie", "desc": "Pomoc na kazdym etapie", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "advantages_4",
+    "category": "advantages",
+    "sample_content": {
+      "eyebrow": "Dlaczego my",
+      "headline": "Nasze zalety",
+      "items": [
+        { "icon": "star", "title": "Doswiadczenie", "desc": "Ponad 10 lat na rynku", "image": "AUTO" },
+        { "icon": "star", "title": "Jakosc", "desc": "Najwyzsze standardy", "image": "AUTO" },
+        { "icon": "star", "title": "Wsparcie", "desc": "Pomoc na kazdym etapie", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "advantages_5",
+    "category": "advantages",
+    "sample_content": {
+      "eyebrow": "Dlaczego my",
+      "headline": "Nasze zalety",
+      "items": [
+        { "icon": "star", "title": "Doswiadczenie", "desc": "Ponad 10 lat na rynku", "image": "AUTO" },
+        { "icon": "star", "title": "Jakosc", "desc": "Najwyzsze standardy", "image": "AUTO" },
+        { "icon": "star", "title": "Wsparcie", "desc": "Pomoc na kazdym etapie", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "advantages_6",
+    "category": "advantages",
+    "sample_content": {
+      "eyebrow": "Dlaczego my",
+      "headline": "Nasze zalety",
+      "items": [
+        { "icon": "star", "title": "Doswiadczenie", "desc": "Ponad 10 lat na rynku", "image": "AUTO" },
+        { "icon": "star", "title": "Jakosc", "desc": "Najwyzsze standardy", "image": "AUTO" },
+        { "icon": "star", "title": "Wsparcie", "desc": "Pomoc na kazdym etapie", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "advantages_7",
+    "category": "advantages",
+    "sample_content": {
+      "eyebrow": "Dlaczego my",
+      "headline": "Nasze zalety",
+      "items": [
+        { "icon": "star", "title": "Doswiadczenie", "desc": "Ponad 10 lat na rynku", "image": "AUTO" },
+        { "icon": "star", "title": "Jakosc", "desc": "Najwyzsze standardy", "image": "AUTO" },
+        { "icon": "star", "title": "Wsparcie", "desc": "Pomoc na kazdym etapie", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "advantages_8",
+    "category": "advantages",
+    "sample_content": {
+      "eyebrow": "Dlaczego my",
+      "headline": "Nasze zalety",
+      "items": [
+        { "icon": "star", "title": "Doswiadczenie", "desc": "Ponad 10 lat na rynku", "image": "AUTO" },
+        { "icon": "star", "title": "Jakosc", "desc": "Najwyzsze standardy", "image": "AUTO" },
+        { "icon": "star", "title": "Wsparcie", "desc": "Pomoc na kazdym etapie", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "advantages_9",
+    "category": "advantages",
+    "sample_content": {
+      "eyebrow": "Dlaczego my",
+      "headline": "Nasze zalety",
+      "items": [
+        { "icon": "star", "title": "Doswiadczenie", "desc": "Ponad 10 lat na rynku", "image": "AUTO" },
+        { "icon": "star", "title": "Jakosc", "desc": "Najwyzsze standardy", "image": "AUTO" },
+        { "icon": "star", "title": "Wsparcie", "desc": "Pomoc na kazdym etapie", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "advantages_10",
+    "category": "advantages",
+    "sample_content": {
+      "eyebrow": "Dlaczego my",
+      "headline": "Nasze zalety",
+      "items": [
+        { "icon": "star", "title": "Doswiadczenie", "desc": "Ponad 10 lat na rynku", "image": "AUTO" },
+        { "icon": "star", "title": "Jakosc", "desc": "Najwyzsze standardy", "image": "AUTO" },
+        { "icon": "star", "title": "Wsparcie", "desc": "Pomoc na kazdym etapie", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "showcase_1",
+    "category": "showcase",
+    "sample_content": {
+      "eyebrow": "Portfolio",
+      "headline": "Nasze realizacje",
+      "body": "Zobacz wybrane projekty z naszego portfolio.",
+      "items": [
+        { "title": "Projekt 1", "category": "Web Design", "desc": "Nowoczesna strona internetowa", "image": "AUTO" },
+        { "title": "Projekt 2", "category": "Branding", "desc": "Kompleksowa identyfikacja wizualna", "image": "AUTO" },
+        { "title": "Projekt 3", "category": "Marketing", "desc": "Kampania marketingowa", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "showcase_2",
+    "category": "showcase",
+    "sample_content": {
+      "eyebrow": "Portfolio",
+      "headline": "Nasze realizacje",
+      "body": "Zobacz wybrane projekty z naszego portfolio.",
+      "items": [
+        { "title": "Projekt 1", "category": "Web Design", "desc": "Nowoczesna strona internetowa", "image": "AUTO" },
+        { "title": "Projekt 2", "category": "Branding", "desc": "Kompleksowa identyfikacja wizualna", "image": "AUTO" },
+        { "title": "Projekt 3", "category": "Marketing", "desc": "Kampania marketingowa", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "showcase_3",
+    "category": "showcase",
+    "sample_content": {
+      "eyebrow": "Portfolio",
+      "headline": "Nasze realizacje",
+      "body": "Zobacz wybrane projekty z naszego portfolio.",
+      "items": [
+        { "title": "Projekt 1", "category": "Web Design", "desc": "Nowoczesna strona internetowa", "image": "AUTO" },
+        { "title": "Projekt 2", "category": "Branding", "desc": "Kompleksowa identyfikacja wizualna", "image": "AUTO" },
+        { "title": "Projekt 3", "category": "Marketing", "desc": "Kampania marketingowa", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "showcase_4",
+    "category": "showcase",
+    "sample_content": {
+      "eyebrow": "Portfolio",
+      "headline": "Nasze realizacje",
+      "body": "Zobacz wybrane projekty z naszego portfolio.",
+      "items": [
+        { "title": "Projekt 1", "category": "Web Design", "desc": "Nowoczesna strona internetowa", "image": "AUTO" },
+        { "title": "Projekt 2", "category": "Branding", "desc": "Kompleksowa identyfikacja wizualna", "image": "AUTO" },
+        { "title": "Projekt 3", "category": "Marketing", "desc": "Kampania marketingowa", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "showcase_5",
+    "category": "showcase",
+    "sample_content": {
+      "eyebrow": "Portfolio",
+      "headline": "Nasze realizacje",
+      "body": "Zobacz wybrane projekty z naszego portfolio.",
+      "items": [
+        { "title": "Projekt 1", "category": "Web Design", "desc": "Nowoczesna strona internetowa", "image": "AUTO" },
+        { "title": "Projekt 2", "category": "Branding", "desc": "Kompleksowa identyfikacja wizualna", "image": "AUTO" },
+        { "title": "Projekt 3", "category": "Marketing", "desc": "Kampania marketingowa", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "showcase_6",
+    "category": "showcase",
+    "sample_content": {
+      "eyebrow": "Portfolio",
+      "headline": "Nasze realizacje",
+      "body": "Zobacz wybrane projekty z naszego portfolio.",
+      "items": [
+        { "title": "Projekt 1", "category": "Web Design", "desc": "Nowoczesna strona internetowa", "image": "AUTO" },
+        { "title": "Projekt 2", "category": "Branding", "desc": "Kompleksowa identyfikacja wizualna", "image": "AUTO" },
+        { "title": "Projekt 3", "category": "Marketing", "desc": "Kampania marketingowa", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "showcase_7",
+    "category": "showcase",
+    "sample_content": {
+      "eyebrow": "Portfolio",
+      "headline": "Nasze realizacje",
+      "body": "Zobacz wybrane projekty z naszego portfolio.",
+      "items": [
+        { "title": "Projekt 1", "category": "Web Design", "desc": "Nowoczesna strona internetowa", "image": "AUTO" },
+        { "title": "Projekt 2", "category": "Branding", "desc": "Kompleksowa identyfikacja wizualna", "image": "AUTO" },
+        { "title": "Projekt 3", "category": "Marketing", "desc": "Kampania marketingowa", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "showcase_8",
+    "category": "showcase",
+    "sample_content": {
+      "eyebrow": "Portfolio",
+      "headline": "Nasze realizacje",
+      "body": "Zobacz wybrane projekty z naszego portfolio.",
+      "items": [
+        { "title": "Projekt 1", "category": "Web Design", "desc": "Nowoczesna strona internetowa", "image": "AUTO" },
+        { "title": "Projekt 2", "category": "Branding", "desc": "Kompleksowa identyfikacja wizualna", "image": "AUTO" },
+        { "title": "Projekt 3", "category": "Marketing", "desc": "Kampania marketingowa", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "showcase_9",
+    "category": "showcase",
+    "sample_content": {
+      "eyebrow": "Portfolio",
+      "headline": "Nasze realizacje",
+      "body": "Zobacz wybrane projekty z naszego portfolio.",
+      "items": [
+        { "title": "Projekt 1", "category": "Web Design", "desc": "Nowoczesna strona internetowa", "image": "AUTO" },
+        { "title": "Projekt 2", "category": "Branding", "desc": "Kompleksowa identyfikacja wizualna", "image": "AUTO" },
+        { "title": "Projekt 3", "category": "Marketing", "desc": "Kampania marketingowa", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "showcase_10",
+    "category": "showcase",
+    "sample_content": {
+      "eyebrow": "Portfolio",
+      "headline": "Nasze realizacje",
+      "body": "Zobacz wybrane projekty z naszego portfolio.",
+      "items": [
+        { "title": "Projekt 1", "category": "Web Design", "desc": "Nowoczesna strona internetowa", "image": "AUTO" },
+        { "title": "Projekt 2", "category": "Branding", "desc": "Kompleksowa identyfikacja wizualna", "image": "AUTO" },
+        { "title": "Projekt 3", "category": "Marketing", "desc": "Kampania marketingowa", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "stats_1",
+    "category": "stats",
+    "sample_content": {
+      "headline": "Nasze osiagniecia w liczbach",
+      "items": [
+        { "value": "500+", "label": "Klientow", "suffix": "", "icon": "star" },
+        { "value": "10+", "label": "Lat doswiadczenia", "suffix": "", "icon": "star" },
+        { "value": "1000+", "label": "Projektow", "suffix": "", "icon": "star" },
+        { "value": "99%", "label": "Zadowolonych klientow", "suffix": "", "icon": "star" }
+      ]
+    }
+  },
+  {
+    "variant_id": "stats_2",
+    "category": "stats",
+    "sample_content": {
+      "headline": "Nasze osiagniecia w liczbach",
+      "items": [
+        { "value": "500+", "label": "Klientow", "suffix": "", "icon": "star" },
+        { "value": "10+", "label": "Lat doswiadczenia", "suffix": "", "icon": "star" },
+        { "value": "1000+", "label": "Projektow", "suffix": "", "icon": "star" },
+        { "value": "99%", "label": "Zadowolonych klientow", "suffix": "", "icon": "star" }
+      ]
+    }
+  },
+  {
+    "variant_id": "stats_3",
+    "category": "stats",
+    "sample_content": {
+      "headline": "Nasze osiagniecia w liczbach",
+      "items": [
+        { "value": "500+", "label": "Klientow", "suffix": "", "icon": "star" },
+        { "value": "10+", "label": "Lat doswiadczenia", "suffix": "", "icon": "star" },
+        { "value": "1000+", "label": "Projektow", "suffix": "", "icon": "star" },
+        { "value": "99%", "label": "Zadowolonych klientow", "suffix": "", "icon": "star" }
+      ]
+    }
+  },
+  {
+    "variant_id": "stats_4",
+    "category": "stats",
+    "sample_content": {
+      "headline": "Nasze osiagniecia w liczbach",
+      "items": [
+        { "value": "500+", "label": "Klientow", "suffix": "", "icon": "star" },
+        { "value": "10+", "label": "Lat doswiadczenia", "suffix": "", "icon": "star" },
+        { "value": "1000+", "label": "Projektow", "suffix": "", "icon": "star" },
+        { "value": "99%", "label": "Zadowolonych klientow", "suffix": "", "icon": "star" }
+      ]
+    }
+  },
+  {
+    "variant_id": "stats_5",
+    "category": "stats",
+    "sample_content": {
+      "headline": "Nasze osiagniecia w liczbach",
+      "items": [
+        { "value": "500+", "label": "Klientow", "suffix": "", "icon": "star" },
+        { "value": "10+", "label": "Lat doswiadczenia", "suffix": "", "icon": "star" },
+        { "value": "1000+", "label": "Projektow", "suffix": "", "icon": "star" },
+        { "value": "99%", "label": "Zadowolonych klientow", "suffix": "", "icon": "star" }
+      ]
+    }
+  },
+  {
+    "variant_id": "stats_6",
+    "category": "stats",
+    "sample_content": {
+      "headline": "Nasze osiagniecia w liczbach",
+      "items": [
+        { "value": "500+", "label": "Klientow", "suffix": "", "icon": "star" },
+        { "value": "10+", "label": "Lat doswiadczenia", "suffix": "", "icon": "star" },
+        { "value": "1000+", "label": "Projektow", "suffix": "", "icon": "star" },
+        { "value": "99%", "label": "Zadowolonych klientow", "suffix": "", "icon": "star" }
+      ]
+    }
+  },
+  {
+    "variant_id": "stats_7",
+    "category": "stats",
+    "sample_content": {
+      "headline": "Nasze osiagniecia w liczbach",
+      "items": [
+        { "value": "500+", "label": "Klientow", "suffix": "", "icon": "star" },
+        { "value": "10+", "label": "Lat doswiadczenia", "suffix": "", "icon": "star" },
+        { "value": "1000+", "label": "Projektow", "suffix": "", "icon": "star" },
+        { "value": "99%", "label": "Zadowolonych klientow", "suffix": "", "icon": "star" }
+      ]
+    }
+  },
+  {
+    "variant_id": "stats_8",
+    "category": "stats",
+    "sample_content": {
+      "headline": "Nasze osiagniecia w liczbach",
+      "items": [
+        { "value": "500+", "label": "Klientow", "suffix": "", "icon": "star" },
+        { "value": "10+", "label": "Lat doswiadczenia", "suffix": "", "icon": "star" },
+        { "value": "1000+", "label": "Projektow", "suffix": "", "icon": "star" },
+        { "value": "99%", "label": "Zadowolonych klientow", "suffix": "", "icon": "star" }
+      ]
+    }
+  },
+  {
+    "variant_id": "stats_9",
+    "category": "stats",
+    "sample_content": {
+      "headline": "Nasze osiagniecia w liczbach",
+      "items": [
+        { "value": "500+", "label": "Klientow", "suffix": "", "icon": "star" },
+        { "value": "10+", "label": "Lat doswiadczenia", "suffix": "", "icon": "star" },
+        { "value": "1000+", "label": "Projektow", "suffix": "", "icon": "star" },
+        { "value": "99%", "label": "Zadowolonych klientow", "suffix": "", "icon": "star" }
+      ]
+    }
+  },
+  {
+    "variant_id": "stats_10",
+    "category": "stats",
+    "sample_content": {
+      "headline": "Nasze osiagniecia w liczbach",
+      "items": [
+        { "value": "500+", "label": "Klientow", "suffix": "", "icon": "star" },
+        { "value": "10+", "label": "Lat doswiadczenia", "suffix": "", "icon": "star" },
+        { "value": "1000+", "label": "Projektow", "suffix": "", "icon": "star" },
+        { "value": "99%", "label": "Zadowolonych klientow", "suffix": "", "icon": "star" }
+      ]
+    }
+  },
+  {
+    "variant_id": "stats_11",
+    "category": "stats",
+    "sample_content": {
+      "headline": "Nasze osiagniecia w liczbach",
+      "items": [
+        { "value": "500+", "label": "Klientow", "suffix": "", "icon": "star" },
+        { "value": "10+", "label": "Lat doswiadczenia", "suffix": "", "icon": "star" },
+        { "value": "1000+", "label": "Projektow", "suffix": "", "icon": "star" },
+        { "value": "99%", "label": "Zadowolonych klientow", "suffix": "", "icon": "star" }
+      ]
+    }
+  },
+  {
+    "variant_id": "stats_12",
+    "category": "stats",
+    "sample_content": {
+      "headline": "Nasze osiagniecia w liczbach",
+      "items": [
+        { "value": "500+", "label": "Klientow", "suffix": "", "icon": "star" },
+        { "value": "10+", "label": "Lat doswiadczenia", "suffix": "", "icon": "star" },
+        { "value": "1000+", "label": "Projektow", "suffix": "", "icon": "star" },
+        { "value": "99%", "label": "Zadowolonych klientow", "suffix": "", "icon": "star" }
+      ],
+      "gradient_from": "#6366f1",
+      "gradient_to": "#8b5cf6"
+    }
+  },
+  {
+    "variant_id": "testimonials_1",
+    "category": "testimonials",
+    "sample_content": {
+      "eyebrow": "Opinie",
+      "headline": "Co mowia nasi klienci",
+      "items": [
+        { "quote": "Swietna usluga, polecam kazdemu!", "author": "Jan Kowalski", "rating": 5, "company": "Firma ABC", "image": "AUTO" },
+        { "quote": "Profesjonalne podejscie i szybka realizacja.", "author": "Anna Nowak", "rating": 5, "company": "Firma XYZ", "image": "AUTO" },
+        { "quote": "Bardzo zadowolony ze wspolpracy.", "author": "Piotr Wisniewski", "rating": 5, "company": "Firma 123", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "testimonials_2",
+    "category": "testimonials",
+    "sample_content": {
+      "eyebrow": "Opinie",
+      "headline": "Co mowia nasi klienci",
+      "items": [
+        { "quote": "Swietna usluga, polecam kazdemu!", "author": "Jan Kowalski", "rating": 5, "company": "Firma ABC", "image": "AUTO" },
+        { "quote": "Profesjonalne podejscie i szybka realizacja.", "author": "Anna Nowak", "rating": 5, "company": "Firma XYZ", "image": "AUTO" },
+        { "quote": "Bardzo zadowolony ze wspolpracy.", "author": "Piotr Wisniewski", "rating": 5, "company": "Firma 123", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "testimonials_3",
+    "category": "testimonials",
+    "sample_content": {
+      "eyebrow": "Opinie",
+      "headline": "Co mowia nasi klienci",
+      "items": [
+        { "quote": "Swietna usluga, polecam kazdemu!", "author": "Jan Kowalski", "rating": 5, "company": "Firma ABC", "image": "AUTO" },
+        { "quote": "Profesjonalne podejscie i szybka realizacja.", "author": "Anna Nowak", "rating": 5, "company": "Firma XYZ", "image": "AUTO" },
+        { "quote": "Bardzo zadowolony ze wspolpracy.", "author": "Piotr Wisniewski", "rating": 5, "company": "Firma 123", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "testimonials_4",
+    "category": "testimonials",
+    "sample_content": {
+      "eyebrow": "Opinie",
+      "headline": "Co mowia nasi klienci",
+      "items": [
+        { "quote": "Swietna usluga, polecam kazdemu!", "author": "Jan Kowalski", "rating": 5, "company": "Firma ABC", "image": "AUTO" },
+        { "quote": "Profesjonalne podejscie i szybka realizacja.", "author": "Anna Nowak", "rating": 5, "company": "Firma XYZ", "image": "AUTO" },
+        { "quote": "Bardzo zadowolony ze wspolpracy.", "author": "Piotr Wisniewski", "rating": 5, "company": "Firma 123", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "testimonials_5",
+    "category": "testimonials",
+    "sample_content": {
+      "eyebrow": "Opinie",
+      "headline": "Co mowia nasi klienci",
+      "items": [
+        { "quote": "Swietna usluga, polecam kazdemu!", "author": "Jan Kowalski", "rating": 5, "company": "Firma ABC", "image": "AUTO" },
+        { "quote": "Profesjonalne podejscie i szybka realizacja.", "author": "Anna Nowak", "rating": 5, "company": "Firma XYZ", "image": "AUTO" },
+        { "quote": "Bardzo zadowolony ze wspolpracy.", "author": "Piotr Wisniewski", "rating": 5, "company": "Firma 123", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "testimonials_6",
+    "category": "testimonials",
+    "sample_content": {
+      "eyebrow": "Opinie",
+      "headline": "Co mowia nasi klienci",
+      "items": [
+        { "quote": "Swietna usluga, polecam kazdemu!", "author": "Jan Kowalski", "rating": 5, "company": "Firma ABC", "image": "AUTO" },
+        { "quote": "Profesjonalne podejscie i szybka realizacja.", "author": "Anna Nowak", "rating": 5, "company": "Firma XYZ", "image": "AUTO" },
+        { "quote": "Bardzo zadowolony ze wspolpracy.", "author": "Piotr Wisniewski", "rating": 5, "company": "Firma 123", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "testimonials_7",
+    "category": "testimonials",
+    "sample_content": {
+      "eyebrow": "Opinie",
+      "headline": "Co mowia nasi klienci",
+      "items": [
+        { "quote": "Swietna usluga, polecam kazdemu!", "author": "Jan Kowalski", "rating": 5, "company": "Firma ABC", "image": "AUTO" },
+        { "quote": "Profesjonalne podejscie i szybka realizacja.", "author": "Anna Nowak", "rating": 5, "company": "Firma XYZ", "image": "AUTO" },
+        { "quote": "Bardzo zadowolony ze wspolpracy.", "author": "Piotr Wisniewski", "rating": 5, "company": "Firma 123", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "testimonials_8",
+    "category": "testimonials",
+    "sample_content": {
+      "eyebrow": "Opinie",
+      "headline": "Co mowia nasi klienci",
+      "items": [
+        { "quote": "Swietna usluga, polecam kazdemu!", "author": "Jan Kowalski", "rating": 5, "company": "Firma ABC", "image": "AUTO" },
+        { "quote": "Profesjonalne podejscie i szybka realizacja.", "author": "Anna Nowak", "rating": 5, "company": "Firma XYZ", "image": "AUTO" },
+        { "quote": "Bardzo zadowolony ze wspolpracy.", "author": "Piotr Wisniewski", "rating": 5, "company": "Firma 123", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "testimonials_9",
+    "category": "testimonials",
+    "sample_content": {
+      "eyebrow": "Opinie",
+      "headline": "Co mowia nasi klienci",
+      "items": [
+        { "quote": "Swietna usluga, polecam kazdemu!", "author": "Jan Kowalski", "rating": 5, "company": "Firma ABC", "image": "AUTO" },
+        { "quote": "Profesjonalne podejscie i szybka realizacja.", "author": "Anna Nowak", "rating": 5, "company": "Firma XYZ", "image": "AUTO" },
+        { "quote": "Bardzo zadowolony ze wspolpracy.", "author": "Piotr Wisniewski", "rating": 5, "company": "Firma 123", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "testimonials_10",
+    "category": "testimonials",
+    "sample_content": {
+      "eyebrow": "Opinie",
+      "headline": "Co mowia nasi klienci",
+      "items": [
+        { "quote": "Swietna usluga, polecam kazdemu!", "author": "Jan Kowalski", "rating": 5, "company": "Firma ABC", "image": "AUTO" },
+        { "quote": "Profesjonalne podejscie i szybka realizacja.", "author": "Anna Nowak", "rating": 5, "company": "Firma XYZ", "image": "AUTO" },
+        { "quote": "Bardzo zadowolony ze wspolpracy.", "author": "Piotr Wisniewski", "rating": 5, "company": "Firma 123", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "testimonials_11",
+    "category": "testimonials",
+    "sample_content": {
+      "eyebrow": "Opinie",
+      "headline": "Co mowia nasi klienci",
+      "items": [
+        { "quote": "Swietna usluga, polecam kazdemu!", "author": "Jan Kowalski", "rating": 5, "company": "Firma ABC", "image": "AUTO" },
+        { "quote": "Profesjonalne podejscie i szybka realizacja.", "author": "Anna Nowak", "rating": 5, "company": "Firma XYZ", "image": "AUTO" },
+        { "quote": "Bardzo zadowolony ze wspolpracy.", "author": "Piotr Wisniewski", "rating": 5, "company": "Firma 123", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "testimonials_12",
+    "category": "testimonials",
+    "sample_content": {
+      "eyebrow": "Opinie",
+      "headline": "Co mowia nasi klienci",
+      "nps_score": 78,
+      "nps_label": "NPS",
+      "highlights": [
+        { "value": "98%", "label": "Zadowolenie klientow" },
+        { "value": "4.9/5", "label": "Srednia ocena" }
+      ],
+      "quotes": [
+        { "quote": "Swietna usluga!", "author": "Jan Kowalski" },
+        { "quote": "Profesjonalne podejscie.", "author": "Anna Nowak" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_1",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_2",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_3",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_4",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_5",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_6",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_7",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_8",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_9",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_10",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_11",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_12",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_13",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_14",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_15",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_16",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_17",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_18",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_19",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "gallery_20",
+    "category": "gallery",
+    "sample_content": {
+      "eyebrow": "Galeria",
+      "headline": "Nasze zdjecia",
+      "items": [
+        { "image": "AUTO", "title": "Zdjecie 1", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 2", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 3", "category": "Portfolio" },
+        { "image": "AUTO", "title": "Zdjecie 4", "category": "Realizacje" }
+      ]
+    }
+  },
+  {
+    "variant_id": "cta_1",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Zacznij dzis",
+      "headline": "Gotowy na wspolprace?",
+      "body": "Skontaktuj sie z nami i dowiedz sie, jak mozemy Ci pomoc.",
+      "cta": { "label": "Zacznij", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "cta_2",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Zacznij dzis",
+      "headline": "Gotowy na wspolprace?",
+      "body": "Skontaktuj sie z nami i dowiedz sie, jak mozemy Ci pomoc.",
+      "cta": { "label": "Zacznij", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "cta_3",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Zacznij dzis",
+      "headline": "Gotowy na wspolprace?",
+      "body": "Skontaktuj sie z nami i dowiedz sie, jak mozemy Ci pomoc.",
+      "cta": { "label": "Zacznij", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "cta_4",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Zacznij dzis",
+      "headline": "Gotowy na wspolprace?",
+      "body": "Skontaktuj sie z nami i dowiedz sie, jak mozemy Ci pomoc.",
+      "cta": { "label": "Zacznij", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "cta_5",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Zacznij dzis",
+      "headline": "Gotowy na wspolprace?",
+      "body": "Skontaktuj sie z nami i dowiedz sie, jak mozemy Ci pomoc.",
+      "cta": { "label": "Zacznij", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "cta_6",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Zacznij dzis",
+      "headline": "Gotowy na wspolprace?",
+      "body": "Skontaktuj sie z nami i dowiedz sie, jak mozemy Ci pomoc.",
+      "cta": { "label": "Zacznij", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "cta_7",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Zacznij dzis",
+      "headline": "Gotowy na wspolprace?",
+      "body": "Skontaktuj sie z nami i dowiedz sie, jak mozemy Ci pomoc.",
+      "cta": { "label": "Zacznij", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "cta_8",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Zacznij dzis",
+      "headline": "Gotowy na wspolprace?",
+      "body": "Skontaktuj sie z nami i dowiedz sie, jak mozemy Ci pomoc.",
+      "cta": { "label": "Zacznij", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "cta_9",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Zacznij dzis",
+      "headline": "Gotowy na wspolprace?",
+      "body": "Skontaktuj sie z nami i dowiedz sie, jak mozemy Ci pomoc.",
+      "cta": { "label": "Zacznij", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "cta_10",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Zacznij dzis",
+      "headline": "Gotowy na wspolprace?",
+      "body": "Skontaktuj sie z nami i dowiedz sie, jak mozemy Ci pomoc.",
+      "cta": { "label": "Zacznij", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "cta_11",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Zacznij dzis",
+      "headline": "Gotowy na wspolprace?",
+      "body": "Skontaktuj sie z nami i dowiedz sie, jak mozemy Ci pomoc.",
+      "cta": { "label": "Zacznij", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "cta_12",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Zacznij dzis",
+      "headline": "Gotowy na wspolprace?",
+      "body": "Skontaktuj sie z nami i dowiedz sie, jak mozemy Ci pomoc.",
+      "cta": { "label": "Zacznij", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "cta_13",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Zacznij dzis",
+      "headline": "Gotowy na wspolprace?",
+      "body": "Skontaktuj sie z nami i dowiedz sie, jak mozemy Ci pomoc.",
+      "cta": { "label": "Zacznij", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "cta_14",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Zacznij dzis",
+      "headline": "Gotowy na wspolprace?",
+      "body": "Skontaktuj sie z nami i dowiedz sie, jak mozemy Ci pomoc.",
+      "cta": { "label": "Zacznij", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "cta_15",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Zacznij dzis",
+      "headline": "Gotowy na wspolprace?",
+      "body": "Skontaktuj sie z nami i dowiedz sie, jak mozemy Ci pomoc.",
+      "cta": { "label": "Zacznij", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "cta_16",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Zacznij dzis",
+      "headline": "Gotowy na wspolprace?",
+      "body": "Skontaktuj sie z nami i dowiedz sie, jak mozemy Ci pomoc.",
+      "cta": { "label": "Zacznij", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "cta_17",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Cennik",
+      "headline": "Wybierz plan dla siebie",
+      "body": "Dopasuj oferte do swoich potrzeb.",
+      "plans": [
+        { "name": "Basic", "price": "99 zl", "desc": "Idealny na poczatek", "cta_label": "Wybierz", "cta_href": "#", "highlighted": false },
+        { "name": "Pro", "price": "199 zl", "desc": "Dla rosnacej firmy", "cta_label": "Wybierz", "cta_href": "#", "highlighted": true },
+        { "name": "Enterprise", "price": "499 zl", "desc": "Pelne mozliwosci", "cta_label": "Kontakt", "cta_href": "#", "highlighted": false }
+      ]
+    }
+  },
+  {
+    "variant_id": "cta_18",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Czat",
+      "headline": "Porozmawiaj z nami",
+      "body": "Nasz asystent odpowie na Twoje pytania.",
+      "bot_name": "Asystent",
+      "bot_avatar": "AUTO",
+      "sample_messages": ["Czesc!", "W czym moge pomoc?", "Napisz do nas."]
+    }
+  },
+  {
+    "variant_id": "cta_19",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Zacznij dzis",
+      "headline": "Gotowy na wspolprace?",
+      "body": "Skontaktuj sie z nami i dowiedz sie, jak mozemy Ci pomoc.",
+      "cta": { "label": "Zacznij", "href": "#" }
+    }
+  },
+  {
+    "variant_id": "cta_20",
+    "category": "cta",
+    "sample_content": {
+      "eyebrow": "Zacznij dzis",
+      "headline": "Gotowy na wspolprace?",
+      "body": "Skontaktuj sie z nami i dowiedz sie, jak mozemy Ci pomoc.",
+      "static_text": "Zacznij",
+      "rotating_words": ["budowac", "rosnac", "tworzyc"],
+      "animation_type": "typewriter"
+    }
+  },
+  {
+    "variant_id": "contact_1",
+    "category": "contact",
+    "sample_content": {
+      "eyebrow": "Kontakt",
+      "headline": "Skontaktuj sie z nami",
+      "body": "Chetnie odpowiemy na Twoje pytania.",
+      "phone": "+48 123 456 789",
+      "email": "kontakt@test.pl",
+      "address": "ul. Testowa 1, 00-001 Warszawa",
+      "hours": "Pon-Pt 9-17"
+    }
+  },
+  {
+    "variant_id": "contact_2",
+    "category": "contact",
+    "sample_content": {
+      "eyebrow": "Kontakt",
+      "headline": "Skontaktuj sie z nami",
+      "body": "Chetnie odpowiemy na Twoje pytania.",
+      "phone": "+48 123 456 789",
+      "email": "kontakt@test.pl",
+      "address": "ul. Testowa 1, 00-001 Warszawa",
+      "hours": "Pon-Pt 9-17"
+    }
+  },
+  {
+    "variant_id": "contact_3",
+    "category": "contact",
+    "sample_content": {
+      "eyebrow": "Kontakt",
+      "headline": "Skontaktuj sie z nami",
+      "body": "Chetnie odpowiemy na Twoje pytania.",
+      "phone": "+48 123 456 789",
+      "email": "kontakt@test.pl",
+      "address": "ul. Testowa 1, 00-001 Warszawa",
+      "hours": "Pon-Pt 9-17"
+    }
+  },
+  {
+    "variant_id": "contact_4",
+    "category": "contact",
+    "sample_content": {
+      "eyebrow": "Kontakt",
+      "headline": "Skontaktuj sie z nami",
+      "body": "Chetnie odpowiemy na Twoje pytania.",
+      "phone": "+48 123 456 789",
+      "email": "kontakt@test.pl",
+      "address": "ul. Testowa 1, 00-001 Warszawa",
+      "hours": "Pon-Pt 9-17"
+    }
+  },
+  {
+    "variant_id": "contact_5",
+    "category": "contact",
+    "sample_content": {
+      "eyebrow": "Kontakt",
+      "headline": "Skontaktuj sie z nami",
+      "body": "Chetnie odpowiemy na Twoje pytania.",
+      "phone": "+48 123 456 789",
+      "email": "kontakt@test.pl",
+      "address": "ul. Testowa 1, 00-001 Warszawa",
+      "hours": "Pon-Pt 9-17"
+    }
+  },
+  {
+    "variant_id": "contact_6",
+    "category": "contact",
+    "sample_content": {
+      "eyebrow": "Kontakt",
+      "headline": "Skontaktuj sie z nami",
+      "body": "Chetnie odpowiemy na Twoje pytania.",
+      "phone": "+48 123 456 789",
+      "email": "kontakt@test.pl",
+      "address": "ul. Testowa 1, 00-001 Warszawa",
+      "hours": "Pon-Pt 9-17"
+    }
+  },
+  {
+    "variant_id": "contact_7",
+    "category": "contact",
+    "sample_content": {
+      "eyebrow": "Kontakt",
+      "headline": "Skontaktuj sie z nami",
+      "body": "Chetnie odpowiemy na Twoje pytania.",
+      "phone": "+48 123 456 789",
+      "email": "kontakt@test.pl",
+      "address": "ul. Testowa 1, 00-001 Warszawa",
+      "hours": "Pon-Pt 9-17"
+    }
+  },
+  {
+    "variant_id": "contact_8",
+    "category": "contact",
+    "sample_content": {
+      "eyebrow": "Kontakt",
+      "headline": "Skontaktuj sie z nami",
+      "body": "Chetnie odpowiemy na Twoje pytania.",
+      "phone": "+48 123 456 789",
+      "email": "kontakt@test.pl",
+      "address": "ul. Testowa 1, 00-001 Warszawa",
+      "hours": "Pon-Pt 9-17"
+    }
+  },
+  {
+    "variant_id": "contact_9",
+    "category": "contact",
+    "sample_content": {
+      "eyebrow": "Kontakt",
+      "headline": "Skontaktuj sie z nami",
+      "body": "Chetnie odpowiemy na Twoje pytania.",
+      "phone": "+48 123 456 789",
+      "email": "kontakt@test.pl",
+      "address": "ul. Testowa 1, 00-001 Warszawa",
+      "hours": "Pon-Pt 9-17"
+    }
+  },
+  {
+    "variant_id": "contact_10",
+    "category": "contact",
+    "sample_content": {
+      "eyebrow": "Kontakt",
+      "headline": "Skontaktuj sie z nami",
+      "body": "Chetnie odpowiemy na Twoje pytania.",
+      "phone": "+48 123 456 789",
+      "email": "kontakt@test.pl",
+      "address": "ul. Testowa 1, 00-001 Warszawa",
+      "hours": "Pon-Pt 9-17",
+      "departments": [
+        { "icon": "phone", "name": "Sprzedaz", "desc": "Zespol sprzedazy", "phone": "+48 123 456 001", "email": "sprzedaz@test.pl", "hours": "Pon-Pt 9-17" },
+        { "icon": "phone", "name": "Wsparcie", "desc": "Pomoc techniczna", "phone": "+48 123 456 002", "email": "wsparcie@test.pl", "hours": "Pon-Pt 8-20" }
+      ]
+    }
+  },
+  {
+    "variant_id": "pricing_1",
+    "category": "pricing",
+    "sample_content": {
+      "eyebrow": "Cennik",
+      "headline": "Wybierz plan",
+      "tiers": [
+        { "name": "Basic", "price": "99 zl", "features": ["1 uzytkownik", "5 GB", "Email wsparcie"], "highlighted": false, "cta_label": "Wybierz" },
+        { "name": "Pro", "price": "199 zl", "features": ["5 uzytkownikow", "50 GB", "Priorytetowe wsparcie"], "highlighted": true, "cta_label": "Wybierz" },
+        { "name": "Enterprise", "price": "499 zl", "features": ["Bez limitow", "500 GB", "Dedykowany opiekun"], "highlighted": false, "cta_label": "Kontakt" }
+      ]
+    }
+  },
+  {
+    "variant_id": "pricing_2",
+    "category": "pricing",
+    "sample_content": {
+      "eyebrow": "Cennik",
+      "headline": "Wybierz plan",
+      "tiers": [
+        { "name": "Basic", "price": "99 zl", "features": ["1 uzytkownik", "5 GB", "Email wsparcie"], "highlighted": false, "cta_label": "Wybierz" },
+        { "name": "Pro", "price": "199 zl", "features": ["5 uzytkownikow", "50 GB", "Priorytetowe wsparcie"], "highlighted": true, "cta_label": "Wybierz" },
+        { "name": "Enterprise", "price": "499 zl", "features": ["Bez limitow", "500 GB", "Dedykowany opiekun"], "highlighted": false, "cta_label": "Kontakt" }
+      ]
+    }
+  },
+  {
+    "variant_id": "pricing_3",
+    "category": "pricing",
+    "sample_content": {
+      "eyebrow": "Cennik",
+      "headline": "Wybierz plan",
+      "tiers": [
+        { "name": "Basic", "price": "99 zl", "features": ["1 uzytkownik", "5 GB", "Email wsparcie"], "highlighted": false, "cta_label": "Wybierz" },
+        { "name": "Pro", "price": "199 zl", "features": ["5 uzytkownikow", "50 GB", "Priorytetowe wsparcie"], "highlighted": true, "cta_label": "Wybierz" },
+        { "name": "Enterprise", "price": "499 zl", "features": ["Bez limitow", "500 GB", "Dedykowany opiekun"], "highlighted": false, "cta_label": "Kontakt" }
+      ]
+    }
+  },
+  {
+    "variant_id": "pricing_4",
+    "category": "pricing",
+    "sample_content": {
+      "eyebrow": "Cennik",
+      "headline": "Wybierz plan",
+      "tiers": [
+        { "name": "Basic", "price": "99 zl", "features": ["1 uzytkownik", "5 GB", "Email wsparcie"], "highlighted": false, "cta_label": "Wybierz" },
+        { "name": "Pro", "price": "199 zl", "features": ["5 uzytkownikow", "50 GB", "Priorytetowe wsparcie"], "highlighted": true, "cta_label": "Wybierz" },
+        { "name": "Enterprise", "price": "499 zl", "features": ["Bez limitow", "500 GB", "Dedykowany opiekun"], "highlighted": false, "cta_label": "Kontakt" }
+      ]
+    }
+  },
+  {
+    "variant_id": "pricing_5",
+    "category": "pricing",
+    "sample_content": {
+      "eyebrow": "Cennik",
+      "headline": "Cennik na uzytkownika",
+      "unit_label": "userow",
+      "tiers": [
+        { "up_to": 10, "price_per": "29 zl", "total": "290 zl" },
+        { "up_to": 50, "price_per": "19 zl", "total": "950 zl" },
+        { "up_to": 100, "price_per": "9 zl", "total": "900 zl" }
+      ],
+      "features": ["Pelny dostep", "Wsparcie 24/7", "Integracje API"],
+      "cta_text": "Start",
+      "cta_link": "#"
+    }
+  },
+  {
+    "variant_id": "faq_1",
+    "category": "faq",
+    "sample_content": {
+      "eyebrow": "FAQ",
+      "headline": "Czesto zadawane pytania",
+      "items": [
+        { "question": "Jak zaczac wspolprace?", "answer": "Wystarczy skontaktowac sie z nami telefonicznie lub mailowo." },
+        { "question": "Jakie sa koszty?", "answer": "Koszty zaleza od zakresu projektu. Skontaktuj sie po wycene." },
+        { "question": "Ile trwa realizacja?", "answer": "Standardowy projekt realizujemy w 2-4 tygodnie." }
+      ]
+    }
+  },
+  {
+    "variant_id": "faq_2",
+    "category": "faq",
+    "sample_content": {
+      "eyebrow": "FAQ",
+      "headline": "Czesto zadawane pytania",
+      "items": [
+        { "question": "Jak zaczac wspolprace?", "answer": "Wystarczy skontaktowac sie z nami telefonicznie lub mailowo." },
+        { "question": "Jakie sa koszty?", "answer": "Koszty zaleza od zakresu projektu. Skontaktuj sie po wycene." },
+        { "question": "Ile trwa realizacja?", "answer": "Standardowy projekt realizujemy w 2-4 tygodnie." }
+      ]
+    }
+  },
+  {
+    "variant_id": "faq_3",
+    "category": "faq",
+    "sample_content": {
+      "eyebrow": "FAQ",
+      "headline": "Czesto zadawane pytania",
+      "items": [
+        { "question": "Jak zaczac wspolprace?", "answer": "Wystarczy skontaktowac sie z nami telefonicznie lub mailowo." },
+        { "question": "Jakie sa koszty?", "answer": "Koszty zaleza od zakresu projektu. Skontaktuj sie po wycene." },
+        { "question": "Ile trwa realizacja?", "answer": "Standardowy projekt realizujemy w 2-4 tygodnie." }
+      ]
+    }
+  },
+  {
+    "variant_id": "faq_4",
+    "category": "faq",
+    "sample_content": {
+      "eyebrow": "FAQ",
+      "headline": "Czesto zadawane pytania",
+      "items": [
+        { "question": "Jak zaczac wspolprace?", "answer": "Wystarczy skontaktowac sie z nami telefonicznie lub mailowo." },
+        { "question": "Jakie sa koszty?", "answer": "Koszty zaleza od zakresu projektu. Skontaktuj sie po wycene." },
+        { "question": "Ile trwa realizacja?", "answer": "Standardowy projekt realizujemy w 2-4 tygodnie." }
+      ]
+    }
+  },
+  {
+    "variant_id": "faq_5",
+    "category": "faq",
+    "sample_content": {
+      "eyebrow": "FAQ",
+      "headline": "Czesto zadawane pytania",
+      "items": [
+        { "question": "Jak zaczac wspolprace?", "answer": "Wystarczy skontaktowac sie z nami telefonicznie lub mailowo." },
+        { "question": "Jakie sa koszty?", "answer": "Koszty zaleza od zakresu projektu. Skontaktuj sie po wycene." },
+        { "question": "Ile trwa realizacja?", "answer": "Standardowy projekt realizujemy w 2-4 tygodnie." }
+      ]
+    }
+  },
+  {
+    "variant_id": "faq_6",
+    "category": "faq",
+    "sample_content": {
+      "eyebrow": "FAQ",
+      "headline": "Czesto zadawane pytania",
+      "items": [
+        { "question": "Jak zaczac wspolprace?", "answer": "Wystarczy skontaktowac sie z nami telefonicznie lub mailowo." },
+        { "question": "Jakie sa koszty?", "answer": "Koszty zaleza od zakresu projektu. Skontaktuj sie po wycene." },
+        { "question": "Ile trwa realizacja?", "answer": "Standardowy projekt realizujemy w 2-4 tygodnie." }
+      ]
+    }
+  },
+  {
+    "variant_id": "faq_7",
+    "category": "faq",
+    "sample_content": {
+      "eyebrow": "FAQ",
+      "headline": "Czesto zadawane pytania",
+      "items": [
+        { "question": "Jak zaczac wspolprace?", "answer": "Wystarczy skontaktowac sie z nami telefonicznie lub mailowo." },
+        { "question": "Jakie sa koszty?", "answer": "Koszty zaleza od zakresu projektu. Skontaktuj sie po wycene." },
+        { "question": "Ile trwa realizacja?", "answer": "Standardowy projekt realizujemy w 2-4 tygodnie." }
+      ]
+    }
+  },
+  {
+    "variant_id": "faq_8",
+    "category": "faq",
+    "sample_content": {
+      "eyebrow": "FAQ",
+      "headline": "Czesto zadawane pytania",
+      "items": [
+        { "question": "Jak zaczac wspolprace?", "answer": "Wystarczy skontaktowac sie z nami telefonicznie lub mailowo." },
+        { "question": "Jakie sa koszty?", "answer": "Koszty zaleza od zakresu projektu. Skontaktuj sie po wycene." },
+        { "question": "Ile trwa realizacja?", "answer": "Standardowy projekt realizujemy w 2-4 tygodnie." }
+      ]
+    }
+  },
+  {
+    "variant_id": "faq_9",
+    "category": "faq",
+    "sample_content": {
+      "eyebrow": "FAQ",
+      "headline": "Czesto zadawane pytania",
+      "items": [
+        { "question": "Jak zaczac wspolprace?", "answer": "Wystarczy skontaktowac sie z nami telefonicznie lub mailowo." },
+        { "question": "Jakie sa koszty?", "answer": "Koszty zaleza od zakresu projektu. Skontaktuj sie po wycene." },
+        { "question": "Ile trwa realizacja?", "answer": "Standardowy projekt realizujemy w 2-4 tygodnie." }
+      ]
+    }
+  },
+  {
+    "variant_id": "faq_10",
+    "category": "faq",
+    "sample_content": {
+      "eyebrow": "FAQ",
+      "headline": "Czesto zadawane pytania",
+      "items": [
+        { "question": "Jak zaczac wspolprace?", "answer": "Wystarczy skontaktowac sie z nami telefonicznie lub mailowo." },
+        { "question": "Jakie sa koszty?", "answer": "Koszty zaleza od zakresu projektu. Skontaktuj sie po wycene." },
+        { "question": "Ile trwa realizacja?", "answer": "Standardowy projekt realizujemy w 2-4 tygodnie." }
+      ]
+    }
+  },
+  {
+    "variant_id": "faq_11",
+    "category": "faq",
+    "sample_content": {
+      "eyebrow": "FAQ",
+      "headline": "Czesto zadawane pytania",
+      "items": [
+        { "question": "Jak zaczac wspolprace?", "answer": "Wystarczy skontaktowac sie z nami telefonicznie lub mailowo." },
+        { "question": "Jakie sa koszty?", "answer": "Koszty zaleza od zakresu projektu. Skontaktuj sie po wycene." },
+        { "question": "Ile trwa realizacja?", "answer": "Standardowy projekt realizujemy w 2-4 tygodnie." }
+      ]
+    }
+  },
+  {
+    "variant_id": "faq_12",
+    "category": "faq",
+    "sample_content": {
+      "eyebrow": "FAQ",
+      "headline": "Czesto zadawane pytania",
+      "items": [
+        { "question": "Jak zaczac wspolprace?", "answer": "Wystarczy skontaktowac sie z nami telefonicznie lub mailowo." },
+        { "question": "Jakie sa koszty?", "answer": "Koszty zaleza od zakresu projektu. Skontaktuj sie po wycene." },
+        { "question": "Ile trwa realizacja?", "answer": "Standardowy projekt realizujemy w 2-4 tygodnie." }
+      ]
+    }
+  },
+  {
+    "variant_id": "faq_13",
+    "category": "faq",
+    "sample_content": {
+      "eyebrow": "FAQ",
+      "headline": "Czesto zadawane pytania",
+      "items": [
+        { "question": "Jak zaczac wspolprace?", "answer": "Wystarczy skontaktowac sie z nami telefonicznie lub mailowo." },
+        { "question": "Jakie sa koszty?", "answer": "Koszty zaleza od zakresu projektu. Skontaktuj sie po wycene." },
+        { "question": "Ile trwa realizacja?", "answer": "Standardowy projekt realizujemy w 2-4 tygodnie." }
+      ]
+    }
+  },
+  {
+    "variant_id": "faq_14",
+    "category": "faq",
+    "sample_content": {
+      "eyebrow": "FAQ",
+      "headline": "Czesto zadawane pytania",
+      "items": [
+        { "question": "Jak zaczac wspolprace?", "answer": "Wystarczy skontaktowac sie z nami telefonicznie lub mailowo." },
+        { "question": "Jakie sa koszty?", "answer": "Koszty zaleza od zakresu projektu. Skontaktuj sie po wycene." },
+        { "question": "Ile trwa realizacja?", "answer": "Standardowy projekt realizujemy w 2-4 tygodnie." }
+      ]
+    }
+  },
+  {
+    "variant_id": "faq_15",
+    "category": "faq",
+    "sample_content": {
+      "eyebrow": "FAQ",
+      "headline": "Czesto zadawane pytania",
+      "categories": [
+        {
+          "name": "Ogolne",
+          "items": [
+            { "question": "Jak zaczac wspolprace?", "answer": "Wystarczy skontaktowac sie z nami." },
+            { "question": "Jakie sa koszty?", "answer": "Koszty zaleza od zakresu projektu." }
+          ]
+        },
+        {
+          "name": "Techniczne",
+          "items": [
+            { "question": "Jakie technologie stosujecie?", "answer": "Korzystamy z najnowszych technologii webowych." },
+            { "question": "Czy oferujecie wsparcie?", "answer": "Tak, oferujemy wsparcie techniczne." }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "variant_id": "blog_1",
+    "category": "blog",
+    "sample_content": {
+      "eyebrow": "Blog",
+      "headline": "Najnowsze artykuly",
+      "items": [
+        { "title": "Jak rozwinac firme online", "desc": "Poznaj najlepsze strategie rozwoju w internecie.", "date": "2024-01-15", "category": "Marketing", "image": "AUTO" },
+        { "title": "Trendy w web designie 2024", "desc": "Najnowsze trendy w projektowaniu stron.", "date": "2024-01-10", "category": "Design", "image": "AUTO" },
+        { "title": "SEO dla poczatkujacych", "desc": "Podstawy optymalizacji dla wyszukiwarek.", "date": "2024-01-05", "category": "SEO", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "blog_2",
+    "category": "blog",
+    "sample_content": {
+      "eyebrow": "Blog",
+      "headline": "Najnowsze artykuly",
+      "items": [
+        { "title": "Jak rozwinac firme online", "desc": "Poznaj najlepsze strategie rozwoju w internecie.", "date": "2024-01-15", "category": "Marketing", "image": "AUTO" },
+        { "title": "Trendy w web designie 2024", "desc": "Najnowsze trendy w projektowaniu stron.", "date": "2024-01-10", "category": "Design", "image": "AUTO" },
+        { "title": "SEO dla poczatkujacych", "desc": "Podstawy optymalizacji dla wyszukiwarek.", "date": "2024-01-05", "category": "SEO", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "blog_3",
+    "category": "blog",
+    "sample_content": {
+      "eyebrow": "Blog",
+      "headline": "Najnowsze artykuly",
+      "items": [
+        { "title": "Jak rozwinac firme online", "desc": "Poznaj najlepsze strategie rozwoju w internecie.", "date": "2024-01-15", "category": "Marketing", "image": "AUTO" },
+        { "title": "Trendy w web designie 2024", "desc": "Najnowsze trendy w projektowaniu stron.", "date": "2024-01-10", "category": "Design", "image": "AUTO" },
+        { "title": "SEO dla poczatkujacych", "desc": "Podstawy optymalizacji dla wyszukiwarek.", "date": "2024-01-05", "category": "SEO", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "blog_4",
+    "category": "blog",
+    "sample_content": {
+      "eyebrow": "Blog",
+      "headline": "Najnowsze artykuly",
+      "items": [
+        { "title": "Jak rozwinac firme online", "desc": "Poznaj najlepsze strategie rozwoju w internecie.", "date": "2024-01-15", "category": "Marketing", "image": "AUTO" },
+        { "title": "Trendy w web designie 2024", "desc": "Najnowsze trendy w projektowaniu stron.", "date": "2024-01-10", "category": "Design", "image": "AUTO" },
+        { "title": "SEO dla poczatkujacych", "desc": "Podstawy optymalizacji dla wyszukiwarek.", "date": "2024-01-05", "category": "SEO", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "blog_5",
+    "category": "blog",
+    "sample_content": {
+      "eyebrow": "Blog",
+      "headline": "Najnowsze artykuly",
+      "items": [
+        { "title": "Jak rozwinac firme online", "desc": "Poznaj najlepsze strategie rozwoju w internecie.", "date": "2024-01-15", "category": "Marketing", "image": "AUTO" },
+        { "title": "Trendy w web designie 2024", "desc": "Najnowsze trendy w projektowaniu stron.", "date": "2024-01-10", "category": "Design", "image": "AUTO" },
+        { "title": "SEO dla poczatkujacych", "desc": "Podstawy optymalizacji dla wyszukiwarek.", "date": "2024-01-05", "category": "SEO", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "blog_6",
+    "category": "blog",
+    "sample_content": {
+      "eyebrow": "Blog",
+      "headline": "Najnowsze artykuly",
+      "items": [
+        { "title": "Jak rozwinac firme online", "desc": "Poznaj najlepsze strategie rozwoju w internecie.", "date": "2024-01-15", "category": "Marketing", "image": "AUTO" },
+        { "title": "Trendy w web designie 2024", "desc": "Najnowsze trendy w projektowaniu stron.", "date": "2024-01-10", "category": "Design", "image": "AUTO" },
+        { "title": "SEO dla poczatkujacych", "desc": "Podstawy optymalizacji dla wyszukiwarek.", "date": "2024-01-05", "category": "SEO", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "blog_7",
+    "category": "blog",
+    "sample_content": {
+      "eyebrow": "Blog",
+      "headline": "Najnowsze artykuly",
+      "items": [
+        { "title": "Jak rozwinac firme online", "desc": "Poznaj najlepsze strategie rozwoju w internecie.", "date": "2024-01-15", "category": "Marketing", "image": "AUTO" },
+        { "title": "Trendy w web designie 2024", "desc": "Najnowsze trendy w projektowaniu stron.", "date": "2024-01-10", "category": "Design", "image": "AUTO" },
+        { "title": "SEO dla poczatkujacych", "desc": "Podstawy optymalizacji dla wyszukiwarek.", "date": "2024-01-05", "category": "SEO", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "blog_8",
+    "category": "blog",
+    "sample_content": {
+      "eyebrow": "Blog",
+      "headline": "Najnowsze artykuly",
+      "items": [
+        { "title": "Jak rozwinac firme online", "desc": "Poznaj najlepsze strategie rozwoju w internecie.", "date": "2024-01-15", "category": "Marketing", "image": "AUTO" },
+        { "title": "Trendy w web designie 2024", "desc": "Najnowsze trendy w projektowaniu stron.", "date": "2024-01-10", "category": "Design", "image": "AUTO" },
+        { "title": "SEO dla poczatkujacych", "desc": "Podstawy optymalizacji dla wyszukiwarek.", "date": "2024-01-05", "category": "SEO", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "blog_9",
+    "category": "blog",
+    "sample_content": {
+      "eyebrow": "Blog",
+      "headline": "Najnowsze artykuly",
+      "items": [
+        { "title": "Jak rozwinac firme online", "desc": "Poznaj najlepsze strategie rozwoju w internecie.", "date": "2024-01-15", "category": "Marketing", "image": "AUTO" },
+        { "title": "Trendy w web designie 2024", "desc": "Najnowsze trendy w projektowaniu stron.", "date": "2024-01-10", "category": "Design", "image": "AUTO" },
+        { "title": "SEO dla poczatkujacych", "desc": "Podstawy optymalizacji dla wyszukiwarek.", "date": "2024-01-05", "category": "SEO", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "blog_10",
+    "category": "blog",
+    "sample_content": {
+      "eyebrow": "Blog",
+      "headline": "Najnowsze artykuly",
+      "items": [
+        { "title": "Jak rozwinac firme online", "desc": "Poznaj najlepsze strategie rozwoju w internecie.", "date": "2024-01-15", "category": "Marketing", "image": "AUTO" },
+        { "title": "Trendy w web designie 2024", "desc": "Najnowsze trendy w projektowaniu stron.", "date": "2024-01-10", "category": "Design", "image": "AUTO" },
+        { "title": "SEO dla poczatkujacych", "desc": "Podstawy optymalizacji dla wyszukiwarek.", "date": "2024-01-05", "category": "SEO", "image": "AUTO" }
+      ]
+    }
+  },
+  {
+    "variant_id": "footer_1",
+    "category": "footer",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "tagline": "Firma testowa",
+      "columns": [
+        {
+          "heading": "Firma",
+          "links": [
+            { "label": "O nas", "href": "#" },
+            { "label": "Kariera", "href": "#" }
+          ]
+        },
+        {
+          "heading": "Uslugi",
+          "links": [
+            { "label": "Web Design", "href": "#" },
+            { "label": "Marketing", "href": "#" }
+          ]
+        }
+      ],
+      "copyright": "2024 TestBrand",
+      "socials": [
+        { "platform": "facebook", "url": "#" },
+        { "platform": "instagram", "url": "#" }
+      ]
+    }
+  },
+  {
+    "variant_id": "footer_2",
+    "category": "footer",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "tagline": "Firma testowa",
+      "columns": [
+        {
+          "heading": "Firma",
+          "links": [
+            { "label": "O nas", "href": "#" },
+            { "label": "Kariera", "href": "#" }
+          ]
+        },
+        {
+          "heading": "Uslugi",
+          "links": [
+            { "label": "Web Design", "href": "#" },
+            { "label": "Marketing", "href": "#" }
+          ]
+        }
+      ],
+      "copyright": "2024 TestBrand",
+      "socials": [
+        { "platform": "facebook", "url": "#" },
+        { "platform": "instagram", "url": "#" }
+      ]
+    }
+  },
+  {
+    "variant_id": "footer_3",
+    "category": "footer",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "tagline": "Firma testowa",
+      "columns": [
+        {
+          "heading": "Firma",
+          "links": [
+            { "label": "O nas", "href": "#" },
+            { "label": "Kariera", "href": "#" }
+          ]
+        },
+        {
+          "heading": "Uslugi",
+          "links": [
+            { "label": "Web Design", "href": "#" },
+            { "label": "Marketing", "href": "#" }
+          ]
+        }
+      ],
+      "copyright": "2024 TestBrand",
+      "socials": [
+        { "platform": "facebook", "url": "#" },
+        { "platform": "instagram", "url": "#" }
+      ]
+    }
+  },
+  {
+    "variant_id": "footer_4",
+    "category": "footer",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "tagline": "Firma testowa",
+      "columns": [
+        {
+          "heading": "Firma",
+          "links": [
+            { "label": "O nas", "href": "#" },
+            { "label": "Kariera", "href": "#" }
+          ]
+        },
+        {
+          "heading": "Uslugi",
+          "links": [
+            { "label": "Web Design", "href": "#" },
+            { "label": "Marketing", "href": "#" }
+          ]
+        }
+      ],
+      "copyright": "2024 TestBrand",
+      "socials": [
+        { "platform": "facebook", "url": "#" },
+        { "platform": "instagram", "url": "#" }
+      ]
+    }
+  },
+  {
+    "variant_id": "footer_5",
+    "category": "footer",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "tagline": "Firma testowa",
+      "columns": [
+        {
+          "heading": "Firma",
+          "links": [
+            { "label": "O nas", "href": "#" },
+            { "label": "Kariera", "href": "#" }
+          ]
+        },
+        {
+          "heading": "Uslugi",
+          "links": [
+            { "label": "Web Design", "href": "#" },
+            { "label": "Marketing", "href": "#" }
+          ]
+        }
+      ],
+      "copyright": "2024 TestBrand",
+      "socials": [
+        { "platform": "facebook", "url": "#" },
+        { "platform": "instagram", "url": "#" }
+      ]
+    }
+  },
+  {
+    "variant_id": "footer_6",
+    "category": "footer",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "tagline": "Firma testowa",
+      "columns": [
+        {
+          "heading": "Firma",
+          "links": [
+            { "label": "O nas", "href": "#" },
+            { "label": "Kariera", "href": "#" }
+          ]
+        },
+        {
+          "heading": "Uslugi",
+          "links": [
+            { "label": "Web Design", "href": "#" },
+            { "label": "Marketing", "href": "#" }
+          ]
+        }
+      ],
+      "copyright": "2024 TestBrand",
+      "socials": [
+        { "platform": "facebook", "url": "#" },
+        { "platform": "instagram", "url": "#" }
+      ]
+    }
+  },
+  {
+    "variant_id": "footer_7",
+    "category": "footer",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "tagline": "Firma testowa",
+      "columns": [
+        {
+          "heading": "Firma",
+          "links": [
+            { "label": "O nas", "href": "#" },
+            { "label": "Kariera", "href": "#" }
+          ]
+        },
+        {
+          "heading": "Uslugi",
+          "links": [
+            { "label": "Web Design", "href": "#" },
+            { "label": "Marketing", "href": "#" }
+          ]
+        }
+      ],
+      "copyright": "2024 TestBrand",
+      "socials": [
+        { "platform": "facebook", "url": "#" },
+        { "platform": "instagram", "url": "#" }
+      ]
+    }
+  },
+  {
+    "variant_id": "footer_8",
+    "category": "footer",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "tagline": "Firma testowa",
+      "columns": [
+        {
+          "heading": "Firma",
+          "links": [
+            { "label": "O nas", "href": "#" },
+            { "label": "Kariera", "href": "#" }
+          ]
+        },
+        {
+          "heading": "Uslugi",
+          "links": [
+            { "label": "Web Design", "href": "#" },
+            { "label": "Marketing", "href": "#" }
+          ]
+        }
+      ],
+      "copyright": "2024 TestBrand",
+      "socials": [
+        { "platform": "facebook", "url": "#" },
+        { "platform": "instagram", "url": "#" }
+      ]
+    }
+  },
+  {
+    "variant_id": "footer_9",
+    "category": "footer",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "tagline": "Firma testowa",
+      "columns": [
+        {
+          "heading": "Firma",
+          "links": [
+            { "label": "O nas", "href": "#" },
+            { "label": "Kariera", "href": "#" }
+          ]
+        },
+        {
+          "heading": "Uslugi",
+          "links": [
+            { "label": "Web Design", "href": "#" },
+            { "label": "Marketing", "href": "#" }
+          ]
+        }
+      ],
+      "copyright": "2024 TestBrand",
+      "socials": [
+        { "platform": "facebook", "url": "#" },
+        { "platform": "instagram", "url": "#" }
+      ]
+    }
+  },
+  {
+    "variant_id": "footer_10",
+    "category": "footer",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "tagline": "Firma testowa",
+      "columns": [
+        {
+          "heading": "Firma",
+          "links": [
+            { "label": "O nas", "href": "#" },
+            { "label": "Kariera", "href": "#" }
+          ]
+        },
+        {
+          "heading": "Uslugi",
+          "links": [
+            { "label": "Web Design", "href": "#" },
+            { "label": "Marketing", "href": "#" }
+          ]
+        }
+      ],
+      "copyright": "2024 TestBrand",
+      "socials": [
+        { "platform": "facebook", "url": "#" },
+        { "platform": "instagram", "url": "#" }
+      ]
+    }
+  },
+  {
+    "variant_id": "footer_11",
+    "category": "footer",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "tagline": "Firma testowa",
+      "columns": [
+        {
+          "heading": "Firma",
+          "links": [
+            { "label": "O nas", "href": "#" },
+            { "label": "Kariera", "href": "#" }
+          ]
+        },
+        {
+          "heading": "Uslugi",
+          "links": [
+            { "label": "Web Design", "href": "#" },
+            { "label": "Marketing", "href": "#" }
+          ]
+        }
+      ],
+      "copyright": "2024 TestBrand",
+      "socials": [
+        { "platform": "facebook", "url": "#" },
+        { "platform": "instagram", "url": "#" }
+      ]
+    }
+  },
+  {
+    "variant_id": "footer_12",
+    "category": "footer",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "tagline": "Firma testowa",
+      "columns": [
+        {
+          "heading": "Firma",
+          "links": [
+            { "label": "O nas", "href": "#" },
+            { "label": "Kariera", "href": "#" }
+          ]
+        },
+        {
+          "heading": "Uslugi",
+          "links": [
+            { "label": "Web Design", "href": "#" },
+            { "label": "Marketing", "href": "#" }
+          ]
+        }
+      ],
+      "copyright": "2024 TestBrand",
+      "socials": [
+        { "platform": "facebook", "url": "#" },
+        { "platform": "instagram", "url": "#" }
+      ]
+    }
+  },
+  {
+    "variant_id": "footer_13",
+    "category": "footer",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "tagline": "Firma testowa",
+      "columns": [
+        {
+          "heading": "Firma",
+          "links": [
+            { "label": "O nas", "href": "#" },
+            { "label": "Kariera", "href": "#" }
+          ]
+        },
+        {
+          "heading": "Uslugi",
+          "links": [
+            { "label": "Web Design", "href": "#" },
+            { "label": "Marketing", "href": "#" }
+          ]
+        }
+      ],
+      "copyright": "2024 TestBrand",
+      "socials": [
+        { "platform": "facebook", "url": "#" },
+        { "platform": "instagram", "url": "#" }
+      ]
+    }
+  },
+  {
+    "variant_id": "footer_14",
+    "category": "footer",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "tagline": "Firma testowa",
+      "columns": [
+        {
+          "heading": "Firma",
+          "links": [
+            { "label": "O nas", "href": "#" },
+            { "label": "Kariera", "href": "#" }
+          ]
+        },
+        {
+          "heading": "Uslugi",
+          "links": [
+            { "label": "Web Design", "href": "#" },
+            { "label": "Marketing", "href": "#" }
+          ]
+        }
+      ],
+      "copyright": "2024 TestBrand",
+      "socials": [
+        { "platform": "facebook", "url": "#" },
+        { "platform": "instagram", "url": "#" }
+      ]
+    }
+  },
+  {
+    "variant_id": "footer_15",
+    "category": "footer",
+    "sample_content": {
+      "brand_name": "TestBrand",
+      "logo": "AUTO",
+      "tagline": "Firma testowa",
+      "columns": [
+        {
+          "heading": "Firma",
+          "links": [
+            { "label": "O nas", "href": "#" },
+            { "label": "Kariera", "href": "#" }
+          ]
+        },
+        {
+          "heading": "Uslugi",
+          "links": [
+            { "label": "Web Design", "href": "#" },
+            { "label": "Marketing", "href": "#" }
+          ]
+        }
+      ],
+      "copyright": "2024 TestBrand",
+      "socials": [
+        { "platform": "facebook", "url": "#" },
+        { "platform": "instagram", "url": "#" }
+      ],
+      "app_store_url": "#",
+      "google_play_url": "#"
+    }
+  }
+]

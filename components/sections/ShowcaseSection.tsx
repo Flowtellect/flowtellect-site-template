@@ -497,8 +497,9 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
   }
 
   // =========================================================================
-  // VN 10 (default): 2-col large with hover details
+  // VN 10: 2-col large with hover details
   // =========================================================================
+  if (vn === 10) {
   return (
     <section className="bg-bg" style={{ padding: "64px 0" }}>
       <style>{S}</style>
@@ -524,6 +525,30 @@ export default function ShowcaseSection({ content, vn }: ShowcaseProps) {
           })}
         </div>
         </StaggerChildren>
+      </div>
+    </section>
+  );
+  }
+
+  // Fallback: basic grid
+  return (
+    <section className="bg-bg" style={{ padding: "64px 0" }}>
+      <style>{S}</style>
+      <div className="sc-wrap">
+        <Header />
+        <div className="sca2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {items.map((it, i) => {
+            const src = getImg(it);
+            return (
+              <div key={i} className="sc-card img-zoom">
+                {src ? <img src={src} alt={getTitle(it)} style={{ width: "100%", aspectRatio: "4/3", objectFit: "cover", borderRadius: 16 }} /> : <div style={{ width: "100%", aspectRatio: "4/3", borderRadius: 16, background: "linear-gradient(135deg, rgb(var(--color-accent)/0.1), rgb(var(--color-surface)))" }} />}
+                <div style={{ padding: "12px 4px" }}>
+                  <div style={{ fontFamily: "var(--font-display)", fontSize: 16, fontWeight: 600 }}>{getTitle(it)}</div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
