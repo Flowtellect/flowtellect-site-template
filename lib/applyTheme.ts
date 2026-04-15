@@ -15,6 +15,9 @@ export interface PublishedThemeJson {
     accent:  { family: string; googleId: string };
   };
   geometry: Record<string, string | number>;
+  /** Custom favicon URL z brand-assets bucket (Supabase Storage). null = fallback
+   *  na SVG z inicjału brand name (public/favicon.svg). */
+  faviconUrl?: string | null;
 }
 
 const THEME_PATH = path.join(process.cwd(), "content", "theme.json");
@@ -52,6 +55,15 @@ export function getActiveTheme(): PublishedThemeJson {
     return JSON.parse(raw) as PublishedThemeJson;
   } catch {
     return DEFAULT_THEME;
+  }
+}
+
+/** Custom favicon URL z theme.json (Supabase Storage). null = brak (fallback SVG). */
+export function getFaviconUrl(): string | null {
+  try {
+    return getActiveTheme().faviconUrl ?? null;
+  } catch {
+    return null;
   }
 }
 

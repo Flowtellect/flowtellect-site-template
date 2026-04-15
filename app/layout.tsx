@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { getThemeStyleObject, getThemeFontStyleObject, getThemeDataAttributes, getActiveTheme } from "@/lib/applyTheme";
+import { getThemeStyleObject, getThemeFontStyleObject, getThemeDataAttributes, getActiveTheme, getFaviconUrl } from "@/lib/applyTheme";
 import PreviewListener from "@/components/PreviewListener";
 import ScrollToTop from "@/components/ScrollToTop";
+import Preloader from "@/components/Preloader";
+import CookieConsent from "@/components/CookieConsent";
 import "./globals.css";
 
 // Dynamiczny tytul + opis z homepage.json meta
@@ -30,16 +32,29 @@ function getSiteMeta(): { title: string; description: string } {
   return { title: "Strona", description: "" };
 }
 
-const siteMeta = getSiteMeta();
-
-export const metadata: Metadata = {
-  title: siteMeta.title,
-  description: siteMeta.description,
-  openGraph: {
+// Dynamic metadata: static export zastapiony generateMetadata zeby custom
+// favicon z theme.json (Supabase Storage URL) + OG image byly injected w <head>.
+export function generateMetadata(): Metadata {
+  const siteMeta = getSiteMeta();
+  const faviconUrl = getFaviconUrl();
+  return {
     title: siteMeta.title,
     description: siteMeta.description,
-  },
-};
+    openGraph: {
+      type: "website",
+      title: siteMeta.title,
+      description: siteMeta.description,
+      images: [{ url: "/og-image.svg", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: siteMeta.title,
+      description: siteMeta.description,
+      images: ["/og-image.svg"],
+    },
+    icons: faviconUrl ? { icon: faviconUrl } : { icon: "/favicon.svg" },
+  };
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const theme = getActiveTheme();
@@ -68,12 +83,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <link href={googleFontsUrl} rel="stylesheet" />
           </>
         )}
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body className="bg-bg text-primary font-body antialiased">
+        <a href="#main-content" className="skip-to-content">
+          Przejdź do treści
+        </a>
+        <Preloader />
         <PreviewListener />
         {children}
         <ScrollToTop />
+        <CookieConsent />
       </body>
     </html>
   );

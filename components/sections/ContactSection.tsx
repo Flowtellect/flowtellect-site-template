@@ -73,18 +73,33 @@ function ContactItems({ content }: { content: Record<string, unknown> }) {
 }
 
 function ContactForm({ compact }: { compact?: boolean }) {
+  // Netlify Forms: atrybuty data-netlify + form-name powoduja auto-detect
+  // przy deploy; Netlify zaczyna zbierac submissions bez backendu.
+  // action="/dziekujemy" = server-side fallback dla no-JS visitors
+  // (Netlify robi 302 redirect po submit). Honeypot bot-field blokuje spam.
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+    <form
+      name="contact"
+      method="POST"
+      action="/dziekujemy"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      style={{ display: "flex", flexDirection: "column", gap: 14 }}
+    >
+      <input type="hidden" name="form-name" value="contact" />
+      <p style={{ display: "none" }}>
+        <label>Nie wypelniaj: <input name="bot-field" /></label>
+      </p>
       {!compact && (
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-          <div><label className="co-label">Imie</label><input className="co-input" placeholder="Anna" /></div>
-          <div><label className="co-label">Telefon</label><input className="co-input" placeholder="+48 500..." /></div>
+          <div><label className="co-label">Imie</label><input name="name" required autoComplete="name" className="co-input" placeholder="Anna" /></div>
+          <div><label className="co-label">Telefon</label><input name="phone" type="tel" autoComplete="tel" className="co-input" placeholder="+48 500..." /></div>
         </div>
       )}
-      <div><label className="co-label">Email</label><input type="email" className="co-input" placeholder="anna@example.com" /></div>
-      <div><label className="co-label">Wiadomosc</label><textarea className="co-textarea" placeholder="Czym mozemy pomoc?" /></div>
-      <button className="co-btn">Wyslij wiadomosc</button>
-    </div>
+      <div><label className="co-label">Email</label><input name="email" type="email" required autoComplete="email" className="co-input" placeholder="anna@example.com" /></div>
+      <div><label className="co-label">Wiadomosc</label><textarea name="message" required className="co-textarea" placeholder="Czym mozemy pomoc?" /></div>
+      <button type="submit" className="co-btn">Wyslij wiadomosc</button>
+    </form>
   );
 }
 
