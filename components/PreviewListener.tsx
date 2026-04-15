@@ -33,18 +33,24 @@ import { usePathname } from "next/navigation";
 
 // ─── Konfiguracja origin whitelist ────────────────────────────────────────────
 // Dozwolone źródła wiadomości postMessage (czyli — który PARENT może do nas
-// pisać). Wszystko inne jest ignorowane. Dev na wszystkich popularnych portach
-// + przyszła hostowana domena CMS.
-const ALLOWED_PARENT_ORIGINS: string[] = [
-  "http://localhost:3000",
-  "http://localhost:3001",
-  "http://localhost:3002",
-  "https://panel.flowtellect.com",  // przyszłość, gdy CMS dostanie hosting
-  "https://flowtellect.com",
+// pisać). Wszystko inne jest ignorowane.
+//
+// Wzorzec zamiast statycznej listy: CMS panel moze zyc na roznych domenach
+// (localhost dev/staging, vercel preview deploys, panel.flowtellect.com
+// produkcja), a template jest jeden dla wszystkich klientow - nie moze znac
+// z gory kazdej mozliwej domeny parenta.
+const ALLOWED_ORIGIN_PATTERNS: Array<(origin: string) => boolean> = [
+  // Localhost dev na dowolnym porcie (3000/3001/3002/...)
+  (o) => /^https?:\/\/localhost(:\d+)?$/.test(o),
+  (o) => /^https?:\/\/127\.0\.0\.1(:\d+)?$/.test(o),
+  // flowtellect.com i wszystkie subdomeny (panel, app, staging, preview-*)
+  (o) => /^https:\/\/([a-z0-9-]+\.)*flowtellect\.com$/.test(o),
+  // Vercel preview deploys (opcjonalnie - flowtellect-cms-git-*-flowtellect.vercel.app)
+  (o) => /^https:\/\/[a-z0-9-]+\.vercel\.app$/.test(o),
 ];
 
 function isAllowedOrigin(origin: string): boolean {
-  return ALLOWED_PARENT_ORIGINS.includes(origin);
+  return ALLOWED_ORIGIN_PATTERNS.some((fn) => fn(origin));
 }
 
 // Helper do dev-only debug log. Aktywny tylko w `NODE_ENV !== 'production'`.
@@ -164,7 +170,7 @@ export default function PreviewListener() {
       return;
     }
 
-    devLog("Mounted in iframe, allowed parent origins:", ALLOWED_PARENT_ORIGINS);
+    devLog("Mounted in iframe, origin validation: pattern-based (localhost, *.flowtellect.com, *.vercel.app)");
 
     // ── Listener wiadomości ────────────────────────────────────────────────
     function handleMessage(event: MessageEvent) {
