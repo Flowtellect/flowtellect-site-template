@@ -1,9 +1,28 @@
 // ─── SectionRenderer ─────────────────────────────────────────────────────────
-// Universal section renderer. Uses GenericSection for ALL variants.
-// No hardcoded components - everything is rendered dynamically.
+// Two-tier renderer:
+//   Tier 1 (Showcase): dedykowany pixel-perfect komponent z components/showcase/.
+//     Wybierany przez variant_id w SHOWCASE_MAP. Code-split przez next/dynamic —
+//     KB nie laduje sie na strony ktore tego wariantu nie uzywaja.
+//   Tier 2/3 (Generic): GenericSection renderuje wszystkie pozostale warianty
+//     z section-registry przez schema-driven layout.
+//
+// Showcase komponenty maja wlasne <section>, FadeIn animacje, accent decorations
+// — wiec dla nich pomijamy ScrollReveal wrapper. Anchor id (do scroll-to + global
+// [id="hero"]::before stylizacji) ustawiamy zawsze, bo dotyczy obu tierow.
 
+import dynamic from "next/dynamic";
+import type { ComponentType } from "react";
 import GenericSection from "./sections/GenericSection";
 import { ScrollReveal } from "./sections/ClientComponents";
+
+// ─── Tier 1 routing — Showcase components ────────────────────────────────────
+// Mapuje variant_id -> dynamic component. Brak wpisu = fallback na GenericSection.
+type ShowcaseProps = { content: Record<string, unknown> };
+const SHOWCASE_MAP: Record<string, ComponentType<ShowcaseProps>> = {
+  hero_immersive: dynamic(() => import("./showcase/HeroImmersive")),
+  hero_split:     dynamic(() => import("./showcase/HeroSplit")),
+  hero_minimal:   dynamic(() => import("./showcase/HeroMinimal")),
+};
 
 interface ThemeOverrides {
   bg?: string | null;
@@ -57,11 +76,21 @@ export default function SectionRenderer({
   const overrideStyle = buildOverrideStyle(section.theme_overrides);
   const anchorId = getSectionAnchorId(section.variant);
   const category = section.variant.replace(/_\d+$/, "");
+
+  // Tier 1: Showcase — wlasne <section>, wlasne FadeIn, wlasny padding.
+  // Pomijamy ScrollReveal (duplikat animacji), ale anchor + override stosuje.
+  const ShowcaseComponent = SHOWCASE_MAP[section.variant];
+  if (ShowcaseComponent) {
+    const showcase = <ShowcaseComponent content={section.content} />;
+    if (overrideStyle || anchorId) {
+      return <div id={anchorId} style={overrideStyle}>{showcase}</div>;
+    }
+    return showcase;
+  }
+
+  // Tier 2/3: Generic — schema-driven, owinieta ScrollReveal (poza navbar/footer).
   const rendered = <GenericSection variant={section.variant} content={section.content} />;
-
-  // Navbar and footer: no scroll reveal (always visible)
   const skipAnimation = category === "navbar" || category === "footer";
-
   const content = skipAnimation ? rendered : (
     <ScrollReveal duration={0.7} distance={20}>
       {rendered}
