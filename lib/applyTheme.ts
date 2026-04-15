@@ -22,24 +22,70 @@ export interface PublishedThemeJson {
 
 const THEME_PATH = path.join(process.cwd(), "content", "theme.json");
 
-// Default fallback if theme.json doesn't exist yet
+// Default fallback if theme.json doesn't exist yet.
+// Pelne tokeny: kolory + cienie + radii + spacing + typo + transitions.
+// Wartosci preset: soft (geometry) + balanced (density) + standard (type scale).
 const DEFAULT_THEME: PublishedThemeJson = {
   id: "default",
   name: "Default",
   tokens: {
-    "color-bg": "250 250 247",
-    "color-bg-alt": "240 238 230",
-    "color-surface": "255 255 255",
+    // Colors
+    "color-bg":           "250 250 247",
+    "color-bg-alt":       "240 238 230",
+    "color-surface":      "255 255 255",
     "color-surface-deep": "230 228 220",
     "color-text-primary": "26 26 46",
-    "color-text-muted": "90 90 114",
-    "color-text-dim": "136 136 160",
-    "color-accent": "99 102 241",
+    "color-text-muted":   "90 90 114",
+    "color-text-dim":     "136 136 160",
+    "color-accent":       "99 102 241",
     "color-accent-light": "136 138 248",
-    "color-accent-dark": "67 70 210",
-    "color-on-accent": "255 255 255",
-    "color-border": "224 222 214",
-    "color-border-soft": "238 236 228",
+    "color-accent-dark":  "67 70 210",
+    "color-on-accent":    "255 255 255",
+    "color-border":       "224 222 214",
+    "color-border-soft":  "238 236 228",
+    // Geometry — radius
+    "radius-base": "12px",
+    "radius-sm":   "6px",
+    "radius-md":   "10px",
+    "radius-lg":   "14px",
+    "radius-xl":   "20px",
+    "radius-full": "9999px",
+    // Geometry — shadows (soft preset)
+    "shadow-xs":     "0 1px 2px rgba(0,0,0,0.03)",
+    "shadow-sm":     "0 2px 8px rgba(0,0,0,0.06)",
+    "shadow-md":     "0 4px 16px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.03)",
+    "shadow-lg":     "0 8px 30px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.03)",
+    "shadow-xl":     "0 20px 40px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.04)",
+    "shadow-accent": "0 8px 24px rgba(var(--color-accent) / 0.2)",
+    // Spacing (balanced preset)
+    "space-xs":      "4px",
+    "space-sm":      "8px",
+    "space-md":      "16px",
+    "space-lg":      "24px",
+    "space-xl":      "32px",
+    "space-2xl":     "48px",
+    "space-3xl":     "64px",
+    "space-section": "96px",
+    // Type scale (standard preset)
+    "text-xs":         "clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem)",
+    "text-sm":         "clamp(0.8125rem, 0.78rem + 0.2vw, 0.9375rem)",
+    "text-base":       "clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem)",
+    "text-lg":         "clamp(1.0625rem, 1rem + 0.35vw, 1.25rem)",
+    "text-xl":         "clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem)",
+    "text-2xl":        "clamp(1.5rem, 1.25rem + 1vw, 2.125rem)",
+    "text-3xl":        "clamp(1.875rem, 1.5rem + 1.5vw, 3rem)",
+    "text-4xl":        "clamp(2.5rem, 1.9rem + 2vw, 3.75rem)",
+    "text-hero":       "clamp(3rem, 2.2rem + 3vw, 5rem)",
+    "leading-tight":   "1.2",
+    "leading-normal":  "1.6",
+    "leading-relaxed": "1.75",
+    "tracking-tight":  "-0.02em",
+    "tracking-normal": "0",
+    "tracking-wide":   "0.06em",
+    // Transitions
+    "ease-default":    "cubic-bezier(0.16, 1, 0.3, 1)",
+    "duration-fast":   "150ms",
+    "duration-normal": "250ms",
   },
   fonts: {
     display: { family: "Inter", googleId: "Inter" },
