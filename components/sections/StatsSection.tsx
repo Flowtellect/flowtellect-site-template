@@ -80,9 +80,9 @@ const S = `
   .st-header{text-align:center;margin-bottom:40px}
   .st-h2{font-family:var(--font-display);font-size:28px;font-weight:700;color:rgb(var(--color-text-primary));margin-bottom:8px}
   @media(min-width:768px){.st-h2{font-size:36px}}
-  .st-h2-w{color:white}
+  .st-h2-w{color:rgb(var(--color-on-accent))}
   .st-desc{font-size:15px;color:rgb(var(--color-text-muted));line-height:1.6}
-  .st-desc-w{color:rgb(255 255 255/0.7)}
+  .st-desc-w{color:rgb(var(--color-on-accent) /0.7)}
 
   @keyframes stUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
   .sta1{opacity:0;animation:stUp .8s ease .1s forwards}
@@ -110,12 +110,12 @@ const S = `
   @keyframes stProgress{from{width:0}to{width:var(--target-width)}}
   @keyframes stRing{from{stroke-dashoffset:var(--ring-circumference)}to{stroke-dashoffset:var(--ring-offset)}}
 
-  .st-flip-digit{display:inline-flex;align-items:center;justify-content:center;width:36px;height:48px;background:rgb(var(--color-text-primary));color:white;font-family:var(--font-display);font-size:28px;font-weight:700;border-radius:6px;position:relative;margin:0 2px}
+  .st-flip-digit{display:inline-flex;align-items:center;justify-content:center;width:36px;height:48px;background:rgb(var(--color-text-primary));color:rgb(var(--color-bg));font-family:var(--font-display);font-size:28px;font-weight:700;border-radius:6px;position:relative;margin:0 2px}
   @media(min-width:768px){.st-flip-digit{width:44px;height:56px;font-size:34px;border-radius:8px}}
   .st-flip-digit::after{content:'';position:absolute;left:2px;right:2px;top:50%;height:1px;background:rgb(0 0 0/0.3)}
   .st-flip-suf{font-family:var(--font-display);font-size:20px;font-weight:600;color:rgb(var(--color-text-primary));margin-left:6px}
 
-  .st-glass{background:rgb(255 255 255/0.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgb(255 255 255/0.1);border-radius:16px;padding:24px 20px;text-align:center}
+  .st-glass{background:rgb(var(--color-on-accent) /0.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgb(var(--color-on-accent) /0.1);border-radius:16px;padding:24px 20px;text-align:center}
 
   .st-icon-circle{width:72px;height:72px;border-radius:50%;background:rgb(var(--color-accent)/0.08);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 12px}
   @keyframes stBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
@@ -192,7 +192,7 @@ export default function StatsSection({ content, vn }: StatsProps) {
             <div key={i}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 8 }}>
                 {digits.map((d, j) => (
-                  <div key={j} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 36, height: 48, background: "rgb(255 255 255/0.12)", backdropFilter: "blur(8px)", borderRadius: 8, margin: "0 2px", fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 700 }}>{d}</div>
+                  <div key={j} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 36, height: 48, background: "rgb(var(--color-on-accent) /0.12)", backdropFilter: "blur(8px)", borderRadius: 8, margin: "0 2px", fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 700 }}>{d}</div>
                 ))}
                 {suffix && <span style={{ fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 600, marginLeft: 6, opacity: 0.9 }}>{suffix}</span>}
               </div>
@@ -410,11 +410,11 @@ export default function StatsSection({ content, vn }: StatsProps) {
   if (vn === 12) {
   const gradientFrom = str(content.gradient_from) || "rgb(var(--color-accent))";
   const gradientTo = str(content.gradient_to) || "rgb(var(--color-accent-dark))";
-  return (<section style={{ position: "relative", padding: "64px 0", background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo}, ${gradientFrom})`, color: "white", overflow: "hidden" }}><style>{S}</style>
+  return (<section style={{ position: "relative", padding: "64px 0", background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo}, ${gradientFrom})`, color: "rgb(var(--color-on-accent))", overflow: "hidden" }}><style>{S}</style>
     {/* Decorative circles */}
-    <div style={{ position: "absolute", width: 200, height: 200, borderRadius: "50%", background: "rgb(255 255 255/0.05)", top: -60, right: -40 }} />
-    <div style={{ position: "absolute", width: 140, height: 140, borderRadius: "50%", background: "rgb(255 255 255/0.04)", bottom: -40, left: "20%" }} />
-    <div style={{ position: "absolute", width: 80, height: 80, borderRadius: "50%", background: "rgb(255 255 255/0.03)", top: "40%", left: "60%" }} />
+    <div style={{ position: "absolute", width: 200, height: 200, borderRadius: "50%", background: "rgb(var(--color-on-accent) /0.05)", top: -60, right: -40 }} />
+    <div style={{ position: "absolute", width: 140, height: 140, borderRadius: "50%", background: "rgb(var(--color-on-accent) /0.04)", bottom: -40, left: "20%" }} />
+    <div style={{ position: "absolute", width: 80, height: 80, borderRadius: "50%", background: "rgb(var(--color-on-accent) /0.03)", top: "40%", left: "60%" }} />
     <div className="st-wrap sta1" style={{ position: "relative", zIndex: 10 }}>
       {hl && <ScrollReveal delay={0}><div className="st-header"><h2 className="st-h2 st-h2-w">{hl}</h2></div></ScrollReveal>}
       <StaggerChildren staggerDelay={0.1}>

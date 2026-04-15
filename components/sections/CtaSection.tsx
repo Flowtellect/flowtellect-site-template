@@ -26,13 +26,13 @@ const S = `
   .ct-h2 em{font-style:italic}
   .ct-h2-d{color:rgb(var(--color-text-primary))}
   .ct-h2-d em{color:rgb(var(--color-accent))}
-  .ct-h2-w{color:white}
+  .ct-h2-w{color:rgb(var(--color-on-accent))}
   .ct-h2-w em{color:rgb(var(--color-accent-light))}
   .ct-h2-m{font-size:32px}@media(min-width:768px){.ct-h2-m{font-size:40px}}@media(min-width:1024px){.ct-h2-m{font-size:48px}}
   .ct-h2-l{font-size:36px}@media(min-width:768px){.ct-h2-l{font-size:56px}}@media(min-width:1024px){.ct-h2-l{font-size:80px}}
 
   .ct-body-d{font-size:15px;line-height:1.7;color:rgb(var(--color-text-muted));max-width:520px;margin-bottom:28px}
-  .ct-body-w{font-size:15px;line-height:1.7;color:rgb(255 255 255/0.7);max-width:520px;margin-bottom:28px}
+  .ct-body-w{font-size:15px;line-height:1.7;color:rgb(var(--color-on-accent) /0.7);max-width:520px;margin-bottom:28px}
   @media(min-width:1024px){.ct-body-d,.ct-body-w{font-size:16px}}
 
   .ct-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;font-family:var(--font-body);font-size:14px;font-weight:600;border-radius:12px;text-decoration:none;transition:all .3s;border:none;cursor:pointer}
@@ -42,8 +42,8 @@ const S = `
   .ct-btn-inv:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgb(0 0 0/0.2)}
   .ct-btn-outline{background:transparent;color:rgb(var(--color-accent));border:2px solid rgb(var(--color-accent)/0.3)}
   .ct-btn-outline:hover{border-color:rgb(var(--color-accent));background:rgb(var(--color-accent)/0.05);transform:translateY(-2px)}
-  .ct-btn-glass{background:transparent;color:white;border:2px solid rgb(255 255 255/0.3)}
-  .ct-btn-glass:hover{border-color:rgb(255 255 255/0.6);background:rgb(255 255 255/0.1)}
+  .ct-btn-glass{background:transparent;color:rgb(var(--color-on-accent));border:2px solid rgb(var(--color-on-accent) /0.3)}
+  .ct-btn-glass:hover{border-color:rgb(var(--color-on-accent) /0.6);background:rgb(var(--color-on-accent) /0.1)}
 
   .ct-eyebrow{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
   .ct-note{font-size:12px;margin-top:16px;opacity:.5}
@@ -99,7 +99,7 @@ export default function CtaSection({ content, vn }: CtaProps) {
         <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2></ScrollReveal>
         {body && <ScrollReveal delay={0.1}><p className="ct-body-w" style={{ margin: "0 auto 28px" }}>{body}</p></ScrollReveal>}
         <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-inv">{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
-        {note && <p className="ct-note" style={{ color: "white" }}>{note}</p>}
+        {note && <p className="ct-note" style={{ color: "rgb(var(--color-on-accent))" }}>{note}</p>}
       </div>
     </div></section>);
   }
@@ -143,9 +143,9 @@ export default function CtaSection({ content, vn }: CtaProps) {
   // VN 4: Pelnoekranowa z dekoracyjnymi kolkami
   if (vn === 4) {
     return (<section className="bg-accent text-on-accent" style={{ minHeight: "80vh", display: "flex", alignItems: "center", justifyContent: "center", position: "relative", overflow: "hidden", padding: "64px 16px" }}><style>{S}</style>
-      <div style={{ position: "absolute", width: 200, height: 200, borderRadius: "50%", background: "rgb(255 255 255/0.05)", top: -40, right: -40 }} />
-      <div style={{ position: "absolute", width: 300, height: 300, borderRadius: "50%", background: "rgb(255 255 255/0.03)", bottom: -80, left: -60 }} />
-      <div style={{ position: "absolute", width: 120, height: 120, borderRadius: "50%", background: "rgb(255 255 255/0.04)", top: "40%", left: "15%" }} />
+      <div style={{ position: "absolute", width: 200, height: 200, borderRadius: "50%", background: "rgb(var(--color-on-accent) /0.05)", top: -40, right: -40 }} />
+      <div style={{ position: "absolute", width: 300, height: 300, borderRadius: "50%", background: "rgb(var(--color-on-accent) /0.03)", bottom: -80, left: -60 }} />
+      <div style={{ position: "absolute", width: 120, height: 120, borderRadius: "50%", background: "rgb(var(--color-on-accent) /0.04)", top: "40%", left: "15%" }} />
       <div className="ca1" style={{ textAlign: "center", position: "relative", zIndex: 10, maxWidth: 700 }}>
         {ey && <div className="ct-eyebrow" style={{ opacity: 0.8 }}>{ey}</div>}
         <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-w ct-h2-l">{hl}</h2></ScrollReveal>
@@ -166,7 +166,7 @@ export default function CtaSection({ content, vn }: CtaProps) {
         <ScrollReveal delay={0.15}><div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 32 }}>
           {boxes.map((b, i) => (
             <div key={i} style={{ textAlign: "center" }}>
-              <div style={{ width: 64, height: 72, background: "rgb(255 255 255/0.1)", backdropFilter: "blur(12px)", border: "1px solid rgb(255 255 255/0.12)", borderRadius: 16, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 700 }}>{String(b.v).padStart(2, "0")}</div>
+              <div style={{ width: 64, height: 72, background: "rgb(var(--color-on-accent) /0.1)", backdropFilter: "blur(12px)", border: "1px solid rgb(var(--color-on-accent) /0.12)", borderRadius: 16, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontSize: 28, fontWeight: 700 }}>{String(b.v).padStart(2, "0")}</div>
               <div style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.15em", textTransform: "uppercase", opacity: 0.5, marginTop: 8 }}>{b.l}</div>
             </div>
           ))}
@@ -208,16 +208,16 @@ export default function CtaSection({ content, vn }: CtaProps) {
 
   // VN 8: Gradient z floating circles
   if (vn === 8) {
-    return (<section style={{ position: "relative", padding: "80px 0", background: "linear-gradient(135deg, rgb(var(--color-accent)), rgb(var(--color-accent-dark)), rgb(var(--color-accent)))", backgroundSize: "200% 200%", animation: "ctGradient 8s ease infinite", color: "white", overflow: "hidden" }}><style>{S}</style>
-      <div style={{ position: "absolute", width: 200, height: 200, borderRadius: "50%", background: "rgb(255 255 255/0.05)", top: -40, right: -40 }} />
-      <div style={{ position: "absolute", width: 150, height: 150, borderRadius: "50%", background: "rgb(255 255 255/0.04)", bottom: -30, left: "20%" }} />
-      <div style={{ position: "absolute", width: 80, height: 80, borderRadius: "50%", background: "rgb(255 255 255/0.03)", top: "40%", left: "60%" }} />
+    return (<section style={{ position: "relative", padding: "80px 0", background: "linear-gradient(135deg, rgb(var(--color-accent)), rgb(var(--color-accent-dark)), rgb(var(--color-accent)))", backgroundSize: "200% 200%", animation: "ctGradient 8s ease infinite", color: "rgb(var(--color-on-accent))", overflow: "hidden" }}><style>{S}</style>
+      <div style={{ position: "absolute", width: 200, height: 200, borderRadius: "50%", background: "rgb(var(--color-on-accent) /0.05)", top: -40, right: -40 }} />
+      <div style={{ position: "absolute", width: 150, height: 150, borderRadius: "50%", background: "rgb(var(--color-on-accent) /0.04)", bottom: -30, left: "20%" }} />
+      <div style={{ position: "absolute", width: 80, height: 80, borderRadius: "50%", background: "rgb(var(--color-on-accent) /0.03)", top: "40%", left: "60%" }} />
       <div className="ct-wrap ca1" style={{ textAlign: "center", position: "relative", zIndex: 10 }}>
         {ey && <div className="ct-eyebrow" style={{ opacity: 0.8 }}>{ey}</div>}
         <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2></ScrollReveal>
         {body && <ScrollReveal delay={0.1}><p className="ct-body-w" style={{ margin: "0 auto 32px" }}>{body}</p></ScrollReveal>}
         <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-inv">{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
-        {note && <p className="ct-note" style={{ color: "white" }}>{note}</p>}
+        {note && <p className="ct-note" style={{ color: "rgb(var(--color-on-accent))" }}>{note}</p>}
       </div>
     </section>);
   }
@@ -247,10 +247,10 @@ export default function CtaSection({ content, vn }: CtaProps) {
         <ScrollReveal delay={0}><h2 className="ct-h2 ct-h2-w ct-h2-m">{hl}</h2></ScrollReveal>
         {body && <ScrollReveal delay={0.1}><p className="ct-body-w" style={{ margin: "0 auto 28px" }}>{body}</p></ScrollReveal>}
         <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-inv" style={{ marginBottom: 28 }}>{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
-        <ScrollReveal delay={0.25}><div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, paddingTop: 24, borderTop: "1px solid rgb(255 255 255/0.15)" }}>
+        <ScrollReveal delay={0.25}><div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, paddingTop: 24, borderTop: "1px solid rgb(var(--color-on-accent) /0.15)" }}>
           <div style={{ display: "flex" }}>
             {["😊", "🕯️", "⭐", "💛", "✨"].map((e, i) => (
-              <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", background: "rgb(255 255 255/0.15)", border: "2px solid rgb(var(--color-accent))", marginLeft: i > 0 ? -8 : 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>{e}</div>
+              <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", background: "rgb(var(--color-on-accent) /0.15)", border: "2px solid rgb(var(--color-accent))", marginLeft: i > 0 ? -8 : 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14 }}>{e}</div>
             ))}
           </div>
           <span style={{ fontSize: 13, opacity: 0.8 }}>500+ zadowolonych klientow</span>
@@ -422,7 +422,7 @@ export default function CtaSection({ content, vn }: CtaProps) {
       {body && <ScrollReveal delay={0.1}><p className="ct-body-w" style={{ margin: "0 auto 28px" }}>{body}</p></ScrollReveal>}
       <ScrollReveal delay={0.2}><a href={ctaHref} className="ct-btn ct-btn-inv" style={{ marginBottom: 28 }}>{ctaLabel || "Zamow teraz"} <Arrow /></a></ScrollReveal>
       {t && (
-        <ScrollReveal delay={0.25}><div style={{ maxWidth: 420, margin: "0 auto", background: "rgb(255 255 255/0.1)", backdropFilter: "blur(12px)", border: "1px solid rgb(255 255 255/0.12)", borderRadius: 16, padding: "18px 22px", textAlign: "left" }}>
+        <ScrollReveal delay={0.25}><div style={{ maxWidth: 420, margin: "0 auto", background: "rgb(var(--color-on-accent) /0.1)", backdropFilter: "blur(12px)", border: "1px solid rgb(var(--color-on-accent) /0.12)", borderRadius: 16, padding: "18px 22px", textAlign: "left" }}>
           <div style={{ color: "rgb(var(--color-accent-light))", fontSize: 13, marginBottom: 6 }}>★★★★★</div>
           <div style={{ fontSize: 13, fontStyle: "italic", opacity: 0.8, lineHeight: 1.5, marginBottom: 8 }}>&ldquo;{str(t.quote)}&rdquo;</div>
           <div style={{ fontSize: 12, fontWeight: 600 }}>{str(t.author)}</div>

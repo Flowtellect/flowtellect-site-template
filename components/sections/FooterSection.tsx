@@ -37,18 +37,18 @@ const S = `
   @media(min-width:768px){.ft-wrap{padding:0 24px}}@media(min-width:1024px){.ft-wrap{padding:0 48px}}
   .ft-link{font-size:13px;color:rgb(var(--color-text-muted));text-decoration:none;transition:color .2s;display:block;padding:4px 0}
   .ft-link:hover{color:rgb(var(--color-accent))}
-  .ft-link-w{font-size:13px;color:rgb(255 255 255/0.6);text-decoration:none;transition:color .2s;display:block;padding:4px 0}
-  .ft-link-w:hover{color:white}
+  .ft-link-w{font-size:13px;color:rgb(var(--color-text-primary) /0.6);text-decoration:none;transition:color .2s;display:block;padding:4px 0}
+  .ft-link-w:hover{color:rgb(var(--color-text-primary))}
   .ft-col-title{font-family:var(--font-display);font-size:14px;font-weight:600;color:rgb(var(--color-text-primary));margin-bottom:16px}
-  .ft-col-title-w{font-family:var(--font-display);font-size:14px;font-weight:600;color:white;margin-bottom:16px}
+  .ft-col-title-w{font-family:var(--font-display);font-size:14px;font-weight:600;color:rgb(var(--color-text-primary));margin-bottom:16px}
   .ft-tagline{font-size:13px;color:rgb(var(--color-text-muted));line-height:1.6;max-width:280px;margin-top:12px}
-  .ft-tagline-w{font-size:13px;color:rgb(255 255 255/0.6);line-height:1.6;max-width:280px;margin-top:12px}
+  .ft-tagline-w{font-size:13px;color:rgb(var(--color-text-primary) /0.6);line-height:1.6;max-width:280px;margin-top:12px}
   .ft-copy{font-size:12px;color:rgb(var(--color-text-dim))}
-  .ft-copy-w{font-size:12px;color:rgb(255 255 255/0.4)}
+  .ft-copy-w{font-size:12px;color:rgb(var(--color-text-primary) /0.4)}
   .ft-social{width:36px;height:36px;border-radius:50%;background:rgb(var(--color-accent)/0.08);display:flex;align-items:center;justify-content:center;color:rgb(var(--color-accent));transition:all .3s;text-decoration:none}
   .ft-social:hover{background:rgb(var(--color-accent));color:rgb(var(--color-on-accent))}
-  .ft-social-w{width:36px;height:36px;border-radius:50%;background:rgb(255 255 255/0.1);display:flex;align-items:center;justify-content:center;color:white;transition:all .3s;text-decoration:none}
-  .ft-social-w:hover{background:rgb(255 255 255/0.2)}
+  .ft-social-w{width:36px;height:36px;border-radius:50%;background:rgb(var(--color-text-primary) /0.1);display:flex;align-items:center;justify-content:center;color:rgb(var(--color-text-primary));transition:all .3s;text-decoration:none}
+  .ft-social-w:hover{background:rgb(var(--color-text-primary) /0.2)}
   .ft-social-lg{width:44px;height:44px}
   @keyframes ftMarquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 `;
@@ -93,7 +93,7 @@ export default function FooterSection({ content, vn }: FooterProps) {
   );
 
   const CopyBar = ({ white }: { white?: boolean }) => (
-    <div style={{ paddingTop: 24, marginTop: 32, borderTop: `1px solid ${white ? "rgb(255 255 255/0.1)" : "rgb(var(--color-border)/0.5)"}` }}>
+    <div style={{ paddingTop: 24, marginTop: 32, borderTop: `1px solid ${white ? "rgb(var(--color-text-primary) /0.1)" : "rgb(var(--color-border)/0.5)"}` }}>
       <p className={white ? "ft-copy-w" : "ft-copy"}>{copyright || "© 2025 Wszelkie prawa zastrzezone."}</p>
     </div>
   );
@@ -235,9 +235,9 @@ export default function FooterSection({ content, vn }: FooterProps) {
 
   // VN 9: Gradient
   if (vn === 9) {
-    return (<footer style={{ background: "linear-gradient(135deg, rgb(var(--color-accent-dark)), rgb(var(--color-accent)))", color: "white", padding: "48px 0", position: "relative", overflow: "hidden" }}><style>{S}</style>
-      <div style={{ position: "absolute", width: 180, height: 180, borderRadius: "50%", background: "rgb(255 255 255/0.05)", top: -40, right: -40 }} />
-      <div style={{ position: "absolute", width: 120, height: 120, borderRadius: "50%", background: "rgb(255 255 255/0.04)", bottom: -30, left: "25%" }} />
+    return (<footer style={{ background: "linear-gradient(135deg, rgb(var(--color-accent-dark)), rgb(var(--color-accent)))", color: "rgb(var(--color-on-accent))", padding: "48px 0", position: "relative", overflow: "hidden" }}><style>{S}</style>
+      <div style={{ position: "absolute", width: 180, height: 180, borderRadius: "50%", background: "rgb(var(--color-text-primary) /0.05)", top: -40, right: -40 }} />
+      <div style={{ position: "absolute", width: 120, height: 120, borderRadius: "50%", background: "rgb(var(--color-text-primary) /0.04)", bottom: -30, left: "25%" }} />
       <div className="ft-wrap" style={{ position: "relative", zIndex: 10 }}>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           <div className="md:col-span-4"><BrandLogo content={content} size="sm" className="brightness-0 invert" />{tagline && <p className="ft-tagline-w">{tagline}</p>}<SocialIcons white /></div>

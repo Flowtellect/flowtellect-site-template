@@ -24,7 +24,7 @@ const S = `
   .tm-h2{font-family:var(--font-display);font-size:36px;font-weight:700;line-height:1.15;letter-spacing:-.02em;color:rgb(var(--color-text-primary));margin-bottom:14px}
   @media(min-width:768px){.tm-h2{font-size:44px}}@media(min-width:1024px){.tm-h2{font-size:52px}}
   .tm-h2 em{font-style:italic;color:rgb(var(--color-accent))}
-  .tm-h2-w{color:white}
+  .tm-h2-w{color:rgb(var(--color-on-accent))}
   .tm-desc{font-size:16px;line-height:1.7;color:rgb(var(--color-text-muted))}
 
   .tm-card{background:rgb(var(--color-surface));border:1px solid rgb(var(--color-border)/0.5);border-radius:20px;padding:28px 24px;transition:all .3s}
@@ -37,12 +37,12 @@ const S = `
   .tm-name{font-size:14px;font-weight:600;color:rgb(var(--color-text-primary))}
   .tm-role{font-size:12px;color:rgb(var(--color-text-dim))}
 
-  .tm-glass{background:rgb(255 255 255/0.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgb(255 255 255/0.1);border-radius:20px;padding:28px 24px}
+  .tm-glass{background:rgb(var(--color-on-accent) /0.08);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgb(var(--color-on-accent) /0.1);border-radius:20px;padding:28px 24px}
   .tm-glass .tm-stars{color:rgb(var(--color-accent-light))}
-  .tm-glass .tm-quote{color:rgb(255 255 255/0.8)}
-  .tm-glass .tm-author{border-color:rgb(255 255 255/0.1)}
-  .tm-glass .tm-name{color:white}
-  .tm-glass .tm-role{color:rgb(255 255 255/0.5)}
+  .tm-glass .tm-quote{color:rgb(var(--color-on-accent) /0.8)}
+  .tm-glass .tm-author{border-color:rgb(var(--color-on-accent) /0.1)}
+  .tm-glass .tm-name{color:rgb(var(--color-on-accent))}
+  .tm-glass .tm-role{color:rgb(var(--color-on-accent) /0.5)}
 
   @keyframes tmUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
   .ta1{opacity:0;animation:tmUp .8s ease .1s forwards}
@@ -84,7 +84,7 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
     <div className="tm-header ta1">
       {ey && <div className="tm-eyebrow"><div className="tm-eline"/><span className="tm-etxt" style={white ? { color: "rgb(var(--color-accent-light))" } : undefined}>{ey}</span><div className="tm-eline-r"/></div>}
       <h2 className={`tm-h2 ${white ? "tm-h2-w" : ""}`}>{hl}</h2>
-      {body && <p className="tm-desc" style={white ? { color: "rgb(255 255 255/0.7)" } : undefined}>{body}</p>}
+      {body && <p className="tm-desc" style={white ? { color: "rgb(var(--color-on-accent) / 0.7)" } : undefined}>{body}</p>}
     </div>
   );
 
