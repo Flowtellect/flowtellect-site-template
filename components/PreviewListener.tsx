@@ -230,17 +230,16 @@ export default function PreviewListener() {
       pathname: window.location.pathname,
     };
 
-    // Wysyłamy do każdego dozwolonego origin po kolei (bezpieczniej niż "*")
+    // Outbound: wysylamy do parenta (kto by to nie byl). Uzywamy "*" bo:
+    // (a) nie znamy z gory origin parenta - kazdy klient panelu CMS moze byc
+    //     na innej domenie/porcie
+    // (b) wiadomosc jest non-sensitive (themeId + pathname) - jesli parent nie
+    //     jest naszym CMS-em, po prostu zignoruje
+    // Inbound nadal filtrowany przez isAllowedOrigin patterns - to chroni
+    // przed obcym parentem ktory probowalby nadpisac CSS variables.
     setTimeout(() => {
-      devLog("Sending preview-ready to all allowed parent origins, pathname:", readyMessage.pathname);
-      for (const origin of ALLOWED_PARENT_ORIGINS) {
-        try {
-          window.parent.postMessage(readyMessage, origin);
-        } catch {
-          // postMessage z error origin = cichy fail, normalne dla origins
-          // które nie są aktywne dziś
-        }
-      }
+      devLog("Sending preview-ready to parent, pathname:", readyMessage.pathname);
+      try { window.parent.postMessage(readyMessage, "*"); } catch { /* cichy fail */ }
     }, 100);
 
     return () => {
@@ -262,13 +261,7 @@ export default function PreviewListener() {
     };
 
     devLog("Sending preview-navigated:", pathname);
-    for (const origin of ALLOWED_PARENT_ORIGINS) {
-      try {
-        window.parent.postMessage(navMessage, origin);
-      } catch {
-        // cichy fail
-      }
-    }
+    try { window.parent.postMessage(navMessage, "*"); } catch { /* cichy fail */ }
   }, [pathname]);
 
   return null;
