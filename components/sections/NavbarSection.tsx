@@ -273,14 +273,20 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
       <>
         <style>{styles}{`
           .nb-dd-wrap{position:relative}
+          /* Bridge: invisible strip between trigger and panel catching :hover
+             in the 8px margin gap. Without it mouse leaving trigger on way
+             to panel loses :hover -> panel closes before user reaches items. */
+          .nb-dd-wrap::after{content:'';position:absolute;top:100%;left:0;right:0;height:8px;z-index:59}
           .nb-dd-panel{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);min-width:220px;padding:12px 0;background:rgb(var(--color-surface));border:1px solid rgb(var(--color-border)/0.5);border-radius:16px;box-shadow:0 12px 40px rgb(0 0 0/0.1);z-index:60;margin-top:8px}
-          .nb-dd-wrap:hover .nb-dd-panel{display:block}
+          .nb-dd-wrap:hover .nb-dd-panel,
+          .nb-dd-wrap:focus-within .nb-dd-panel{display:block}
           .nb-dd-item{display:block;padding:10px 20px;text-decoration:none;transition:background 0.15s}
           .nb-dd-item:hover{background:rgb(var(--color-bg-alt))}
           .nb-dd-label{font-size:14px;font-weight:500;color:rgb(var(--color-text-primary))}
           .nb-dd-desc{font-size:12px;color:rgb(var(--color-text-dim));margin-top:2px;line-height:1.4}
           .nb-dd-arrow{display:inline-block;margin-left:4px;transition:transform .2s;font-size:10px}
-          .nb-dd-wrap:hover .nb-dd-arrow{transform:rotate(180deg)}
+          .nb-dd-wrap:hover .nb-dd-arrow,
+          .nb-dd-wrap:focus-within .nb-dd-arrow{transform:rotate(180deg)}
         `}</style>
         <header style={{
           position: "sticky", top: 0, zIndex: 50,
