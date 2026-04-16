@@ -144,9 +144,16 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
     return activeSection === id ? `${base} nb-active` : base
   }
 
-  // Logo renderer
+  // Logo renderer — ZAWSZE prowadzi na homepage (multi-page friendly).
+  // Poprzednio href="#" + scrollTop zatrzymywal klienta na aktualnej podstronie;
+  // href="/" daje naturalna nawigacje do homepage ktora potem scrolluje na gore
+  // (browser default przy tym samym URL = scroll to top).
   const LogoEl = ({ className = "" }: { className?: string }) => (
-    <a href="#" style={{ textDecoration: "none", color: "inherit" }} onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+    <a
+      href="/"
+      style={{ textDecoration: "none", color: "inherit" }}
+      aria-label={brandName ? `${brandName} — strona główna` : "Strona główna"}
+    >
       <BrandLogo content={content} className={className} size="md" />
     </a>
   );
@@ -417,8 +424,12 @@ export default function NavbarSection({ content, vn }: NavbarProps) {
           transition: "all 0.5s cubic-bezier(0.16,1,0.3,1)",
         }}>
           <div className="nb-bar" style={{ transition: "height 0.4s ease" }}>
-            {/* Logo - click scrolls to top */}
-            <a href="#" style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center", gap: 10 }} onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+            {/* Logo — zawsze href="/", prowadzi na homepage (multi-page friendly). */}
+            <a
+              href="/"
+              style={{ textDecoration: "none", color: "inherit", display: "flex", alignItems: "center", gap: 10 }}
+              aria-label={brandName ? `${brandName} — strona główna` : "Strona główna"}
+            >
             {hasRealLogo ? (
               <img src={logo!} alt={brandName} style={{ height: 36, width: "auto", transition: "filter 0.4s ease" }} />
             ) : (

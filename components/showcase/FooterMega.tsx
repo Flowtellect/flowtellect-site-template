@@ -90,33 +90,42 @@ export default function FooterMega({ content }: Props) {
         }}
       >
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
-          {/* Brand column */}
+          {/* Brand column — logo/brand_name/fallback zawsze klikalne, zawsze href="/" */}
           <div className="lg:col-span-1">
-            {hasLogo ? (
-              <a href="/">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
+            <a
+              href="/"
+              className="inline-block"
+              style={{ textDecoration: "none" }}
+              aria-label={brandName ? `${brandName} — strona główna` : "Strona główna"}
+            >
+              {hasLogo ? (
+                // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={logo}
-                  alt={brandName}
+                  alt={brandName || "Logo"}
                   style={{
                     height: "32px",
                     width: "auto",
                     objectFit: "contain",
                   }}
                 />
-              </a>
-            ) : brandName ? (
-              <a
-                href="/"
-                className="font-display font-bold text-primary"
-                style={{
-                  fontSize: "var(--text-xl)",
-                  textDecoration: "none",
-                }}
-              >
-                {brandName}
-              </a>
-            ) : null}
+              ) : brandName ? (
+                <span
+                  className="font-display font-bold text-primary"
+                  style={{ fontSize: "var(--text-xl)" }}
+                >
+                  {brandName}
+                </span>
+              ) : (
+                <span
+                  className="font-display font-bold text-accent"
+                  style={{ fontSize: "var(--text-xl)" }}
+                  aria-hidden="true"
+                >
+                  ★
+                </span>
+              )}
+            </a>
 
             {tagline && (
               <p

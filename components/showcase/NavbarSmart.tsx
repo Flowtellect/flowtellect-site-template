@@ -91,17 +91,18 @@ export default function NavbarSmart({ content }: Props) {
             transition: "padding var(--duration-normal) var(--ease-default)",
           }}
         >
-          {/* Logo / Brand */}
+          {/* Logo / Brand — ZAWSZE klikalne, zawsze prowadzi na homepage */}
           <a
             href="/"
             className="flex-shrink-0"
             style={{ textDecoration: "none" }}
+            aria-label={brandName ? `${brandName} — strona główna` : "Strona główna"}
           >
             {hasLogo ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={logo}
-                alt={brandName || "logo"}
+                alt={brandName || "Logo"}
                 style={{
                   height: scrolled ? "28px" : "36px",
                   width: "auto",
@@ -110,7 +111,7 @@ export default function NavbarSmart({ content }: Props) {
                     "height var(--duration-normal) var(--ease-default)",
                 }}
               />
-            ) : (
+            ) : brandName ? (
               <span
                 className="font-display font-bold text-primary"
                 style={{
@@ -120,6 +121,16 @@ export default function NavbarSmart({ content }: Props) {
                 }}
               >
                 {brandName}
+              </span>
+            ) : (
+              // Fallback: brak logo i brand_name — pokazujemy accent star
+              // zeby navbar nie byl pusty (defensywny).
+              <span
+                className="font-display font-bold text-accent"
+                style={{ fontSize: "var(--text-xl)" }}
+                aria-hidden="true"
+              >
+                ★
               </span>
             )}
           </a>
