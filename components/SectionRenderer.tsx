@@ -31,6 +31,14 @@ const SHOWCASE_MAP: Record<string, ComponentType<ShowcaseProps>> = {
   testimonials_carousel: dynamic(() => import("./showcase/TestimonialsCarousel")),
   // Stats
   stats_counter:  dynamic(() => import("./showcase/StatsCounter")),
+  // About
+  about_story:    dynamic(() => import("./showcase/AboutStory")),
+  // Gallery
+  gallery_masonry: dynamic(() => import("./showcase/GalleryMasonry")),
+  // Footer
+  footer_mega:    dynamic(() => import("./showcase/FooterMega")),
+  // Navbar
+  navbar_smart:   dynamic(() => import("./showcase/NavbarSmart")),
 };
 
 interface ThemeOverrides {
