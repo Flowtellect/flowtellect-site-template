@@ -146,6 +146,9 @@ interface ShowcaseImageProps {
    *  getImageTreatment(dd) do imageTreatment overrides (raw/rounded/framed/
    *  duotone/overlay). */
   style?: React.CSSProperties;
+  /** Color grading overlay z accent @ 6% opacity (mix-blend-mode overlay).
+   *  Uspojnia stock photos z paleta marki — bez image processing (CSS only). */
+  gradeWithAccent?: boolean;
 }
 
 export function ShowcaseImage({
@@ -156,6 +159,7 @@ export function ShowcaseImage({
   aspectRatio,
   objectFit = "cover",
   style,
+  gradeWithAccent,
 }: ShowcaseImageProps) {
   const [loaded, setLoaded] = useState(false);
   const isValid =
@@ -188,6 +192,19 @@ export function ShowcaseImage({
           transition: "opacity 0.6s ease, transform 0.6s ease",
         }}
       />
+      {gradeWithAccent && loaded && (
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "rgb(var(--color-accent))",
+            mixBlendMode: "overlay",
+            opacity: 0.06,
+            pointerEvents: "none",
+          }}
+        />
+      )}
     </div>
   );
 }

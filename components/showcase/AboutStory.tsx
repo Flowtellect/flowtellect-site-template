@@ -152,6 +152,7 @@ export default function AboutStory({ content }: Props) {
                   className="shadow-lg"
                   style={imgStyle}
                   aspectRatio="3/4"
+                  gradeWithAccent
                 />
                 <div
                   className="absolute -inset-6 -z-10"

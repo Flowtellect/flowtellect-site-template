@@ -145,6 +145,7 @@ export default function HeroSplit({ content }: Props) {
                   style={imgStyle}
                   priority
                   aspectRatio="4/3"
+                  gradeWithAccent
                 />
               </div>
             </FadeIn>
