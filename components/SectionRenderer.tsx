@@ -19,9 +19,18 @@ import { ScrollReveal } from "./sections/ClientComponents";
 // Mapuje variant_id -> dynamic component. Brak wpisu = fallback na GenericSection.
 type ShowcaseProps = { content: Record<string, unknown> };
 const SHOWCASE_MAP: Record<string, ComponentType<ShowcaseProps>> = {
+  // Heroes
   hero_immersive: dynamic(() => import("./showcase/HeroImmersive")),
   hero_split:     dynamic(() => import("./showcase/HeroSplit")),
   hero_minimal:   dynamic(() => import("./showcase/HeroMinimal")),
+  // CTA
+  cta_banner:     dynamic(() => import("./showcase/CTABanner")),
+  // Services
+  services_feature_grid: dynamic(() => import("./showcase/ServicesFeatureGrid")),
+  // Testimonials
+  testimonials_carousel: dynamic(() => import("./showcase/TestimonialsCarousel")),
+  // Stats
+  stats_counter:  dynamic(() => import("./showcase/StatsCounter")),
 };
 
 interface ThemeOverrides {
