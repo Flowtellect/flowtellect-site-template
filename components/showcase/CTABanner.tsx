@@ -7,6 +7,8 @@
 // Content keys: cta (cta_1 schema), cta_primary (hero schema) — oba obslugiwane.
 
 import { FadeIn, Eyebrow, pickStr, pickCta } from "./shared";
+import { useDesign } from "./DesignContext";
+import { getButtonRadius } from "./designStyles";
 
 interface Props {
   content: Record<string, unknown>;
@@ -14,6 +16,21 @@ interface Props {
 
 export default function CTABanner({ content }: Props) {
   const c = content;
+  const dd = useDesign();
+  const btnRadius = getButtonRadius(dd);
+  // cardStyle=glass -> wzmocniony backdrop-blur (20px), cardStyle=flat -> brak
+  // blur (solid white overlay). Dla pozostalych -> default 16px glass.
+  const blur =
+    dd.cardStyle === "glass"
+      ? "blur(20px)"
+      : dd.cardStyle === "flat"
+      ? "none"
+      : "blur(16px)";
+  const cardBg =
+    dd.cardStyle === "flat"
+      ? "rgba(255, 255, 255, 0.15)"
+      : "rgba(255, 255, 255, 0.08)";
+
   const heading = pickStr(c, "headline", "heading", "title");
   const sub = pickStr(c, "subheadline", "subtitle", "description", "body");
   const eyebrow = pickStr(c, "eyebrow", "badge", "label");
@@ -54,13 +71,13 @@ export default function CTABanner({ content }: Props) {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10">
-        {/* Glassmorphism card */}
+        {/* Card — glass/elevated/flat driven by dd.cardStyle */}
         <div
           className="max-w-3xl mx-auto text-center"
           style={{
-            background: "rgba(255, 255, 255, 0.08)",
-            backdropFilter: "blur(16px)",
-            WebkitBackdropFilter: "blur(16px)",
+            background: cardBg,
+            backdropFilter: blur,
+            WebkitBackdropFilter: blur,
             border: "1px solid rgba(255, 255, 255, 0.12)",
             borderRadius: "var(--radius-xl, 20px)",
             padding: "clamp(32px, 5vw, 64px) clamp(24px, 4vw, 48px)",
@@ -110,7 +127,7 @@ export default function CTABanner({ content }: Props) {
                 className="inline-flex items-center justify-center font-body font-semibold transition-all duration-normal hover:-translate-y-0.5"
                 style={{
                   padding: "var(--space-md, 16px) var(--space-xl, 32px)",
-                  borderRadius: "var(--radius-md, 10px)",
+                  borderRadius: btnRadius,
                   background: "rgb(var(--color-on-accent))",
                   color: "rgb(var(--color-accent))",
                   fontSize: "var(--text-sm, 0.9375rem)",

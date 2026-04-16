@@ -5,6 +5,15 @@
 import fs from "fs";
 import path from "path";
 
+// DesignDecisions type + defaults — re-exported z lib/designDecisions.ts
+// (wyekstrahowane zeby client components mogly ich uzyc bez pulling fs).
+export {
+  DEFAULT_DESIGN_DECISIONS,
+  type DesignDecisions,
+} from "./designDecisions";
+import type { DesignDecisions } from "./designDecisions";
+import { DEFAULT_DESIGN_DECISIONS } from "./designDecisions";
+
 export interface PublishedThemeJson {
   id: string;
   name: string;
@@ -18,6 +27,8 @@ export interface PublishedThemeJson {
   /** Custom favicon URL z brand-assets bucket (Supabase Storage). null = fallback
    *  na SVG z inicjału brand name (public/favicon.svg). */
   faviconUrl?: string | null;
+  /** AI-driven design decisions (faza visual_intelligence). null = defaults. */
+  designDecisions?: DesignDecisions | null;
 }
 
 const THEME_PATH = path.join(process.cwd(), "content", "theme.json");
@@ -110,6 +121,17 @@ export function getFaviconUrl(): string | null {
     return getActiveTheme().faviconUrl ?? null;
   } catch {
     return null;
+  }
+}
+
+/** AI-driven design decisions z theme.json. Merge z defaults dla brakujacych pol. */
+export function getDesignDecisions(): DesignDecisions {
+  try {
+    const theme = getActiveTheme();
+    if (!theme.designDecisions) return DEFAULT_DESIGN_DECISIONS;
+    return { ...DEFAULT_DESIGN_DECISIONS, ...theme.designDecisions };
+  } catch {
+    return DEFAULT_DESIGN_DECISIONS;
   }
 }
 

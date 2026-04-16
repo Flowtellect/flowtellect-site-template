@@ -7,6 +7,8 @@
 // w panelu CMS rekonfiguruje wyglad bez rebuildu.
 
 import { useRef, useEffect, useState, type ReactNode } from "react";
+import { useDesign } from "./DesignContext";
+import { getButtonRadius } from "./designStyles";
 
 // ─── FadeIn — viewport-triggered entrance animation ──────────────────────────
 
@@ -201,15 +203,46 @@ export function CTAButton({
   size = "md",
   className = "",
 }: CTAButtonProps) {
+  // Reaguje na DesignDecisions.buttonStyle (solid/outline/ghost/pill/sharp) +
+  // animationLevel (dla shadow-accent + hover lift). Jeden primary CTA styl
+  // per site — konsystencja pomiedzy wszystkimi Showcase sekcjami.
+  const dd = useDesign();
+  const radius = getButtonRadius(dd);
+
   const sizes = {
     sm: "px-5 py-2.5 text-token-sm",
     md: "px-7 py-3.5 text-token-sm",
     lg: "px-9 py-4 text-token-base",
   };
 
+  const hoverLift =
+    dd.animationLevel === "minimal"
+      ? ""
+      : dd.animationLevel === "expressive"
+      ? "hover:-translate-y-1"
+      : "hover:-translate-y-0.5";
+
+  const primaryClasses = (() => {
+    switch (dd.buttonStyle) {
+      case "outline":
+        return `bg-transparent text-accent border-2 border-accent hover:bg-accent hover:text-on-accent ${hoverLift}`;
+      case "ghost":
+        return `bg-accent/10 text-accent hover:bg-accent/20 ${hoverLift}`;
+      case "solid":
+      case "pill":
+      case "sharp":
+      default: {
+        const shadow =
+          dd.animationLevel === "minimal"
+            ? ""
+            : "shadow-accent hover:shadow-lg";
+        return `bg-accent text-on-accent ${shadow} ${hoverLift}`;
+      }
+    }
+  })();
+
   const variants = {
-    primary:
-      "bg-accent text-on-accent shadow-accent hover:shadow-lg hover:-translate-y-0.5",
+    primary: primaryClasses,
     secondary:
       "bg-transparent border border-border text-primary hover:bg-bg-alt hover:shadow-sm",
     ghost:
@@ -219,7 +252,8 @@ export function CTAButton({
   return (
     <a
       href={href}
-      className={`inline-flex items-center justify-center font-body font-semibold rounded-md transition-all duration-normal ${sizes[size]} ${variants[variant]} ${className}`}
+      className={`inline-flex items-center justify-center font-body font-semibold transition-all duration-normal ${sizes[size]} ${variants[variant]} ${className}`}
+      style={{ borderRadius: radius }}
     >
       {label}
     </a>

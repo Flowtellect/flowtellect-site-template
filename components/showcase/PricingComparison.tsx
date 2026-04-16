@@ -9,6 +9,8 @@
 
 import { useState } from "react";
 import { FadeIn, Eyebrow, pickStr } from "./shared";
+import { useDesign } from "./DesignContext";
+import { getCardStyle, getButtonRadius } from "./designStyles";
 
 interface PlanItem {
   name?: string;
@@ -40,6 +42,10 @@ interface Props {
 
 export default function PricingComparison({ content }: Props) {
   const c = content;
+  const dd = useDesign();
+  const cardBase = getCardStyle(dd);
+  const btnRadius = getButtonRadius(dd);
+
   const heading = pickStr(c, "headline", "heading", "title");
   const sub = pickStr(c, "subheadline", "subtitle", "description");
   const eyebrow = pickStr(c, "eyebrow", "badge", "label");
@@ -197,15 +203,18 @@ export default function PricingComparison({ content }: Props) {
                 <div
                   className="relative h-full flex flex-col"
                   style={{
-                    background: "rgb(var(--color-bg))",
+                    // Base style z dd.cardStyle (elevated/glass/outlined/gradient/flat).
+                    // Featured plan nadpisuje border + shadow dla emphasis.
+                    ...cardBase,
                     border: isFeatured
                       ? "2px solid rgb(var(--color-accent))"
-                      : "1px solid rgb(var(--color-border-soft))",
+                      : (cardBase.border as string) ||
+                        "1px solid rgb(var(--color-border-soft))",
                     borderRadius: "var(--radius-xl, 20px)",
                     padding: "clamp(28px, 4vw, 40px)",
                     boxShadow: isFeatured
                       ? "var(--shadow-xl)"
-                      : "var(--shadow-sm)",
+                      : (cardBase.boxShadow as string) || "var(--shadow-sm)",
                     transform: isFeatured ? "scale(1.02)" : "none",
                   }}
                 >
@@ -297,7 +306,7 @@ export default function PricingComparison({ content }: Props) {
                       className="block text-center font-body font-semibold w-full"
                       style={{
                         padding: "var(--space-md, 16px)",
-                        borderRadius: "var(--radius-md, 10px)",
+                        borderRadius: btnRadius,
                         background: isFeatured
                           ? "rgb(var(--color-accent))"
                           : "transparent",

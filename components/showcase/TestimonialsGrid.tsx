@@ -7,6 +7,8 @@
 // shadow-md + lift. Mobile: simple stacked layout.
 
 import { FadeIn, Eyebrow, pickStr } from "./shared";
+import { useDesign } from "./DesignContext";
+import { getCardStyle, getCardHoverStyle } from "./designStyles";
 
 interface Testimonial {
   quote?: string;
@@ -35,6 +37,9 @@ function TestimonialCard({
   t: Testimonial;
   delay: number;
 }) {
+  const dd = useDesign();
+  const cardBase = getCardStyle(dd);
+  const cardHover = getCardHoverStyle(dd);
   const quote = t.quote ?? t.body ?? t.text ?? "";
   const name = t.name ?? t.author ?? "";
   const role = t.role ?? t.title ?? t.position ?? "";
@@ -49,21 +54,19 @@ function TestimonialCard({
   return (
     <FadeIn delay={delay}>
       <div
-        className="transition-all"
         style={{
-          background: "rgb(var(--color-bg))",
-          border: "1px solid rgb(var(--color-border-soft))",
+          ...cardBase,
           borderRadius: "var(--radius-lg, 14px)",
           padding: "clamp(20px, 3vw, 28px)",
-          boxShadow: "var(--shadow-xs)",
-          transitionDuration: "var(--duration-normal)",
+          transition: "all var(--duration-normal) var(--ease-default)",
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.boxShadow = "var(--shadow-md)";
-          e.currentTarget.style.transform = "translateY(-2px)";
+          e.currentTarget.style.boxShadow = cardHover.boxShadow;
+          e.currentTarget.style.transform = cardHover.transform;
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.boxShadow = "var(--shadow-xs)";
+          e.currentTarget.style.boxShadow =
+            (cardBase.boxShadow as string) || "var(--shadow-xs)";
           e.currentTarget.style.transform = "translateY(0)";
         }}
       >

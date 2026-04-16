@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
-import { getThemeStyleObject, getThemeFontStyleObject, getThemeDataAttributes, getActiveTheme, getFaviconUrl } from "@/lib/applyTheme";
+import {
+  getThemeStyleObject,
+  getThemeFontStyleObject,
+  getThemeDataAttributes,
+  getActiveTheme,
+  getFaviconUrl,
+  getDesignDecisions,
+} from "@/lib/applyTheme";
 import PreviewListener from "@/components/PreviewListener";
 import ScrollToTop from "@/components/ScrollToTop";
 import Preloader from "@/components/Preloader";
 import CookieConsent from "@/components/CookieConsent";
+import { DesignProvider } from "@/components/showcase/DesignContext";
 import "./globals.css";
 
 // Dynamiczny tytul + opis z homepage.json meta
@@ -60,6 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const theme = getActiveTheme();
   const themeStyle = { ...getThemeStyleObject(), ...getThemeFontStyleObject() };
   const themeDataAttrs = getThemeDataAttributes();
+  const designDecisions = getDesignDecisions();
 
   // Build Google Fonts <link> URL - only the 3 fonts this theme actually uses
   const fontFamilies = new Set<string>();
@@ -85,14 +94,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
       </head>
       <body className="bg-bg text-primary font-body antialiased">
-        <a href="#main-content" className="skip-to-content">
-          Przejdź do treści
-        </a>
-        <Preloader />
-        <PreviewListener />
-        {children}
-        <ScrollToTop />
-        <CookieConsent />
+        <DesignProvider decisions={designDecisions}>
+          <a href="#main-content" className="skip-to-content">
+            Przejdź do treści
+          </a>
+          <Preloader />
+          <PreviewListener />
+          {children}
+          <ScrollToTop />
+          <CookieConsent />
+        </DesignProvider>
       </body>
     </html>
   );

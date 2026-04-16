@@ -7,6 +7,8 @@
 // (items → .title + .desc) ale tez obsluguje .name/.description/.price/.duration.
 
 import { FadeIn, Eyebrow, CTAButton, pickStr, pickCta } from "./shared";
+import { useDesign } from "./DesignContext";
+import { getCardStyle, getCardHoverStyle } from "./designStyles";
 
 interface ServiceItem {
   name?: string;
@@ -29,6 +31,10 @@ interface Props {
 
 export default function ServicesFeatureGrid({ content }: Props) {
   const c = content;
+  const dd = useDesign();
+  const cardBase = getCardStyle(dd);
+  const cardHover = getCardHoverStyle(dd);
+
   const heading = pickStr(c, "headline", "heading", "title");
   const sub = pickStr(c, "subheadline", "subtitle", "description", "body");
   const eyebrow = pickStr(c, "eyebrow", "badge", "label");
@@ -102,24 +108,26 @@ export default function ServicesFeatureGrid({ content }: Props) {
             return (
               <FadeIn key={i} delay={100 + i * 80}>
                 <div
-                  className="group relative h-full transition-all duration-normal cursor-default"
+                  className="group relative h-full cursor-default"
                   style={{
-                    background: "rgb(var(--color-bg))",
-                    border: "1px solid rgb(var(--color-border-soft))",
+                    ...cardBase,
                     borderRadius: "var(--radius-lg, 14px)",
                     padding: "clamp(24px, 3vw, 36px)",
-                    boxShadow: "var(--shadow-sm)",
+                    transition:
+                      "all var(--duration-normal) var(--ease-default)",
                   }}
                   onMouseEnter={(e) => {
                     const el = e.currentTarget;
-                    el.style.boxShadow = "var(--shadow-lg)";
-                    el.style.borderColor = "rgb(var(--color-accent))";
-                    el.style.transform = "translateY(-2px)";
+                    el.style.boxShadow = cardHover.boxShadow;
+                    el.style.borderColor = cardHover.borderColor;
+                    el.style.transform = cardHover.transform;
                   }}
                   onMouseLeave={(e) => {
                     const el = e.currentTarget;
-                    el.style.boxShadow = "var(--shadow-sm)";
-                    el.style.borderColor = "rgb(var(--color-border-soft))";
+                    el.style.boxShadow = cardBase.boxShadow as string;
+                    el.style.borderColor =
+                      (cardBase.border as string)?.split(" ").slice(2).join(" ") ||
+                      "rgb(var(--color-border-soft))";
                     el.style.transform = "translateY(0)";
                   }}
                 >
