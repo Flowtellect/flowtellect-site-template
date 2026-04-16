@@ -54,6 +54,7 @@ function TestimonialCard({
   return (
     <FadeIn delay={delay}>
       <div
+        className={dd.animationLevel !== "minimal" ? "anim-card-lift" : ""}
         style={{
           ...cardBase,
           borderRadius: "var(--radius-lg, 14px)",

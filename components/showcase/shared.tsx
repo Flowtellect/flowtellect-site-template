@@ -9,6 +9,7 @@
 import { useRef, useEffect, useState, type ReactNode } from "react";
 import { useDesign } from "./DesignContext";
 import { getButtonRadius } from "./designStyles";
+import MagneticButton from "./MagneticButton";
 
 // ─── FadeIn — viewport-triggered entrance animation ──────────────────────────
 
@@ -227,10 +228,13 @@ export function CTAButton({
   className = "",
 }: CTAButtonProps) {
   // Reaguje na DesignDecisions.buttonStyle (solid/outline/ghost/pill/sharp) +
-  // animationLevel (dla shadow-accent + hover lift). Jeden primary CTA styl
-  // per site — konsystencja pomiedzy wszystkimi Showcase sekcjami.
+  // animationLevel (dla shadow-accent + hover lift + magnetic cursor-follow).
+  // Jeden primary CTA styl per site — konsystencja pomiedzy wszystkimi Showcase
+  // sekcjami. Magnetic JS tylko w 'expressive'; 'subtle' daje czyste CSS hover.
   const dd = useDesign();
   const radius = getButtonRadius(dd);
+  const isExpressive = dd.animationLevel === "expressive";
+  const hasAnimation = dd.animationLevel !== "minimal";
 
   const sizes = {
     sm: "px-5 py-2.5 text-token-sm",
@@ -272,10 +276,27 @@ export function CTAButton({
       "bg-transparent text-accent hover:text-accent-dark underline underline-offset-4",
   };
 
+  // Magnetic CTA (expressive only) wraps <a> w ref-backed pull-transform.
+  // Dla primary button — najbardziej widoczny, gwarantowany jedno-per-strona.
+  if (isExpressive && variant === "primary") {
+    return (
+      <MagneticButton
+        href={href}
+        className={`font-body font-semibold ${sizes[size]} ${variants[variant]} ${className}`}
+        style={{ borderRadius: radius, transition: "all 300ms cubic-bezier(0.16, 1, 0.3, 1)" }}
+        strength={0.25}
+      >
+        {label}
+      </MagneticButton>
+    );
+  }
+
+  // Subtle + minimal: zwykla <a> z CSS-only hover (.anim-magnetic gdy !minimal).
+  const animClass = hasAnimation ? "anim-magnetic anim-ripple" : "";
   return (
     <a
       href={href}
-      className={`inline-flex items-center justify-center font-body font-semibold transition-all duration-normal ${sizes[size]} ${variants[variant]} ${className}`}
+      className={`inline-flex items-center justify-center font-body font-semibold transition-all duration-normal ${sizes[size]} ${variants[variant]} ${animClass} ${className}`}
       style={{ borderRadius: radius }}
     >
       {label}
@@ -349,7 +370,7 @@ export function SocialProofBadge({ data }: { data: unknown }) {
 
   return (
     <div
-      className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-token-sm font-body"
+      className="anim-pulse inline-flex items-center gap-2 px-4 py-2 rounded-full text-token-sm font-body"
       style={{
         background: "rgba(var(--color-accent) / 0.08)",
         border: "1px solid rgba(var(--color-accent) / 0.15)",

@@ -199,7 +199,7 @@ export default function FooterMega({ content }: Props) {
                       <a
                         key={j}
                         href={href}
-                        className="font-body text-muted transition-colors duration-fast hover:text-accent"
+                        className="anim-link-underline font-body text-muted transition-colors duration-fast hover:text-accent"
                         style={{
                           fontSize: "var(--text-sm)",
                           textDecoration: "none",

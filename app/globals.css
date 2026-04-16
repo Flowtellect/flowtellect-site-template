@@ -141,6 +141,235 @@ html, body {
   }
 }
 
+/* ══════════════════════════════════════════════════════════════
+   ANIMATION SUITE — scroll-driven + hover + continuous
+   Gated by designDecisions.animationLevel w komponentach:
+     minimal    -> class NOT applied (brak animacji)
+     subtle     -> podstawowe reveals + hover lifts
+     expressive -> + parallax + text reveal + magnetic + gradient shift
+   ══════════════════════════════════════════════════════════════ */
+
+@supports (animation-timeline: view()) {
+  /* Fade + slide-up as element enters viewport */
+  .anim-reveal-up {
+    animation: revealUp linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 50%;
+  }
+  @keyframes revealUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .anim-reveal-scale {
+    animation: revealScale linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+  @keyframes revealScale {
+    from { opacity: 0; transform: scale(0.92); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .anim-reveal-left {
+    animation: revealLeft linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 50%;
+  }
+  @keyframes revealLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .anim-reveal-right {
+    animation: revealRight linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 50%;
+  }
+  @keyframes revealRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  /* Hero parallax bg — image moves slower/faster than scroll */
+  .anim-parallax-slow {
+    animation: parallaxSlow linear both;
+    animation-timeline: scroll(root);
+  }
+  @keyframes parallaxSlow {
+    to { transform: translateY(-15%); }
+  }
+  .anim-parallax-fast {
+    animation: parallaxFast linear both;
+    animation-timeline: scroll(root);
+  }
+  @keyframes parallaxFast {
+    to { transform: translateY(-30%); }
+  }
+
+  /* Hero fades out jak scrolluje poza viewport */
+  .anim-hero-fade-out {
+    animation: heroFade linear both;
+    animation-timeline: view();
+    animation-range: exit 0% exit 80%;
+  }
+  @keyframes heroFade {
+    from { opacity: 1; transform: scale(1); }
+    to   { opacity: 0.3; transform: scale(0.96); }
+  }
+
+  /* Per-word text reveal — fade + blur + translate, staggered by delay */
+  .anim-text-reveal span {
+    display: inline-block;
+    animation: wordReveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 40%;
+  }
+  @keyframes wordReveal {
+    from { opacity: 0; transform: translateY(20px); filter: blur(4px); }
+    to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   HOVER MICRO-INTERACTIONS (universal — no JS, no scroll-timeline)
+   ══════════════════════════════════════════════════════════════ */
+
+/* Magnetic button — subtle pull + scale on hover */
+.anim-magnetic {
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.anim-magnetic:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+.anim-magnetic:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Card lift — elevation na hover */
+.anim-card-lift {
+  transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 350ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.anim-card-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Image zoom — wewnatrz container z overflow:hidden */
+.anim-image-zoom img {
+  transition: transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.anim-image-zoom:hover img {
+  transform: scale(1.05);
+}
+
+/* Link underline slide-in */
+.anim-link-underline {
+  position: relative;
+  text-decoration: none;
+}
+.anim-link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width 250ms var(--ease-default, ease);
+}
+.anim-link-underline:hover::after {
+  width: 100%;
+}
+
+/* Ripple effect — on active (click). Uwaga: overflow:hidden + relative
+   na buttonie zeby ripple byl clipowany do ksztaltu. */
+.anim-ripple {
+  position: relative;
+  overflow: hidden;
+}
+.anim-ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 600ms, height 600ms;
+  pointer-events: none;
+}
+.anim-ripple:active::after {
+  width: 300%;
+  height: 300%;
+  transition: 0s;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CONTINUOUS (infinite, subtle) ANIMATIONS
+   ══════════════════════════════════════════════════════════════ */
+
+/* Floating decoration — 6s up-down cycle */
+.anim-float {
+  animation: floatGentle 6s ease-in-out infinite;
+}
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+/* Pulsing ring around badge — accent-colored outward glow */
+.anim-pulse {
+  animation: pulseBadge 2s ease-in-out infinite;
+}
+@keyframes pulseBadge {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(var(--color-accent), 0.4); }
+  70%      { box-shadow: 0 0 0 12px rgba(var(--color-accent), 0); }
+}
+
+/* Gradient position shift — dla hero/CTA bg */
+.anim-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
+}
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   REDUCED MOTION — nadpisuje wszystko, zawsze ostatnie
+   ══════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-reveal-up,
+  .anim-reveal-scale,
+  .anim-reveal-left,
+  .anim-reveal-right,
+  .anim-parallax-slow,
+  .anim-parallax-fast,
+  .anim-hero-fade-out,
+  .anim-text-reveal span,
+  .anim-float,
+  .anim-pulse,
+  .anim-gradient-shift {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .anim-magnetic:hover,
+  .anim-card-lift:hover,
+  .anim-image-zoom:hover img {
+    transform: none !important;
+  }
+}
+
 /* ── Dark mode refinements — przy prefers-color-scheme: dark ─────
    Uzupelnia token-driven dark themes (np. boutique_gold, midnight_tech)
    z system preference hints. Token values dominuja — te regule to tylko

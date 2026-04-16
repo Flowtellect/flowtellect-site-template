@@ -124,7 +124,9 @@ export default function GalleryMasonry({ content }: Props) {
                         setLightboxIndex(globalIdx);
                         setLightboxOpen(true);
                       }}
-                      className="block w-full overflow-hidden cursor-zoom-in group"
+                      className={`block w-full overflow-hidden cursor-zoom-in group ${
+                        dd.animationLevel !== "minimal" ? "anim-image-zoom" : ""
+                      }`}
                       style={{ borderRadius: thumbRadius }}
                     >
                       <div
@@ -136,7 +138,7 @@ export default function GalleryMasonry({ content }: Props) {
                           src={img.src}
                           alt={img.alt}
                           loading="lazy"
-                          className="w-full h-full object-cover transition-transform duration-normal group-hover:scale-105"
+                          className="w-full h-full object-cover"
                         />
                       </div>
                     </button>

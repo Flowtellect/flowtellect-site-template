@@ -19,6 +19,7 @@ import {
 } from "./shared";
 import { useDesign } from "./DesignContext";
 import { getAnimationDelay } from "./designStyles";
+import TextReveal from "./TextReveal";
 
 interface Props {
   content: Record<string, unknown>;
@@ -52,7 +53,9 @@ export default function HeroImmersive({ content }: Props) {
             <img
               src={heroImage}
               alt=""
-              className="absolute inset-0 w-full h-full object-cover"
+              className={`absolute inset-0 w-full h-full object-cover ${
+                dd.animationLevel === "expressive" ? "anim-parallax-slow" : ""
+              }`}
               style={{ filter: "brightness(0.4)" }}
             />
             <div
@@ -97,16 +100,30 @@ export default function HeroImmersive({ content }: Props) {
           )}
 
           <FadeIn delay={d(100)}>
-            <h1
-              className="font-display font-bold tracking-tight"
-              style={{
-                fontSize: "var(--text-hero, clamp(3rem, 2.2rem + 3vw, 5rem))",
-                lineHeight: "var(--leading-tight, 1.2)",
-                color: hasImage ? "white" : "rgb(var(--color-text-primary))",
-              }}
-            >
-              {heading}
-            </h1>
+            {dd.animationLevel === "expressive" ? (
+              <TextReveal
+                as="h1"
+                text={heading}
+                stagger={40}
+                className="font-display font-bold tracking-tight"
+                style={{
+                  fontSize: "var(--text-hero, clamp(3rem, 2.2rem + 3vw, 5rem))",
+                  lineHeight: "var(--leading-tight, 1.2)",
+                  color: hasImage ? "white" : "rgb(var(--color-text-primary))",
+                }}
+              />
+            ) : (
+              <h1
+                className="font-display font-bold tracking-tight"
+                style={{
+                  fontSize: "var(--text-hero, clamp(3rem, 2.2rem + 3vw, 5rem))",
+                  lineHeight: "var(--leading-tight, 1.2)",
+                  color: hasImage ? "white" : "rgb(var(--color-text-primary))",
+                }}
+              >
+                {heading}
+              </h1>
+            )}
           </FadeIn>
 
           <FadeIn delay={d(200)}>

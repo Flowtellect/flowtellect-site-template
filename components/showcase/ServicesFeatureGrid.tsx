@@ -108,7 +108,9 @@ export default function ServicesFeatureGrid({ content }: Props) {
             return (
               <FadeIn key={i} delay={100 + i * 80}>
                 <div
-                  className="group relative h-full cursor-default"
+                  className={`group relative h-full cursor-default ${
+                    dd.animationLevel !== "minimal" ? "anim-card-lift" : ""
+                  }`}
                   style={{
                     ...cardBase,
                     borderRadius: "var(--radius-lg, 14px)",

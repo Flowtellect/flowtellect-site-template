@@ -138,7 +138,7 @@ export default function NavbarSmart({ content }: Props) {
                 >
                   <a
                     href={link.href ?? "#"}
-                    className="font-body text-muted hover:text-primary px-3 py-2 inline-flex items-center gap-1"
+                    className="anim-link-underline font-body text-muted hover:text-primary px-3 py-2 inline-flex items-center gap-1"
                     style={{
                       fontSize: "var(--text-sm)",
                       textDecoration: "none",

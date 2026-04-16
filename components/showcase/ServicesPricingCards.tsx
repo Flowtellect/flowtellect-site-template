@@ -49,7 +49,9 @@ function ServiceCard({ item, index }: { item: ServiceItem; index: number }) {
   return (
     <FadeIn delay={80 + index * 80}>
       <div
-        className="h-full flex flex-col"
+        className={`h-full flex flex-col ${
+          dd.animationLevel !== "minimal" ? "anim-card-lift" : ""
+        }`}
         style={{
           ...cardBase,
           border: hovered
