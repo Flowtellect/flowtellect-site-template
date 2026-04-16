@@ -1,7 +1,9 @@
 import dynamic from "next/dynamic";
 import { readPage, extractBusinessData } from "@/lib/content";
+import { getDesignDecisions } from "@/lib/applyTheme";
 import SectionRenderer from "@/components/SectionRenderer";
 import JsonLd from "@/components/JsonLd";
+import { getSectionBg } from "@/components/showcase/designStyles";
 
 // CTAFloating: sticky mobile CTA, revealed po 40% scroll. Client-only,
 // wyciaga label/href z hero.cta_primary.
@@ -39,6 +41,14 @@ export default function HomePage() {
 
   const biz = extractBusinessData(page);
   const heroCta = extractHeroCta(page.sections ?? []);
+  const dd = getDesignDecisions();
+
+  // Sekcje z wlasnym bg (Showcase hero/cta/footer/navbar) pomijaja section
+  // rhythm wrapper — wrapper dla generic sekcji (services, about, stats, etc.)
+  // implementuje dd.sectionRhythm (monotone / alternating / accented / gradient).
+  const OWN_BG_PREFIXES = ["hero", "cta", "footer", "navbar"];
+  const hasOwnBg = (variant: string) =>
+    OWN_BG_PREFIXES.some((p) => variant.startsWith(p));
 
   return (
     <>
@@ -53,9 +63,19 @@ export default function HomePage() {
         />
       )}
       <main id="main-content">
-        {page.sections.map((section) => (
-          <SectionRenderer key={section.id} section={section} />
-        ))}
+        {page.sections.map((section, i) => {
+          if (hasOwnBg(section.variant)) {
+            return <SectionRenderer key={section.id} section={section} />;
+          }
+          return (
+            <div
+              key={section.id}
+              style={{ background: getSectionBg(dd, i, i === 0) }}
+            >
+              <SectionRenderer section={section} />
+            </div>
+          );
+        })}
       </main>
       {heroCta && <CTAFloating label={heroCta.label} href={heroCta.href} />}
     </>

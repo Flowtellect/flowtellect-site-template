@@ -17,12 +17,18 @@ import {
   pickHeadline,
   isValidImage,
 } from "./shared";
+import { useDesign } from "./DesignContext";
+import { getAnimationDelay } from "./designStyles";
 
 interface Props {
   content: Record<string, unknown>;
 }
 
 export default function HeroImmersive({ content }: Props) {
+  const dd = useDesign();
+  // animationLevel skaluje delay staggera: expressive 1.5x, subtle 1x, minimal 0.
+  const d = (base: number) => getAnimationDelay(dd, base);
+
   const heading = pickHeadline(content);
   const sub = pickStr(content, "subheadline", "subtitle", "description");
   const eyebrow = pickStr(content, "eyebrow", "badge");
@@ -85,12 +91,12 @@ export default function HeroImmersive({ content }: Props) {
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-24 relative z-10 w-full">
         <div className="max-w-3xl">
           {eyebrow && (
-            <FadeIn delay={0}>
+            <FadeIn delay={d(0)}>
               <Eyebrow text={eyebrow} className="mb-6" />
             </FadeIn>
           )}
 
-          <FadeIn delay={100}>
+          <FadeIn delay={d(100)}>
             <h1
               className="font-display font-bold tracking-tight"
               style={{
@@ -103,7 +109,7 @@ export default function HeroImmersive({ content }: Props) {
             </h1>
           </FadeIn>
 
-          <FadeIn delay={200}>
+          <FadeIn delay={d(200)}>
             <div
               className="mt-6 mb-8"
               style={{
@@ -117,7 +123,7 @@ export default function HeroImmersive({ content }: Props) {
           </FadeIn>
 
           {sub && (
-            <FadeIn delay={250}>
+            <FadeIn delay={d(250)}>
               <p
                 className="font-body max-w-xl"
                 style={{
@@ -134,14 +140,14 @@ export default function HeroImmersive({ content }: Props) {
           )}
 
           {content.social_proof !== undefined && (
-            <FadeIn delay={350}>
+            <FadeIn delay={d(350)}>
               <div className="mt-6">
                 <SocialProofBadge data={content.social_proof} />
               </div>
             </FadeIn>
           )}
 
-          <FadeIn delay={400}>
+          <FadeIn delay={d(400)}>
             <div className="flex flex-wrap gap-4 mt-10">
               <CTAButton
                 label={ctaPrimary.label}
@@ -164,7 +170,7 @@ export default function HeroImmersive({ content }: Props) {
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-        <FadeIn delay={800}>
+        <FadeIn delay={d(800)}>
           <div
             className="w-6 h-10 rounded-full border-2 flex justify-center pt-2"
             style={{

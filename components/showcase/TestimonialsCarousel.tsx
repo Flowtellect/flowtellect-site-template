@@ -8,6 +8,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { FadeIn, Eyebrow, pickStr } from "./shared";
+import { useDesign } from "./DesignContext";
+import { getCardStyle } from "./designStyles";
 
 interface Testimonial {
   quote?: string;
@@ -31,6 +33,9 @@ interface Props {
 
 export default function TestimonialsCarousel({ content }: Props) {
   const c = content;
+  const dd = useDesign();
+  const cardBase = getCardStyle(dd);
+
   const heading = pickStr(c, "headline", "heading", "title");
   const eyebrow = pickStr(c, "eyebrow", "badge", "label");
 
@@ -110,11 +115,9 @@ export default function TestimonialsCarousel({ content }: Props) {
             <div
               className="text-center"
               style={{
-                background: "rgb(var(--color-bg))",
+                ...cardBase,
                 borderRadius: "var(--radius-xl, 20px)",
                 padding: "clamp(32px, 5vw, 56px)",
-                boxShadow: "var(--shadow-md)",
-                border: "1px solid rgb(var(--color-border-soft))",
               }}
             >
               {/* Decorative quote mark */}

@@ -142,6 +142,10 @@ interface ShowcaseImageProps {
   priority?: boolean;
   aspectRatio?: string;
   objectFit?: "cover" | "contain";
+  /** Dodatkowe inline style (nadpisuja defaults). Uzywane przez
+   *  getImageTreatment(dd) do imageTreatment overrides (raw/rounded/framed/
+   *  duotone/overlay). */
+  style?: React.CSSProperties;
 }
 
 export function ShowcaseImage({
@@ -151,6 +155,7 @@ export function ShowcaseImage({
   priority = false,
   aspectRatio,
   objectFit = "cover",
+  style,
 }: ShowcaseImageProps) {
   const [loaded, setLoaded] = useState(false);
   const isValid =
@@ -165,6 +170,7 @@ export function ShowcaseImage({
         aspectRatio,
         position: "relative",
         background: "rgba(var(--color-accent), 0.04)",
+        ...style,
       }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}

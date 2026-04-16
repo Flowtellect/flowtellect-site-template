@@ -9,6 +9,8 @@
 import { useState } from "react";
 import { FadeIn, Eyebrow, pickStr } from "./shared";
 import Lightbox from "../Lightbox";
+import { useDesign } from "./DesignContext";
+import { getImageTreatment } from "./designStyles";
 
 interface GalleryImage {
   src?: string;
@@ -25,6 +27,12 @@ interface Props {
 
 export default function GalleryMasonry({ content }: Props) {
   const c = content;
+  const dd = useDesign();
+  const imgStyle = getImageTreatment(dd);
+  // radius z imgStyle steruje thumbnail + lightbox trigger button.
+  // `raw` -> 0, `rounded` -> var(--radius-lg), itd.
+  const thumbRadius =
+    (imgStyle.borderRadius as string) ?? "var(--radius-md, 10px)";
   const heading = pickStr(c, "headline", "heading", "title");
   const eyebrow = pickStr(c, "eyebrow", "badge", "label");
   const sub = pickStr(c, "subheadline", "subtitle", "description");
@@ -117,7 +125,7 @@ export default function GalleryMasonry({ content }: Props) {
                         setLightboxOpen(true);
                       }}
                       className="block w-full overflow-hidden cursor-zoom-in group"
-                      style={{ borderRadius: "var(--radius-md, 10px)" }}
+                      style={{ borderRadius: thumbRadius }}
                     >
                       <div
                         className="overflow-hidden"
@@ -150,7 +158,7 @@ export default function GalleryMasonry({ content }: Props) {
                 }}
                 className="block w-full overflow-hidden cursor-zoom-in"
                 style={{
-                  borderRadius: "var(--radius-sm, 6px)",
+                  borderRadius: thumbRadius,
                   aspectRatio: "1/1",
                 }}
               >

@@ -7,6 +7,8 @@
 // Mobile: linear layout, hidden timeline line (data przesunieta w lewo).
 
 import { FadeIn, Eyebrow, ShowcaseImage, pickStr, isValidImage } from "./shared";
+import { useDesign } from "./DesignContext";
+import { getImageTreatment } from "./designStyles";
 
 interface Milestone {
   year?: string;
@@ -23,6 +25,8 @@ interface Props {
 
 export default function AboutStory({ content }: Props) {
   const c = content;
+  const dd = useDesign();
+  const imgStyle = getImageTreatment(dd);
   const heading = pickStr(c, "headline", "heading", "title");
   const sub = pickStr(c, "subheadline", "subtitle", "description");
   const body = pickStr(c, "body", "text", "content", "story");
@@ -145,7 +149,8 @@ export default function AboutStory({ content }: Props) {
                 <ShowcaseImage
                   src={image}
                   alt={heading || "About"}
-                  className="rounded-xl shadow-lg"
+                  className="shadow-lg"
+                  style={imgStyle}
                   aspectRatio="3/4"
                 />
                 <div

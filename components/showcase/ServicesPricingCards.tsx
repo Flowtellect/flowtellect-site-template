@@ -8,6 +8,8 @@
 
 import { useState } from "react";
 import { FadeIn, Eyebrow, pickStr } from "./shared";
+import { useDesign } from "./DesignContext";
+import { getCardStyle, getCardHoverStyle } from "./designStyles";
 
 interface ServiceItem {
   name?: string;
@@ -31,6 +33,9 @@ interface Props {
 
 function ServiceCard({ item, index }: { item: ServiceItem; index: number }) {
   const [hovered, setHovered] = useState(false);
+  const dd = useDesign();
+  const cardBase = getCardStyle(dd);
+  const cardHover = getCardHoverStyle(dd);
   const name = item.name ?? item.title ?? item.label ?? "";
   const desc = item.description ?? item.desc ?? item.body ?? "";
   const price = item.price ?? item.price_label ?? "";
@@ -46,14 +51,17 @@ function ServiceCard({ item, index }: { item: ServiceItem; index: number }) {
       <div
         className="h-full flex flex-col"
         style={{
-          background: "rgb(var(--color-bg))",
+          ...cardBase,
           border: hovered
-            ? "1px solid rgb(var(--color-accent))"
-            : "1px solid rgb(var(--color-border-soft))",
+            ? `1px solid ${cardHover.borderColor}`
+            : (cardBase.border as string) ||
+              "1px solid rgb(var(--color-border-soft))",
           borderRadius: "var(--radius-lg, 14px)",
           padding: "clamp(24px, 3vw, 32px)",
-          boxShadow: hovered ? "var(--shadow-lg)" : "var(--shadow-sm)",
-          transform: hovered ? "translateY(-4px)" : "translateY(0)",
+          boxShadow: hovered
+            ? cardHover.boxShadow
+            : (cardBase.boxShadow as string) || "var(--shadow-sm)",
+          transform: hovered ? cardHover.transform : "translateY(0)",
           transition:
             "all var(--duration-normal, 250ms) var(--ease-default)",
         }}

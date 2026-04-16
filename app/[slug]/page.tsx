@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { notFound, redirect } from "next/navigation";
 import { tryReadPage, readPagesManifest, extractBusinessData } from "@/lib/content";
+import { getDesignDecisions } from "@/lib/applyTheme";
 import { markdownToHtml } from "@/lib/markdown";
 import SectionRenderer from "@/components/SectionRenderer";
 import JsonLd from "@/components/JsonLd";
+import { getSectionBg } from "@/components/showcase/designStyles";
 
 const CTAFloating = dynamic(() => import("@/components/showcase/CTAFloating"), {
   ssr: false,
@@ -104,6 +106,12 @@ export default async function DynamicPage({ params }: Props) {
   // Content page - sections
   const biz = extractBusinessData(page);
   const heroCta = extractHeroCta(page.sections ?? []);
+  const dd = getDesignDecisions();
+
+  const OWN_BG_PREFIXES = ["hero", "cta", "footer", "navbar"];
+  const hasOwnBg = (variant: string) =>
+    OWN_BG_PREFIXES.some((p) => variant.startsWith(p));
+
   return (
     <>
       {biz.brandName && (
@@ -117,9 +125,20 @@ export default async function DynamicPage({ params }: Props) {
         />
       )}
       <main id="main-content">
-        {(page.sections ?? []).map((section, i) => (
-          <SectionRenderer key={section.id ?? i} section={section} />
-        ))}
+        {(page.sections ?? []).map((section, i) => {
+          const key = section.id ?? i;
+          if (hasOwnBg(section.variant)) {
+            return <SectionRenderer key={key} section={section} />;
+          }
+          return (
+            <div
+              key={key}
+              style={{ background: getSectionBg(dd, i, i === 0) }}
+            >
+              <SectionRenderer section={section} />
+            </div>
+          );
+        })}
       </main>
       {heroCta && <CTAFloating label={heroCta.label} href={heroCta.href} />}
     </>

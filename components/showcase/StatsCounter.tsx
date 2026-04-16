@@ -8,6 +8,7 @@
 // Content schema aligned z stats_1 (items → .value + .label + .suffix).
 
 import { FadeIn, CountUp, Eyebrow, pickStr } from "./shared";
+import { useDesign } from "./DesignContext";
 
 interface StatItem {
   value?: number | string;
@@ -54,6 +55,18 @@ function parseNumeric(item: StatItem): {
 
 export default function StatsCounter({ content }: Props) {
   const c = content;
+  const dd = useDesign();
+  // animationLevel: minimal -> natychmiast (duration 0), subtle -> 2000ms,
+  // expressive -> 3000ms (dlugi, dramatyczny count-up)
+  const baseCountDuration =
+    dd.animationLevel === "minimal"
+      ? 0
+      : dd.animationLevel === "expressive"
+      ? 3000
+      : 2000;
+  // Glass icon chip dla luxurious/premium (backdrop-blur) — pozostale zostaja solid.
+  const useGlassIconChip = dd.cardStyle === "glass";
+
   const heading = pickStr(c, "headline", "heading", "title");
   const sub = pickStr(c, "subheadline", "subtitle", "description", "body");
   const eyebrow = pickStr(c, "eyebrow", "badge", "label");
@@ -153,6 +166,14 @@ export default function StatsCounter({ content }: Props) {
                           ? "rgba(var(--color-on-accent), 0.1)"
                           : "rgba(var(--color-accent), 0.08)",
                         fontSize: "22px",
+                        ...(useGlassIconChip
+                          ? {
+                              backdropFilter: "blur(10px)",
+                              WebkitBackdropFilter: "blur(10px)",
+                              border:
+                                "1px solid rgba(var(--color-accent), 0.15)",
+                            }
+                          : {}),
                       }}
                     >
                       {icon}
@@ -174,7 +195,7 @@ export default function StatsCounter({ content }: Props) {
                       end={value}
                       prefix={prefix}
                       suffix={suffix}
-                      duration={2000 + i * 200}
+                      duration={baseCountDuration + i * 200}
                     />
                   </div>
 

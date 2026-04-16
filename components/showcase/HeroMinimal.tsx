@@ -15,12 +15,17 @@ import {
   pickCta,
   pickHeadline,
 } from "./shared";
+import { useDesign } from "./DesignContext";
+import { getAnimationDelay } from "./designStyles";
 
 interface Props {
   content: Record<string, unknown>;
 }
 
 export default function HeroMinimal({ content }: Props) {
+  const dd = useDesign();
+  const d = (base: number) => getAnimationDelay(dd, base);
+
   const heading = pickHeadline(content);
   const sub = pickStr(content, "subheadline", "subtitle", "description");
   const eyebrow = pickStr(content, "eyebrow", "badge");
@@ -52,12 +57,12 @@ export default function HeroMinimal({ content }: Props) {
 
       <div className="max-w-2xl mx-auto px-6 relative z-10">
         {eyebrow && (
-          <FadeIn delay={0}>
+          <FadeIn delay={d(0)}>
             <Eyebrow text={eyebrow} className="mb-6" />
           </FadeIn>
         )}
 
-        <FadeIn delay={150}>
+        <FadeIn delay={d(150)}>
           <h1
             className="font-display font-bold tracking-tight text-primary mx-auto"
             style={{
@@ -71,7 +76,7 @@ export default function HeroMinimal({ content }: Props) {
           </h1>
         </FadeIn>
 
-        <FadeIn delay={250}>
+        <FadeIn delay={d(250)}>
           <div className="flex justify-center my-6">
             <div
               style={{
@@ -86,7 +91,7 @@ export default function HeroMinimal({ content }: Props) {
         </FadeIn>
 
         {sub && (
-          <FadeIn delay={300}>
+          <FadeIn delay={d(300)}>
             <p
               className="font-body text-muted mx-auto"
               style={{
@@ -101,14 +106,14 @@ export default function HeroMinimal({ content }: Props) {
         )}
 
         {content.social_proof !== undefined && (
-          <FadeIn delay={400}>
+          <FadeIn delay={d(400)}>
             <div className="mt-6 flex justify-center">
               <SocialProofBadge data={content.social_proof} />
             </div>
           </FadeIn>
         )}
 
-        <FadeIn delay={450}>
+        <FadeIn delay={d(450)}>
           <div className="flex flex-wrap justify-center gap-4 mt-10">
             <CTAButton
               label={ctaPrimary.label}

@@ -17,12 +17,17 @@ import {
   pickHeadline,
   isValidImage,
 } from "./shared";
+import { useDesign } from "./DesignContext";
+import { getImageTreatment } from "./designStyles";
 
 interface Props {
   content: Record<string, unknown>;
 }
 
 export default function HeroSplit({ content }: Props) {
+  const dd = useDesign();
+  const imgStyle = getImageTreatment(dd);
+
   const heading = pickHeadline(content);
   const sub = pickStr(content, "subheadline", "subtitle", "description");
   const eyebrow = pickStr(content, "eyebrow", "badge");
@@ -136,7 +141,8 @@ export default function HeroSplit({ content }: Props) {
                 <ShowcaseImage
                   src={heroImage}
                   alt={heading}
-                  className="rounded-xl shadow-xl"
+                  className="shadow-xl"
+                  style={imgStyle}
                   priority
                   aspectRatio="4/3"
                 />

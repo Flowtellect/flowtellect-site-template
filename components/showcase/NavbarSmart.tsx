@@ -8,6 +8,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import { pickStr, isValidImage } from "./shared";
+import { useDesign } from "./DesignContext";
+import { getButtonRadius } from "./designStyles";
 
 interface NavLink {
   label?: string;
@@ -21,6 +23,9 @@ interface Props {
 
 export default function NavbarSmart({ content }: Props) {
   const c = content;
+  const dd = useDesign();
+  const btnRadius = getButtonRadius(dd);
+
   const brandName = pickStr(c, "brand_name", "company_name");
   const logo = pickStr(c, "logo");
   const hasLogo = isValidImage(logo);
@@ -204,7 +209,7 @@ export default function NavbarSmart({ content }: Props) {
               className="hidden md:inline-flex items-center font-body font-semibold"
               style={{
                 padding: "var(--space-sm, 8px) var(--space-lg, 24px)",
-                borderRadius: "var(--radius-md, 10px)",
+                borderRadius: btnRadius,
                 background: "rgb(var(--color-accent))",
                 color: "rgb(var(--color-on-accent))",
                 fontSize: "var(--text-sm)",
@@ -276,7 +281,7 @@ export default function NavbarSmart({ content }: Props) {
               className="mt-4 font-body font-semibold"
               style={{
                 padding: "var(--space-md, 16px) var(--space-xl, 32px)",
-                borderRadius: "var(--radius-md)",
+                borderRadius: btnRadius,
                 background: "rgb(var(--color-accent))",
                 color: "rgb(var(--color-on-accent))",
                 textDecoration: "none",
