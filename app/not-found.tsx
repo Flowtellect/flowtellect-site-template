@@ -1,82 +1,144 @@
-'use client';
+import Link from "next/link";
+import { getDesignDecisions } from "@/lib/applyTheme";
 
-import { useEffect } from 'react';
+// ─── 404 — archetype-personalized + auto-reload fallback ─────────────────────
+//
+// Server component czyta brandPersonality z theme.json (faza visual_intelligence)
+// i dobiera komunikat dopasowany do tonu marki. Inline script utrzymuje
+// historyczne zachowanie: podczas Netlify build (pierwsze ~60-90s po publish)
+// KAZDY URL to 404 — refresh co 15s upewnia ze klient trafi na gotowa strone
+// bez manualnego F5.
 
-// Shown while Netlify build is in flight (first ~60-90s after publish, any
-// URL is a 404) or for any real 404 thereafter. Auto-refresh every 15s so the
-// visitor lands on the finished site without manually reloading.
+interface Variant {
+  emoji: string;
+  title: string;
+  body: string;
+}
+
+// Mapowanie brandPersonality → komunikat. Spojne z tonem marki z brand_voice phase.
+const MESSAGES: Record<string, Variant> = {
+  luxurious: {
+    emoji: "✦",
+    title: "Ta strona nie istnieje",
+    body: "Zapraszamy do odkrycia naszej pełnej oferty.",
+  },
+  formal: {
+    emoji: "⚠",
+    title: "Strona nie została znaleziona",
+    body: "Prosimy skorzystać z nawigacji lub wrócić na stronę główną.",
+  },
+  casual: {
+    emoji: "🧭",
+    title: "Ups, zgubiliśmy tę stronę",
+    body: "Ale wszystko inne czeka na Ciebie — wróć na główną.",
+  },
+  playful: {
+    emoji: "🎨",
+    title: "Ta kartka jest jeszcze pusta",
+    body: "Ale mamy kupę innych ciekawych rzeczy do pokazania!",
+  },
+  minimal: {
+    emoji: "·",
+    title: "404",
+    body: "Strony nie ma.",
+  },
+  default: {
+    emoji: "✦",
+    title: "Strony nie znaleziono",
+    body: "Strona mogła zostać przeniesiona lub usunięta.",
+  },
+};
+
+function pickVariant(): Variant {
+  try {
+    const dd = getDesignDecisions();
+    return MESSAGES[dd.brandPersonality] ?? MESSAGES.default;
+  } catch {
+    return MESSAGES.default;
+  }
+}
+
 export default function NotFound() {
-  useEffect(() => {
-    const timer = setInterval(() => {
-      window.location.reload();
-    }, 15000);
-    return () => clearInterval(timer);
-  }, []);
+  const msg = pickVariant();
 
   return (
     <div
       style={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'rgb(var(--color-bg, 255 255 255))',
-        color: 'rgb(var(--color-text-primary, 15 15 20))',
-        fontFamily: 'var(--font-body, system-ui)',
-        padding: '24px',
-        textAlign: 'center',
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "rgb(var(--color-bg, 255 255 255))",
+        color: "rgb(var(--color-text-primary, 15 15 20))",
+        fontFamily: "var(--font-body, system-ui)",
+        padding: "var(--space-section, 96px) var(--space-lg, 24px)",
+        textAlign: "center",
       }}
     >
+      {/* Auto-reload przez pierwsze minuty po publish (Netlify build in-flight).
+          Inline script zeby server component nie musial importowac useEffect. */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: "setInterval(function(){location.reload()},15000);",
+        }}
+      />
+
       <div
         style={{
-          width: '48px',
-          height: '48px',
-          borderRadius: '50%',
-          background: 'rgba(var(--color-accent, 99 102 241), 0.1)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: '24px',
+          fontSize: "4rem",
+          marginBottom: "var(--space-lg, 24px)",
+          lineHeight: 1,
         }}
       >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="rgb(var(--color-accent, 99 102 241))"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <circle cx="12" cy="12" r="10" />
-          <path d="M12 6v6l4 2" />
-        </svg>
+        {msg.emoji}
       </div>
+
       <h1
         style={{
-          fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+          fontSize: "var(--text-3xl, clamp(1.75rem, 3vw, 2.5rem))",
           fontWeight: 700,
-          fontFamily: 'var(--font-display, system-ui)',
-          marginBottom: '12px',
-          letterSpacing: '-0.02em',
+          fontFamily: "var(--font-display, system-ui)",
+          marginBottom: "var(--space-md, 16px)",
+          letterSpacing: "var(--tracking-tight, -0.02em)",
+          lineHeight: "var(--leading-tight, 1.2)",
         }}
       >
-        Strona w przygotowaniu
+        {msg.title}
       </h1>
-      <p
+
+      {msg.body && (
+        <p
+          style={{
+            fontSize: "var(--text-lg, 1.125rem)",
+            color: "rgba(var(--color-text-primary, 15 15 20), 0.65)",
+            maxWidth: "48ch",
+            lineHeight: "var(--leading-normal, 1.6)",
+            margin: 0,
+          }}
+        >
+          {msg.body}
+        </p>
+      )}
+
+      <Link
+        href="/"
         style={{
-          fontSize: '15px',
-          color: 'rgba(var(--color-text-primary, 15 15 20), 0.6)',
-          maxWidth: '400px',
-          lineHeight: 1.6,
-          margin: 0,
+          marginTop: "var(--space-2xl, 48px)",
+          display: "inline-flex",
+          alignItems: "center",
+          padding: "var(--space-md, 16px) var(--space-xl, 32px)",
+          borderRadius: "var(--radius-md, 10px)",
+          background: "rgb(var(--color-accent))",
+          color: "rgb(var(--color-on-accent))",
+          fontSize: "var(--text-sm, 0.9375rem)",
+          fontWeight: 600,
+          textDecoration: "none",
+          boxShadow: "var(--shadow-accent)",
         }}
       >
-        Trwa budowanie strony. Odśwież za chwilę — zajmie to najwyżej minutę.
-      </p>
+        Wróć na stronę główną
+      </Link>
     </div>
   );
 }

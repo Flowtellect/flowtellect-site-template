@@ -61,6 +61,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* navbar offset dla anchor linkow */
 }
 
 html, body {
@@ -71,6 +72,84 @@ html, body {
 /* Offset for fixed navbar when scrolling to anchor */
 [id] {
   scroll-margin-top: 80px;
+}
+
+/* ── Reduced motion respect ──────────────────────────────────────
+   Klient z prefers-reduced-motion otrzymuje natychmiastowe stany
+   (bez animacji, bez scroll-smooth, bez scaled transforms). */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Scroll-driven animations (Chrome 116+, Safari 26+) ──────────
+   @supports fallback: gdy scroll-timeline nieobsługiwane,
+   elementy pokazuja sie natychmiast (brak animacji, bez regresji). */
+@supports (animation-timeline: scroll()) {
+  /* Top progress bar — pokazuje ile strony przescrollowano */
+  .scroll-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: rgb(var(--color-accent));
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: scrollProgress linear;
+    animation-timeline: scroll(root);
+    z-index: 9999;
+    pointer-events: none;
+  }
+  @keyframes scrollProgress {
+    to { transform: scaleX(1); }
+  }
+
+  /* Subtelny parallax dla hero background (-10% translate across scroll) */
+  .scroll-parallax-slow {
+    animation: parallaxSlow linear;
+    animation-timeline: scroll();
+  }
+  @keyframes parallaxSlow {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-10%); }
+  }
+
+  /* CSS-only fade-in on view (alternatywa do IntersectionObserver FadeIn) */
+  .scroll-fade-in {
+    animation: scrollFadeIn linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 40%;
+  }
+  @keyframes scrollFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* Scroll progress bar hidden w browserach bez scroll-timeline (graceful) */
+@supports not (animation-timeline: scroll()) {
+  .scroll-progress-bar {
+    display: none;
+  }
+}
+
+/* ── Dark mode refinements — przy prefers-color-scheme: dark ─────
+   Uzupelnia token-driven dark themes (np. boutique_gold, midnight_tech)
+   z system preference hints. Token values dominuja — te regule to tylko
+   optyczne korekty (font weight, shadow visibility). */
+@media (prefers-color-scheme: dark) {
+  /* Cien-white zamiast cien-black dla elevation na ciemnym tle */
+  :root {
+    --shadow-xs-dark: 0 1px 2px rgba(255,255,255,0.04);
+  }
 }
 
 /* Prose for richtext content */

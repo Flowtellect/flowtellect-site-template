@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import {
   getThemeStyleObject,
   getThemeFontStyleObject,
@@ -40,6 +40,28 @@ function getSiteMeta(): { title: string; description: string } {
   return { title: "Strona", description: "" };
 }
 
+// Next.js 14+ wymaga viewport + themeColor w OSOBNYM export `generateViewport`,
+// nie w generateMetadata. themeColor czyta accent z theme.json -> mobile
+// browser chrome adaptuje sie pod palete marki.
+export function generateViewport(): Viewport {
+  let themeColor = "rgb(99 102 241)";
+  try {
+    const t = getActiveTheme();
+    const accent = t.tokens?.["color-accent"];
+    if (typeof accent === "string" && accent.trim()) {
+      themeColor = `rgb(${accent})`;
+    }
+  } catch {
+    /* fallback */
+  }
+  return {
+    themeColor,
+    width: "device-width",
+    initialScale: 1,
+    viewportFit: "cover", // notch / safe-area
+  };
+}
+
 // Dynamic metadata: static export zastapiony generateMetadata zeby custom
 // favicon z theme.json (Supabase Storage URL) + OG image byly injected w <head>.
 export function generateMetadata(): Metadata {
@@ -69,6 +91,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const themeStyle = { ...getThemeStyleObject(), ...getThemeFontStyleObject() };
   const themeDataAttrs = getThemeDataAttributes();
   const designDecisions = getDesignDecisions();
+  const faviconUrl = getFaviconUrl();
+  // Wyciaga origin Supabase Storage dla preconnect (faviconUrl lub logo URLs
+  // sa hostowane na <project>.supabase.co)
+  let supabaseOrigin: string | null = null;
+  if (faviconUrl) {
+    try {
+      const u = new URL(faviconUrl);
+      if (u.hostname.endsWith(".supabase.co")) supabaseOrigin = u.origin;
+    } catch {
+      /* ignore */
+    }
+  }
 
   // Build Google Fonts <link> URL - only the 3 fonts this theme actually uses
   const fontFamilies = new Set<string>();
@@ -85,6 +119,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pl" style={themeStyle} {...themeDataAttrs}>
       <head>
+        {/* Preconnect — DNS + TLS handshake zanim pojawi sie request.
+            Unsplash: wszystkie hero/gallery images. Supabase: logo + favicon.
+            Google Fonts: render-blocking, musi byc pierwszy. */}
         {googleFontsUrl && (
           <>
             <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -92,8 +129,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <link href={googleFontsUrl} rel="stylesheet" />
           </>
         )}
+        <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="" />
+        {supabaseOrigin && (
+          <link rel="preconnect" href={supabaseOrigin} crossOrigin="" />
+        )}
       </head>
       <body className="bg-bg text-primary font-body antialiased">
+        {/* Scroll progress bar — CSS scroll-driven (Chrome 116+, Safari 26+).
+            Fallback: niewidoczny na starszych browserach (scaleX bez animacji). */}
+        <div className="scroll-progress-bar" aria-hidden="true" />
         <DesignProvider decisions={designDecisions}>
           <a href="#main-content" className="skip-to-content">
             Przejdź do treści
