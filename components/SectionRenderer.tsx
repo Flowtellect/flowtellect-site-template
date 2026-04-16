@@ -39,6 +39,14 @@ const SHOWCASE_MAP: Record<string, ComponentType<ShowcaseProps>> = {
   footer_mega:    dynamic(() => import("./showcase/FooterMega")),
   // Navbar
   navbar_smart:   dynamic(() => import("./showcase/NavbarSmart")),
+  // Pricing
+  pricing_comparison: dynamic(() => import("./showcase/PricingComparison")),
+  // Services (card-per-item z prominent price + CTA)
+  services_pricing_cards: dynamic(() => import("./showcase/ServicesPricingCards")),
+  // Testimonials (masonry grid, komplementarny do testimonials_carousel)
+  testimonials_grid: dynamic(() => import("./showcase/TestimonialsGrid")),
+  // NOTE: CTAFloating NIE jest w SHOWCASE_MAP — to GLOBAL component wywolywany
+  // bezposrednio w app/page.tsx + app/[slug]/page.tsx (jak CookieConsent).
 };
 
 interface ThemeOverrides {

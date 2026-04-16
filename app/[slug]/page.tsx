@@ -1,9 +1,27 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { notFound, redirect } from "next/navigation";
 import { tryReadPage, readPagesManifest, extractBusinessData } from "@/lib/content";
 import { markdownToHtml } from "@/lib/markdown";
 import SectionRenderer from "@/components/SectionRenderer";
 import JsonLd from "@/components/JsonLd";
+
+const CTAFloating = dynamic(() => import("@/components/showcase/CTAFloating"), {
+  ssr: false,
+});
+
+function extractHeroCta(
+  sections: Array<{ variant?: string; content?: Record<string, unknown> }>
+): { label: string; href: string } | null {
+  const hero = sections.find((s) => s.variant?.startsWith("hero"));
+  const cta = hero?.content?.cta_primary as
+    | Record<string, unknown>
+    | undefined;
+  const label = cta && typeof cta.label === "string" ? cta.label : "";
+  if (!label) return null;
+  const href = cta && typeof cta.href === "string" ? cta.href : "#contact";
+  return { label, href };
+}
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -85,6 +103,7 @@ export default async function DynamicPage({ params }: Props) {
 
   // Content page - sections
   const biz = extractBusinessData(page);
+  const heroCta = extractHeroCta(page.sections ?? []);
   return (
     <>
       {biz.brandName && (
@@ -102,6 +121,7 @@ export default async function DynamicPage({ params }: Props) {
           <SectionRenderer key={section.id ?? i} section={section} />
         ))}
       </main>
+      {heroCta && <CTAFloating label={heroCta.label} href={heroCta.href} />}
     </>
   );
 }
