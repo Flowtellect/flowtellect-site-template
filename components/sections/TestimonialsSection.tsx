@@ -77,8 +77,26 @@ export default function TestimonialsSection({ content, vn }: TestimonialsProps) 
   const hl = str(content.heading || content.headline);
   const body = str(content.body);
   const ey = str(content.eyebrow);
-  const items = arr(content.items);
-  const bgImg = resolveImage(content.image || content.bg_image);
+  // Schema variants: some (e.g. testimonials_4, testimonials_7) provide a single
+  // testimonial at root level (quote/author/role/photo), not under items[].
+  // Normalize: if items[] is empty but root has quote, wrap it as single-item array.
+  const rawItems = arr(content.items);
+  const items = rawItems.length > 0
+    ? rawItems
+    : (str(content.quote)
+        ? [{
+            quote: content.quote,
+            author: content.author,
+            role: content.role,
+            photo: content.photo,
+            company_logo: content.company_logo,
+            company: content.company,
+            rating: content.rating,
+            background_image: content.background_image,
+            overlay_opacity: content.overlay_opacity,
+          }]
+        : []);
+  const bgImg = resolveImage(content.image || content.bg_image || content.background_image);
 
   const Header = ({ white }: { white?: boolean }) => (
     <div className="tm-header ta1">
